@@ -39,6 +39,7 @@ void Scripting::ModuloPython::cargar(std::string ruta)
     boost::python::object ignored =
             boost::python::exec_file(boost::python::str(ruta),
                                      this->namespace_modulo);
+    
     this->esta_cargado = true;
 }
 

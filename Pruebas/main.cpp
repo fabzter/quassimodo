@@ -124,8 +124,9 @@ int main(int argc, char** argv)
     b2 == b3? cout << "true" : cout << "false";
     cout << endl;
 
-
+    /*empieza la prueba de todo!! :D*/
     Scripting::Manejador m;
+    Agente* agente1 = m.getAgente("../AgenteWrapper/agente.py");
     
     return (EXIT_SUCCESS);
 }
