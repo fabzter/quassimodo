@@ -1,0 +1,35 @@
+#include <boost/python.hpp>
+#include <Reglas/Tablero.hpp>
+#include <Reglas/Agente.hpp>
+using namespace boost::python;
+using namespace Reglas;
+
+//esto se hace pues getCelda esta sobrecargada!
+typedef const Celda& (Tablero::*getCelda_with_id)(int) const;
+
+/*Esto es la pare 1 de un hack re feo para poder ver los atributos estaticos de
+Tablero...*/
+static const int Tablero_size_x = Tablero::size_x;
+static const int Tablero_size_y = Tablero::size_y;
+static const int Tablero_tam_barrera = Tablero::tam_barrera
+;
+void export_tablero()
+{
+    object tablero = //<--parte 2
+    class_<Tablero>("Tablero")
+        .def("getPosicion", &Tablero::getPosicion, 
+        return_value_policy<reference_existing_object>() )
+        
+        .def("getBarrerasColocadas", &Tablero::getBarrerasColocadas, 
+        return_value_policy<copy_const_reference>() )
+        
+        .def("getCelda", getCelda_with_id(&Tablero::getCelda), 
+        return_value_policy<reference_existing_object>() )
+
+    ;
+    //parte 3...v
+    tablero.attr("size_x") = Tablero_size_x;
+    tablero.attr("size_y") = Tablero_size_y;
+    tablero.attr("tam_barrera") = Tablero_tam_barrera;
+}
+
