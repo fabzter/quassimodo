@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-Wl,-rpath .
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -64,7 +64,7 @@ LDLIBSOPTIONS=
 
 dist/Debug/GNU-Linux-x86/libReglas.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${LINK.cc} -module -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libReglas.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libReglas.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Grafo.o: nbproject/Makefile-${CND_CONF}.mk Grafo.cpp 
 	${MKDIR} -p ${OBJECTDIR}

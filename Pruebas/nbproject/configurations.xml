@@ -40,6 +40,9 @@
           </preprocessorList>
         </ccTool>
         <linkerTool>
+          <linkerDynSerch>
+            <pElem>../lib</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../Reglas"
@@ -108,6 +111,9 @@
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
         <linkerTool>
+          <linkerDynSerch>
+            <pElem>../lib</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>

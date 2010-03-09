@@ -38,8 +38,10 @@ main.o: main.cpp
 	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC main.cpp
 	
 Reglas.so: main.o $(MODULES)
-	g++ -o Reglas.so -fpic -module -shared $(boost_libs) $(Reglas_libs) $(MODULES) \
-	main.o
+	g++ -o Reglas.so -fpic -module -shared  -Wl,-rpath . \
+	$(boost_libs) $(Reglas_libs) $(MODULES) main.o
+	cp Reglas.so ../lib
 	
 clean:
-	rm *.so *.o
+	${RM} *.so *.o
+	${RM} ../lib/Reglas.so

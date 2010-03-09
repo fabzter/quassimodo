@@ -53,5 +53,5 @@ void Scripting::InterpretePython::agregarModulo(std::string ruta)
 bool Scripting::InterpretePython::manejaModulo(std::string ruta)
 {
     std::string subfix = ".py";
-    return ruta.rfind(subfix) == 4;
+    return (ruta.size() - ruta.rfind(subfix)) == 3;
 }

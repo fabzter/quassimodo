@@ -1,6 +1,7 @@
 #include <boost/python.hpp>
 #include <Reglas/Tablero.hpp>
 #include <Reglas/Agente.hpp>
+#include <iostream>
 using namespace boost::python;
 using namespace Reglas;
 

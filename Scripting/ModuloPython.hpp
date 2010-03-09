@@ -39,6 +39,8 @@ private:
      * El namespace del modulo.
      */
     boost::python::object namespace_modulo;
+
+    int manejar_excepcion_python(boost::python::error_already_set& e);
 };
 }
 #endif	/* _MODULOPYTHON_HPP */

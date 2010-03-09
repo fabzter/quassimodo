@@ -50,13 +50,15 @@
           <linkerAddLib>
             <pElem>/usr/lib/python2.6/config</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerOptionItem>-Bstatic</linkerOptionItem>
             <linkerLibLibItem>python2.6</linkerLibLibItem>
             <linkerLibLibItem>boost_python-mt-py26</linkerLibLibItem>
             <linkerOptionItem>-Bdynamic</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-Wl,-rpath-link,.</commandLine>
         </linkerTool>
       </compileType>
     </conf>
@@ -86,13 +88,15 @@
           <linkerAddLib>
             <pElem>/usr/lib/python2.6/config</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerOptionItem>-Bstatic</linkerOptionItem>
             <linkerLibLibItem>python2.6</linkerLibLibItem>
             <linkerLibLibItem>boost_python-mt-py26</linkerLibLibItem>
             <linkerOptionItem>-Bdynamic</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-Wl,-rpath-link,.</commandLine>
         </linkerTool>
       </compileType>
     </conf>

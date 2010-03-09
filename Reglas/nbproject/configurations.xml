@@ -57,9 +57,11 @@
           </preprocessorList>
         </ccTool>
         <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
           </linkerLibItems>
-          <commandLine>-module</commandLine>
         </linkerTool>
       </compileType>
     </conf>
@@ -81,6 +83,9 @@
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
         <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>

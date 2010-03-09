@@ -50,7 +50,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/python2.6/config -Bstatic -lpython2.6 -lboost_python-mt-py26 -Bdynamic
+LDLIBSOPTIONS=-L/usr/lib/python2.6/config -Wl,-rpath . -Bstatic -lpython2.6 -lboost_python-mt-py26 -Bdynamic
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -58,7 +58,7 @@ LDLIBSOPTIONS=-L/usr/lib/python2.6/config -Bstatic -lpython2.6 -lboost_python-mt
 
 dist/Release/GNU-Linux-x86/libScripting.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
-	${LINK.cc} -Wl,-rpath-link,. -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libScripting.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libScripting.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
 	${MKDIR} -p ${OBJECTDIR}

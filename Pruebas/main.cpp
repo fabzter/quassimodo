@@ -126,7 +126,10 @@ int main(int argc, char** argv)
 
     /*empieza la prueba de todo!! :D*/
     Scripting::Manejador m;
-    Agente* agente1 = m.getAgente("../AgenteWrapper/agente.py");
+    //Agente* agente1 = m.getAgente("../bin/agente.py");
+    Agente* agente2 = m.getAgente("../bin/agente.py");
+
+    //agente2->iniciar(t, 0);
     
     return (EXIT_SUCCESS);
 }

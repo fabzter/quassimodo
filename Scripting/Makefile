@@ -59,10 +59,13 @@ build: .build-post
 
 .build-post: .build-impl
 # Add your post 'build' code here...
+	#movemos a nuestra carpeta de liberias...
+	cp $(CND_ARTIFACT_PATH_${CONF}) ../lib
 
 
 # clean
 clean: .clean-post
+	${RM} ../lib/$(CND_ARTIFACT_NAME_${CONF})
 
 .clean-pre:
 # Add your pre 'clean' code here...
