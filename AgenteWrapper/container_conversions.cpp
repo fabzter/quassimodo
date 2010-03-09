@@ -15,12 +15,6 @@ using namespace Reglas;
 void export_container_conversions()
 {
 
-/*vector de enteros*/
-to_python_converter<
-      std::vector<int>,
-      to_tuple<
-        std::vector<int> > >();
-
 from_python_sequence<
       std::vector<int>,
       variable_capacity_policy>();

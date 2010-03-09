@@ -24,6 +24,11 @@ public:
      ModuloNoCargado(std::string what);
 };
 
+class ScriptMalo: public Excepcion{
+public:
+     ScriptMalo();
+     ScriptMalo(std::string what);
+};
 
 }
 

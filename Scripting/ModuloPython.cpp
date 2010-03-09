@@ -18,20 +18,7 @@ Scripting::ModuloPython::~ModuloPython()
 
 void Scripting::ModuloPython::cargar(std::string ruta)
 {
-    //obtenemos un nombre unico para el modulo.
-    time_t rawtime;
-    struct tm * timeinfo;
-    char buffer [80];
-
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-
-    strftime (buffer,80,"%I_%M%p",timeinfo);
-
-    this->nombre = ruta + buffer;
-
     //creamos el modulo
-    //this->modulo = boost::python::import(this->nombre.c_str());
     this->modulo = boost::python::import("__main__");
 
     //obtenemos el diccionario del namespace del modulo
@@ -67,10 +54,9 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
     Reglas::Agente *a = NULL;
     try
     {
-        boost::python::object get = this->namespace_modulo["get"];
-        a =
-            //boost::python::extract< Reglas::Agente* >( get.attr("__call__")() );
-            boost::python::extract< Reglas::Agente* >( get );
+        this->extraer_clase();
+        boost::python::object clase_instancia = this->agente_clase();
+        a = boost::python::extract<Reglas::Agente*>(clase_instancia);
         a->terminar();
     }
     catch(boost::python::error_already_set& e)
@@ -103,4 +89,34 @@ int Scripting::ModuloPython::manejar_excepcion_python
     PyErr_Print();
     // then restore (again!) the original exception state.
     PyErr_Restore(type, value, traceback);
+}
+
+void Scripting::ModuloPython::extraer_clase()
+{
+    using namespace boost::python;
+    //iteramos el diccionario de __main__
+    boost::python::ssize_t n = len(this->namespace_modulo);
+    object values = this->namespace_modulo.attr("values")();
+
+    try
+    {
+        object clase = eval("Reglas.Agente.__class__", this->namespace_modulo,
+                            this->namespace_modulo);
+        for(boost::python::ssize_t i = 0; i < n; i++)
+        {
+            std::string cls_str = extract<std::string>(values[i].attr("__class__"));
+            if(values[i].attr("__class__") == clase)
+            {
+                this->agente_clase = values[i];
+                return;
+            }
+        }
+    }
+    catch(boost::python::error_already_set& e)
+    {
+        this->manejar_excepcion_python(e);
+        throw ScriptMalo();
+    }
+
+    throw ScriptMalo();
 }

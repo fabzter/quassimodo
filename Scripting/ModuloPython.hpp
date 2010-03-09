@@ -40,6 +40,23 @@ private:
      */
     boost::python::object namespace_modulo;
 
+    /**
+     * Este objeto mantiene LA CLASE derivada de Agente después de que se cargó
+     * el Modulo.
+     */
+    boost::python::object agente_clase;
+
+    /**
+     * Extrae la clase Derivada de Agente del Modulo.
+     * @throws ModuloNoCargado si se intenta llamar antes de haber cargado el
+     * Modulo.
+     * @throws ScriptMalo si el Modulo no contiene una clase derivada de Agente.
+     */
+    void extraer_clase();
+
+    /**
+     * Manejo interno de las excepciones del Modulo.
+     */
     int manejar_excepcion_python(boost::python::error_already_set& e);
 };
 }

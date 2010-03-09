@@ -22,3 +22,11 @@ Scripting::ModuloNoCargado::ModuloNoCargado(std::string what)
 : Excepcion(what)
 {
 }
+
+Scripting::ScriptMalo::ScriptMalo() :Excepcion()
+{
+}
+Scripting::ScriptMalo::ScriptMalo(std::string what)
+: Excepcion(what)
+{
+}

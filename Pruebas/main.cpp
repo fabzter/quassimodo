@@ -129,7 +129,7 @@ int main(int argc, char** argv)
     //Agente* agente1 = m.getAgente("../bin/agente.py");
     Agente* agente2 = m.getAgente("../bin/agente.py");
 
-    //agente2->iniciar(t, 0);
+    agente2->iniciar(t, 0);
     
     return (EXIT_SUCCESS);
 }
