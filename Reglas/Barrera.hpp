@@ -37,6 +37,19 @@ public:
     void colocar(const std::vector<int> &pos, Direccion d);
 
     /**
+     *Este es el método para colocar una barrera, se usa en lugar del de la
+     * clase Pieza pues necesitamos darle también una Direccion a la Barrera.
+     * @param x es un entero que  representa la posicion inicial en x de la
+     * Barrera.
+     * @param y es un entero que  representa la posicion inicial en y de la
+     * Barrera.
+     * @param d un valor de enum Direccion que indica la direccion en que será
+     * colocada la Barrera.
+     * @throws ParametrosMalos.
+     */
+    void colocar(int x, int y, Direccion d);
+
+    /**
      * Nos indica la direccion actual de la Barrera.
      * @return un valor de el enum Direccion, ya sea NORTE o ESTE.
      * @throws PiezaNoColocada.

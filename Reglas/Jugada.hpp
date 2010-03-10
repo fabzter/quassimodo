@@ -6,6 +6,7 @@
 #include<vector>
 
 #include "Enums.hpp"
+#include "Excepciones.hpp"
 
 /**
  * La clase Jugada contiene la información sobre el movimiento que se desea realizar.
@@ -30,6 +31,13 @@ public:
      * @param y un entero que representa la posición vertical.
      */
     void setPosicion(int x, int y);
+
+    /**
+     *Especifica la posicion de la Jugada.
+     * @param pos un vector de enteros (x,y) que represnta la posición deseada.
+     * @throws ParametrosMalos si pos no tiene dos elementos.
+     */
+    void setPosicion(const std::vector<int>& pos);
 
     /**
      *Regresa la posicion de la Jugada.

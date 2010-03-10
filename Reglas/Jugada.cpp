@@ -13,7 +13,7 @@ Reglas::Jugada::Jugada()
 Reglas::Jugada::Jugada(const Jugada& orig)
 {
     this->direccion = orig.direccion;
-    this->setPosicion(orig.posicion[0], orig.posicion[1]);
+    this->setPosicion(orig.posicion.at(0), orig.posicion.at(1));
     this->tipo = orig.tipo;
 }
 
@@ -31,6 +31,15 @@ void Reglas::Jugada::setPosicion(int x, int y)
     this->posicion[1] = y;
 }
 
+void Reglas::Jugada::setPosicion(const std::vector<int>& pos)
+{
+    if(pos.size() != 2)
+    {
+        throw ParametrosMalos();//TODO: info del error.
+    }
+    this->setPosicion(pos.at(0), pos.at(1));
+}
+
 const std::vector<int>& Reglas::Jugada::getPosicion() const
 {
     return this->posicion;
@@ -38,7 +47,7 @@ const std::vector<int>& Reglas::Jugada::getPosicion() const
 void Reglas::Jugada::setDireccion(Direccion d)
 {
 
-     this->direccion=d;
+     this->direccion = d;
 }
 Reglas::Direccion Reglas::Jugada::getDireccion() const
 {
@@ -52,7 +61,3 @@ Reglas::TipoDeJugada Reglas::Jugada::getTipoDeJugada() const
 {
       return this->tipo;
 }
-
-
-
-

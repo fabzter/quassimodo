@@ -14,11 +14,6 @@ using namespace Reglas;
 
 void export_container_conversions()
 {
-
-from_python_sequence<
-      std::vector<int>,
-      variable_capacity_policy>();
-
 /*lista de enteros*/
 to_python_converter<
       std::list<int>,
@@ -39,9 +34,18 @@ from_python_sequence<
       std::list<Barrera>,
       linked_list_policy>();
 
+/*Vectores*/
+to_python_converter<
+      std::vector<int>,
+      to_tuple<
+        std::vector<int> > >();
 /*Segunda solucion :S*/
 class_<std::vector<int> >("IntVector")
         .def(vector_indexing_suite<std::vector<int> >())
-        ;
+;
+from_python_sequence<
+      std::vector<int>,
+      variable_capacity_policy>();
+
 
 }

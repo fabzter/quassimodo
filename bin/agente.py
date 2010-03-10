@@ -15,8 +15,20 @@ class MiAgente (Reglas.Agente):
         print "Estoy iniciado"
         
     def siguienteJugada(self):
-        print "Estoy por enviar mi jugada"
-        return None
+        print self.id, ": Preparo mi jugada"
+        jugada = Reglas.Jugada()
+        jugada.setPosicion((1, 1))
+        jugada.setTipoDeJugada(Reglas.TipoDeJugada.MOVIMIENTO)
+
+        return jugada
     
     def terminar(self):
         print "He terminado", self.id
+
+b = Reglas.Barrera()
+
+b.colocar( (1, 3), Reglas.Direccion.NORTE )
+
+j = Reglas.Jugada()
+
+j.setPosicion( (1, 3) )

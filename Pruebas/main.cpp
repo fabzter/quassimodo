@@ -132,6 +132,31 @@ int main(int argc, char** argv)
     agente1->iniciar(t, 0);
     agente2->iniciar(t, 1);
 
+    Jugada juga;
+    try
+    {
+         juga = (agente1->siguienteJugada() );
+    }
+    catch(boost::python::error_already_set& e)
+    {
+        PyObject *type, *value, *traceback;
+    // Save the error state because PyErr_Print() is going toclear
+    // it. That's not what we want.
+    PyErr_Fetch(&type, &value, &traceback);
+    // But whoops, PyErr_Fetch() just cleared the exceptionflag! If
+    // we now call PyErr_Print(), it thinks there's nothingwrong, and
+    // doesn't print anything! Immediately restore the exceptionso
+    // PyErr_Print() will see it.
+    PyErr_Restore(type, value, traceback);
+    // Okay, print the traceback to stderr...
+    PyErr_Print();
+    // then restore (again!) the original exception state.
+    PyErr_Restore(type, value, traceback);
+    }
+    
+    
+    cout << juga.getPosicion()[0]<< ',' << jugada.getPosicion()[1] << endl;
+
     agente1->terminar();
     agente2->terminar();
     

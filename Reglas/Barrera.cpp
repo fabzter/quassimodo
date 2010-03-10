@@ -52,6 +52,14 @@ void Reglas::Barrera::colocar(const std::vector<int>& pos, Direccion d)
     }
 }
 
+void Reglas::Barrera::colocar(int x, int y, Direccion d)
+{
+    std::vector<int> v;
+    v.push_back(x);
+    v.push_back(y);
+    this->colocar(v, d);
+}
+
 Reglas::Direccion Reglas::Barrera::getDireccion() const
 {
     if(!this->esta_colocado)

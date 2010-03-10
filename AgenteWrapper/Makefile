@@ -2,13 +2,14 @@ all: Reglas.so
 
 boost_cflags = -ftemplate-depth-100 -DBOOST_PYTHON_STATIC_LIB \
                -isystem /usr/include/python2.6 -I.
-boost_libs = -Wl,-rpath-link,. -L/usr/lib/python2.6/config -Bstatic -lboost_python -Bdynamic
+boost_libs = -Wl,-rpath-link,. -L/usr/lib/python2.6/config \
+             -Bstatic -lboost_python -Bdynamic
 
 Reglas_libs = -L. -L../lib -Wl,-R. -Wl,-R../lib -lReglas
 Reglas_cflags = -I../
 
-MODULES = Agente.o Tablero.o container_conversions.o Pieza.o Celda.o Enums.o \
-            Barrera.o Excepciones.o
+MODULES = Agente.o Tablero.o container_conversions.o Pieza.o Celda.o Enums.o\
+          Barrera.o Excepciones.o Jugada.o
             
 Excepciones.o: Excepciones.cpp
 	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC Excepciones.cpp
@@ -27,6 +28,9 @@ Barrera.o: Barrera.cpp
 
 Agente.o: Agente.cpp
 	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC Agente.cpp
+
+Jugada.o: Jugada.cpp
+	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC Jugada.cpp
 	
 Tablero.o: Tablero.cpp
 	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC Tablero.cpp
