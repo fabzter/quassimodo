@@ -47,6 +47,11 @@ private:
     boost::python::object agente_clase;
 
     /**
+     * Aqui se guardan apuntadores a las instancias creadas.
+     */
+    std::list<boost::python::object> instancias_clase;
+
+    /**
      * Extrae la clase Derivada de Agente del Modulo.
      * @throws ModuloNoCargado si se intenta llamar antes de haber cargado el
      * Modulo.

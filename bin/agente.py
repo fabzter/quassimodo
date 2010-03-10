@@ -1,9 +1,13 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+import sys; sys.path.append('../lib')
+
 import Reglas
 
 class MiAgente (Reglas.Agente):
 
     def __init__(self):
-        pass
+        Reglas.Agente.__init__(self)
         
     def iniciar(self, Tablero, id):
         self.tab = Tablero
@@ -15,9 +19,4 @@ class MiAgente (Reglas.Agente):
         return None
     
     def terminar(self):
-        print "He terminado"
-        self.tab = None
-        raise Exception
-
-def get():
-    return MiAgente()
+        print "He terminado", self.id

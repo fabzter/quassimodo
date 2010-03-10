@@ -55,9 +55,11 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
     try
     {
         this->extraer_clase();
-        boost::python::object clase_instancia = this->agente_clase();
-        a = boost::python::extract<Reglas::Agente*>(clase_instancia);
-        a->terminar();
+
+        this->instancias_clase.push_front( this->agente_clase() );
+        
+        a = boost::python::extract<Reglas::Agente*>
+                (this->instancias_clase.front());
     }
     catch(boost::python::error_already_set& e)
     {
@@ -94,23 +96,19 @@ int Scripting::ModuloPython::manejar_excepcion_python
 void Scripting::ModuloPython::extraer_clase()
 {
     using namespace boost::python;
-    //iteramos el diccionario de __main__
-    boost::python::ssize_t n = len(this->namespace_modulo);
-    object values = this->namespace_modulo.attr("values")();
-
     try
     {
-        object clase = eval("Reglas.Agente.__class__", this->namespace_modulo,
-                            this->namespace_modulo);
-        for(boost::python::ssize_t i = 0; i < n; i++)
-        {
-            std::string cls_str = extract<std::string>(values[i].attr("__class__"));
-            if(values[i].attr("__class__") == clase)
-            {
-                this->agente_clase = values[i];
-                return;
-            }
-        }
+        boost::python::object clase =
+        exec("l = dir()\n"
+             "if l.count('Reglas') == 0: raise Error()\n"
+             "clase = None\n"
+             "for i in l:\n"
+             "    res = eval(i)\n"
+             "    if type(res) == type(Reglas.Agente): clase = res\n"
+             "if clase is None: raise Error()\n"
+                , this->namespace_modulo, this->namespace_modulo);
+        this->agente_clase = this->namespace_modulo["clase"];
+        return;
     }
     catch(boost::python::error_already_set& e)
     {

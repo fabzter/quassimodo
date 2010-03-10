@@ -61,6 +61,8 @@ build: .build-post
 # Add your post 'build' code here...
 	#movemos a nuestra carpeta de liberias...
 	cp $(CND_ARTIFACT_PATH_${CONF}) ../lib
+	#creamos los wrappers
+	cd ../AgenteWrapper && make
 
 
 # clean
