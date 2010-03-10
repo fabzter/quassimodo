@@ -24,11 +24,3 @@ class MiAgente (Reglas.Agente):
     
     def terminar(self):
         print "He terminado", self.id
-
-b = Reglas.Barrera()
-
-b.colocar( (1, 3), Reglas.Direccion.NORTE )
-
-j = Reglas.Jugada()
-
-j.setPosicion( (1, 3) )
