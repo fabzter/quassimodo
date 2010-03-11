@@ -27,6 +27,19 @@ Reglas::Jugada Reglas::Juez::siguienteJugada(int idJugador)
   return j;
 }
 
+int Reglas::Juez::hayGanador()
+{
+    for(int id = 0; id < this->tablero->jugadores.size(); id++)
+    {
+        const Celda &meta = this->tablero->grafo->getMeta(id);
+        //Si la meta que le corresponde al Jugador con id id es hija de la celda
+        //donde se encuentra el mismo jugador....
+        if(this->es_hijo(meta.getPosicion(), this->tablero->getCelda(id)) )
+            return id;
+    }
+    return -1;
+}
+
 void Reglas::Juez::revisar_reglas(Jugada& j, int idJugador)
 {
   this->regla_1(j, idJugador);
@@ -183,7 +196,7 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
 
 }
 
-bool Reglas::Juez::es_hijo(const std::vector<int>& pos, Reglas::Celda& celdaActual)
+bool Reglas::Juez::es_hijo(const std::vector<int>& pos, const Reglas::Celda& celdaActual)
 {
   for(int i = (int)NORTE; i <= (int)OESTE; i++)
   {

@@ -93,6 +93,16 @@ public:
     ReglasRotas();
 };
 
+/**
+ * Excepción arrojada cuando se trata de pedir una Jugada a una Partida que no
+ * está en curso.
+ */
+class PartidaTerminada: public Excepcion{
+public:
+    PartidaTerminada(std::string what);
+    PartidaTerminada();
+};
+
 }
 
 #endif	/* _EXCEPCIONES_HPP */

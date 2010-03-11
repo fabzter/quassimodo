@@ -38,8 +38,11 @@ public:
 
     /**
      *Recibe apuntadores a los Jugadores ya inicializados. Para Colocarlos en el
-     * Tablero.
-     * Se llama después del constructor, cuando estén listos los Agentes.
+     * Tablero. Sobreescribe su id, para que se ajuste a su posicion en el
+     * vector.
+     * @todo: id debería ser un nombre, indendiente de su posición en el vector.
+     * Obviamente se tiene que llamar antes de poder mover Jugadores o de pedir
+     * un Jugador al Tablero.
      */
     void setJugadores(const std::vector< Jugador* > &jugadores);
 
@@ -134,6 +137,19 @@ public:
      * @return una referencia a una lista de Barreras ya colocadas.
      */
     const std::list<Barrera>& getBarrerasColocadas() const;
+
+    /**
+     * Regresa el vector que contiene a todas las metas que le corresponden al
+     * Jugador dado.
+     * @param idJugador el id del Jugador del que se desea saber sus metas.
+     * @return Una referencia a el vector que contiene a las metas del jugador
+     * especificado.
+     * @hrows JugadorNoColocado si el idJugador no corresponde con la cantidad de
+     * Jugadores en el Tablero.
+     * @todo: solo sirve para cuando hay dos Jugadores. No más. Ni menos :P.
+     * Arreglarlo para más.
+     */
+    const std::vector<Reglas::Celda>& getMetas(int idJugador) const;
 
     /**
      * Nos regresa la Celda en la posición especificada por el vector pos.

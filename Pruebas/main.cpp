@@ -104,7 +104,7 @@ int main(int argc, char** argv)
         t.setBarrera(0, b2);
     } catch(ReglasRotas &e)
     {
-        
+        cout << "Cache error de jugada!" << e.what() <<  endl;
     }
 
     
@@ -139,6 +139,8 @@ int main(int argc, char** argv)
 
     agente1->terminar();
     agente2->terminar();
+
+    cout << t.getMetas(0).at(0) << endl;
     
     return (EXIT_SUCCESS);
 }

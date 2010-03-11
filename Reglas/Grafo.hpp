@@ -34,6 +34,13 @@ public:
      */
     bool hayCaminoMeta(int idJugador) const;
 
+    /**
+     * Nos indica la Celda que es la meta del Jugador con id idJugador.
+     * @param idJugador id del Jugador del que se quiere saber la meta.
+     * @return Una referencia a la Celda que es el nodo meta del Jugador.
+     */
+    const Celda& getMeta(int idJugador) const;
+
 private:
     /**
      * Esta es la Celda que sirve como meta del NORTE.

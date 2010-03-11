@@ -93,8 +93,16 @@ bool Reglas::Grafo::hayCaminoMeta(int idJugador) const
 
   return
     this->busqueda_recursiva( this->tablero->getCelda(idJugador),
-                           idJugador == 0 ? this->meta_norte: this->meta_sur,
+                           this->getMeta(idJugador),
                            visitados);
+}
+
+const Reglas::Celda& Reglas::Grafo::getMeta(int idJugador) const
+{
+    if(idJugador == 0)
+        return this->meta_norte;
+    else if (idJugador == 1)
+        return this->meta_sur;
 }
 
 bool Reglas::Grafo::busqueda_recursiva(const Celda& inicio, const Celda& meta,

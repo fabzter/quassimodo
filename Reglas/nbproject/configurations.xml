@@ -51,6 +51,9 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <incDir>
+            <pElem>..</pElem>
+          </incDir>
           <commandLine>-fpic</commandLine>
           <preprocessorList>
             <Elem>DEBUG</Elem>
@@ -77,6 +80,9 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>..</pElem>
+          </incDir>
           <commandLine>-fpic</commandLine>
         </ccTool>
         <fortranCompilerTool>

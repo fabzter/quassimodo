@@ -195,6 +195,16 @@ const std::list<Reglas::Barrera>& Reglas::Tablero::getBarrerasColocadas() const
     return this->barreras_colocadas;
 }
 
+const std::vector<Reglas::Celda>& Reglas::Tablero::getMetas(int idJugador) const
+{
+    if(idJugador >= this->num_jugadores || idJugador < 0)
+        throw JugadorNoColocado(); //TODO: info del error.
+
+    int indice = idJugador == 0? 8: 0;
+
+    return this->datos.at(indice);
+}
+
 const Reglas::Celda& Reglas::Tablero::getCelda(const std::vector<int> &pos) const
 {
     if(pos.size() != 2)
@@ -222,7 +232,7 @@ const Reglas::Jugador& Reglas::Tablero::getJugador(int id) const
     //revisamos que haya un jugador con ese id
     if(!this->tieneJugador(id))
         throw JugadorNoColocado();
-    //obtenemos al dichosos jugador.
+    //obtenemos al dichoso jugador.
     Jugador* j = NULL;
     for(int i = 0; i < this->jugadores.size(); i++)
     {

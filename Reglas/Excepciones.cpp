@@ -31,12 +31,20 @@ Reglas::CeldaFueraDelTablero::CeldaFueraDelTablero(std::string what)
 {
 }
 
+Reglas::PartidaTerminada::PartidaTerminada() :Excepcion()
+{
+}
+Reglas::PartidaTerminada::PartidaTerminada(std::string what) : Excepcion(what)
+{
+}
+
 Reglas::ReglasRotas::ReglasRotas() :Excepcion()
 {
 }
 Reglas::ReglasRotas::ReglasRotas(std::string what) : Excepcion(what)
 {
 }
+
 
 Reglas::ParametrosMalos::ParametrosMalos() :Excepcion()
 {

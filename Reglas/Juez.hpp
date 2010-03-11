@@ -34,14 +34,19 @@ public:
 
     /**
      *Pide la siguiente Jugada al Jugador correspondiente. Y revisa la validez.
-     * @return La Jugada sí ésta cumple las reglas.
+     * @return La Jugada si ésta cumple las reglas.
      * @throws ReglasRotas si la Jugada no comple con las reglas.
      * @throws ScriptMalo Si el script tiene errores de sintaxis.
      * @param t es una copia del Tablero en su estado actual.
      */
     Jugada siguienteJugada(int idJugador);
 
-
+    /**
+     * Nos avisa si hay un ganador ya en el Tablero.
+     * @return el id del Jugador que ha ganado.
+     * @return -1 si no hay ganador.
+     */
+    int hayGanador();
 private:
     Tablero* tablero;
 
@@ -90,7 +95,7 @@ private:
      * @param celdaActual un apuntador a la Celda desde la que se parte
      * @return true si la Celda en pos es hija de celdaActual.
      */
-    bool es_hijo(const std::vector<int>& pos, Celda &celdaActual);
+    bool es_hijo(const std::vector<int>& pos, const Celda &celdaActual);
 
     /**
      * Método auxiliar de regla_3, dado un vector direccion
