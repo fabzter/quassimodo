@@ -61,8 +61,9 @@ private:
      * actualización especificada en siguienteJugada.
      * @sa siguienteJugada.
      * @param j es la Jugada con la que se a actualizar el Tablero.
+     * @param idJugador es el id del Jugador que realiza la Jugada.
      */
-    void actualizarTablero(Jugada &j);
+    void actualizarTablero(Jugada &j, int idJugador);
     /**
      * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se
      * construye la Partida, éste Juez se construye en el contructor de Partida.

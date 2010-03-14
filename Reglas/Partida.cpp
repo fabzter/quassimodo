@@ -46,9 +46,9 @@ bool Reglas::Partida::siguienteJugada()
     }
     //actualizamos el Jugador en turno.
     this->jugador_en_turno =
-            ++this->jugador_en_turno % this->tablero->num_jugadores;
+            ++(this->jugador_en_turno) % this->tablero->num_jugadores;
 
-    this->actualizarTablero(j);
+    this->actualizarTablero(j, this->jugador_en_turno);
 
     //Actualizamos Banderas:
     int idGanador = this->juez->hayGanador();
@@ -60,7 +60,16 @@ bool Reglas::Partida::siguienteJugada()
     }
 }
 
-void Reglas::Partida::actualizarTablero(Reglas::Jugada &j)
+void Reglas::Partida::actualizarTablero(Reglas::Jugada &j, int idJugador)
 {
-    
+    if(j.getTipoDeJugada() == MOVIMIENTO)
+    {
+        this->tablero->moverJugador(idJugador, j.getPosicion());
+    }
+    else if(j.getTipoDeJugada() == BARRERA)
+    {
+        Barrera b;
+        b.colocar(j.getPosicion(), j.getDireccion());
+        this->tablero->setBarrera(idJugador, b);
+    }
 }

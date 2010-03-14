@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
-import sys; sys.path.append('../lib')
-
 import Reglas
 
 class MiAgente (Reglas.Agente):
@@ -19,7 +17,10 @@ class MiAgente (Reglas.Agente):
         jugada = Reglas.Jugada()
         jugada.setPosicion(9, 8)
         jugada.setTipoDeJugada(Reglas.TipoDeJugada.MOVIMIENTO)
-
+        
+        for meta in self.tab.getMetas(self.id):
+            print meta
+        
         return jugada
     
     def terminar(self):

@@ -8,6 +8,7 @@
 #include <boost/python/suite/indexing/container_utils.hpp>
 
 #include <Reglas/Barrera.hpp>
+#include <Reglas/Celda.cpp>
 
 using namespace boost::python;
 using namespace Reglas;
@@ -47,5 +48,8 @@ from_python_sequence<
       std::vector<int>,
       variable_capacity_policy>();
 
-
+//vectores de celdas.
+class_<std::vector<Celda> >("CeldaVector")
+        .def(vector_indexing_suite<std::vector<Celda> >())
+;
 }
