@@ -1,0 +1,96 @@
+
+#include "Antorcha.hpp"
+using namespace irr;
+
+Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,bool sombra): Pieza(){
+        this->setVectPosicion(x,0,z);
+        this->mesh =smgr->getMesh("Texturas/Antorcha2.3ds");
+        this->fuego=smgr->getVideoDriver()->getTexture("Texturas/fire.bmp");
+        this->dibuja(smgr,sombra);
+
+    }
+
+Grafico::Antorcha::Antorcha(const Antorcha& orig) : Pieza(orig){
+
+ /*   this->mesh->drop();
+    this->fuego->drop();
+    this->nfuego->drop();
+    this->nodoA->drop();
+    this->mesh=orig.mesh;
+    this->nfuego=orig.nfuego;
+    this->fuego=orig.fuego;
+    this->nodoA=orig.nodoA;
+    this->setVectPosicion(orig.posicion.X,orig.posicion.Y,orig.posicion.Z);*/
+}
+
+Grafico::Antorcha::~Antorcha() {
+}
+
+void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
+        this->posicion.X=x;
+        this->posicion.Y=y;
+        this->posicion.Z=z;
+        this->posicionF.X= posicion.X+50;
+        this->posicionF.Y=posicion.Y+108;
+        this->posicionF.Z=posicion.Z+4;
+}
+
+void Grafico::Antorcha::dibuja(scene::ISceneManager* smgr,bool sombra)
+   {
+
+                this->nodoA=smgr->addAnimatedMeshSceneNode( mesh );
+                this->nodoA->setMaterialType(video::EMT_SOLID);
+		this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
+                this->nodoA->setPosition( this->posicion );
+
+                 this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),270.0f);
+                //hacemos el fuego
+        	scene::IParticleSystemSceneNode* ps =	smgr->addParticleSystemSceneNode(false,nfuego);
+                scene::IParticleEmitter* em = ps->createBoxEmitter(
+		core::aabbox3d<f32>(-7,0,-7,7,1,7), // tamaño del emisor
+		core::vector3df(0.0f,0.06f,0.00f),   // direccion inicial
+		80,100,                             // emit rate
+		video::SColor(0,255,255,255),       // color obscuro
+		video::SColor(0,255,255,255),       // color brillo
+		800,2000,0,                         // min and max age, angle
+		core::dimension2df(5.f,5.f),         // tamaño minimo
+		core::dimension2df(20.f,20.f) );        // taaño maximo
+
+                ps->setEmitter(em); // this grabs the emitter
+                em->drop(); // so we can drop it here without deleting it
+
+                scene::IParticleAffector* paf = ps->createFadeOutParticleAffector();
+
+                ps->addAffector(paf); // same goes for the affector
+                paf->drop();
+
+                ps->setMaterialFlag(video::EMF_LIGHTING,false);
+                ps->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
+                ps->setMaterialTexture(0,this->fuego);
+                ps->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
+                ps->getMaterial(0).NormalizeNormals=true;
+
+                if(sombra)
+                {
+                   this->nodoA->addShadowVolumeSceneNode();
+                   this->nfuego=  smgr->addVolumeLightSceneNode(0, -1,
+                                    32,                              // Subdivisions on U axis
+                                    32,                              // Subdivisions on V axis
+                                    video::SColor(0, 255, 255, 255), // foot color
+                                    video::SColor(0, 0, 0, 0));      // tail color
+                }
+
+
+   }
+
+   void Grafico::Antorcha::setPosicionAntorcha(core::vector3df posicion){
+      this->setPosicionAntorcha(posicion.X, posicion.Y ,posicion.Z);
+
+   }
+
+    void Grafico::Antorcha::setPosicionAntorcha(int x, int y ,int z){
+            this->setVectPosicion(x,y,z);
+            this->setPosicion(x,y,z);
+            nfuego->setPosition( this->posicionF);
+   }
+

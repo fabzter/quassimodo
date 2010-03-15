@@ -1,5 +1,3 @@
-
-
 #ifndef _PARTIDA_HPP
 #define	_PARTIDA_HPP
 #include <list>

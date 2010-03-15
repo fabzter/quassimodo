@@ -1,4 +1,3 @@
-
 #include "Partida.hpp"
 #include "Juez.hpp"
 
