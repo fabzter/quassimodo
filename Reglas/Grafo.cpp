@@ -10,6 +10,12 @@
 #include "Grafo.hpp"
 #include "Tablero.hpp"
 
+/**
+ *TODO: componer la madre esa de tener que poner la meta norte en un posición :(
+ *NO entiendo por qué, si dejamos la posicion de la meta Norte en -1, -1; cuando
+ *se intenta saber si el jugador 2 ha llegado a la meta SUR, se confunde y dice
+ *que si :( (en Celda::tieneHijo)
+ */
 Reglas::Grafo::Grafo(Tablero &tablero)
 {
     this->tablero = &tablero;
@@ -30,7 +36,8 @@ void Reglas::Grafo::init_grafo()
     for(int i = 0; i < this->tablero->size_y; i++)
     {
         for(int j = 0; j < this->tablero->size_x; j++)
-        {//navegamos por el Tablero
+        {
+            //navegamos por el Tablero
             Celda *celda = (Celda*)&this->tablero->getCelda(j, i);
             std::vector<int> pos(celda->getPosicion());
 

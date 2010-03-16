@@ -103,6 +103,16 @@ public:
     PartidaTerminada();
 };
 
+/**
+ * Excepción lanzada cuando se quiere realizar algún movimiento en una Partida que
+ * aún no ha iniciaodo.
+ */
+class PartidaNoIniciada: public Excepcion{
+public:
+    PartidaNoIniciada(std::string what);
+    PartidaNoIniciada();
+};
+
 }
 
 #endif	/* _EXCEPCIONES_HPP */

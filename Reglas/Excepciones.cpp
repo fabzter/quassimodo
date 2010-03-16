@@ -38,6 +38,13 @@ Reglas::PartidaTerminada::PartidaTerminada(std::string what) : Excepcion(what)
 {
 }
 
+Reglas::PartidaNoIniciada::PartidaNoIniciada() :Excepcion()
+{
+}
+Reglas::PartidaNoIniciada::PartidaNoIniciada(std::string what) : Excepcion(what)
+{
+}
+
 Reglas::ReglasRotas::ReglasRotas() :Excepcion()
 {
 }

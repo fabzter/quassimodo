@@ -4,6 +4,7 @@
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Jugador.hpp>
 #include <Reglas/Juez.hpp>
+#include <Reglas/Partida.hpp>
 #include <Scripting/Manejador.hpp>
 #include <vector>
 
@@ -22,147 +23,67 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    Celda c1;
-
-    try{
-        c1.colocar(9, 9);
-    } catch(PiezaFueraDelTablero& e){
-        c1.colocar(8, 8);
-    }
-
-    try{
-        c1.colocar(1, 1);
-    }
-    catch(PiezaYaColocada & e){
-
-    }
-
-    Celda c2(c1);
-
-    if(c2 == c1)
-        cout << c2 << endl;
-
     Tablero t;
+    Scripting::Manejador *m = new Scripting::Manejador();
+    std::vector<Agente*> agentes;
 
-    Barrera b;
+    agentes.push_back(m->getAgente("../bin/agente.py"));
+    agentes.push_back(m->getAgente("../bin/agente.py"));
 
-    vector<int> pos;
-    pos.push_back(0);
-    pos.push_back(1);
-    b.colocar(pos, ESTE);
-
-    std::vector<Jugador*> jugadores;
-    for(int i = 0; i < Tablero::num_jugadores; i++)
-        jugadores.push_back(new Jugador(i, new Player()));
+    std::vector< Jugador* > jugadores;
+    jugadores.push_back(new Jugador(0, agentes[0]));
+    jugadores.push_back(new Jugador(1, agentes[1]));
 
     t.setJugadores(jugadores);
-    
-    cout << t << endl;
-    for(int i = 0; i < 2; i++)
-    {
-        print_vector(t.getJugador(i).getPosicion());
-        cout << t.getJugador(i).getBarrerasDisponibles() << endl;
-    }
-    cout << endl;
-    cout << endl;
 
-    t.setBarrera(0, b);
-    cout << t << '\n' << t.getJugador(0).getBarrerasDisponibles() << " " <<
-            t.getJugador(1).getBarrerasDisponibles() << endl;
+    Partida *p = new Partida(&t);
 
-    t.moverJugador(0, Tablero::size_x/2, t.getJugador(0).getPosicion().at(1) + 1);
-
-    cout << t << endl;
-
-    t.moverJugador(0, 1, 0);
-    t.moverJugador(1, 2, 0);
-
-    for(int i = 0; i < 2; i++)
-        print_vector(t.getJugador(i).getPosicion());
-    cout << endl;
-    cout << endl;
-    pos.at(0) = 3;
-    pos.at(1) = 0;
-
-    Barrera b1;
-    b1.colocar(pos, NORTE);
-    t.setBarrera(1, b1);
-
-    cout << t << '\n' << t.getJugador(0).getBarrerasDisponibles() << " " <<
-            t.getJugador(1).getBarrerasDisponibles() << endl;
-    print_vector(jugadores.at(0)->getPosicion());
-    print_vector(jugadores.at(1)->getPosicion());
-
-    Juez j (t);
-
-    Jugada jugada;
     try{
-        jugada = j.siguienteJugada(0);
-        Barrera b2;
-        b2.colocar(jugada.getPosicion(), jugada.getDireccion());
+    p->iniciarPartida();
+    }
+    catch (boost::python::error_already_set& e)
+        {
+            PyObject *type, *value, *traceback;
+            // Save the error state because PyErr_Print() is going toclear
+            // it. That's not what we want.
+            PyErr_Fetch(&type, &value, &traceback);
+            // But whoops, PyErr_Fetch() just cleared the exceptionflag! If
+            // we now call PyErr_Print(), it thinks there's nothingwrong, and
+            // doesn't print anything! Immediately restore the exceptionso
+            // PyErr_Print() will see it.
+            PyErr_Restore(type, value, traceback);
+            // Okay, print the traceback to stderr...
+            PyErr_Print();
+            // then restore (again!) the original exception state.
+            PyErr_Restore(type, value, traceback);
+        }
 
-        t.setBarrera(0, b2);
-    } catch(ReglasRotas &e)
+    while(p->estaEnCurso())
     {
-        cout << "Cache error de jugada!" << e.what() <<  endl;
+        cout << t << endl;
+        try
+        {
+            p->siguienteJugada();
+        }
+        catch(boost::python::error_already_set& e)
+        {
+            PyObject *type, *value, *traceback;
+            // Save the error state because PyErr_Print() is going toclear
+            // it. That's not what we want.
+            PyErr_Fetch(&type, &value, &traceback);
+            // But whoops, PyErr_Fetch() just cleared the exceptionflag! If
+            // we now call PyErr_Print(), it thinks there's nothingwrong, and
+            // doesn't print anything! Immediately restore the exceptionso
+            // PyErr_Print() will see it.
+            PyErr_Restore(type, value, traceback);
+            // Okay, print the traceback to stderr...
+            PyErr_Print();
+            // then restore (again!) the original exception state.
+            PyErr_Restore(type, value, traceback);
+        }
+        cin.get();
     }
 
-    
-
-    cout << t << endl;
-    cout << t.getJugador(0).getBarrerasDisponibles() << endl;
-
-    Barrera b2;
-    b2.colocar(pos, NORTE);
-    b2 == b1? cout << "true" : cout << "false";
-    cout << endl;
-
-    pos[0] = 6;
-
-    Barrera b3;
-    b3.colocar(pos, NORTE);
-    b2 == b3? cout << "true" : cout << "false";
-    cout << endl;
-
-    /*empieza la prueba de todo!! :D*/
-    Scripting::Manejador m;
-    Agente* agente1 = m.getAgente("../bin/agente.py");
-    Agente* agente2 = m.getAgente("../bin/agente.py");
-
-    agente1->iniciar(t, 0);
-    agente2->iniciar(t, 1);
-
-    Jugada jug;
-
-    try
-    {
-        jug = (agente1->siguienteJugada());
-    }
-    catch(boost::python::error_already_set& e)
-    {
-        PyObject *type, *value, *traceback;
-    // Save the error state because PyErr_Print() is going toclear
-    // it. That's not what we want.
-    PyErr_Fetch(&type, &value, &traceback);
-    // But whoops, PyErr_Fetch() just cleared the exceptionflag! If
-    // we now call PyErr_Print(), it thinks there's nothingwrong, and
-    // doesn't print anything! Immediately restore the exceptionso
-    // PyErr_Print() will see it.
-    PyErr_Restore(type, value, traceback);
-    // Okay, print the traceback to stderr...
-    PyErr_Print();
-    // then restore (again!) the original exception state.
-    PyErr_Restore(type, value, traceback);
-    }
-
-    cout << '(' << jug.getPosicion()[0] << ',' << jug.getPosicion()[1] << ')' <<
-            (int)jug.getTipoDeJugada() << endl;
-
-    agente1->terminar();
-    agente2->terminar();
-
-    cout << t.getMetas(0).at(0) << endl;
-    
     return (EXIT_SUCCESS);
 }
 

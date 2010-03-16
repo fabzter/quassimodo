@@ -14,7 +14,6 @@ Reglas::Celda::Celda(const Celda& orig) : Pieza(orig)
     this->init_hijos();
     this->esta_libre = orig.esta_libre;
     this->esta_colocado = orig.esta_colocado;
-    this->hijos.resize(orig.hijos.size());
     this->hijos = orig.hijos;
 }
 
@@ -40,6 +39,22 @@ void Reglas::Celda::setHijo(Reglas::Direccion d, const Reglas::Celda &c)
 Reglas::Celda& Reglas::Celda::getHijo(Direccion d) const
 {
     return *this->hijos[d];
+}
+
+/**
+ *FIXME: aqui comparamos direcciones de apuntadores, esto no debería ser así...
+ * o no esoy seguro :(
+ */
+bool Reglas::Celda::tieneHijo(const Reglas::Celda& hijo) const
+{
+    for(int i = 0; i < this->hijos.size(); i++)
+    {
+        if( this->hijos.at(i) !=NULL && (this->hijos.at(i)) == &hijo )
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void Reglas::Celda::bloquearDireccion(Reglas::Direccion d)

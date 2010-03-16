@@ -9,8 +9,8 @@ namespace Scripting{
 
 class Excepcion: public std::exception
 {
-    virtual const char* what() const throw();
 public:
+    virtual const char* what() const throw();
     Excepcion(std::string what);
     Excepcion();
     ~Excepcion() throw();

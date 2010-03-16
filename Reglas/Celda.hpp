@@ -59,6 +59,14 @@ public:
     Celda& getHijo(Direccion d) const;
 
     /**
+     * Determina si la Celda enviada es hijo de la Celda actual.
+     * @param hijo una referencia a una Celda, que se quiere saber si es hijo de
+     * la Celda desde la que se llama al método.
+     * @return true si "hijo" es hijo de la Celda actual, false de lo contrario.
+     */
+    bool tieneHijo(const Celda& hijo) const;
+
+    /**
      *Bloquea el paso de la Celda hacia la dirección indicada.
      * @param d un valor del enum Direccion con la dirección que se desea bloquear.
      */

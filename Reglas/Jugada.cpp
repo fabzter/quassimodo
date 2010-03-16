@@ -2,7 +2,6 @@
  */
 
 #include "Jugada.hpp"
-
 Reglas::Jugada::Jugada()
 {
   this->direccion = NORTE;

@@ -54,11 +54,8 @@
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
-            <linkerOptionItem>-Bstatic</linkerOptionItem>
             <linkerLibLibItem>python2.6</linkerLibLibItem>
             <linkerLibLibItem>boost_python</linkerLibLibItem>
-            <linkerLibLibItem>boost_python-py26</linkerLibLibItem>
-            <linkerOptionItem>-Wl,-Bdynamic</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -93,11 +90,8 @@
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
-            <linkerOptionItem>-Bstatic</linkerOptionItem>
             <linkerLibLibItem>python2.6</linkerLibLibItem>
             <linkerLibLibItem>boost_python</linkerLibLibItem>
-            <linkerLibLibItem>boost_python-py26</linkerLibLibItem>
-            <linkerOptionItem>-Wl,-Bdynamic</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

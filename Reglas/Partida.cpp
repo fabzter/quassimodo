@@ -9,8 +9,6 @@ Reglas::Partida::Partida(Tablero *t)
     this->juez = NULL; //esto es solo para destruirlo bien!
     this->tablero = t;
     this->juez = new Juez(*t);
-
-    this->en_curso = true;
 }
 
 Reglas::Partida::Partida(const Partida& orig)
@@ -21,6 +19,19 @@ Reglas::Partida::~Partida()
 {
     if(this->juez != NULL)
         delete this->juez;
+}
+
+void Reglas::Partida::iniciarPartida()
+{
+    if(this->en_curso)
+        throw PartidaNoIniciada();
+
+    for(int id = 0; id < this->tablero->num_jugadores; id++)
+    {
+        this->tablero->getJugador(id).iniciar(*this->tablero, id);
+    }
+
+    this->en_curso = true;
 }
 
 bool Reglas::Partida::siguienteJugada()
@@ -43,11 +54,11 @@ bool Reglas::Partida::siguienteJugada()
         this->en_curso = false;
         throw;
     }
+
+    this->actualizarTablero(j, this->jugador_en_turno);
     //actualizamos el Jugador en turno.
     this->jugador_en_turno =
             ++(this->jugador_en_turno) % this->tablero->num_jugadores;
-
-    this->actualizarTablero(j, this->jugador_en_turno);
 
     //Actualizamos Banderas:
     int idGanador = this->juez->hayGanador();
@@ -71,4 +82,9 @@ void Reglas::Partida::actualizarTablero(Reglas::Jugada &j, int idJugador)
         b.colocar(j.getPosicion(), j.getDireccion());
         this->tablero->setBarrera(idJugador, b);
     }
+}
+
+bool Reglas::Partida::estaEnCurso()
+{
+    return this->en_curso;
 }

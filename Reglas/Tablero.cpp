@@ -8,7 +8,6 @@ Reglas::Tablero::Tablero()
     this->init_tablero();
     //Posicionamos las Celdas en el Grafo y las conectamos correctamente.
     this->grafo = new Grafo(*this);
-
 }
 
 Reglas::Tablero::Tablero(const Tablero& orig)
@@ -187,7 +186,7 @@ bool Reglas::Tablero::tieneCelda( const Reglas::Celda& celda) const
 
 const std::vector<int> &Reglas::Tablero::getPosicion(int idJugador) const
 {
-    return this->celdas_ocupadas.at(idJugador)->getPosicion();
+    return this->getJugador(idJugador).getPosicion();
 }
 
 const std::list<Reglas::Barrera>& Reglas::Tablero::getBarrerasColocadas() const

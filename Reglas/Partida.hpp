@@ -22,7 +22,8 @@ public:
      *Es el único constructor de Partida. Construye una Partida con el Tablero
      * indicado (debe estar inicializado perfectamente.)
      * (Deben pasarse objetos ya inicializados o se generarán
-     * excepciones). Pone la partida como iniciada si se ejecuta correctamente.
+     * excepciones). Al ejecutarse correctamente, la Partida sigue como no iniciada
+     * hasta que se llame el método iniciarPartida.
      * @param t es un apuntador al Tablero sobre el que se realiza la Partida.
      */
     Partida(Tablero *t);
@@ -33,6 +34,12 @@ public:
      * Tablero, por ejemplo.
      */
     virtual ~Partida();
+
+    /**
+     * Una vez que se ha contruido la partida, este método les avisa a los
+     * Jugadores que su partida está por empezar.
+     */
+    void iniciarPartida();
 
     /**
      * Éste método es el punto principal de interacción con la clase Partida.
@@ -51,6 +58,13 @@ public:
      * terminado por cualquier motivo.
      */
     bool siguienteJugada();
+
+    /**
+     * Nos indica el valor de la bandera esta_en_curso.
+     * @return true si la Partida está andando, false si se ha detenido por
+     * algún motivo (como que hay un ganador o se han roto las reglas).
+     */
+    bool estaEnCurso();
     
 private:
 

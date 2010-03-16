@@ -34,7 +34,7 @@ int Reglas::Juez::hayGanador()
         const Celda &meta = this->tablero->grafo->getMeta(id);
         //Si la meta que le corresponde al Jugador con id id es hija de la celda
         //donde se encuentra el mismo jugador....
-        if(this->es_hijo(meta.getPosicion(), this->tablero->getCelda(id)) )
+        if(this->tablero->getCelda(id).tieneHijo(meta) )
             return id;
     }
     return -1;
