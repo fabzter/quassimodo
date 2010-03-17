@@ -26,8 +26,10 @@ public:
     /**
      * El constructor de la clase Manejador agrega a la lista todos los interpretes
      * que éste tiene, y despues los inicializa.
+     * @param t una referencia al Tablero de la Partida. Se usa para exponérserlo
+     * a los Scripts.
      */
-    Manejador();
+    Manejador(Reglas::Tablero &t);
     Manejador(const Manejador& orig);
     /**
      * El destructor se encarga de finalizar todos los interpretes y borrarlos
@@ -46,6 +48,12 @@ private:
      * Una lista de apuntadores a todos los interpretes que son manejados.
      */
     std::list<Interprete*> interpretes;
+
+    /**
+     * Este miembro se usa para guardar el Tablero de la Partida, y así poder
+     * permitir a los Interprete s exponerselo a los Scripts.
+     */
+    Reglas::Tablero *tablero;
 };
 }
 #endif	/* _MANEJADOR_HPP */

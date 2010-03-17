@@ -17,7 +17,7 @@ public:
     Player(const Player& orig);
     virtual ~Player();
 
-    virtual void iniciar(const Reglas::Tablero& t, int id);
+    virtual void iniciar(int id);
     virtual Reglas::Jugada siguienteJugada();
     virtual void terminar();
 private:

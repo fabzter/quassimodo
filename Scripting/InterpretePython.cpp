@@ -15,8 +15,9 @@ Scripting::InterpretePython::~InterpretePython()
 {
 }
 
-void Scripting::InterpretePython::iniciar()
+void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
 {
+    this->tablero = &t;
     Py_Initialize();
 }
 
@@ -46,7 +47,7 @@ Reglas::Agente *Scripting::InterpretePython::getAgente(std::string ruta)
 void Scripting::InterpretePython::agregarModulo(std::string ruta)
 {
     Modulo * m = new ModuloPython();
-    m->cargar(ruta);
+    m->cargar(ruta, *this->tablero);
     this->modulos.insert( std::pair<std::string, Modulo*>(ruta, m) );
 }
 

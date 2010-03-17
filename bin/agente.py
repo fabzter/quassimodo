@@ -7,8 +7,9 @@ class MiAgente (Reglas.Agente):
     def __init__(self):
         Reglas.Agente.__init__(self)
         
-    def iniciar(self, Tablero, id):
-        self.tab = Tablero
+    def iniciar(self, id):
+        print "El tablero expuesto es: \n", tablero 
+        self.tab = tablero
         self.id = id
         
         if(self.tab.getMetas(self.id)[0].getPosicion()[1] == 8):
@@ -46,7 +47,7 @@ class MiAgente (Reglas.Agente):
             j.setPosicion( celdaActual.getHijo(self.direccion).getHijo(self.direccion).getPosicion() )
         
         print self.id, ": Hice mi Jugada"
-        return jugada
+        return j
     
     def terminar(self):
         print "He terminado", self.id

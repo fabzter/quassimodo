@@ -12,9 +12,9 @@ struct AgenteWrapper: Agente, wrapper<Agente>
     {
         return this->get_override("siguienteJugada")();
     }
-    void iniciar(const Tablero& t, int id)
+    void iniciar(int id)
     {
-        this->get_override("iniciar")(t, id);
+        this->get_override("iniciar")(id);
     }
     void terminar()
     {

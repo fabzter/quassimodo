@@ -24,7 +24,7 @@ using namespace std;
 int main(int argc, char** argv)
 {
     Tablero t;
-    Scripting::Manejador *m = new Scripting::Manejador();
+    Scripting::Manejador *m = new Scripting::Manejador(t);
     std::vector<Agente*> agentes;
 
     agentes.push_back(m->getAgente("../bin/agente.py"));

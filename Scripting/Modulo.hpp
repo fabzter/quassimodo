@@ -18,10 +18,12 @@ public:
      * esta_cargado, y le asigna un nombre al modulo. Este nombre debe ser unico
      * pues será usado como nombre del ambiente en que será ejecutado dicho módulo.
      * @param ruta es una string que indica la localización del archivo.
+     * @param t es una referencia al Tablero de la Partida, para poder exponérsela
+     * al Modulo.
      * @throws ArchivoNoEncontrado si el archivo no puede ser accedido por
      * algún motivo.
      */
-    virtual void cargar(std::string ruta) = 0;
+    virtual void cargar(std::string ruta, Reglas::Tablero &t) = 0;
 
     /**
      * Nos entrega un apuntador a una instancia de una clase derivada de Agente

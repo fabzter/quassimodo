@@ -4,8 +4,9 @@
 #include "Manejador.hpp"
 #include "InterpretePython.hpp"
 
-Scripting::Manejador::Manejador()
+Scripting::Manejador::Manejador(Reglas::Tablero &t)
 {
+    this->tablero = &t;
     //Agregamos todos los interpretes a la lista
     this->interpretes.push_front(new InterpretePython());
 
@@ -32,7 +33,7 @@ void Scripting::Manejador::iniciarInterpretes()
     std::list<Interprete*>::iterator it;
     for(it = this->interpretes.begin(); it != this->interpretes.end(); it++)
     {
-        (*it)->iniciar();
+        (*it)->iniciar(*this->tablero);
     }
 }
 

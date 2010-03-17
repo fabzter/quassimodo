@@ -19,7 +19,7 @@ Player::~Player()
 {
 }
 
-void Player::iniciar(const Reglas::Tablero& t, int id)
+void Player::iniciar(int id)
 {
     
 }

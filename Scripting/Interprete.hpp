@@ -16,9 +16,11 @@ class Interprete {
 public:
     /**
      * Realiza la inicialización del interprete, la carga de la vm, etc.
+     * @param t es una referencia al Tablero de la Partida, para poder exponérselo
+     * a los Modulos.
      * @throws ErrorVM si falla la inicialización de la máquina virtual.
      */
-    virtual void iniciar() = 0;
+    virtual void iniciar(Reglas::Tablero &t) = 0;
     /**
      * Finaliza la vm, libera recursos, libera modulos (llamando a su metodo
      * finalizar), etc.

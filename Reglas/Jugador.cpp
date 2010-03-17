@@ -57,9 +57,9 @@ int Reglas::Jugador::getIdentificador() const
     return this->num;
 }
 
-void Reglas::Jugador::iniciar(const Reglas::Tablero& t, int id) const
+void Reglas::Jugador::iniciar(int id) const
 {
-    this->agente->iniciar(t, this->num);
+    this->agente->iniciar(this->num);
 }
 
 Reglas::Jugada Reglas::Jugador::siguienteJugada() const

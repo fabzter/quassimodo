@@ -75,7 +75,7 @@ public:
      * asignado al Jugador.s
      * @param t una referencia constante al Tablero.
      */
-    virtual void iniciar(const Tablero& t, int id) const;
+    virtual void iniciar(int id) const;
 
     /**
      * Delegado de Agente::siguienteJugada. Manda a llamar al método

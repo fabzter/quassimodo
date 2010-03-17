@@ -14,13 +14,13 @@ public:
     InterpretePython(const InterpretePython& orig);
     virtual ~InterpretePython();
 
-    virtual void iniciar();
+    virtual void iniciar(Reglas::Tablero &t);
     virtual void finalizar();
 
     virtual Reglas::Agente *getAgente(std::string ruta);
     virtual bool manejaModulo(std::string ruta);
 private:
-
+    Reglas::Tablero *tablero;
 protected:
     virtual void agregarModulo(std::string ruta);
 };

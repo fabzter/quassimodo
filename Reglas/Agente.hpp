@@ -16,7 +16,7 @@ public:
      * @param t una referencia constante al Tablero.
      *@param id es un entero que le indica al Agente su id de Jugador.
      */
-    virtual void iniciar(const Tablero& t, int id) = 0;
+    virtual void iniciar(int id) = 0;
 
     /**
      *Este método se usa para pedirle al Jugador la siguiente Jugada que piense

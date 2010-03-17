@@ -16,7 +16,7 @@ Scripting::ModuloPython::~ModuloPython()
 {
 }
 
-void Scripting::ModuloPython::cargar(std::string ruta)
+void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
 {
     //creamos el modulo
     this->modulo = boost::python::import("__main__");
@@ -27,8 +27,12 @@ void Scripting::ModuloPython::cargar(std::string ruta)
     //ejecutamos el archivo
     try
     {
-        boost::python::exec("import sys; sys.path.append('../lib')\n", 
+        boost::python::exec("import sys; sys.path.append('../lib')\n"
+                            "import Reglas\n",
                             this->namespace_modulo, this->namespace_modulo);
+        //exponemos el Tablero
+        this->namespace_modulo["tablero"] = boost::python::object(
+                                                        boost::python::ptr(&t));
 
         boost::python::object ignored =
             boost::python::exec_file(boost::python::str(ruta.c_str()),

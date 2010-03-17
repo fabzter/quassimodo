@@ -28,7 +28,7 @@ void Reglas::Partida::iniciarPartida()
 
     for(int id = 0; id < this->tablero->num_jugadores; id++)
     {
-        this->tablero->getJugador(id).iniciar(*this->tablero, id);
+        this->tablero->getJugador(id).iniciar(id);
     }
 
     this->en_curso = true;

@@ -25,7 +25,7 @@ public:
     ModuloPython(const ModuloPython& orig);
     virtual ~ModuloPython();
 
-    virtual void cargar(std::string ruta);
+    virtual void cargar(std::string ruta, Reglas::Tablero &t);
     virtual Reglas::Agente *getAgente();
     virtual void finalizar();
 private:
