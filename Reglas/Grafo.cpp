@@ -115,10 +115,16 @@ const Reglas::Celda& Reglas::Grafo::getMeta(int idJugador) const
 bool Reglas::Grafo::busqueda_recursiva(const Celda& inicio, const Celda& meta,
                                        std::list<Celda*>& visitados) const
 {
+    //revisamos si tiene abiertas las direcciones, de no ser asi regresamos false
+    for(int i = (int)NORTE; i <= (int)OESTE; i++)
+    {
+        if( !inicio.estaLibreDireccion((Direccion)i))
+            return false;
+    }
   //revisamos si la meta es alcanzable a través de inicio
   for(int i = (int)NORTE; i <= (int)OESTE; i++)
   {
-    if(inicio.getHijo((Direccion)i) == meta)
+    if(&inicio.getHijo((Direccion)i) == &meta)
       return true;
   }
 
@@ -127,8 +133,7 @@ bool Reglas::Grafo::busqueda_recursiva(const Celda& inicio, const Celda& meta,
   for(int i = (int)NORTE; i <= (int)OESTE; i++)
   {
     //revisamos si se puede avanzar y que no está en visitados...
-    if(inicio.estaLibreDireccion((Direccion)i) && 
-       std::count(visitados.begin(), visitados.end(),
+    if(std::count(visitados.begin(), visitados.end(),
                   &inicio.getHijo((Direccion)i)) == 0 )
     {
       if(this->busqueda_recursiva(inicio.getHijo((Direccion)i), meta, visitados) )

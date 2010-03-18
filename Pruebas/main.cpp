@@ -36,8 +36,26 @@ int main(int argc, char** argv)
 
     t.setJugadores(jugadores);
 
+    Barrera b1;
+    Barrera b2;
+    Barrera b3;
+    Barrera b4;
+    Barrera b5;
+    Barrera b6;
+    Barrera b7;
+
+    b1.colocar(1, 4, ESTE);
+    b2.colocar(3, 4, ESTE);
+    b3.colocar(5, 4, ESTE);
+    //b4.colocar(7, 4, ESTE);
+    t.setBarrera(0, b1);
+    t.setBarrera(0, b2);
+    t.setBarrera(0, b3);
+    //t.setBarrera(0, b4);
+
     Partida *p = new Partida(&t);
 
+    cout << t << endl;
     try{
     p->iniciarPartida();
     }

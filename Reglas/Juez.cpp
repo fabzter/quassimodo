@@ -286,18 +286,22 @@ void Reglas::Juez::regla_6(Reglas::Jugada& j, int idJugador)
 
     this->tablero->setBarrera(idJugador, b);
 
-    bool hayCamino = false;
+    bool hayCamino = true;
     for(int i = 0; i < this->tablero->jugadores.size(); i++)
     {
         int id = this->tablero->jugadores.at(i)->getIdentificador();
-        hayCamino = hayCamino && this->tablero->grafo->hayCaminoMeta(id);
+        bool temp = this->tablero->grafo->hayCaminoMeta(id);
+        hayCamino = hayCamino && temp;
     }
+
+    this->tablero->quitarBarrera(idJugador, b);
+    
     if(!hayCamino)
     {
-        this->tablero->quitarBarrera(idJugador, b);
         strs << "El jugador " <<idJugador << " intento colocar una barrera en ("
                 << j.getPosicion().at(0) << ',' << j.getPosicion().at(1) <<
                 ") que cierra el camino a la meta.";
+        throw ReglasRotas(strs.str());
     }
 }
 
@@ -306,13 +310,13 @@ void Reglas::Juez::regla_7(Reglas::Jugada& j, int idJugador)
     if(j.getTipoDeJugada() != BARRERA)
         return;
 
-    Barrera b;
-    b.colocar(j.getPosicion(), j.getDireccion());
-
     std::ostringstream strs;
     strs << "El jugador " << idJugador << " intento colocar una barrera en (" <<
             j.getPosicion().at(0) << ',' << j.getPosicion().at(1) << ") que se "
             "traslapa con otra.";
+
+    Barrera b;
+    b.colocar(j.getPosicion(), j.getDireccion());
 
     std::list<Barrera>::iterator it;
     for(it = this->tablero->barreras_colocadas.begin();
@@ -325,6 +329,9 @@ void Reglas::Juez::regla_7(Reglas::Jugada& j, int idJugador)
                  ||
                (it->getPuntoMedio().at(0) == b.getPosicion().at(0) &&
                it->getPuntoMedio().at(1) == b.getPosicion().at(1))
+                ||
+               (b.getPuntoMedio().at(0) == it->getPosicion().at(0) &&
+                b.getPuntoMedio().at(1) == it->getPosicion().at(1))
                 )
             {
                 throw ReglasRotas(strs.str());

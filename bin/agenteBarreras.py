@@ -25,6 +25,10 @@ class AgenteBarreras (Reglas.Agente):
         
         print "Soy jugador ", self.id
         
+        self.num_jugada = 0
+        
+        print "Barreras Colocadas:\n", tablero.getBarrerasColocadas()
+        
         print "Estoy iniciado"
         
         
@@ -37,8 +41,16 @@ class AgenteBarreras (Reglas.Agente):
         celdaActual = self.tab.getCelda(self.id)
         celdaEnemigo = self.tab.getCelda(self.idEnemigo)
         
-        j.setPosicion( celdaEnemigo.getPosicion()[0], celdaEnemigo.getHijo(self.direccionEnemigo).getPosicion()[1] )
-        j.setDireccion( Reglas.Direccion.ESTE )
+        #j.setPosicion( celdaEnemigo.getPosicion()[0], celdaEnemigo.getHijo(self.direccionEnemigo).getPosicion()[1] )
+        if self.num_jugada == 0: 
+            #j.setPosicion( (7, 2) )
+            j.setPosicion( (0, 5) )
+            j.setDireccion( Reglas.Direccion.ESTE )
+        else: 
+            j.setPosicion( (7, 1) )
+            j.setDireccion( Reglas.Direccion.NORTE )
+        
+        self.num_jugada += 1
         
         print self.id, ": Hice mi Jugada"
         return j

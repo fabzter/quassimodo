@@ -60,7 +60,7 @@ private:
     void revisar_reglas(Jugada& j, int idJugador);
 
     /**
-     *Se debe o poner una barrera o moverse.
+     * Se debe o poner una barrera o moverse.
      * @param j una referencia a la Jugada que se quiere revisar.
      * @param idJugador el id del Jugador que realiza la Jugada.
      * @throws ReglasRotas si la Jugada no comple con las reglas.
