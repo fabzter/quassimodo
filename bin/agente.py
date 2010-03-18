@@ -16,7 +16,7 @@ class MiAgente (Reglas.Agente):
     def siguienteJugada(self):
         print self.id, ": Preparo mi jugada"
         jugada = Reglas.Jugada()
-        jugada.setPosicion(9, 8)
+        jugada.setPosicion(4,5)
         jugada.setTipoDeJugada(Reglas.TipoDeJugada.MOVIMIENTO)
         
         for meta in self.tab.getMetas(self.id):

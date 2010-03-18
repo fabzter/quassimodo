@@ -6,7 +6,8 @@ Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,bool sombra)
         this->setVectPosicion(x,0,z);
         this->mesh =smgr->getMesh("Texturas/Antorcha2.3ds");
         this->fuego=smgr->getVideoDriver()->getTexture("Texturas/fire.bmp");
-        this->dibuja(smgr,sombra);
+        this->sombra=sombra;
+        this->dibujaAntorcha(smgr);
 
     }
 
@@ -35,13 +36,10 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
         this->posicionF.Z=posicion.Z+4;
 }
 
-void Grafico::Antorcha::dibuja(scene::ISceneManager* smgr,bool sombra)
+void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
 
-                this->nodoA=smgr->addAnimatedMeshSceneNode( mesh );
-                this->nodoA->setMaterialType(video::EMT_SOLID);
-		this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
-                this->nodoA->setPosition( this->posicion );
+                 this->dibuja(smgr);
 
                  this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),270.0f);
                 //hacemos el fuego
@@ -70,7 +68,7 @@ void Grafico::Antorcha::dibuja(scene::ISceneManager* smgr,bool sombra)
                 ps->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
                 ps->getMaterial(0).NormalizeNormals=true;
 
-                if(sombra)
+                if(this->sombra)
                 {
                    this->nodoA->addShadowVolumeSceneNode();
                    this->nfuego=  smgr->addVolumeLightSceneNode(0, -1,

@@ -25,7 +25,10 @@ Grafico::Pieza::~Pieza() {
    }
 
     void Grafico::Pieza::setPosicion(int x, int y ,int z){
-            this->nodoA->setPosition( this->posicion );
+        this->posicion.X=x;
+        this->posicion.Y=y;
+        this->posicion.Z=z;
+        this->nodoA->setPosition( this->posicion );
            
    }
 
@@ -37,3 +40,10 @@ core::vector3df Grafico::Pieza::getPosicion(){
         return this->posicion;
     }
 
+void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
+
+                this->nodoA=smgr->addAnimatedMeshSceneNode( mesh );
+                this->nodoA->setMaterialType(video::EMT_SOLID);
+		this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
+                this->nodoA->setPosition( this->posicion );
+}
