@@ -115,11 +115,13 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
     if(j.getTipoDeJugada() != MOVIMIENTO)
         return;
     
-  Celda celdaActual(this->tablero->getCelda(idJugador) );
-  Celda celdaJugada(this->tablero->getCelda(j.getPosicion()) );
-  std::ostringstream strs;
+    std::ostringstream strs;
+    bool res = false;
+    int dir_jugada = (int)j.getDireccion();
+    
+  const Celda &celdaActual = this->tablero->getCelda(idJugador);
+  const Celda &celdaJugada = this->tablero->getCelda(j.getPosicion());
 
-  bool res = false;
 
   res = this->es_hijo(j.getPosicion(), celdaActual);
 
@@ -139,9 +141,9 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
       //si se quiere llegar a una celda que no es hijo de la actual...
       //nos movemos una posicion en la direccion de la Jugada.
       //calculamos la direccion
-      std::vector<int> vect_dir (this->getVectDireccion(j.getPosicion(),
+      std::vector<int> vect_dir(this->getVectDireccion(j.getPosicion(),
                                                     celdaActual.getPosicion()));
-      int dir_jugada = this->getDireccionMovimiento(vect_dir);
+      dir_jugada = this->getDireccionMovimiento(vect_dir);
       //si se meueve en diagonal
       if(dir_jugada == -1)
       {
@@ -153,17 +155,13 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
           //si se mueve un lugar
           else{
               //obtenemos la direccion Horizontal del movimiento
-              std::vector<int> vect_dir_A;
-              vect_dir_A.push_back( j.getPosicion().at(0) );
-              vect_dir_A.push_back( celdaActual.getPosicion().at(1) );
+              std::vector<int> vect_dir_A = j.getPosicion();
               Direccion dir_H=(Direccion)this->getDireccionMovimiento(vect_dir_A,celdaActual.getPosicion());
               //obtenemos la direccion Vertical del movimiento
-              vect_dir_A.clear();
-              vect_dir_A.push_back( celdaActual.getPosicion().at(0) );
-              vect_dir_A.push_back( j.getPosicion().at(1) );
+              vect_dir_A = celdaActual.getPosicion();
               Direccion dir_V=(Direccion)this->getDireccionMovimiento(vect_dir_A,celdaActual.getPosicion());
 
-              res= ( &celdaActual.getHijo(dir_H)==NULL && !celdaActual.getHijo(dir_V).estaLibre() ) ||
+              res = ( &celdaActual.getHijo(dir_H)==NULL && !celdaActual.getHijo(dir_V).estaLibre() ) ||
                   ( &celdaActual.getHijo(dir_V)==NULL && !celdaActual.getHijo(dir_H).estaLibre() );
           }
       }
@@ -172,13 +170,13 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
           Celda& hijo = celdaActual.getHijo((Direccion)dir_jugada);
             if( !hijo.estaLibre() )
             {
-              //si la posicion deseada no es dos posiciones adelante en direccion de la jugada
-              //de la celda actual (osea, no se pasa sobre el peon enemigo)
-              if( ! (hijo.getHijo(j.getDireccion()).getPosicion().at(0) ==
-                 j.getPosicion().at(0) &&
-                 hijo.getHijo(j.getDireccion()).getPosicion().at(1) ==
-                 j.getPosicion().at(1)) )
-                  res=false;
+              //revismos si la celda de la Jugada
+                const Celda &nieto = hijo.getHijo((Direccion)dir_jugada);
+
+              if( ! (nieto == celdaJugada) )
+                  res = false;
+              else
+                  res = true;
             }
       }
 

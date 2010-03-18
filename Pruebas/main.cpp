@@ -27,8 +27,8 @@ int main(int argc, char** argv)
     Scripting::Manejador *m = new Scripting::Manejador(t);
     std::vector<Agente*> agentes;
 
-    agentes.push_back(m->getAgente("../bin/agente.py"));
-    agentes.push_back(m->getAgente("../bin/agente.py"));
+    agentes.push_back(m->getAgente("../bin/agenteBarreras.py"));
+    agentes.push_back(m->getAgente("../bin/agenteCamina.py"));
 
     std::vector< Jugador* > jugadores;
     jugadores.push_back(new Jugador(0, agentes[0]));
@@ -60,7 +60,6 @@ int main(int argc, char** argv)
 
     while(p->estaEnCurso())
     {
-        cout << t << endl;
         try
         {
             p->siguienteJugada();
@@ -81,6 +80,7 @@ int main(int argc, char** argv)
             // then restore (again!) the original exception state.
             PyErr_Restore(type, value, traceback);
         }
+        cout << t << endl;
         cin.get();
     }
 
