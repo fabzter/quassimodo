@@ -33,12 +33,12 @@ private:
      /**
      * El módulo de Boost::Python.
      */
-    boost::python::object modulo;
+    boost::python::object modulo_main;
 
     /**
      * El namespace del modulo.
      */
-    boost::python::object namespace_modulo;
+    boost::python::object namespace_modulo_main;
 
     /**
      * Este objeto mantiene LA CLASE derivada de Agente después de que se cargó

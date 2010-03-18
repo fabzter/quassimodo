@@ -67,7 +67,7 @@ int main(int argc, char** argv)
         catch(boost::python::error_already_set& e)
         {
             PyObject *type, *value, *traceback;
-            // Save the error state because PyErr_Print() is going toclear
+            // Save the error state because PyErr_Print() is going to clear
             // it. That's not what we want.
             PyErr_Fetch(&type, &value, &traceback);
             // But whoops, PyErr_Fetch() just cleared the exceptionflag! If

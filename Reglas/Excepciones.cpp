@@ -87,3 +87,13 @@ PiezaNoColocada(what)
 {
 
 }
+
+Reglas::SinHijo::SinHijo() : Excepcion()
+{
+
+}
+Reglas::SinHijo::SinHijo(std::string what) :
+Excepcion(what)
+{
+
+}

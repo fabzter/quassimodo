@@ -38,6 +38,8 @@ void Reglas::Celda::setHijo(Reglas::Direccion d, const Reglas::Celda &c)
 
 Reglas::Celda& Reglas::Celda::getHijo(Direccion d) const
 {
+    if(this->hijos[d] == NULL)
+        throw SinHijo();
     return *this->hijos[d];
 }
 
@@ -80,7 +82,11 @@ void Reglas::Celda::bloquearDireccion(Reglas::Direccion d)
 
 void Reglas::Celda::desbloquearDireccion(Direccion d, Celda &celdaHijo)
 {
-    if(&this->getHijo(d) == NULL)
+    try
+    {
+        this->getHijo(d); //vemos si está bloqueada la direccion
+    }
+    catch(SinHijo &e)
     {
         this->setHijo(d, celdaHijo);
 

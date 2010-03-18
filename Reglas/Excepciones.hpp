@@ -113,6 +113,16 @@ public:
     PartidaNoIniciada();
 };
 
+/**
+ * Excepción arrojada por Celda, cuando se le pide un hijo en una dirección en 
+ * que no tiene.
+ */
+class SinHijo: public Excepcion{
+public:
+    SinHijo(std::string what);
+    SinHijo();
+};
+
 }
 
 #endif	/* _EXCEPCIONES_HPP */
