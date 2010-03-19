@@ -44,10 +44,13 @@ class AgenteBarreras (Reglas.Agente):
         #j.setPosicion( celdaEnemigo.getPosicion()[0], celdaEnemigo.getHijo(self.direccionEnemigo).getPosicion()[1] )
         if self.num_jugada == 0: 
             #j.setPosicion( (7, 2) )
+            j.setPosicion( (1, 3) )
+            j.setDireccion( Reglas.Direccion.NORTE )
+        elif self.num_jugada == 1: 
             j.setPosicion( (0, 5) )
             j.setDireccion( Reglas.Direccion.ESTE )
-        else: 
-            j.setPosicion( (7, 1) )
+        elif self.num_jugada == 2: 
+            j.setPosicion( (8, 3) )
             j.setDireccion( Reglas.Direccion.NORTE )
         
         self.num_jugada += 1

@@ -115,32 +115,33 @@ const Reglas::Celda& Reglas::Grafo::getMeta(int idJugador) const
 bool Reglas::Grafo::busqueda_recursiva(const Celda& inicio, const Celda& meta,
                                        std::list<Celda*>& visitados) const
 {
-    //revisamos si tiene abiertas las direcciones, de no ser asi regresamos false
-    for(int i = (int)NORTE; i <= (int)OESTE; i++)
-    {
-        if( !inicio.estaLibreDireccion((Direccion)i))
-            return false;
-    }
   //revisamos si la meta es alcanzable a través de inicio
-  for(int i = (int)NORTE; i <= (int)OESTE; i++)
-  {
-    if(&inicio.getHijo((Direccion)i) == &meta)
-      return true;
-  }
-
-  visitados.push_front((Celda*)&inicio);
-
-  for(int i = (int)NORTE; i <= (int)OESTE; i++)
-  {
-    //revisamos si se puede avanzar y que no está en visitados...
-    if(std::count(visitados.begin(), visitados.end(),
-                  &inicio.getHijo((Direccion)i)) == 0 )
+    if(inicio.tieneHijo(meta))
     {
-      if(this->busqueda_recursiva(inicio.getHijo((Direccion)i), meta, visitados) )
         return true;
     }
-  }
 
-  return false;
+    visitados.push_front((Celda*)&inicio);
 
+    for(int i = (int)NORTE; i <= (int)OESTE; i++)
+    {
+        const Celda *hijo = NULL; //hijo de la celda inicio
+        try
+        {
+            hijo = &inicio.getHijo( (Direccion)i );
+        }
+        catch(SinHijo &e) //si no tiene hijo, no buscamos por ahi..
+        {
+                continue;
+        }
+        //revisamos que el hijo no está en visitados ya
+        if(std::count(visitados.begin(), visitados.end(), hijo) == 0 )
+        {
+            if(this->busqueda_recursiva(inicio.getHijo((Direccion)i), meta,
+                                        visitados) )
+                return true;
+
+        }
+    }
+    return false;
 }

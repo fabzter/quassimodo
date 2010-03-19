@@ -28,6 +28,7 @@ int main(int argc, char** argv)
     std::vector<Agente*> agentes;
 
     agentes.push_back(m->getAgente("../bin/agenteBarreras.py"));
+    //agentes.push_back(m->getAgente("../bin/agenteCamina2.py"));
     agentes.push_back(m->getAgente("../bin/agenteCamina.py"));
 
     std::vector< Jugador* > jugadores;
@@ -47,11 +48,11 @@ int main(int argc, char** argv)
     b1.colocar(1, 4, ESTE);
     b2.colocar(3, 4, ESTE);
     b3.colocar(5, 4, ESTE);
-    //b4.colocar(7, 4, ESTE);
+    b4.colocar(7, 4, ESTE);
     t.setBarrera(0, b1);
     t.setBarrera(0, b2);
     t.setBarrera(0, b3);
-    //t.setBarrera(0, b4);
+    t.setBarrera(0, b4);
 
     Partida *p = new Partida(&t);
 
