@@ -4,6 +4,8 @@
 #include "Pieza.hpp"
 #include<Reglas/Tablero.hpp>
 #include<irrlicht/irrlicht.h>
+#include<vector>
+#include"Celda.hpp"
 
 namespace Grafico{
     using namespace irr;
@@ -24,10 +26,18 @@ public:
      */
     Tablero(const Tablero& orig);
     virtual ~Tablero();
+    /**
+     *Metodo encargado de dibujar todo tanto el tablero como las celdas
+     * @param smgr Un apuntador al  manejador de la escena
+     */
+    void DibujaTodo(scene::ISceneManager* smgr);
     
 
 private:
-
+    /**
+     * Vector de vectores en que contiene las celdas que se van a dibujar en la escena
+     */
+    std::vector <std::vector<Grafico::Celda*> > datos;
 };
 }
 

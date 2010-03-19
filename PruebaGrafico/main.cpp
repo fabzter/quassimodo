@@ -12,6 +12,7 @@
 #include<irrlicht/irrlicht.h>
 #include<vector>
 #include<Grafico/Tablero.hpp>
+#include<Grafico/Celda.hpp>
 
 using namespace irr;
 using namespace Grafico;
@@ -43,7 +44,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
                 //texturas!!!!
         video::ITexture *barrera= driver->getTexture( "Texturas/barrera.jpg" ) ;
-        video::ITexture *celda= driver->getTexture( "Texturas/celda7.jpg" ) ;
+     //   video::ITexture *celda= driver->getTexture( "Texturas/celda7.jpg" ) ;
          video::ITexture *tablero= driver->getTexture( "Texturas/celda7.jpg" ) ;
            video::ITexture *sky= driver->getTexture( "Texturas/3.tree.skydome.png" ) ;
             smgr->setShadowColor(video::SColor(150,0,0,0));
@@ -91,10 +92,12 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
             }
 
         }*/
-         //Tablero *a=new Tablero(smgr);
+         //
+         Tablero *t=new Tablero(smgr);
          Antorcha *a=new Antorcha(smgr,0,0);
-          a->setPosicion(10,0,0);
-          smgr->addSkyDomeSceneNode(sky);
+          //a->setPosicion(10,0,0);
+         // smgr->addSkyDomeSceneNode(sky);
+         // Celda *c=new Celda(smgr);
 
 while(device->run())
 	{
