@@ -29,13 +29,7 @@ using namespace irr;
          *Destructor de la clase Antorcha
          */
         virtual ~Antorcha();
-        /**
-         *Método encargado de dibujar la antorcha, este sólo se llama una sola vez pues depues de ser dibujado, el manejador de la
-         * escena se encarga de mantenerlo.
-         * @param smgr Un apuntador al  manejador de la escena
-         * @param sombra Un booleano que indica si la antorcha llevara sombra o no
-         */
-        void dibuja(scene::ISceneManager* smgr,bool sombra);
+     
         /**
          *Método encargado de colocar a la antorcha en una nueva posición
          * @param posicion un vector3df que contiene la nueva posición en donde se desea colocar la antorcha
@@ -53,6 +47,11 @@ using namespace irr;
          * @return Un vector3df que indica la posicin de la antorcha
          */
         core::vector3df getPosicionAntorcha();
+           /**
+         *Metodo que se encarga de dibujar la pieza
+         * @param smgr un apuntador al manejador de la escena
+         */
+       void dibujaAntorcha(scene::ISceneManager* smgr);
 
     private:
         /**
@@ -77,6 +76,10 @@ using namespace irr;
          * La textura o la imagen que la que el fuego toma
          */
         video::ITexture *fuego;
+        /**
+         *una bandera si se quiere sombra o  no
+         */
+         bool sombra;
 
     };
 }

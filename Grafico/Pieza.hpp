@@ -1,7 +1,7 @@
 
 
-#ifndef _PIEZA_HPP
-#define	_PIEZA_HPP
+#ifndef _PIEZA_HPP_
+#define	_PIEZA_HPP_
 #include<irrlicht/irrlicht.h>
 namespace Grafico{
  /**
@@ -48,6 +48,11 @@ public:
          * @return un apuntador al nodo de la pieza
          */
         virtual scene::IAnimatedMeshSceneNode* getNodo();
+        /**
+         *Metodo que se encarga de dibujar la pieza, este método es llamado en el constructor de casi todas las piezas
+         * @param smgr un apuntador al manejador de la escena
+         */
+        virtual void dibuja(scene::ISceneManager* smgr);
 
 protected:
          /**

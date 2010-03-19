@@ -47,13 +47,17 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath /home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -lGrafico
+LDLIBSOPTIONS=-Wl,-rpath /home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath /home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath /home/tokayo/Proyecto/pt/Scripting/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Scripting/dist/Debug/GNU-Linux-x86 -lScripting
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/pruebagrafico
 
 dist/Release/GNU-Linux-x86/pruebagrafico: /home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86/libGrafico.so
+
+dist/Release/GNU-Linux-x86/pruebagrafico: /home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
+
+dist/Release/GNU-Linux-x86/pruebagrafico: /home/tokayo/Proyecto/pt/Scripting/dist/Debug/GNU-Linux-x86/libScripting.so
 
 dist/Release/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
@@ -67,6 +71,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 # Subprojects
 .build-subprojects:
 	cd /home/tokayo/Proyecto/pt/Grafico && ${MAKE}  -f Makefile CONF=Debug
+	cd /home/tokayo/Proyecto/pt/Reglas && ${MAKE}  -f Makefile CONF=Debug
+	cd /home/tokayo/Proyecto/pt/Scripting && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -76,6 +82,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 # Subprojects
 .clean-subprojects:
 	cd /home/tokayo/Proyecto/pt/Grafico && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /home/tokayo/Proyecto/pt/Reglas && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /home/tokayo/Proyecto/pt/Scripting && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -11,6 +11,8 @@
 #include<Grafico/EventReceiver.hpp>
 #include<irrlicht/irrlicht.h>
 #include<vector>
+#include<Grafico/Tablero.hpp>
+#include<Grafico/Celda.hpp>
 
 using namespace irr;
 using namespace Grafico;
@@ -42,9 +44,9 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
                 //texturas!!!!
         video::ITexture *barrera= driver->getTexture( "Texturas/barrera.jpg" ) ;
-        video::ITexture *celda= driver->getTexture( "Texturas/celda7.jpg" ) ;
+     //   video::ITexture *celda= driver->getTexture( "Texturas/celda7.jpg" ) ;
          video::ITexture *tablero= driver->getTexture( "Texturas/celda7.jpg" ) ;
-           //video::ITexture *sky= driver->getTexture( "Texturas/skydome2.jpg" ) ;
+           video::ITexture *sky= driver->getTexture( "Texturas/3.tree.skydome.png" ) ;
             smgr->setShadowColor(video::SColor(150,0,0,0));
             //scene::IAnimatedMesh* mesh = smgr->getMesh("Texturas/Antorcha2.3ds");
 
@@ -52,8 +54,8 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 	//CSampleSceneNode *n =
 	//	new CSampleSceneNode(smgr->getRootSceneNode(), smgr, 666);
 
-         f32 sh=100.0f ,shc=50.0f;
-scene::ISceneNode *n;
+     /*    f32 sh=100.0f ,shc=50.0f;
+        scene::ISceneNode *n;
            //hacemos la base pal tablero
         n= smgr->addCubeSceneNode(TAM_PIEZA,0,666, core::vector3df(4*SCAL_TABLERO_ANCHO,-( TAM_PIEZA*( SCAL_CELDA_GROSOR+(SCAL_CELDA_GROSOR/2) ) ),4*SCAL_TABLERO_ANCHO),core::vector3df(90,90,0), core::vector3df(SCAL_TABLERO_ANCHO, SCAL_TABLERO_ANCHO, 1));
         n-> setMaterialTexture( 0, tablero);
@@ -89,7 +91,14 @@ scene::ISceneNode *n;
 
             }
 
-        }
+        }*/
+         //
+         Tablero *t=new Tablero(smgr);
+         Antorcha *a=new Antorcha(smgr,0,0);
+          //a->setPosicion(10,0,0);
+         // smgr->addSkyDomeSceneNode(sky);
+         // Celda *c=new Celda(smgr);
+
 while(device->run())
 	{
 
