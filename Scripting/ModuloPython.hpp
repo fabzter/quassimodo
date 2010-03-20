@@ -16,6 +16,7 @@
 #include <string>
 
 #include "Excepciones.hpp"
+#include "UtilsPython.hpp"
 
 namespace Scripting{
 class ModuloPython: public Modulo{
@@ -62,7 +63,7 @@ private:
     /**
      * Manejo interno de las excepciones del Modulo.
      */
-    int manejar_excepcion_python(boost::python::error_already_set& e);
+    void manejar_excepcion_python(boost::python::error_already_set& e);
 };
 }
 #endif	/* _MODULOPYTHON_HPP */

@@ -34,6 +34,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Excepciones.o \
 	${OBJECTDIR}/InterpretePython.o \
 	${OBJECTDIR}/ModuloPython.o \
+	${OBJECTDIR}/UtilsPython.o \
 	${OBJECTDIR}/Manejador.o
 
 # C Compiler Flags
@@ -74,6 +75,11 @@ ${OBJECTDIR}/ModuloPython.o: nbproject/Makefile-${CND_CONF}.mk ModuloPython.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ModuloPython.o ModuloPython.cpp
+
+${OBJECTDIR}/UtilsPython.o: nbproject/Makefile-${CND_CONF}.mk UtilsPython.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/UtilsPython.o UtilsPython.cpp
 
 ${OBJECTDIR}/Manejador.o: nbproject/Makefile-${CND_CONF}.mk Manejador.cpp 
 	${MKDIR} -p ${OBJECTDIR}

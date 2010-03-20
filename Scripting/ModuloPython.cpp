@@ -42,10 +42,8 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     }
     catch(boost::python::error_already_set& e)
     {
-        this->manejar_excepcion_python(e);
-        // Propagate the exception.
-        throw;
 
+        this->manejar_excepcion_python(e);
     }
     
     this->esta_cargado = true;
@@ -69,8 +67,6 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
     catch(boost::python::error_already_set& e)
     {
         this->manejar_excepcion_python(e);
-        // Propagate the exception.
-        throw;
     }
     
     return a;
@@ -80,22 +76,11 @@ void Scripting::ModuloPython::finalizar()
     
 }
 
-int Scripting::ModuloPython::manejar_excepcion_python
+void Scripting::ModuloPython::manejar_excepcion_python
                                           (boost::python::error_already_set& e)
 {
-    PyObject *type, *value, *traceback;
-    // Save the error state because PyErr_Print() is going toclear
-    // it. That's not what we want.
-    PyErr_Fetch(&type, &value, &traceback);
-    // But whoops, PyErr_Fetch() just cleared the exceptionflag! If
-    // we now call PyErr_Print(), it thinks there's nothingwrong, and
-    // doesn't print anything! Immediately restore the exceptionso
-    // PyErr_Print() will see it.
-    PyErr_Restore(type, value, traceback);
-    // Okay, print the traceback to stderr...
-    PyErr_Print();
-    // then restore (again!) the original exception state.
-    PyErr_Restore(type, value, traceback);
+    Scripting::manejar_excepcion_python_libre(e, this->namespace_modulo_main,
+                                       this->namespace_modulo_main);
 }
 
 void Scripting::ModuloPython::extraer_clase()
@@ -120,7 +105,6 @@ void Scripting::ModuloPython::extraer_clase()
     catch(boost::python::error_already_set& e)
     {
         this->manejar_excepcion_python(e);
-        throw ScriptMalo();
     }
 
     throw ScriptMalo();
