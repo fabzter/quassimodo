@@ -17,8 +17,32 @@ Scripting::InterpretePython::~InterpretePython()
 
 void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
 {
+    using namespace boost::python;
     this->tablero = &t;
     Py_Initialize();
+
+    //configuramos inicialmente el interprete e python.
+    object modulo_main;
+    object modulo_main_namespace;
+    try
+    {
+        modulo_main = import("__main__");
+        modulo_main_namespace = modulo_main.attr("__dict__");
+
+        exec("import sys; sys.path.append('../lib')\n"
+                                "import Reglas\n"
+                                "if 'clases_creadas' not in dir():\n"
+                                "    clases_creadas = []\n",
+                                modulo_main_namespace, modulo_main_namespace);
+
+            //exponemos el Tablero
+            modulo_main_namespace["tablero"] = object(boost::python::ptr(&t));
+    }
+    catch(error_already_set& e)
+    {
+        manejar_excepcion_python_libre(e, modulo_main_namespace, 
+                                       modulo_main_namespace);
+    }
 }
 
 void Scripting::InterpretePython::finalizar()

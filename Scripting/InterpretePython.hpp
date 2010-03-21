@@ -6,6 +6,7 @@
 #include<boost/python.hpp>
 #include "Interprete.hpp"
 #include "ModuloPython.hpp"
+#include "UtilsPython.hpp"
 
 namespace Scripting{
 class InterpretePython: public Interprete {

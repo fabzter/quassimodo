@@ -24,17 +24,13 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     //obtenemos el diccionario del namespace del modulo
     this->namespace_modulo_main = this->modulo_main.attr("__dict__");
 
+//    >>> path.splitext(path.basename("/usr/hola.py"))
+//      ('hola', '.py')
+
+
     //ejecutamos el archivo
     try
     {
-        boost::python::exec("import sys; sys.path.append('../lib')\n"
-                            "import Reglas\n"
-                            "if 'clases_creadas' not in dir(): clases_creadas = []\n",
-                            this->namespace_modulo_main, this->namespace_modulo_main);
-        //exponemos el Tablero
-        this->namespace_modulo_main["tablero"] = boost::python::object(
-                                                        boost::python::ptr(&t));
-
         boost::python::object ignored =
             boost::python::exec_file(boost::python::str(ruta.c_str()),
                                      this->namespace_modulo_main,
