@@ -31,7 +31,6 @@ void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
 
         exec("import sys, os, os.path\n"
              "sys.path.append('../lib')\n"
-             "sys.path.append('../bin')\n"
              "import Reglas\n", modulo_main_namespace, modulo_main_namespace);
     }
     catch(error_already_set& e)

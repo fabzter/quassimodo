@@ -20,20 +20,29 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
 {
     using namespace std;
     using namespace boost::python;
+    
     if(this->esta_cargado)
         return;
-    string file_name;
     
+    string file_name;
+    string directories;
     //creamos el modulo
     dict locals;
     locals["ruta"] = ruta;
-    this->modulo = import("__main__");
-    this->namespace_modulo = this->modulo.attr("__dict__");
-
     try
     {
+        //primero extraemos la ruta y el nombre del módulo a cargar
+        this->modulo = import("__main__");
+        this->namespace_modulo = this->modulo.attr("__dict__");
+        directories = extract<string>( eval("os.path.dirname(ruta)",
+                        this->namespace_modulo, locals) );
         file_name = extract<string>( eval("os.path.splitext(os.path.basename(ruta))[0]",
                         this->namespace_modulo, locals) );
+        
+        //agregamos la ruta del modulo al path de python
+        locals["ruta"] = directories;
+        exec("sys.path.append(ruta)\n", this->namespace_modulo, locals);
+        
         this->modulo = import(str(file_name));
         //obtenemos el diccionario del namespace del modulo
         this->namespace_modulo = this->modulo.attr("__dict__");
@@ -42,7 +51,7 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
         this->namespace_modulo["tablero"] = object(boost::python::ptr(&t));
 
         //ejecutamos el archivo
-        object ignored = exec_file(boost::python::str(ruta.c_str()),
+        object ignored = exec_file( str(ruta),
                                    this->namespace_modulo,
                                    this->namespace_modulo);
     }
