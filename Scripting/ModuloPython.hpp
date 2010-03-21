@@ -34,18 +34,24 @@ private:
      /**
      * El módulo de Boost::Python.
      */
-    boost::python::object modulo_main;
+    boost::python::object modulo;
 
     /**
      * El namespace del modulo.
      */
-    boost::python::object namespace_modulo_main;
+    boost::python::object namespace_modulo;
 
     /**
      * Este objeto mantiene LA CLASE derivada de Agente después de que se cargó
      * el Modulo.
      */
     boost::python::object agente_clase;
+
+    /**
+     * Nos indica si la clase ya fue extraida para evitar intentar extraerla de
+     * nuevo.
+     */
+    bool esta_extraida_clase;
 
     /**
      * Aqui se guardan apuntadores a las instancias creadas.
