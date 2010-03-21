@@ -28,9 +28,9 @@ int main(int argc, char** argv)
     std::vector<Agente*> agentes;
 
     //agentes.push_back(m->getAgente("../bin/agenteCamina2.py"));
+    //agentes.push_back(m->getAgente("../bin/agenteCamina.py"));
     agentes.push_back(m->getAgente("../bin/agenteCamina.py"));
-    agentes.push_back(m->getAgente("../bin/agenteCamina.py"));
-    //agentes.push_back(m->getAgente("../bin/agenteBarreras.py"));
+    agentes.push_back(m->getAgente("../bin/agenteBarreras.py"));
 
     std::vector< Jugador* > jugadores;
     jugadores.push_back(new Jugador(0, agentes[0]));

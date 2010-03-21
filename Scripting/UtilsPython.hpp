@@ -15,9 +15,6 @@
 
 namespace Scripting
 {
-    using namespace std;
-    using namespace boost::python;
-
     /**
      * Maneja las excepciones que nos llegan de python.
      * @param e la excepcion de python a manejar.
@@ -27,8 +24,8 @@ namespace Scripting
      * de la excepción.
      * @throws ScriptMalo SIEMPRE.
      */
-    void manejar_excepcion_python_libre(error_already_set& e,
-            object &globals, object &locals);
+    void manejar_excepcion_python_libre(boost::python::error_already_set& e,
+            boost::python::object &globals, boost::python::object &locals);
 }
 
 
