@@ -1,7 +1,6 @@
 #ifndef _PARTIDA_HPP
 #define	_PARTIDA_HPP
 #include <list>
-#include <Scripting/Excepciones.hpp>
 #include "Tablero.hpp"
 #include "Juez.hpp"
 #include "Excepciones.hpp"

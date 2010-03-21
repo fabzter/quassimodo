@@ -17,6 +17,7 @@
 
 #include "Excepciones.hpp"
 #include "UtilsPython.hpp"
+#include "AgentePythonWrapper.hpp"
 
 namespace Scripting{
 class ModuloPython: public Modulo{

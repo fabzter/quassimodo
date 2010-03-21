@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="python" projectFiles="true">
+        <itemPath>AgentePythonWrapper.hpp</itemPath>
         <itemPath>InterpretePython.hpp</itemPath>
         <itemPath>ModuloPython.hpp</itemPath>
         <itemPath>UtilsPython.hpp</itemPath>
@@ -22,6 +23,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="python" projectFiles="true">
+        <itemPath>AgentePythonWrapper.cpp</itemPath>
         <itemPath>InterpretePython.cpp</itemPath>
         <itemPath>ModuloPython.cpp</itemPath>
         <itemPath>UtilsPython.cpp</itemPath>

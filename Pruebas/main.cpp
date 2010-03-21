@@ -6,6 +6,7 @@
 #include <Reglas/Juez.hpp>
 #include <Reglas/Partida.hpp>
 #include <Scripting/Manejador.hpp>
+#include <Scripting/Excepciones.hpp>
 #include <vector>
 
 #include "Player.hpp"
@@ -61,22 +62,10 @@ int main(int argc, char** argv)
     try{
     p->iniciarPartida();
     }
-    catch (boost::python::error_already_set& e)
-        {
-            PyObject *type, *value, *traceback;
-            // Save the error state because PyErr_Print() is going toclear
-            // it. That's not what we want.
-            PyErr_Fetch(&type, &value, &traceback);
-            // But whoops, PyErr_Fetch() just cleared the exceptionflag! If
-            // we now call PyErr_Print(), it thinks there's nothingwrong, and
-            // doesn't print anything! Immediately restore the exceptionso
-            // PyErr_Print() will see it.
-            PyErr_Restore(type, value, traceback);
-            // Okay, print the traceback to stderr...
-            PyErr_Print();
-            // then restore (again!) the original exception state.
-            PyErr_Restore(type, value, traceback);
-        }
+    catch (Scripting::ScriptMalo &e)
+    {
+        cout << "Error en un Script: \n" << e.what() << endl;
+    }
 
     while(p->estaEnCurso())
     {
@@ -84,21 +73,14 @@ int main(int argc, char** argv)
         {
             p->siguienteJugada();
         }
-        catch(boost::python::error_already_set& e)
+        catch(Scripting::ScriptMalo &e)
         {
-            PyObject *type, *value, *traceback;
-            // Save the error state because PyErr_Print() is going to clear
-            // it. That's not what we want.
-            PyErr_Fetch(&type, &value, &traceback);
-            // But whoops, PyErr_Fetch() just cleared the exceptionflag! If
-            // we now call PyErr_Print(), it thinks there's nothingwrong, and
-            // doesn't print anything! Immediately restore the exceptionso
-            // PyErr_Print() will see it.
-            PyErr_Restore(type, value, traceback);
-            // Okay, print the traceback to stderr...
-            PyErr_Print();
-            // then restore (again!) the original exception state.
-            PyErr_Restore(type, value, traceback);
+           cout << "Error en un Script: \n" << e.what() << endl;
+        }
+        catch(ReglasRotas &e)
+        {
+           cout << "Se rompieron la reglas!: \n" << e.what() << endl;
+           break;
         }
         cout << t << endl;
         cin.get();

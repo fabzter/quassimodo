@@ -70,6 +70,7 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
         throw ModuloNoCargado();
 
     Reglas::Agente *a = NULL;
+    AgentePythonWrapper *aWrap = NULL;
     try
     {
         this->extraer_clase();
@@ -78,13 +79,15 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
         
         a = extract<Reglas::Agente*>
                 (this->instancias_clase.front());
+
+        aWrap = new AgentePythonWrapper(a);
     }
     catch(error_already_set& e)
     {
         this->manejar_excepcion_python(e);
     }
     
-    return a;
+    return aWrap;
 }
 void Scripting::ModuloPython::finalizar()
 {

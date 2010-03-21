@@ -31,11 +31,12 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Excepciones.o \
-	${OBJECTDIR}/InterpretePython.o \
+	${OBJECTDIR}/AgentePythonWrapper.o \
 	${OBJECTDIR}/ModuloPython.o \
 	${OBJECTDIR}/UtilsPython.o \
-	${OBJECTDIR}/Manejador.o
+	${OBJECTDIR}/Manejador.o \
+	${OBJECTDIR}/Excepciones.o \
+	${OBJECTDIR}/InterpretePython.o
 
 # C Compiler Flags
 CFLAGS=
@@ -61,15 +62,10 @@ dist/Debug/GNU-Linux-x86/libScripting.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libScripting.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
+${OBJECTDIR}/AgentePythonWrapper.o: nbproject/Makefile-${CND_CONF}.mk AgentePythonWrapper.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
-
-${OBJECTDIR}/InterpretePython.o: nbproject/Makefile-${CND_CONF}.mk InterpretePython.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/InterpretePython.o InterpretePython.cpp
+	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgentePythonWrapper.o AgentePythonWrapper.cpp
 
 ${OBJECTDIR}/ModuloPython.o: nbproject/Makefile-${CND_CONF}.mk ModuloPython.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -85,6 +81,16 @@ ${OBJECTDIR}/Manejador.o: nbproject/Makefile-${CND_CONF}.mk Manejador.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Manejador.o Manejador.cpp
+
+${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
+
+${OBJECTDIR}/InterpretePython.o: nbproject/Makefile-${CND_CONF}.mk InterpretePython.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/InterpretePython.o InterpretePython.cpp
 
 # Subprojects
 .build-subprojects:
