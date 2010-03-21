@@ -18,36 +18,45 @@ Scripting::ModuloPython::~ModuloPython()
 
 void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
 {
+    using namespace std;
+    using namespace boost::python;
     if(this->esta_cargado)
         return;
+    string file_name;
     
     //creamos el modulo
-    this->modulo = boost::python::import("__main__");
-
-    //obtenemos el diccionario del namespace del modulo
+    dict locals;
+    locals["ruta"] = ruta;
+    this->modulo = import("__main__");
     this->namespace_modulo = this->modulo.attr("__dict__");
 
-//    >>> path.splitext(path.basename("/usr/hola.py"))
-//      ('hola', '.py')
-    //ejecutamos el archivo
     try
     {
-        boost::python::object ignored =
-            boost::python::exec_file(boost::python::str(ruta.c_str()),
-                                     this->namespace_modulo,
-                                     this->namespace_modulo);
-    }
-    catch(boost::python::error_already_set& e)
-    {
+        file_name = extract<string>( eval("os.path.splitext(os.path.basename(ruta))[0]",
+                        this->namespace_modulo, locals) );
+        this->modulo = import(str(file_name));
+        //obtenemos el diccionario del namespace del modulo
+        this->namespace_modulo = this->modulo.attr("__dict__");
 
+        //exponemos el Tablero
+        this->namespace_modulo["tablero"] = object(boost::python::ptr(&t));
+
+        //ejecutamos el archivo
+        object ignored = exec_file(boost::python::str(ruta.c_str()),
+                                   this->namespace_modulo,
+                                   this->namespace_modulo);
+    }
+    catch(error_already_set& e)
+    {
         this->manejar_excepcion_python(e);
     }
-    
+
     this->esta_cargado = true;
 }
 
 Reglas::Agente* Scripting::ModuloPython::getAgente()
 {
+    using namespace boost::python;
     if(!this->esta_cargado)
         throw ModuloNoCargado();
 
@@ -58,10 +67,10 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
 
         this->instancias_clase.push_front( this->agente_clase() );
         
-        a = boost::python::extract<Reglas::Agente*>
+        a = extract<Reglas::Agente*>
                 (this->instancias_clase.front());
     }
-    catch(boost::python::error_already_set& e)
+    catch(error_already_set& e)
     {
         this->manejar_excepcion_python(e);
     }
@@ -76,7 +85,7 @@ void Scripting::ModuloPython::finalizar()
 void Scripting::ModuloPython::manejar_excepcion_python
                                           (boost::python::error_already_set& e)
 {
-    Scripting::manejar_excepcion_python_libre(e, this->namespace_modulo,
+    manejar_excepcion_python_libre(e, this->namespace_modulo,
                                        this->namespace_modulo);
 }
 
@@ -93,9 +102,9 @@ void Scripting::ModuloPython::extraer_clase()
              "clase = None\n"
              "for i in l:\n"
              "    res = eval(i)\n"
-             "    if type(res) == type(Reglas.Agente) and res not in clases_creadas:\n"
+             "    if type(res) == type(Reglas.Agente):\n"
              "        clase = res\n"
-             "        clases_creadas.append(res);break\n"
+             "        break\n"
              "if clase is None: raise Error()\n"
                 , this->namespace_modulo, this->namespace_modulo);
         this->agente_clase = this->namespace_modulo["clase"];

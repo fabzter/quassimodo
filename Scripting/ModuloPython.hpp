@@ -20,7 +20,6 @@
 
 namespace Scripting{
 class ModuloPython: public Modulo{
-
 public:
     ModuloPython();
     ModuloPython(const ModuloPython& orig);

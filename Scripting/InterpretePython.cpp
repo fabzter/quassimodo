@@ -29,14 +29,10 @@ void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
         modulo_main = import("__main__");
         modulo_main_namespace = modulo_main.attr("__dict__");
 
-        exec("import sys; sys.path.append('../lib')\n"
-                                "import Reglas\n"
-                                "if 'clases_creadas' not in dir():\n"
-                                "    clases_creadas = []\n",
-                                modulo_main_namespace, modulo_main_namespace);
-
-            //exponemos el Tablero
-            modulo_main_namespace["tablero"] = object(boost::python::ptr(&t));
+        exec("import sys, os, os.path\n"
+             "sys.path.append('../lib')\n"
+             "sys.path.append('../bin')\n"
+             "import Reglas\n", modulo_main_namespace, modulo_main_namespace);
     }
     catch(error_already_set& e)
     {
