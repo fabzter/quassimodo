@@ -5,6 +5,7 @@
 #define	_MODULOPYTHON_HPP
 #include "Modulo.hpp"
 #include <Reglas/Agente.hpp>
+#include <Reglas/AyudanteDeAgente.hpp>
 
 #include <boost/python.hpp>
 #include <boost/python/enum.hpp>
@@ -12,7 +13,6 @@
 #include <boost/python/module.hpp>
 #include <boost/python/object.hpp>
 #include <boost/python/import.hpp>
-#include <ctime>
 #include <string>
 
 #include "Excepciones.hpp"
@@ -57,6 +57,8 @@ private:
      * Aqui se guardan apuntadores a las instancias creadas.
      */
     std::list<boost::python::object> instancias_clase;
+
+    Reglas::AyudanteDeAgente *ayudante;
 
     /**
      * Extrae la clase Derivada de Agente del Modulo.

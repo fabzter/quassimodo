@@ -29,7 +29,7 @@ void export_tablero()
         return_value_policy<reference_existing_object>() )
         
         .def("getMetas", &Tablero::getMetas, 
-        return_value_policy<reference_existing_object>())
+        return_value_policy<reference_existing_object>() )
 
     ;
     //parte 3...v

@@ -7,23 +7,15 @@
 #include <boost/python/suite/indexing/indexing_suite.hpp>
 #include <boost/python/suite/indexing/container_utils.hpp>
 
+#include <Reglas/Jugada.cpp>
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Celda.cpp>
-
+#include <list>
 using namespace boost::python;
 using namespace Reglas;
 
 void export_container_conversions()
 {
-/*lista de enteros*/
-to_python_converter<
-      std::list<int>,
-      to_tuple<
-        std::list<int> > >();
-
-from_python_sequence<
-      std::list<int>,
-      linked_list_policy>();
 
 /*lista de Barrera*/
 to_python_converter<
@@ -33,6 +25,16 @@ to_python_converter<
         
 from_python_sequence<
       std::list<Barrera>,
+      linked_list_policy>();
+      
+/*lista de Jugada*/
+to_python_converter<
+      std::list<Jugada>,
+      to_tuple<
+        std::list<Jugada> > >();
+        
+from_python_sequence<
+      std::list<Jugada>,
       linked_list_policy>();
 
 /*Vectores*/

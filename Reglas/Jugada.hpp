@@ -4,7 +4,6 @@
 #ifndef _JUGADA_HPP
 #define	_JUGADA_HPP
 #include<vector>
-
 #include "Enums.hpp"
 #include "Excepciones.hpp"
 
@@ -13,15 +12,29 @@
  * Cuando el Jugador quiera realizar un movimiento, rellena un objeto Jugada con
  * la información pertinente y lo regresa.
  */
-namespace Reglas
+namespace Reglas{
+    class Barrera;
+    class Celda;
+class Jugada
 {
-class Jugada {
 public:
     /**
      *Constructor por default. Deja la posicion en (0,0), TipoDeJugada en MOVIMIENTO
      * y Direccion en NORTE.
      */
     Jugada();
+
+    /**
+     * Construye la Jugada con las propiedades de una Celda.
+     * @param c la Celda a partir de la cual se quiere construir la Jugada.
+     */
+    Jugada(const Celda &c);
+
+    /**
+     * Construye la Jugada con las propiedades de una Barrera.
+     * @param b la Barrera a partir de la cual se quiere construir la Jugada.
+     */
+    Jugada(const Barrera &b);
     Jugada(const Jugada& orig);
     virtual ~Jugada();
 

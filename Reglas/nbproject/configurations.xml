@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Agente.hpp</itemPath>
+      <itemPath>AyudanteDeAgente.hpp</itemPath>
       <itemPath>Barrera.hpp</itemPath>
       <itemPath>Celda.hpp</itemPath>
       <itemPath>Enums.hpp</itemPath>
@@ -24,6 +25,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>AyudanteDeAgente.cpp</itemPath>
       <itemPath>Barrera.cpp</itemPath>
       <itemPath>Celda.cpp</itemPath>
       <itemPath>Excepciones.cpp</itemPath>

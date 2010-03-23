@@ -2,11 +2,28 @@
  */
 
 #include "Jugada.hpp"
+#include "Pieza.hpp"
+#include "Barrera.hpp"
+#include "Celda.hpp"
 Reglas::Jugada::Jugada()
 {
   this->direccion = NORTE;
   this->setPosicion(0,0);
   this->tipo = MOVIMIENTO;
+}
+
+Reglas::Jugada::Jugada(const Celda &c)
+{
+    this->direccion = NORTE;
+    this->posicion = c.getPosicion();
+    this->tipo = MOVIMIENTO;
+}
+
+Reglas::Jugada::Jugada(const Barrera &b)
+{
+    this->direccion = b.getDireccion();
+    this->posicion = b.getPosicion();
+    this->tipo = BARRERA;
 }
 
 Reglas::Jugada::Jugada(const Jugada& orig)

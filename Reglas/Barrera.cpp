@@ -2,6 +2,7 @@
  */
 
 #include "Barrera.hpp"
+#include "Jugada.hpp"
 
 Reglas::Barrera::Barrera() : Pieza()
 {
@@ -12,6 +13,30 @@ Reglas::Barrera::Barrera() : Pieza()
     {
         this->punto_medio.at(i) = ( this->punto_final.at(i) = -1 );
     }
+}
+
+Reglas::Barrera::Barrera(Jugada &j) : Pieza(j)
+{
+    this->direccion_actual = j.getDireccion();
+    this->punto_medio.resize(2);
+    this->punto_final.resize(2);
+
+    int deltaX = 0, deltaY = 0;
+    if(j.getDireccion() == NORTE)
+    {
+        deltaY = 1;
+    }
+    if(j.getDireccion() == ESTE)
+    {
+        deltaX = 1;
+    }
+    this->punto_medio.at(0) = this->posicion.at(0) + deltaX;
+    this->punto_medio.at(1) = this->posicion.at(1) + deltaY;
+
+    this->punto_final.at(0) = this->posicion.at(0) + (2*deltaX);
+    this->punto_final.at(1) = this->posicion.at(1) + (2*deltaY);
+
+    this->esta_colocado = true;
 }
 
 Reglas::Barrera::Barrera(const Barrera& orig) : Pieza(orig)

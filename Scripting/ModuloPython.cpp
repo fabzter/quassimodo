@@ -6,6 +6,7 @@
 Scripting::ModuloPython::ModuloPython()
 {
     this->esta_extraida_clase = this->esta_cargado = false;
+    this->ayudante = NULL;
 }
 
 Scripting::ModuloPython::ModuloPython(const ModuloPython& orig)
@@ -14,6 +15,8 @@ Scripting::ModuloPython::ModuloPython(const ModuloPython& orig)
 
 Scripting::ModuloPython::~ModuloPython()
 {
+    if(this->ayudante != NULL)
+        delete this->ayudante;
 }
 
 void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
@@ -49,6 +52,10 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
 
         //exponemos el Tablero
         this->namespace_modulo["tablero"] = object(boost::python::ptr(&t));
+        //exponemos el ayudante
+        this->ayudante = new Reglas::AyudanteDeAgente(t);
+        this->namespace_modulo["ayudante"] =
+                object(boost::python::ptr(this->ayudante));
 
         //ejecutamos el archivo
         object ignored = exec_file( str(ruta),

@@ -40,7 +40,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Jugada.o \
 	${OBJECTDIR}/Juez.o \
 	${OBJECTDIR}/Jugador.o \
-	${OBJECTDIR}/Pieza.o
+	${OBJECTDIR}/Pieza.o \
+	${OBJECTDIR}/AyudanteDeAgente.o
 
 # C Compiler Flags
 CFLAGS=
@@ -115,6 +116,11 @@ ${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
+
+${OBJECTDIR}/AyudanteDeAgente.o: nbproject/Makefile-${CND_CONF}.mk AyudanteDeAgente.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AyudanteDeAgente.o AyudanteDeAgente.cpp
 
 # Subprojects
 .build-subprojects:

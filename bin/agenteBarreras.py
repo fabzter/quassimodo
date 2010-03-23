@@ -12,6 +12,8 @@ class AgenteBarreras (Reglas.Agente):
         self.id = id
         self.idEnemigo = 1 if self.id == 0 else 0
         
+        print tablero.getMetas(id)[0]
+        
         if(self.tab.getMetas(self.id)[0].getPosicion()[1] == 8):
             self.direccion = Reglas.Direccion.NORTE
         elif self.tab.getMetas(self.id)[0].getPosicion()[1] == 0:

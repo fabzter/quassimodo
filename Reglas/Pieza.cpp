@@ -5,6 +5,7 @@
 #include <iosfwd>
 
 #include "Pieza.hpp"
+#include "Jugada.hpp"
 
 Reglas::Pieza::Pieza()
 {
@@ -13,6 +14,12 @@ Reglas::Pieza::Pieza()
   this->posicion.resize(2);
   this->posicion.at(0) = -1;
   this->posicion.at(1) = -1;
+}
+
+Reglas::Pieza::Pieza(Jugada &j)
+{
+    this->esta_colocado = false;
+    this->posicion = j.getPosicion();
 }
 
 Reglas::Pieza::Pieza(const Pieza& orig)

@@ -9,7 +9,7 @@ Reglas_libs = -L. -L../lib -Wl,-R. -Wl,-R../lib -lReglas
 Reglas_cflags = -I../
 
 MODULES = Agente.o Tablero.o container_conversions.o Pieza.o Celda.o Enums.o\
-          Barrera.o Excepciones.o Jugada.o
+          Barrera.o Excepciones.o Jugada.o AyudanteDeAgente.o
             
 Excepciones.o: Excepciones.cpp
 	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC Excepciones.cpp
@@ -34,6 +34,9 @@ Jugada.o: Jugada.cpp
 	
 Tablero.o: Tablero.cpp
 	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC Tablero.cpp
+
+AyudanteDeAgente.o: AyudanteDeAgente.cpp
+	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC AyudanteDeAgente.cpp
 	
 container_conversions.o: container_conversions.cpp container_conversions.h
 	g++ -c $(boost_cflags) $(Reglas_cflags) -fpic -fPIC container_conversions.cpp

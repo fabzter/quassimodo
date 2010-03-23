@@ -9,6 +9,12 @@ Reglas::Celda::Celda() : Pieza()
     this->bloquear(false);
 }
 
+Reglas::Celda::Celda(Jugada &j) : Pieza(j)
+{
+    this->init_hijos();
+    this->bloquear(false);
+}
+
 Reglas::Celda::Celda(const Celda& orig) : Pieza(orig)
 {
     this->init_hijos();
@@ -104,7 +110,6 @@ bool Reglas::Celda::estaLibreDireccion(Reglas::Direccion d) const
 {
     return this->hijos[d] != NULL;
 }
-
 
 void Reglas::Celda::init_hijos()
 {

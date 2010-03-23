@@ -64,6 +64,12 @@ public:
      * algún motivo (como que hay un ganador o se han roto las reglas).
      */
     bool estaEnCurso();
+
+    /**
+     * Nos indica el valor de la bandera hay_ganador
+     * @return true si existe un ganador, false de lo contrario.
+     */
+    bool hayGanador();
     
 private:
 

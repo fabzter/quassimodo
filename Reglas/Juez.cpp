@@ -170,7 +170,7 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
           Celda& hijo = celdaActual.getHijo((Direccion)dir_jugada);
             if( !hijo.estaLibre() )
             {
-              //revismos si la celda de la Jugada
+              //revisamos si la celda de la Jugada
                 const Celda &nieto = hijo.getHijo((Direccion)dir_jugada);
 
               if( ! (nieto == celdaJugada) )
@@ -252,7 +252,11 @@ void Reglas::Juez::regla_4(Reglas::Jugada& j, int idJugador)
                              this->tablero->getCelda(idJugador).getPosicion());
     if(dir_jugada != -1)
     {
-        if(&(this->tablero->getCelda(idJugador).getHijo((Direccion)dir_jugada)) == NULL)
+        try
+        {
+            this->tablero->getCelda(idJugador).getHijo((Direccion)dir_jugada);
+        }
+        catch(SinHijo &e)
         {
             strs << "El Jugador " << idJugador << " intento moverse en hacia una"
                     "direccion bloqueada por una barrera: (" <<

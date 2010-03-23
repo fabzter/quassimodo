@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include "Excepciones.hpp"
+#include "Jugada.hpp"
 
 namespace Reglas{
 /**
@@ -19,6 +20,12 @@ public:
      * la posicion en (-1, -1).
      */
     Pieza();
+    /**
+     * Construye la Pieza a partir de la posición de una Jugada.
+     * @param j una referencia a la Jugada desde la cual se quiere construir
+     * la Pieza.
+     */
+    Pieza(Jugada &j);
     Pieza(const Pieza& orig);
     virtual ~Pieza();
 

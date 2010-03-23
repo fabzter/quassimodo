@@ -9,7 +9,7 @@
 #include "Pieza.hpp"
 
 namespace Reglas{
-
+class Pieza;
 /**
  * //FIXME: documentacion!!!
  * Clase derivada de Pieza. Representa las barreras
@@ -19,9 +19,14 @@ public:
     /**
      * Constructor default. Le da una direcccion Norte, lo pone no colocado, y
      * todos sus puntos en (-1, -1).
-     * @return
      */
     Barrera();
+    /**
+     * Construye la Barrera a partir de los datos de una Jugada.
+     * @param j una referencia a la Jugada desde la cual se quiere construir
+     * una Barrera.
+     */
+    Barrera(Jugada &j);
     Barrera(const Barrera& orig);
     virtual ~Barrera();
 

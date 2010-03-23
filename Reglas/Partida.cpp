@@ -78,3 +78,8 @@ bool Reglas::Partida::estaEnCurso()
 {
     return this->en_curso;
 }
+
+bool Reglas::Partida::hayGanador()
+{
+    return this->hay_ganador;
+}

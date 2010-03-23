@@ -16,6 +16,7 @@
 namespace Reglas{
 class Grafo;
 class Jugador;
+class AyudanteDeAgente;
 /**
  * La clase tablero es un conjunto de celdas. Esta clase nos sirve como interface
  * para poder conocer el estado de las celdas, y de sus lados, asi como para
@@ -25,6 +26,7 @@ class Jugador;
 class Tablero {
 friend class Grafo;
 friend class Juez;
+friend class AyudanteDeAgente;
 public:
     /**
      *El constructor por default. Nos entrega un Tablero con una lista vacia de

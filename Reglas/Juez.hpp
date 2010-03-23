@@ -22,6 +22,7 @@ class Tablero;
  * con bloqueo.)
  */
 class Juez {
+friend class AyudanteDeAgente;
 public:
     /**
      *El constructor más simple de la clase Juez, le pasa el tablero de donde

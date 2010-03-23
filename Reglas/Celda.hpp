@@ -27,6 +27,12 @@ public:
      * como no colocada, y como libre.
      */
     Celda();
+    /**
+     * Construye la Celda a partir de los datos de una Jugada.
+     * @param j una referencia a la Jugada desde la cual se quiere construir
+     * una Celda.
+     */
+    Celda(Jugada &j);
     Celda(const Celda& orig);
     virtual ~Celda();
 
