@@ -122,8 +122,7 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
   const Celda &celdaActual = this->tablero->getCelda(idJugador);
   const Celda &celdaJugada = this->tablero->getCelda(j.getPosicion());
 
-
-  res = this->es_hijo(j.getPosicion(), celdaActual);
+  res = celdaActual.tieneHijo(celdaJugada);
 
   if(!celdaJugada.estaLibre())
   {
@@ -167,6 +166,7 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
       }
       else
       {
+          this->regla_4(j, idJugador);
           Celda& hijo = celdaActual.getHijo((Direccion)dir_jugada);
             if( !hijo.estaLibre() )
             {
