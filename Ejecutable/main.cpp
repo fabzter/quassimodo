@@ -4,12 +4,10 @@
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Jugador.hpp>
 #include <Reglas/Juez.hpp>
-#include <Reglas/Partida.hpp>
+#include "Partida.hpp"
 #include <Scripting/Manejador.hpp>
 #include <Scripting/Excepciones.hpp>
 #include <vector>
-
-#include "Player.hpp"
 
 void probarConversionesDeJugada();
 using namespace Reglas;
@@ -32,7 +30,7 @@ int main(int argc, char** argv)
     jugadores.push_back(new Jugador(1, agentes[1]));
 
     t.setJugadores(jugadores);
-    
+
     Barrera b1;
     Barrera b2;
     Barrera b3;

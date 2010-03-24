@@ -33,7 +33,6 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Grafo.o \
 	${OBJECTDIR}/Tablero.o \
-	${OBJECTDIR}/Partida.o \
 	${OBJECTDIR}/Barrera.o \
 	${OBJECTDIR}/Celda.o \
 	${OBJECTDIR}/Excepciones.o \
@@ -76,11 +75,6 @@ ${OBJECTDIR}/Tablero.o: nbproject/Makefile-${CND_CONF}.mk Tablero.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
-
-${OBJECTDIR}/Partida.o: nbproject/Makefile-${CND_CONF}.mk Partida.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
 
 ${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -14,7 +14,6 @@
       <itemPath>Juez.hpp</itemPath>
       <itemPath>Jugada.hpp</itemPath>
       <itemPath>Jugador.hpp</itemPath>
-      <itemPath>Partida.hpp</itemPath>
       <itemPath>Pieza.hpp</itemPath>
       <itemPath>Tablero.hpp</itemPath>
     </logicalFolder>
@@ -33,7 +32,6 @@
       <itemPath>Juez.cpp</itemPath>
       <itemPath>Jugada.cpp</itemPath>
       <itemPath>Jugador.cpp</itemPath>
-      <itemPath>Partida.cpp</itemPath>
       <itemPath>Pieza.cpp</itemPath>
       <itemPath>Tablero.cpp</itemPath>
     </logicalFolder>

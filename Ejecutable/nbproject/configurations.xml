@@ -4,7 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Player.hpp</itemPath>
+      <itemPath>Partida.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,7 +13,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Player.cpp</itemPath>
+      <itemPath>Partida.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -32,18 +32,29 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <developmentMode>0</developmentMode>
+          <stripSymbols>true</stripSymbols>
           <incDir>
             <pElem>..</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>DEBUG</Elem>
-          </preprocessorList>
         </ccTool>
         <linkerTool>
-          <linkerDynSerch>
+          <linkerAddLib>
             <pElem>../lib</pElem>
-          </linkerDynSerch>
+          </linkerAddLib>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Grafico"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Grafico"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libGrafico.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../Reglas"
                             CT="2"
@@ -70,28 +81,6 @@
             </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
-        <requiredProjects>
-          <makeArtifact PL="../Reglas"
-                        CT="2"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../Reglas"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="dist/Debug/GNU-Linux-x86/libReglas.so">
-          </makeArtifact>
-          <makeArtifact PL="../Scripting"
-                        CT="2"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../Scripting"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="dist/Debug/GNU-Linux-x86/libScripting.so">
-          </makeArtifact>
-        </requiredProjects>
       </compileType>
     </conf>
     <conf name="Release" type="1">
@@ -105,16 +94,56 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>0</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <incDir>
+            <pElem>..</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
         <linkerTool>
-          <linkerDynSerch>
+          <linkerAddLib>
             <pElem>../lib</pElem>
-          </linkerDynSerch>
+          </linkerAddLib>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Grafico"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Grafico"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libGrafico.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Reglas"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Reglas"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libReglas.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Scripting"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Scripting"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libScripting.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

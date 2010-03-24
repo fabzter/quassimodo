@@ -1,12 +1,10 @@
 #ifndef _PARTIDA_HPP
 #define	_PARTIDA_HPP
 #include <list>
-#include "Tablero.hpp"
-#include "Juez.hpp"
-#include "Excepciones.hpp"
-#include "Jugador.hpp"
-
-namespace Reglas{
+#include <Reglas/Tablero.hpp>
+#include <Reglas/Juez.hpp>
+#include <Reglas/Excepciones.hpp>
+#include <Reglas/Jugador.hpp>
 /**
  * Esta clase es una "fachada" para quien quiere interactuar con el módulo de 
  * Reglas.
@@ -25,7 +23,7 @@ public:
      * hasta que se llame el método iniciarPartida.
      * @param t es un apuntador al Tablero sobre el que se realiza la Partida.
      */
-    Partida(Tablero *t);
+    Partida(Reglas::Tablero *t);
     Partida(const Partida& orig);
 
     /**
@@ -80,17 +78,17 @@ private:
      * @param j es la Jugada con la que se a actualizar el Tablero.
      * @param idJugador es el id del Jugador que realiza la Jugada.
      */
-    void actualizarTablero(Jugada &j, int idJugador);
+    void actualizarTablero(Reglas::Jugada &j, int idJugador);
     /**
      * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se
      * construye la Partida, éste Juez se construye en el contructor de Partida.
      */
-    Juez* juez;
+    Reglas::Juez* juez;
 
     /**
      * Tablero sobre el que se realizará la partida.
      */
-    Tablero* tablero;
+    Reglas::Tablero* tablero;
 
     /**
      * El identificador del Jugador al que se le pedirá la siguiente Jugada.
@@ -112,6 +110,6 @@ private:
       */
      bool en_curso;
 };
-}
+
 #endif	/* _PARTIDA_HPP */
 

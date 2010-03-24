@@ -10,7 +10,6 @@
             <header-extensions>hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
-                <make-dep-project>/home/tokayo/Proyecto/pt/Reglas</make-dep-project>
                 <make-dep-project>../Reglas</make-dep-project>
             </make-dep-projects>
         </data>

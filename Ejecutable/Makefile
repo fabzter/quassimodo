@@ -53,14 +53,14 @@ RANLIB=ranlib
 
 # build
 build: .build-post
-	cp $(CND_ARTIFACT_PATH_${CONF}) ../bin
 
 .build-pre:
 # Add your pre 'build' code here...
 
 .build-post: .build-impl
 # Add your post 'build' code here...
-
+	#movemos a nuestra carpeta de binarios...
+	cp $(CND_ARTIFACT_PATH_${CONF}) ../bin
 
 # clean
 clean: .clean-post

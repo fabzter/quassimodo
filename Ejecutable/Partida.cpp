@@ -1,30 +1,30 @@
 #include "Partida.hpp"
-#include "Juez.hpp"
+#include <Reglas/Juez.hpp>
 
-Reglas::Partida::Partida(Tablero *t)
+Partida::Partida(Reglas::Tablero *t)
 {
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
     
     this->juez = NULL; //esto es solo para destruirlo bien!
     this->tablero = t;
-    this->juez = new Juez(*t);
+    this->juez = new Reglas::Juez(*t);
 }
 
-Reglas::Partida::Partida(const Partida& orig)
+Partida::Partida(const Partida& orig)
 {
 }
 
-Reglas::Partida::~Partida()
+Partida::~Partida()
 {
     if(this->juez != NULL)
         delete this->juez;
 }
 
-void Reglas::Partida::iniciarPartida()
+void Partida::iniciarPartida()
 {
     if(this->en_curso)
-        throw PartidaNoIniciada();
+        throw Reglas::PartidaNoIniciada();
 
     for(int id = 0; id < this->tablero->num_jugadores; id++)
     {
@@ -34,14 +34,14 @@ void Reglas::Partida::iniciarPartida()
     this->en_curso = true;
 }
 
-bool Reglas::Partida::siguienteJugada()
+bool Partida::siguienteJugada()
 {
     if(!this->en_curso)
-        throw PartidaTerminada();
+        throw Reglas::PartidaTerminada();
 
     this->en_curso = false; //si todo sale bien, la regresamos a en_curso = true
     //pedimos la Jugada y enviamos excepciones
-    Jugada j;
+    Reglas::Jugada j;
     j = this->juez->siguienteJugada(this->jugador_en_turno);
     this->en_curso = true;
 
@@ -60,26 +60,26 @@ bool Reglas::Partida::siguienteJugada()
     }
 }
 
-void Reglas::Partida::actualizarTablero(Reglas::Jugada &j, int idJugador)
+void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador)
 {
-    if(j.getTipoDeJugada() == MOVIMIENTO)
+    if(j.getTipoDeJugada() == Reglas::MOVIMIENTO)
     {
         this->tablero->moverJugador(idJugador, j.getPosicion());
     }
-    else if(j.getTipoDeJugada() == BARRERA)
+    else if(j.getTipoDeJugada() == Reglas::BARRERA)
     {
-        Barrera b;
+        Reglas::Barrera b;
         b.colocar(j.getPosicion(), j.getDireccion());
         this->tablero->setBarrera(idJugador, b);
     }
 }
 
-bool Reglas::Partida::estaEnCurso()
+bool Partida::estaEnCurso()
 {
     return this->en_curso;
 }
 
-bool Reglas::Partida::hayGanador()
+bool Partida::hayGanador()
 {
     return this->hay_ganador;
 }

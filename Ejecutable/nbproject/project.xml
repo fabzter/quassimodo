@@ -3,13 +3,14 @@
     <type>org.netbeans.modules.cnd.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>Pruebas</name>
+            <name>Ejecutable</name>
             <make-project-type>0</make-project-type>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
+                <make-dep-project>../Grafico</make-dep-project>
                 <make-dep-project>../Scripting</make-dep-project>
                 <make-dep-project>../Reglas</make-dep-project>
             </make-dep-projects>

@@ -31,7 +31,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Player.o \
+	${OBJECTDIR}/Partida.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -48,46 +48,46 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath ../lib -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting
+LDLIBSOPTIONS=-L../lib -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/pruebas
+	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/ejecutable
 
-dist/Debug/GNU-Linux-x86/pruebas: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
+dist/Debug/GNU-Linux-x86/ejecutable: ../Grafico/dist/Debug/GNU-Linux-x86/libGrafico.so
 
-dist/Debug/GNU-Linux-x86/pruebas: ../Scripting/dist/Debug/GNU-Linux-x86/libScripting.so
+dist/Debug/GNU-Linux-x86/ejecutable: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
-dist/Debug/GNU-Linux-x86/pruebas: ${OBJECTFILES}
+dist/Debug/GNU-Linux-x86/ejecutable: ../Scripting/dist/Debug/GNU-Linux-x86/libScripting.so
+
+dist/Debug/GNU-Linux-x86/ejecutable: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebas ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/ejecutable ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Player.o: nbproject/Makefile-${CND_CONF}.mk Player.cpp 
+${OBJECTDIR}/Partida.o: nbproject/Makefile-${CND_CONF}.mk Partida.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Player.o Player.cpp
+	$(COMPILE.cc) -s -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -s -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
-	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-Linux-x86/pruebas
+	${RM} dist/Debug/GNU-Linux-x86/ejecutable
 
 # Subprojects
 .clean-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug clean
 
