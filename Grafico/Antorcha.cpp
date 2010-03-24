@@ -3,8 +3,9 @@
 using namespace irr;
 
 Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,bool sombra): Pieza(){
+    this->nodoA=NULL;
         this->setVectPosicion(x,0,z);
-        this->mesh =smgr->getMesh("Texturas/Antorcha2.3ds");
+        this->mesh =smgr->getMesh("Texturas/Lumbrera2.3ds");
         this->fuego=smgr->getVideoDriver()->getTexture("Texturas/fire.bmp");
         this->sombra=sombra;
         this->dibujaAntorcha(smgr);
@@ -31,28 +32,35 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
         this->posicion.X=x;
         this->posicion.Y=y;
         this->posicion.Z=z;
-        this->posicionF.X= posicion.X+50;
-        this->posicionF.Y=posicion.Y+108;
-        this->posicionF.Z=posicion.Z+4;
+       core::vector3df v;
+       if(this->nodoA!=NULL)
+           v= this->nodoA->getScale();
+       else
+           v.X=1,v.Y=1,v.Z=1;
+       
+
+        this->posicionF.X= posicion.X+(10*v.X);
+        this->posicionF.Y=posicion.Y+(33*v.Y);
+        this->posicionF.Z=posicion.Z+(25*v.Z);
 }
 
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
 
                  this->dibuja(smgr);
-
-                 this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),270.0f);
+                   this->size =this->nodoA->getBoundingBox().getExtent();
+                 this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),40.0f*this->getEscala().X);
                 //hacemos el fuego
         	scene::IParticleSystemSceneNode* ps =	smgr->addParticleSystemSceneNode(false,nfuego);
                 scene::IParticleEmitter* em = ps->createBoxEmitter(
-		core::aabbox3d<f32>(-7,0,-7,7,1,7), // tamaño del emisor
-		core::vector3df(0.0f,0.06f,0.00f),   // direccion inicial
+		core::aabbox3d<f32>(-2,0,-2,2,1,2), // tamaño del emisor
+		core::vector3df(0.0f,0.02f,0.00f),   // direccion inicial
 		80,100,                             // emit rate
 		video::SColor(0,255,255,255),       // color obscuro
 		video::SColor(0,255,255,255),       // color brillo
 		800,2000,0,                         // min and max age, angle
-		core::dimension2df(5.f,5.f),         // tamaño minimo
-		core::dimension2df(20.f,20.f) );        // taaño maximo
+		core::dimension2df(2.f,2.f),         // tamaño minimo
+		core::dimension2df(7.f,7.f) );        // taaño maximo
 
                 ps->setEmitter(em); // this grabs the emitter
                 em->drop(); // so we can drop it here without deleting it
@@ -91,4 +99,20 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
             this->setPosicion(x,y,z);
             nfuego->setPosition( this->posicionF);
    }
-
+      void Grafico::Antorcha::setPosicionFuego(int x, int y ,int z){
+            //this->setVectPosicion(x,y,z);
+          //  this->setPosicion(x,y,z);
+            this->posicionF.X= x;
+            this->posicionF.Y=y;
+            this->posicionF.Z=z;
+            nfuego->setPosition( this->posicionF);
+   }
+      core::vector3df Grafico::Antorcha::getPosicionFuego(){
+          return this->posicionF;
+      }
+void Grafico::Antorcha::setEscalaAntorcha(int x,int y, int z){
+    this->nfuego->setScale(core::vector3df(x,y,z));
+    this->setEscala(x,y,z);
+    
+    this->setPosicionAntorcha(this->posicion);
+}

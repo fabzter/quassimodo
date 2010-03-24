@@ -42,7 +42,7 @@ public:
          *Regresa la posicion en donde se encuentra colocada la pieza
          * @return Un vector3df que indica la posicion de la pieza
          */
-        virtual irr::core::vector3df getPosicion();
+        virtual irr::core::vector3df getPosicionEscena();
          /**
          *Regresa el nodo en donde está cargada la pieza
          * @return un apuntador al nodo de la pieza
@@ -53,6 +53,23 @@ public:
          * @param smgr un apuntador al manejador de la escena
          */
         virtual void dibuja(scene::ISceneManager* smgr);
+        /**
+         *Método encargado aumentar o disminuir la escala de la pieza
+         * @param x Un entero que representa la escala que tendrá en el eje de las X
+         * @param y Un entero que representa la escala que tendrá en el eje de las Y
+         * @param z Un entero que representa la escala que tendrá en el eje de las Z
+         */
+        virtual void setEscala(int x, int y ,int z);
+            /**
+          *Obtenemos el tamaño de la pieza
+         * @return un vector que tiene el tamaño de cada uno de sus ejes en sus ejes.
+         */
+        core::vector3df getSize();
+         /**
+          *Obtenemos la escala en la que la pieza está dibujada
+         * @return un vector que tiene la escala de cada uno de sus ejes
+         */
+        core::vector3df getEscala();
 
 protected:
          /**
@@ -67,6 +84,10 @@ protected:
          * Un nodo escena en donde es colocadola malla que contiene la pieza
          */
         scene::IAnimatedMeshSceneNode* nodoA;
+        /**
+         * Tamaño de la pieza en los 3 ejes!
+        */
+        core::vector3df size;
 
 };
 }

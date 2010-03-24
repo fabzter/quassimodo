@@ -31,6 +31,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Partida.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -47,7 +48,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath /home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath /home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath /home/tokayo/Proyecto/pt/Scripting/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Scripting/dist/Debug/GNU-Linux-x86 -lScripting
+LDLIBSOPTIONS=-Wl,-rpath ../lib -Wl,-rpath /home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath /home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath /home/tokayo/Proyecto/pt/Scripting/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Scripting/dist/Debug/GNU-Linux-x86 -lScripting
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -62,6 +63,11 @@ dist/Release/GNU-Linux-x86/pruebagrafico: /home/tokayo/Proyecto/pt/Scripting/dis
 dist/Release/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebagrafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/Partida.o: nbproject/Makefile-${CND_CONF}.mk Partida.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -27,7 +27,7 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     //ejecutamos el archivo
     try
     {
-        boost::python::exec("import sys; sys.path.append('../lib')\n"
+        boost::python::exec("import sys; sys.path.append('../lib');i\n"
                             "import Reglas\n"
                             "if 'clases_creadas' not in dir(): clases_creadas = []\n",
                             this->namespace_modulo_main, this->namespace_modulo_main);
