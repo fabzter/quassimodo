@@ -53,7 +53,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lIrrlicht /usr/lib/libGL.so /usr/lib/libXxf86vm.so -Wl,-rpath /home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -L/home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86 -lReglas
+LDLIBSOPTIONS=-lIrrlicht /usr/lib/libGL.so /usr/lib/libXxf86vm.so -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -63,7 +63,7 @@ dist/Release/GNU-Linux-x86/grafico: /usr/lib/libGL.so
 
 dist/Release/GNU-Linux-x86/grafico: /usr/lib/libXxf86vm.so
 
-dist/Release/GNU-Linux-x86/grafico: /home/tokayo/Proyecto/pt/Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
+dist/Release/GNU-Linux-x86/grafico: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
 dist/Release/GNU-Linux-x86/grafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
@@ -72,41 +72,41 @@ dist/Release/GNU-Linux-x86/grafico: ${OBJECTFILES}
 ${OBJECTDIR}/Tablero.o: nbproject/Makefile-${CND_CONF}.mk Tablero.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/lib/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
 
 ${OBJECTDIR}/EventReceiver.o: nbproject/Makefile-${CND_CONF}.mk EventReceiver.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/lib/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
 
 ${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/lib/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
 
 ${OBJECTDIR}/Celda.o: nbproject/Makefile-${CND_CONF}.mk Celda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/lib/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
 
 ${OBJECTDIR}/Antorcha.o: nbproject/Makefile-${CND_CONF}.mk Antorcha.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/lib/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
 
 ${OBJECTDIR}/Jugador.o: nbproject/Makefile-${CND_CONF}.mk Jugador.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/lib/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
 
 ${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/lib/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
 
 # Subprojects
 .build-subprojects:
-	cd /home/tokayo/Proyecto/pt/Reglas && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -115,7 +115,7 @@ ${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd /home/tokayo/Proyecto/pt/Reglas && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

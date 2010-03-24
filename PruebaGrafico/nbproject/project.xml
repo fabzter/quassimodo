@@ -7,11 +7,12 @@
             <make-project-type>0</make-project-type>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions/>
+            <header-extensions>hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
-                <make-dep-project>/home/tokayo/Proyecto/pt/Reglas</make-dep-project>
-                <make-dep-project>/home/tokayo/Proyecto/pt/Scripting</make-dep-project>
+                <make-dep-project>../Grafico</make-dep-project>
+                <make-dep-project>../Scripting</make-dep-project>
+                <make-dep-project>../Reglas</make-dep-project>
                 <make-dep-project>/home/tokayo/Proyecto/pt/Grafico</make-dep-project>
             </make-dep-projects>
         </data>

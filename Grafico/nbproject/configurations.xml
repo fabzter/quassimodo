@@ -46,6 +46,7 @@
         <ccTool>
           <incDir>
             <pElem>..</pElem>
+            <pElem>/usr/lib/irrlicht</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -54,12 +55,12 @@
             <linkerLibFileItem>/usr/lib/libGL.so</linkerLibFileItem>
             <linkerLibFileItem>/usr/lib/libXxf86vm.so</linkerLibFileItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="/home/tokayo/Proyecto/pt/Reglas"
+              <makeArtifact PL="../Reglas"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="/home/tokayo/Proyecto/pt/Reglas"
+                            WD="../Reglas"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="dist/Debug/GNU-Linux-x86/libReglas.so">
@@ -68,12 +69,12 @@
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>
-          <makeArtifact PL="/home/tokayo/Proyecto/pt/Reglas"
+          <makeArtifact PL="../Reglas"
                         CT="2"
                         CN="Debug"
                         AC="true"
                         BL="false"
-                        WD="/home/tokayo/Proyecto/pt/Reglas"
+                        WD="../Reglas"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="dist/Debug/GNU-Linux-x86/libReglas.so">
@@ -95,6 +96,7 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>..</pElem>
+            <pElem>/usr/lib/irrlicht</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -106,12 +108,12 @@
             <linkerLibFileItem>/usr/lib/libGL.so</linkerLibFileItem>
             <linkerLibFileItem>/usr/lib/libXxf86vm.so</linkerLibFileItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="/home/tokayo/Proyecto/pt/Reglas"
+              <makeArtifact PL="../Reglas"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="/home/tokayo/Proyecto/pt/Reglas"
+                            WD="../Reglas"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="dist/Debug/GNU-Linux-x86/libReglas.so">
@@ -120,7 +122,7 @@
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>
-          <makeArtifact PL="/home/tokayo/Proyecto/pt/Reglas"
+          <makeArtifact PL="../Reglas"
                         CT="2"
                         CN="Debug"
                         AC="true"

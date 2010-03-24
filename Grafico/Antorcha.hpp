@@ -2,7 +2,7 @@
 
 #ifndef _ANTORCHA_HPP
 #define	_ANTORCHA_HPP
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 #include "Pieza.hpp"
 namespace Grafico{
 using namespace irr;
@@ -42,16 +42,32 @@ using namespace irr;
          * @param z Un entero que representa la nueva posición que tendrá en el eje de las Z
          */
         void setPosicionAntorcha(int x, int y ,int z);
-        /**
-         *Regresa la posicion en donde se encuentra colocada la antorcha
-         * @return Un vector3df que indica la posicin de la antorcha
-         */
-        core::vector3df getPosicionAntorcha();
+  
            /**
          *Metodo que se encarga de dibujar la pieza
          * @param smgr un apuntador al manejador de la escena
          */
        void dibujaAntorcha(scene::ISceneManager* smgr);
+       /**
+        *Método encargado de colocar al fuego en una nueva posición
+         * @param x Un entero que representa la nueva posición que tendrá en el eje de las X
+         * @param y Un entero que representa la nueva posición que tendrá en el eje de las Y
+         * @param z Un entero que representa la nueva posición que tendrá en el eje de las Z
+        */
+       void setPosicionFuego(int x, int y ,int z);
+       /**
+        *Regresa la posicion en donde se encuentra colocado el fuego
+         * @return Un vector3df que indica la posicin del fuego
+        */
+       core::vector3df getPosicionFuego();
+       /**
+         *Método encargado aumentar o disminuir la escala de la antorcha
+         * @param x Un entero que representa la escala que tendrá en el eje de las X
+         * @param y Un entero que representa la escala que tendrá en el eje de las Y
+         * @param z Un entero que representa la escala que tendrá en el eje de las Z
+         */
+
+       void setEscalaAntorcha(int x,int y, int z);
 
     private:
         /**

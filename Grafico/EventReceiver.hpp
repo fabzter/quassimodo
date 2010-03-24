@@ -1,7 +1,7 @@
 
 #ifndef _EVENTRECEIVER_HPP
 #define	_EVENTRECEIVER_HPP
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 
 /**
  * El namespace Grafico contiene todo lo relacionado al manejo de la GUI, como la pantalla principal,

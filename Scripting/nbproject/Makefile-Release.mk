@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/python2.6/config -Wl,-rpath . -lboost_python -lpython2.6 -lutil
+LDLIBSOPTIONS=-L/usr/lib/python2.6/config -Wl,-rpath . -lboost_python -lpython2.6 -lutil -ldl
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

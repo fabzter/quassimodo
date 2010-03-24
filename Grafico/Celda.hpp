@@ -3,7 +3,7 @@
 #ifndef _CELDA_HPP_
 #define	_CELDA_HPP_
 #include<Reglas/Celda.hpp>
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 #include"Pieza.hpp"
 
 namespace Grafico{
@@ -26,11 +26,7 @@ public:
     Celda(const Celda& orig);
 
     virtual ~Celda();
-    /**
-     *Obtenemos el tamaño de la celda
-     * @return un vector que tiene el tamaño de cada uno de sus ejes en sus ejes.
-     */
-    core::vector3df getSize();
+
     /**
      *Coloca un apuntador ala celda del namespace de reglas
      * @param celdaR un apuntador al una celda del namespace Reglas.
@@ -38,19 +34,27 @@ public:
     void setCeldaR (const Reglas::Celda *celdaR);
     /**
      *Coloca la celda en la posicion que le corresponde en la escena, según la posicion en la que esta
-     * en la clase Celda del namespace Reglas.
+     * en la clase Celda del namespace Reglas. a partir de los parametros dados será la posicion que se mueva
+     * por ejemplo si x, y z son cero la celda con coordenadas (0,0) estara colocada en (x,y,z) osea en 0,0,0
+      * @param x Un entero que representa la posición que tendrá en el eje de las X
+      * @param y Un entero que representa la posición que tendrá en el eje de las Y
+      * @param z Un entero que representa la posición que tendrá en el eje de las Z
      */
-    void colocar();
+    void colocar(int x=0,int y=0,int z=0);
+     /**
+         *Método encargado aumentar o disminuir la escala de la celda
+         * @param x Un entero que representa la escala que tendrá en el eje de las X
+         * @param y Un entero que representa la escala que tendrá en el eje de las Y
+         * @param z Un entero que representa la escala que tendrá en el eje de las Z
+         */
+    void SetEscalaCelda(int x, int y, int z);
 private:
     /**
      * Un apuntador a  una clase de Reglas::Celda esta apunta a una celda en el tablero
      *
      */
     const Reglas::Celda *celdaR;
-    /**
-     * Tamaño de la celda en los 3 ejes!
-     */
-     core::vector3df size;
+    
 
 };
 }

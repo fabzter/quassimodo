@@ -9,11 +9,15 @@
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Constantes.hpp>
 #include<Grafico/EventReceiver.hpp>
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 #include<vector>
 #include<Grafico/Tablero.hpp>
 #include<Grafico/Celda.hpp>
-
+#include<Reglas/Agente.hpp>
+#include<Scripting/Manejador.hpp>
+#include<Grafico/Jugador.hpp>
+#include<Grafico/Barrera.hpp>
+#include"Partida.hpp"
 using namespace irr;
 using namespace Grafico;
 
@@ -24,7 +28,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 	// create device
        EventReceiver receiver;
 
-	IrrlichtDevice* device = createDevice(driverType,
+	IrrlichtDevice* device = irr::createDevice(driverType,
 			core::dimension2d<u32>(800, 600), 16, false, true, false,&receiver);
 
 
@@ -40,7 +44,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
       int x=0,y=0,z=0;
      // scene::ICameraSceneNode* cam= smgr->addCameraSceneNode(0, core::vector3df(x,y,z), core::vector3df(0,0,0));
-     scene::ICameraSceneNode* cam =  smgr->addCameraSceneNodeMaya(0,200.f,200.f,0);
+     scene::ICameraSceneNode* cam =  smgr->addCameraSceneNodeMaya(0,200.f,200.f,200.0f);
 
                 //texturas!!!!
         video::ITexture *barrera= driver->getTexture( "Texturas/barrera.jpg" ) ;
@@ -93,12 +97,20 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
         }*/
          //
-         Tablero *t=new Tablero(smgr);
-         Antorcha *a=new Antorcha(smgr,0,0);
+         
+            Partida *p=new Partida(smgr);
+            Grafico::Antorcha*a;//=new Antorcha(smgr,0,0);
+         //Barrera *b=new Barrera(smgr);
+         //Celda *c=new Celda(smgr);
+         /*Scripting::Manejador *m = new Scripting::Manejador(*t);
+         Reglas::Agente *ag=m->getAgente("../bin/agenteBarreras.py");
+         Jugador *j=new Jugador(smgr,0,ag);*/
           //a->setPosicion(10,0,0);
          // smgr->addSkyDomeSceneNode(sky);
          // Celda *c=new Celda(smgr);
-
+      //  int x=0,y=0,z=0;
+          core::vector3df v;//=a->getPosicionEscena();
+          // x=v.X,y=v.Y,z=v.Z;
 while(device->run())
 	{
 
@@ -106,8 +118,33 @@ while(device->run())
 		{
 
 		driver->beginScene(true, true, video::SColor(0,00,00,00));
+                if(receiver.IsKeyDown(irr::KEY_KEY_Q)){
+                    p->SetEscala(1,1,1);
 
+                }
+                if(receiver.IsKeyDown(irr::KEY_KEY_W)){
+                   p->SetEscala(2,2,2);
+                }
+                if(receiver.IsKeyDown(irr::KEY_KEY_A)){
+                    p->SetBarrera(2,1);
 
+                }
+                if(receiver.IsKeyDown(irr::KEY_KEY_S)){
+                     p->SetBarrera(3,2);
+                }
+                if(receiver.IsKeyDown(irr::KEY_KEY_Z)){
+                    a->setPosicionAntorcha(x,y,z++);
+                }
+                if(receiver.IsKeyDown(irr::KEY_KEY_X)){
+                    a->setPosicionAntorcha(x,y,z--);
+                    
+                }
+                if(receiver.IsKeyDown(irr::KEY_KEY_P)){
+                    v=a->getPosicionEscena();
+                   std::cout<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+                    
+                }
+                
 
                 smgr->drawAll();
                 driver->endScene();

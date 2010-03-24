@@ -4,7 +4,7 @@
 #define	_BARRERA_HPP_
 #include<Reglas/Barrera.hpp>
 #include"Pieza.hpp"
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 
 namespace Grafico{
   using namespace irr;

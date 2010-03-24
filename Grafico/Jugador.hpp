@@ -1,7 +1,7 @@
 
 #ifndef _JUGADOR_HPP_
 #define	_JUGADOR_HPP_
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 #include"Pieza.hpp"
 #include<Reglas/Jugador.hpp>
 

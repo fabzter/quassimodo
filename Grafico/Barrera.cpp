@@ -4,7 +4,7 @@ using namespace irr;
 
 Grafico::Barrera:: Barrera(scene::ISceneManager* smgr) {
 
-      this->mesh=smgr->getMesh("Texturas/Antorcha2.3ds");
+      this->mesh=smgr->getMesh("Texturas/Barrera.3ds");
     this->dibuja(smgr);
 }
 
