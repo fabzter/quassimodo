@@ -25,7 +25,6 @@ Reglas::AyudanteDeAgente::getMovimientosPosibles(int numJugador)
     std::list<Jugada> jugadas;
     const Celda &celda_actual = this->tablero->getCelda(numJugador);
     const std::vector<int> &pos_actual = celda_actual.getPosicion();
-    int deltaX, deltaY;
     
     for(int dir = (int)NORTE; dir <= (int)OESTE; dir++)
     {
@@ -100,4 +99,35 @@ void Reglas::AyudanteDeAgente::agregarJugadaSelectivamente(int numJugador,
         return;
     }
     js.push_back(j);
+}
+
+std::list<Reglas::Jugada>
+Reglas::AyudanteDeAgente::getBarrerasPosibles(int numJugador)
+{
+    std::list<Jugada> jugadas;
+    if(this->tablero->getJugador(numJugador).getBarrerasDisponibles() == 0)
+    {
+        return jugadas;
+    }
+
+    Jugada j;
+    j.setTipoDeJugada(BARRERA);
+    for(int y = 0; y < Tablero::size_y; y++)
+    {
+        for(int x = 0; x < Tablero::size_x; x++)
+        {
+            j.setPosicion(x, y);
+            for(int dir = (int)NORTE; dir <= (int)ESTE; dir++)
+            {
+                j.setDireccion((Direccion)dir);
+                try
+                {
+                    this->juez->revisar_reglas(j, numJugador);
+                    jugadas.push_back(j);
+                }
+                catch(ReglasRotas &e){/*jiji*/}
+            }
+        }
+    }
+    return jugadas;
 }

@@ -25,14 +25,25 @@ public:
     virtual ~AyudanteDeAgente();
 
     /**
-     * Nos indica todas las Jugadas de tipo Movimiento que están disponibles
+     * Nos indica todas las Jugadas de tipo MOVIMIENTO que están disponibles
      * para el Jugador solicitado.
      * @param numJugador el número del Jugador del cuál se quiere saber sus
      * Jugadas.
      * @return una lista de las Jugadas de cada uno de los movimientos que tiene
-     * disponible el jugador.
+     * disponible el Jugador.
      */
     std::list<Jugada> getMovimientosPosibles(int numJugador);
+
+    /**
+     * Nos indica todas las Jugadas de tipo BARRERA que están disponibles para
+     * el Jugador solicitado. Regresa una lista vacía si el Jugador no tiene
+     * ya Barreras.
+     * @param numJugador numJugador el número del Jugador del cuál se quiere saber sus
+     * Jugadas.
+     * @return una lista de las Jugadas de cada uno de las Barreras que tiene
+     * disponibles a colocar el Jugador.
+     */
+    std::list<Jugada> getBarrerasPosibles(int numJugador);
 private:
     Tablero *tablero;
     Juez *juez;

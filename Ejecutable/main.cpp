@@ -21,9 +21,10 @@ int main(int argc, char** argv)
     std::vector<Agente*> agentes;
 
     agentes.push_back(m->getAgente("../bin/agenteCamina2.py"));
-    agentes.push_back(m->getAgente("../bin/agenteCamina2.py"));
+    //agentes.push_back(m->getAgente("../bin/agenteCamina2.py"));
     //agentes.push_back(m->getAgente("../bin/agenteCamina.py"));
-    //agentes.push_back(m->getAgente("../bin/agenteBarreras.py"));
+    agentes.push_back(m->getAgente("../bin/agenteBarreras.py"));
+    //agentes.push_back(m->getAgente("../bin/agenteBarreras2.py"));
 
     std::vector< Jugador* > jugadores;
     jugadores.push_back(new Jugador(0, agentes[0]));
@@ -51,8 +52,9 @@ int main(int argc, char** argv)
     Partida *p = new Partida(&t);
 
     cout << t << endl;
-    try{
-    p->iniciarPartida();
+    try
+    {
+        p->iniciarPartida();
     }
     catch (Scripting::ScriptMalo &e)
     {

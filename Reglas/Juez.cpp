@@ -2,6 +2,7 @@
  */
 
 #include <vector>
+#include <iostream>
 
 #include "Juez.hpp"
 
@@ -86,7 +87,9 @@ void Reglas::Juez::regla_2(Jugada& j, int idJugador)
 
     //se revisa que no se coloque fuera.
     if(j.getPosicion().at(0) >= tablero->size_x ||
-            j.getPosicion().at(1) >= tablero->size_y )
+       j.getPosicion().at(0) < 0 ||
+       j.getPosicion().at(1) >= tablero->size_y ||
+       j.getPosicion().at(1) < 0)
     {
         strs << "El Jugador " << idJugador << " trato de colocar una pieza "
                 "fuera del tablero, en: " << '(' << j.getPosicion().at(0)
@@ -94,13 +97,14 @@ void Reglas::Juez::regla_2(Jugada& j, int idJugador)
         throw ReglasRotas(strs.str().c_str());
     }
     //se revisa que la barrera no se salga
-    else if(j.getTipoDeJugada() == BARRERA)
+    if(j.getTipoDeJugada() == BARRERA)
     {
-        Barrera b;
-        b.colocar(j.getPosicion(), j.getDireccion());
+        Barrera b(j);
 
-        if(b.getPuntoMedio().at(0) >= this->tablero->size_x
-           || b.getPuntoMedio().at(1) >= this->tablero->size_y)
+        if(b.getPuntoMedio().at(0) >= this->tablero->size_x ||
+           b.getPuntoMedio().at(0) < 0 ||
+           b.getPuntoMedio().at(1) >= this->tablero->size_y ||
+           b.getPuntoMedio().at(1) < 0)
         {
             strs << "El Jugador " << idJugador << " trato de colocar una Barrera "
                 "que sale del tablero, en: " << '(' << j.getPosicion().at(0)
@@ -119,20 +123,20 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
     bool res = false;
     int dir_jugada = (int)j.getDireccion();
     
-  const Celda &celdaActual = this->tablero->getCelda(idJugador);
-  const Celda &celdaJugada = this->tablero->getCelda(j.getPosicion());
+    const Celda &celdaActual = this->tablero->getCelda(idJugador);
+    const Celda &celdaJugada = this->tablero->getCelda(j.getPosicion());
 
-  res = celdaActual.tieneHijo(celdaJugada);
+    res = celdaActual.tieneHijo(celdaJugada);
 
-  if(!celdaJugada.estaLibre())
-  {
-    strs << "El Jugador " << idJugador << " intento colocarse sobre el Jugador "
-            "contrario, en la celda: (" <<
-            celdaActual.getHijo(j.getDireccion()).getPosicion().at(0)
-            << ',' <<
-            celdaActual.getHijo(j.getDireccion()).getPosicion().at(1)
-            <<").";
-    throw ReglasRotas(strs.str());
+    if(!celdaJugada.estaLibre())
+    {
+        strs << "El Jugador " << idJugador << " intento colocarse sobre el Jugador "
+                "contrario, en la celda: (" <<
+                celdaActual.getHijo(j.getDireccion()).getPosicion().at(0)
+                << ',' <<
+                celdaActual.getHijo(j.getDireccion()).getPosicion().at(1)
+                <<").";
+        throw ReglasRotas(strs.str());
   }
 
   if(!res)
@@ -297,8 +301,16 @@ void Reglas::Juez::regla_6(Reglas::Jugada& j, int idJugador)
         bool temp = this->tablero->grafo->hayCaminoMeta(id);
         hayCamino = hayCamino && temp;
     }
-
-    this->tablero->quitarBarrera(idJugador, b);
+    try
+    {
+        this->tablero->quitarBarrera(idJugador, b);
+    }
+    catch(std::out_of_range &e)
+    {
+        strs << "EL Jugador " << idJugador << " intento colocar una barrera en un"
+                "sitio y direccion no permitida.";
+        throw ReglasRotas(strs.str());
+    }
     
     if(!hayCamino)
     {

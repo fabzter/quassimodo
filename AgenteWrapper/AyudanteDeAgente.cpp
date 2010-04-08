@@ -8,5 +8,6 @@ void export_ayudante_de_agente()
 {
     class_<AyudanteDeAgente, boost::noncopyable>("AyudanteDeAgente", no_init)
     .def("getMovimientosPosibles", &AyudanteDeAgente::getMovimientosPosibles)
+    .def("getBarrerasPosibles", &AyudanteDeAgente::getBarrerasPosibles)
     ;
 }
