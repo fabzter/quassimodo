@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   main.cpp
  * Author: tokayo
  *
@@ -29,7 +29,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
        EventReceiver receiver;
 
 	IrrlichtDevice* device = irr::createDevice(driverType,
-			core::dimension2d<u32>(800, 600), 16, false, true, false,&receiver);
+			core::dimension2d<u32>(800, 600), 16, false, false, false,&receiver);
 
 
 	if (device == 0)
@@ -97,14 +97,15 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
         }*/
          //
-         
+
             Partida *p=new Partida(smgr);
             Grafico::Antorcha*a;//=new Antorcha(smgr,0,0);
-         //Barrera *b=new Barrera(smgr);
+            Barrera *b;//=new Barrera(smgr);
+            p->SetJugadores("../bin/agenteBarreras.py","../bin/agenteBarreras.py");
+            p->iniciarPartida();
          //Celda *c=new Celda(smgr);
-         /*Scripting::Manejador *m = new Scripting::Manejador(*t);
-         Reglas::Agente *ag=m->getAgente("../bin/agenteBarreras.py");
-         Jugador *j=new Jugador(smgr,0,ag);*/
+         
+
           //a->setPosicion(10,0,0);
          // smgr->addSkyDomeSceneNode(sky);
          // Celda *c=new Celda(smgr);
@@ -119,32 +120,40 @@ while(device->run())
 
 		driver->beginScene(true, true, video::SColor(0,00,00,00));
                 if(receiver.IsKeyDown(irr::KEY_KEY_Q)){
-                    p->SetEscala(1,1,1);
+                  //  p->SetEscala(1,1,1);
+                    b->setPosicion(x++,y,z);
 
                 }
                 if(receiver.IsKeyDown(irr::KEY_KEY_W)){
                    p->SetEscala(2,2,2);
+                   // b->setPosicion(x--,y,z);
                 }
                 if(receiver.IsKeyDown(irr::KEY_KEY_A)){
                     p->SetBarrera(2,1);
+                    //b->setPosicion(x,y++,z);
 
                 }
                 if(receiver.IsKeyDown(irr::KEY_KEY_S)){
-                     p->SetBarrera(3,2);
+                    p->SetBarrera(3,1);
+                    //b->setPosicion(x,y--,z);
                 }
                 if(receiver.IsKeyDown(irr::KEY_KEY_Z)){
-                    a->setPosicionAntorcha(x,y,z++);
+                    p->giraNorte();
                 }
                 if(receiver.IsKeyDown(irr::KEY_KEY_X)){
-                    a->setPosicionAntorcha(x,y,z--);
-                    
+                  p->giraEste();
+
                 }
                 if(receiver.IsKeyDown(irr::KEY_KEY_P)){
-                    v=a->getPosicionEscena();
+                    v=b->getPosicionEscena();
                    std::cout<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-                    
+
                 }
-                
+                if(receiver.IsKeyDown(irr::KEY_RETURN)){
+                    p->siguienteJugada();
+
+                }
+
 
                 smgr->drawAll();
                 driver->endScene();
@@ -158,4 +167,3 @@ while(device->run())
 
     return (EXIT_SUCCESS);
 }
-

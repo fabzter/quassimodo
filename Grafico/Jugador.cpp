@@ -4,7 +4,7 @@
 using namespace irr;
 
 Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a):Grafico::Pieza() ,Reglas::Jugador(num,a) {
-        this->mesh=smgr->getMesh("Texturas/dwarf.x");
+        this->mesh=smgr->getMesh("Texturas/Peon.3ds");
       this->dibuja(smgr);
 }
 

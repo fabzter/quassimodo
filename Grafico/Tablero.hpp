@@ -58,6 +58,22 @@ public:
          * @return Un vector3df que indica la posicion de la celda pedida.
          */
          irr::core::vector3df getPosicionCelda(int x,int y);
+          /**
+         *Método que a partir de la posicion de la celda en le tablero, por ejemplo la celda que es ta en la pos (5,3)
+         * te regresa la posicion de esa celda pero en la escena (osea las coordenadas Gráficas)
+         * @param pos Un vector de dos enteros que representa la posicionen el eje X, y Y
+         * @return Un vector3df que indica la posicion de la celda pedida.
+         */
+         irr::core::vector3df getPosicionCelda(std::vector<int> pos);
+
+         /**
+          *Regresa el tamaño que ocupa la formacion de cada una de las celdas, osea el tamaño q tiene desde
+          * el inicio de la celda hasta el final de la celda en un eje
+          * @return Un vector3df que indica el tamaño de la linea de celdas
+          */
+         irr::core::vector3df getsizeLineaCeldas();
+
+         //void ColocaBarrera(int idJugador, Grafico::Barrera b);
 
 
 private:
@@ -69,4 +85,3 @@ private:
 }
 
 #endif	/* _TABLERO_HPP */
-

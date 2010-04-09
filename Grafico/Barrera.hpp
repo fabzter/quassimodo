@@ -3,6 +3,7 @@
 #ifndef _BARRERA_HPP_
 #define	_BARRERA_HPP_
 #include<Reglas/Barrera.hpp>
+#include<Reglas/Enums.hpp>
 #include"Pieza.hpp"
 #include<irrlicht.h>
 
@@ -27,7 +28,24 @@ public:
      * @param orig una referencia a un objeto de la clase Barera del namespace Grafico
      */
     Barrera(const Barrera& orig);
+
     virtual ~Barrera();
+    /**
+     *Coloca la barrera para que tenga dirección norte
+     */
+    void giraNorte();
+    /**
+     *Coloca la barrera para que tenga dirección Este
+     */
+    void giraEste();
+    /**
+     *Coloca la barrera en la escena y actualiza en el namespace Reglas
+     * @param posg posicion que tendra la barrera en la escena
+     * @param pos posicion que tendrá en el namespace grafico, esta es la posicion de la celda
+     * en la que se quiere que se coloque la barrera
+     * @param dir dirección en la que la barrera estará ( ya sea ESTE o NORTE )
+     */
+    void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir);
 private:
 
 };

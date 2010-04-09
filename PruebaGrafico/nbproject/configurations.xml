@@ -34,6 +34,7 @@
         <ccTool>
           <incDir>
             <pElem>..</pElem>
+            <pElem>/usr/include/irrlicht</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -111,6 +112,7 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>..</pElem>
+            <pElem>/usr/include/irrlicht</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
