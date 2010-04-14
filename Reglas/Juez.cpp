@@ -13,6 +13,7 @@ Reglas::Juez::Juez(Tablero& t)
 
 Reglas::Juez::Juez(const Juez& orig)
 {
+    this->tablero = orig.tablero;
 }
 
 Reglas::Juez::~Juez()
@@ -109,7 +110,7 @@ void Reglas::Juez::regla_2(Jugada& j, int idJugador)
             strs << "El Jugador " << idJugador << " trato de colocar una Barrera "
                 "que sale del tablero, en: " << '(' << j.getPosicion().at(0)
                 << ',' << j.getPosicion().at(1) << ").";
-            throw ReglasRotas(strs.str().c_str());
+            throw ReglasRotas(strs.str());
         }
     }
 }
@@ -194,31 +195,10 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
                       celdaJugada.getPosicion().at(1) <<").";
               throw ReglasRotas(strs.str());
   }
-
-
-}
-
-bool Reglas::Juez::es_hijo(const std::vector<int>& pos, const Reglas::Celda& celdaActual)
-{
-  for(int i = (int)NORTE; i <= (int)OESTE; i++)
-  {
-      Celda &celdaHijo = celdaActual.getHijo((Direccion) i);
-      if(&celdaHijo != NULL)
-      {
-        std::vector<int> pos_hijo(celdaHijo.getPosicion());
-        if(pos.at(0) == pos_hijo.at(0) &&
-           pos.at(1) == pos_hijo.at(1))
-        {
-          return true;
-        }
-      }
-  }
-  return false;
 }
 
 int Reglas::Juez::getDireccionMovimiento(const std::vector<int> &vect_dir)
 {
-    
     if(vect_dir.at(0) == 0)
     {
         return vect_dir.at(1) > 0? NORTE : SUR;
@@ -287,52 +267,13 @@ void Reglas::Juez::regla_6(Reglas::Jugada& j, int idJugador)
 {
     if(j.getTipoDeJugada() != BARRERA)
         return;
-    std::ostringstream strs;
-
-    Barrera b;
-    b.colocar(j.getPosicion(), j.getDireccion());
-
-    this->tablero->setBarrera(idJugador, b);
-
-    bool hayCamino = true;
-    for(int i = 0; i < this->tablero->jugadores.size(); i++)
-    {
-        int id = this->tablero->jugadores.at(i)->getIdentificador();
-        bool temp = this->tablero->grafo->hayCaminoMeta(id);
-        hayCamino = hayCamino && temp;
-    }
-    try
-    {
-        this->tablero->quitarBarrera(idJugador, b);
-    }
-    catch(std::out_of_range &e)
-    {
-        strs << "EL Jugador " << idJugador << " intento colocar una barrera en un"
-                "sitio y direccion no permitida.";
-        throw ReglasRotas(strs.str());
-    }
-    
-    if(!hayCamino)
-    {
-        strs << "El jugador " <<idJugador << " intento colocar una barrera en ("
-                << j.getPosicion().at(0) << ',' << j.getPosicion().at(1) <<
-                ") que cierra el camino a la meta.";
-        throw ReglasRotas(strs.str());
-    }
-}
-
-void Reglas::Juez::regla_7(Reglas::Jugada& j, int idJugador)
-{
-    if(j.getTipoDeJugada() != BARRERA)
-        return;
 
     std::ostringstream strs;
     strs << "El jugador " << idJugador << " intento colocar una barrera en (" <<
             j.getPosicion().at(0) << ',' << j.getPosicion().at(1) << ") que se "
             "traslapa con otra.";
 
-    Barrera b;
-    b.colocar(j.getPosicion(), j.getDireccion());
+    Barrera b(j);
 
     std::list<Barrera>::iterator it;
     for(it = this->tablero->barreras_colocadas.begin();
@@ -362,4 +303,53 @@ void Reglas::Juez::regla_7(Reglas::Jugada& j, int idJugador)
             }
         }
     }
+}
+
+void Reglas::Juez::regla_7(Reglas::Jugada& j, int idJugador)
+{
+    if(j.getTipoDeJugada() != BARRERA)
+        return;
+    std::ostringstream strs;
+
+    Barrera b;
+    b.colocar(j.getPosicion(), j.getDireccion());
+
+    if(this->estaPuestaEnOrillas(b))
+    {
+        strs << "EL Jugador " << idJugador << " intento colocar una barrera en un"
+                "sitio y direccion no permitida.";
+        throw ReglasRotas(strs.str());
+    }
+
+    this->tablero->setBarrera(idJugador, b);
+
+    bool hayCamino = true;
+    for(int i = 0; i < this->tablero->jugadores.size(); i++)
+    {
+        int id = this->tablero->jugadores.at(i)->getIdentificador();
+        bool temp = this->tablero->grafo->hayCaminoMeta(id);
+        hayCamino = hayCamino && temp;
+    }
+    this->tablero->quitarBarrera(idJugador, b);
+
+    if(!hayCamino)
+    {
+        strs << "El jugador " <<idJugador << " intento colocar una barrera en ("
+                << j.getPosicion().at(0) << ',' << j.getPosicion().at(1) <<
+                ") que cierra el camino a la meta.";
+        throw ReglasRotas(strs.str());
+    }
+}
+
+bool Reglas::Juez::estaPuestaEnOrillas(Barrera& b)
+{
+    //Si esta en la orilla ESTE u OESTE y apunta al NORTE
+    bool res = ( ((b.getPosicion().at(0) == 0 || b.getPosicion().at(0) == 9) &&
+       b.getDireccion() == NORTE)
+         || //ó
+       //Si esta en la orilla SUR o NORTE y apunta al ESTE
+       ((b.getPosicion().at(1) == 0 || b.getPosicion().at(1) == 9) &&
+       b.getDireccion() == ESTE)
+       );
+    return res;
 }

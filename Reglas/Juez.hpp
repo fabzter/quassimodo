@@ -89,16 +89,6 @@ private:
     void regla_3(Jugada& j, int idJugador);
 
     /**
-     * Método auxiliar de regla_3.
-     *Nos indica si la Celda en la posicion pos, es hija de la celdaActual
-     * @param pos una referencia a un vector de entros (x, y) que nos indica la
-     * posicion a la que se quiere llegar.
-     * @param celdaActual un apuntador a la Celda desde la que se parte
-     * @return true si la Celda en pos es hija de celdaActual.
-     */
-    bool es_hijo(const std::vector<int>& pos, const Celda &celdaActual);
-
-    /**
      * Método auxiliar de regla_3, dado un vector direccion
      * de la Jugada, regresa la Dirección de la Jugada.
      * @param vect_dir un vector de dos enteros que representa el vector dirección
@@ -150,6 +140,16 @@ private:
     void regla_5(Jugada& j, int idJugador);
 
     /**
+     *No se pueden poner Barreras sobrelapadas.
+     *
+     * @param j una referencia a la Jugada que se quiere revisar.
+     * @param idJugador el id del Jugador que realiza la Jugada.
+     * @throws ReglasRotas si la Jugada no comple con las reglas.
+     * @throws ScriptMalo Si el script tiene errores de sintaxis.
+     */
+    void regla_6(Jugada& j, int idJugador);
+
+    /**
      *No se puede encerrar a un Jugador. (Cada Jugador debe tener al menos un
      * camino para llegar a la meta)
      *
@@ -158,17 +158,17 @@ private:
      * @throws ReglasRotas si la Jugada no comple con las reglas.
      * @throws ScriptMalo Si el script tiene errores de sintaxis.
      */
-    void regla_6(Jugada& j, int idJugador);
-    
-    /**
-     *No se pueden poner Barreras sobrelapadas.
-     *
-     * @param j una referencia a la Jugada que se quiere revisar.
-     * @param idJugador el id del Jugador que realiza la Jugada.
-     * @throws ReglasRotas si la Jugada no comple con las reglas.
-     * @throws ScriptMalo Si el script tiene errores de sintaxis.
-     */
     void regla_7(Jugada& j, int idJugador);
+
+    /**
+     *Método auxiliar de la regla_7. Nos indica si la barrera fue colocada en
+     * las orillas en una dirección no permitida. (ejemplo: estar en posición
+     * 0,0 con dirección ESTE).
+     * @param b la barrera de la que se quiere saber si esta mal colocada.
+     * @return true en caso de estar mal colocada. false de lo contrario.
+     */
+    bool estaPuestaEnOrillas(Barrera &b);
+    
 };
 }
 #endif	/* _JUEZ_HPP */

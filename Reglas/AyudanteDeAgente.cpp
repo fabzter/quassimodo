@@ -12,6 +12,7 @@ Reglas::AyudanteDeAgente::AyudanteDeAgente(Tablero &t)
 Reglas::AyudanteDeAgente::AyudanteDeAgente(const AyudanteDeAgente& orig)
 {
     this->tablero = orig.tablero;
+    this->juez = orig.juez;
 }
 
 Reglas::AyudanteDeAgente::~AyudanteDeAgente()
