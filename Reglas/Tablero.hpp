@@ -18,8 +18,8 @@ class Grafo;
 class Jugador;
 class AyudanteDeAgente;
 /**
- * La clase tablero es un conjunto de celdas. Esta clase nos sirve como interface
- * para poder conocer el estado de las celdas, y de sus lados, asi como para
+ * La clase Tablero es un conjunto de Celdas. Esta clase nos sirve como interface
+ * para poder conocer el estado de las Celdas, y de sus lados, asi como para
  * modificar cada Celda (o insertar una nueva!). Nos indica dónde está colocado
  * cada Jugador.
  */
@@ -45,6 +45,8 @@ public:
      * @todo: id debería ser un nombre, indendiente de su posición en el vector.
      * Obviamente se tiene que llamar antes de poder mover Jugadores o de pedir
      * un Jugador al Tablero.
+     * @param jugadores es una vector de apuntadores a Jugador, con los Jugadores
+     * ya construidos para empezar la Jugada.
      */
     void setJugadores(const std::vector< Jugador* > &jugadores);
 
@@ -71,24 +73,24 @@ public:
     /**
      * Quita una Barrera del Tablero. Se la regresa al Jugador.
      * @param j es una referencia al Jugador al que se le regresa la Barrera
-     * @param b la barrera que se va a quitar.
+     * @param b la Barrera que se va a quitar.
      */
     void quitarBarrera(Jugador &j, Barrera &b);
 
     /**
      * Quita una Barrera del Tablero. Se la regresa al Jugador.
      * @param idJugador El id del Jugador al que se le regresa la Barrera
-     * @param b la barrera que se va a quitar.
+     * @param b la Barrera que se va a quitar.
      */
     void quitarBarrera(int idJugador, const Barrera &b);
 
     /**
-     *Mueve un jugador de su Celda actual a celda nueva. Actualiza la posición
+     *Mueve un jugador de su Celda actual a Celda nueva. Actualiza la posición
      * del jugador, y libera la celda actual.
      * @param jugador es el identificador del Jugador que se va a mover.
      * @param celda es una referencia a la Celda a la que se quiere mover al
      * Jugador.
-     * @throws JugadorNoColocado si el jugador solicitado no está aún colocado
+     * @throws JugadorNoColocado si el Jugador solicitado no está aún colocado
      * en el Tablero.
      */
     void moverJugador(int jugador, Celda& celdaNueva);

@@ -17,15 +17,13 @@ class Tablero;
 
 /**
  * Esta clase es la que se encarga de revisar las reglas del juego. Pide una a una
- * a os Jugadores sus Jugadas, las revisa, y de ser correctas, actualiza el Tablero
- * con toda la información pertinente (barreras, posiciones de Jugadores, celdas
- * con bloqueo.)
+ * a los Jugadores sus Jugadas.
  */
 class Juez {
 friend class AyudanteDeAgente;
 public:
     /**
-     *El constructor más simple de la clase Juez, le pasa el tablero de donde
+     *El constructor más simple de la clase Juez, le pasa el Tablero de donde
      * el Juez podrá obtener toda la información.
      * @param t un apuntador al Tablero de la Partida.
      */
@@ -35,10 +33,10 @@ public:
 
     /**
      *Pide la siguiente Jugada al Jugador correspondiente. Y revisa la validez.
+     * @param t es una copia del Tablero en su estado actual.
      * @return La Jugada si ésta cumple las reglas.
      * @throws ReglasRotas si la Jugada no comple con las reglas.
      * @throws ScriptMalo Si el script tiene errores de sintaxis.
-     * @param t es una copia del Tablero en su estado actual.
      */
     Jugada siguienteJugada(int idJugador);
 
@@ -96,6 +94,7 @@ private:
      * con su valor de Direccion correspondiente.
      */
     int getDireccionMovimiento(const std::vector<int> &vect_dir);
+    
     /**
      * Método auxiliar de regla_3, dado el vector de la posición actual y otro
      * de la posición de la Jugada, regresa la Dirección de la Jugada.

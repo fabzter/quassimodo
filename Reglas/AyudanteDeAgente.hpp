@@ -38,7 +38,7 @@ public:
      * Nos indica todas las Jugadas de tipo BARRERA que están disponibles para
      * el Jugador solicitado. Regresa una lista vacía si el Jugador no tiene
      * ya Barreras.
-     * @param numJugador numJugador el número del Jugador del cuál se quiere saber sus
+     * @param numJugador el número del Jugador del cuál se quiere saber sus
      * Jugadas.
      * @return una lista de las Jugadas de cada uno de las Barreras que tiene
      * disponibles a colocar el Jugador.
@@ -47,7 +47,6 @@ public:
 private:
     Tablero *tablero;
     Juez *juez;
-    static const int jugadas_posibles = 12;
 
     /**
      * Nos dice en cuanto aumenta X si nos movemos una posición en la dirección

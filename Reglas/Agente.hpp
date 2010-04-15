@@ -14,7 +14,7 @@ public:
      * colocados dentro del tablero. Le da oportunidad de construir estructuras,
      * almacenar informacion, etc.
      * @param t una referencia constante al Tablero.
-     *@param id es un entero que le indica al Agente su id de Jugador.
+     * @param id es un entero que le indica al Agente su id de Jugador.
      */
     virtual void iniciar(int id) = 0;
 

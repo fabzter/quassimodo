@@ -7,14 +7,15 @@
 #include "Enums.hpp"
 #include "Excepciones.hpp"
 
+namespace Reglas{
+class Barrera;
+class Celda;
+
 /**
  * La clase Jugada contiene la información sobre el movimiento que se desea realizar.
  * Cuando el Jugador quiera realizar un movimiento, rellena un objeto Jugada con
  * la información pertinente y lo regresa.
  */
-namespace Reglas{
-    class Barrera;
-    class Celda;
 class Jugada
 {
 public:

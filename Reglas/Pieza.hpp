@@ -68,6 +68,7 @@ public:
     /**
      *Este operador == sobrecargado nos da la facilidad de comparar si dos objetos
      * Pieza representan a la misma Pieza (es decir, están en la misma posición.)
+     * @param otro es la Pieza con la que se está haciendo la comparación.
      * @return true si los objetos Pieza comparados representan a la misma,
      * false de lo contrario
      */
@@ -75,6 +76,7 @@ public:
 
     /**
      *Similar al operador ==, pero negado.
+     * @param otro es la Pieza con que se está haciendo la comparación.
      * @return true si los Objetos Celda no representan a la misma celda, true de lo contrario.
      */
     virtual bool operator!=(const Pieza &otro) const;

@@ -9,15 +9,13 @@
 #include "Pieza.hpp"
 
 namespace Reglas{
-
-/**
- * Esta clase es rara. Tiene métodos publicos y asi, y también métodos
- * virtuales puros. Esto se debe a que, a parte de tener una funcionalidad, también
- * sirve de interfaz para los agentes. Tener cuidado de no exponer los métodos
- * implementados a las interfaces de los agentes!!
- */
 class Tablero;
 class Agente;
+
+/**
+ * Esta clase representa a un peón del Juego. Cada Jugador posee un Agente, que
+ * controlará las acciones del Jugador.
+ */
 class Jugador: public Pieza {
 public:
      /**

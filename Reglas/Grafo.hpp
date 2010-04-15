@@ -19,8 +19,9 @@ public:
      /**
      *Este constructor recibe la matriz de Celas cuyos apuntadores serán usados para
      * contruir el grafo. Y lo construye!!! :D
-     * @param datos es el vector de vectores (matriz) de Celdas, a partir de las cuales
-     * se construirá el grafo.
+     * @param tablero es el Tablero de la Jugada actual, con cuyas Celdas se
+      * construirá el Grafo, uniendo los lados de cada una de ellas con sus
+      * vecinos en los cuatro puntos cardinales.
      */
     Grafo(Tablero &tablero);
     Grafo(const Grafo& orig);
@@ -28,8 +29,9 @@ public:
 
      /**
      *Nos indica si hay al menos un camino desde la posición del Jugador solicitado
-     * hasta la meta que le corresponde
-     * @param id El identificador del Jugador que busca un camino hacia su meta
+     * hasta la meta que le corresponde.
+     * @param idJugador El identificador del Jugador que busca un camino hacia
+      * su meta.
      * @return true si existe almenos un camino, y false de lo contrario.
      */
     bool hayCaminoMeta(int idJugador) const;
@@ -75,11 +77,7 @@ private:
      */
     bool 
     busqueda_recursiva(const Celda &inicio, const Celda &meta,
-                        std::list<Celda*> &visitados)
-    const;
-
-
-
+                        std::list<Celda*> &visitados) const;
 };
 
 }

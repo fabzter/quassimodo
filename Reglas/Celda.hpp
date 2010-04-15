@@ -16,8 +16,8 @@
  */
 namespace Reglas{
 /**
- * La clase celda contiene la información y los métodos para conocer el estado
- * de cada una de las celdas contenidas en el tablero. Es parte del namespace Reglas.
+ * La clase Celda contiene la información y los métodos para conocer el estado
+ * de cada una de las Celdas contenidas en el Tablero.
  */
 class Celda : public Pieza{
 public:

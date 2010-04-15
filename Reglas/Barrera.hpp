@@ -11,8 +11,14 @@
 namespace Reglas{
 class Pieza;
 /**
- * //FIXME: documentacion!!!
- * Clase derivada de Pieza. Representa las barreras
+ * Clase derivada de Pieza. Representa a las Barreras que se ponen sobre el
+ * Tablero. Solo aceptan dos direcciones para colocarse: ESTE y NORTE. Otra cosa
+ * que vale la pena notar es la manera en que se colocan: Si se coloca una
+ * Barrera en la posición x = 1, y = 1, y con una dirección NORTE, significa que
+ * se bloquearan los lados OESTE de la Celda en x = 1, y = 1 y de la Celda en
+ * x = 1, y = 2. De igual manera, si se pusiera la Barrera en la misma posición
+ * pero con dirección ESTE, se bloquearían los lados SUR de la Celda en x = 1,
+ * y = 1 y de la Celda en x = 2, y = 1.
  */
 class Barrera: public Pieza {
 public:
