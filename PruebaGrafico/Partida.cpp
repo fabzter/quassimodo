@@ -1,5 +1,7 @@
 
 
+#include <irrlicht/vector3d.h>
+
 #include "Partida.hpp"
 using namespace irr;
 using namespace Grafico;
@@ -16,20 +18,14 @@ Partida::Partida(scene::ISceneManager* smgr) {
     this->antorchas.reserve(4);
     this->antorchas.resize(4);
      this->Barreras.reserve(20);
-    this->Barreras.resize(20);
-     this->jugadores.reserve(4);
-    this->jugadores.resize(4);
-    this->b=new Barrera(smgr);
+      this->Barreras.resize(20);
+     this->jugadores.reserve(2);
+   
+
      for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,0,0);
     }
-     core::vector3df v=this->t->getPosicionTablero();
-     std::cout<<"posicion tablero partida "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
      this->ColocaAntorchas();
-     this->b->setPosicion(0,0,0);
-      v=this->t->getPosicionEscena();
-     std::cout<<"posicion tablero escena "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-
 }
 
 Partida::Partida(const Partida& orig) {
@@ -48,7 +44,12 @@ void Partida::iniciarPartida()
     for(int id = 0; id < this->t->num_jugadores; id++)
     {
         this->t->getJugador(id).iniciar(id);
-       this->jugadores.at(id)->setPosicion( this->t->getPosicionCelda( this->t->getJugador(id).getPosicion() ) );
+        Grafico::Jugador *j=(Grafico::Jugador*)this->jugadores.at(id);
+        core::vector3df p=this->t->getPosicionCelda( this->t->getJugador(id).getPosicion())  ;
+        p.Y+=this->t->getsizeCelda().Y;
+        j->Gira(core::vector3df(0,90-(id*180),0));
+         j->setPosicion(p);
+         
     }
 
     this->en_curso = true;
@@ -66,7 +67,7 @@ bool Partida::siguienteJugada()
     this->en_curso = true;
     }
     catch(Reglas::Excepcion e ){
-        std::cout<<e.what()<<std::endl;
+        std::cout<<"eeror del jugador"<<this->jugador_en_turno<<" que es: "<<e.what()<<std::endl;
         return this->en_curso;
     }
 
@@ -90,6 +91,10 @@ void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador)
 {
     if(j.getTipoDeJugada() == Reglas::MOVIMIENTO)
     {
+         Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(idJugador);
+        core::vector3df p=this->t->getPosicionCelda(  j.getPosicion() )  ;
+        p.Y+=this->t->getsizeCelda().Y;
+         ju->setPosicion(p);
         this->t->moverJugador(idJugador, j.getPosicion());
     }
     else if(j.getTipoDeJugada() == Reglas::BARRERA)
@@ -132,30 +137,15 @@ bool Partida::hayGanador()
     }
      this->ColocaAntorchas();
  }
- void Partida::SetBarrera(int x,int y){
-       std::vector<int> p;
-       p.push_back(x);
-       p.push_back(y);
-       try{
-        this->b->ColocaBarrera( this->t->getPosicionCelda( p),p,Reglas::NORTE  );
-       }
-       catch(Reglas::PiezaYaColocada e){
-       }
- }
-  void Partida::giraNorte(){
-
-      this->b->giraNorte();
-  }
-void Partida::giraEste(){
-      this->b->giraEste();
-  }
  bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2){
 
       Scripting::Manejador *m = new Scripting::Manejador(*t);
       std::vector<Reglas::Agente*> agentes;
       agentes.push_back(m->getAgente(rutaAgente1));
       agentes.push_back(m->getAgente(rutaAgente2));
+      
       this->jugadores.push_back(new Grafico::Jugador(this->smgr,0, agentes[0]));
-      this->jugadores.push_back(new Grafico::Jugador(this->smgr,1, agentes[1]));
-      this->t->setJugadores(j);
+     this->jugadores.push_back(new Grafico::Jugador(this->smgr,1, agentes[1]));
+       
+      this->t->setJugadores( this->jugadores);
  }

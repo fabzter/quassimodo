@@ -60,6 +60,11 @@ public:
          * @param z Un entero que representa la escala que tendrá en el eje de las Z
          */
         virtual void setEscala(int x, int y ,int z);
+        /**
+         *Coloca la malla que es la que será dibujada en la escena
+         * @param mesh Una malla en donde es cargada la pieza
+         */
+        virtual void setMesh(scene::IAnimatedMesh* mesh);
             /**
           *Obtenemos el tamaño de la pieza
          * @return un vector que tiene el tamaño de cada uno de sus ejes en sus ejes.

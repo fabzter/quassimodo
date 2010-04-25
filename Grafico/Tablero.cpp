@@ -96,9 +96,9 @@ void Grafico::Tablero::setEscalaTablero(int x,int y,int z){
   irr::core::vector3df Grafico::Tablero::getPosicionCelda(int x,int y){
       return this->datos.at(y).at(x)->getPosicionEscena();
   }
-   irr::core::vector3df Grafico::Tablero::getPosicionCelda(std::vector<int> pos){
-       return this->getPosicionCelda(pos.at(0),pos.at(1));
-   }
+  irr::core::vector3df Grafico::Tablero::getPosicionCelda(std::vector<int> pos){
+      return this->getPosicionCelda(pos.at(0),pos.at(1));
+  }
 
   irr::core::vector3df Grafico::Tablero::getsizeLineaCeldas(){
 
@@ -107,4 +107,8 @@ void Grafico::Tablero::setEscalaTablero(int x,int y,int z){
      v.X+=this->datos.at(0).at(0)->getSize().X;
      v.Z+=this->datos.at(0).at(0)->getSize().Z;
       return v;
+  }
+
+  irr::core::vector3df Grafico::Tablero::getsizeCelda(){
+      return this->datos.at(0).at(0)->getSize();
   }

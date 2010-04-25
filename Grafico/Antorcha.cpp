@@ -12,10 +12,7 @@ Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,bool sombra)
         this->setVectPosicion(x,0,z);
 
         this->dibujaAntorcha(smgr);
-        core::vector3df v=this->getPosicionEscena();
-        std::cout<<"Posicion Antorcha"<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-        v=this->posicionF;
-          std::cout<<"Posicion Fuego"<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+        
 
     }
 
@@ -46,9 +43,9 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
            v.X=1,v.Y=1,v.Z=1;
 
 
-        this->posicionF.X= this->posicion.X+2;
+        this->posicionF.X= this->posicion.X;
         this->posicionF.Y=this->posicion.Y+(this->size.Y*v.Y);
-        this->posicionF.Z=this->posicion.Z+2;
+        this->posicionF.Z=this->posicion.Z;
 }
 
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
@@ -106,10 +103,7 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
             this->setVectPosicion(x,y,z);
             this->setPosicion(x,y,z);
             nfuego->setPosition( this->posicionF);
-              core::vector3df v=this->getPosicionEscena();
-        std::cout<<"Posicion Antorcha"<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-        v=this->posicionF;
-          std::cout<<"Posicion Fuego"<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+         
    }
       void Grafico::Antorcha::setPosicionFuego(int x, int y ,int z){
             //this->setVectPosicion(x,y,z);

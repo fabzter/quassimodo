@@ -66,13 +66,6 @@ public:
      */
     bool hayGanador();
 
-     void SetBarrera(int x,int y);
-
-    void giraNorte();
-    /**
-     *Coloca la barrera para que tenga dirección Este
-     */
-    void giraEste();
     /**
      *Método que sirve para gargar los dos jugadores al tablero a partir de la ruta en donde estan
      * ubicados dichos agentes
@@ -104,9 +97,8 @@ private:
      * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se
      * eliminen hasta el final de la partida.
      */
-    std::vector< Grafico::Jugador* > jugadores;
-    Grafico::Barrera *b;
-    Grafico::Celda *c;
+    std::vector< Reglas::Jugador* > jugadores;
+
     /**
      * Llamada por siguienteJugada, si la Jugada es válida. Realiza la parte de
      * actualización especificada en siguienteJugada.
