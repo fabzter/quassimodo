@@ -25,6 +25,12 @@ public:
      */
     Jugador(const Jugador& orig);
     virtual ~Jugador();
+    /**
+     *Gira el Jugador según lo indicado por giro
+     * @param giro un vector de 3 dimensiones en donde cada una representa el eje en el plano y el girro que se hará en
+     * ese eje.
+     */
+    void Gira(core::vector3df giro);
 
 private:
 

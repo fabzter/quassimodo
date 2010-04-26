@@ -3,14 +3,16 @@
 using namespace irr;
 
 Grafico::Celda::Celda(scene::ISceneManager* smgr):Grafico::Pieza(){
-       this->mesh=smgr->getMesh("Texturas/Celda2.3ds");
+       this->mesh=smgr->getMesh("Texturas/Celda4.3ds");
        this->celdaR=NULL;
        this->nodoA=NULL;
       this->dibuja(smgr);
+       this->nodoA->setMaterialTexture(0,smgr->getVideoDriver()->getTexture( "Texturas/arena2.JPG" ) );
+       this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
       core::aabbox3d<f32> t=this->nodoA->getBoundingBox();
       this->size= t.getExtent();
 
-     
+
 }
 
 Grafico::Celda::Celda(const Celda& orig):Grafico::Pieza(orig) {
@@ -32,8 +34,8 @@ Grafico::Celda::~Celda() {
        else
            v.X=1,v.Y=1,v.Z=1;
       x+=this->celdaR->getPosicion().at(0)* ( (this->size.X+this->size.Y)*v.X ) ;
-      z+=this->celdaR->getPosicion().at(1)*( (this->size.X+this->size.Y)*v.Y );
-      y+=( this->size.Y*v.Z );
+      z+=this->celdaR->getPosicion().at(1)*( (this->size.X+this->size.Y)*v.Z );
+      //y+=( this->size.Y*v.Y );
 
       this->setPosicion(x,y,z);
   }
@@ -41,6 +43,6 @@ Grafico::Celda::~Celda() {
 
       this->setEscala(x,y,z);
         this->size=this->nodoA->getBoundingBox().getExtent();
-         
+
 
   }

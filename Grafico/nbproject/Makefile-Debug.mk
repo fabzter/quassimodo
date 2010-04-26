@@ -72,37 +72,37 @@ dist/Debug/GNU-Linux-x86/libGrafico.so: ${OBJECTFILES}
 ${OBJECTDIR}/Tablero.o: nbproject/Makefile-${CND_CONF}.mk Tablero.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/lib/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
 
 ${OBJECTDIR}/EventReceiver.o: nbproject/Makefile-${CND_CONF}.mk EventReceiver.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/lib/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
 
 ${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/lib/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
 
 ${OBJECTDIR}/Celda.o: nbproject/Makefile-${CND_CONF}.mk Celda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/lib/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
 
 ${OBJECTDIR}/Antorcha.o: nbproject/Makefile-${CND_CONF}.mk Antorcha.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/lib/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
 
 ${OBJECTDIR}/Jugador.o: nbproject/Makefile-${CND_CONF}.mk Jugador.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/lib/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
 
 ${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/lib/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
 
 # Subprojects
 .build-subprojects:

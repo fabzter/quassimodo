@@ -1,14 +1,18 @@
 
 #include "Antorcha.hpp"
+#include<iostream>
 using namespace irr;
 
 Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,bool sombra): Pieza(){
-    this->nodoA=NULL;
-        this->setVectPosicion(x,0,z);
-        this->mesh =smgr->getMesh("Texturas/Lumbrera2.3ds");
+        //this->nodoA=NULL;
+        this->mesh =smgr->getMesh("Texturas/Lumbrera4.3ds");
         this->fuego=smgr->getVideoDriver()->getTexture("Texturas/fire.bmp");
         this->sombra=sombra;
+        this->dibuja(smgr);
+        this->setVectPosicion(x,0,z);
+
         this->dibujaAntorcha(smgr);
+        
 
     }
 
@@ -37,18 +41,18 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
            v= this->nodoA->getScale();
        else
            v.X=1,v.Y=1,v.Z=1;
-       
 
-        this->posicionF.X= posicion.X+(10*v.X);
-        this->posicionF.Y=posicion.Y+(33*v.Y);
-        this->posicionF.Z=posicion.Z+(25*v.Z);
+
+        this->posicionF.X= this->posicion.X;
+        this->posicionF.Y=this->posicion.Y+(this->size.Y*v.Y);
+        this->posicionF.Z=this->posicion.Z;
 }
 
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
 
-                 this->dibuja(smgr);
-                   this->size =this->nodoA->getBoundingBox().getExtent();
+
+
                  this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),40.0f*this->getEscala().X);
                 //hacemos el fuego
         	scene::IParticleSystemSceneNode* ps =	smgr->addParticleSystemSceneNode(false,nfuego);
@@ -85,6 +89,7 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
                                     video::SColor(0, 255, 255, 255), // foot color
                                     video::SColor(0, 0, 0, 0));      // tail color
                 }
+                this->setPosicionAntorcha(this->posicion);
 
 
    }
@@ -98,6 +103,7 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
             this->setVectPosicion(x,y,z);
             this->setPosicion(x,y,z);
             nfuego->setPosition( this->posicionF);
+         
    }
       void Grafico::Antorcha::setPosicionFuego(int x, int y ,int z){
             //this->setVectPosicion(x,y,z);
@@ -113,6 +119,6 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
 void Grafico::Antorcha::setEscalaAntorcha(int x,int y, int z){
     this->nfuego->setScale(core::vector3df(x,y,z));
     this->setEscala(x,y,z);
-    
+
     this->setPosicionAntorcha(this->posicion);
 }

@@ -30,7 +30,7 @@ Grafico::Pieza::~Pieza() {
         this->posicion.Y=y;
         this->posicion.Z=z;
         this->nodoA->setPosition( this->posicion );
-           
+
    }
 
     scene::IAnimatedMeshSceneNode* Grafico::Pieza::getNodo(){
@@ -38,7 +38,7 @@ Grafico::Pieza::~Pieza() {
     }
 
 core::vector3df Grafico::Pieza::getPosicionEscena(){
-        return this->posicion;
+        return this->nodoA->getPosition();
     }
 
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
@@ -47,10 +47,14 @@ void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
                 this->nodoA->setMaterialType(video::EMT_SOLID);
 		this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
                 this->nodoA->setPosition( this->posicion );
+                 this->size =this->nodoA->getBoundingBox().getExtent();
 }
 void Grafico::Pieza::setEscala(int x, int y ,int z){
      this->nodoA->setScale(core::vector3df(x,y,z));
      this->nodoA->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
+}
+void Grafico::Pieza::setMesh(scene::IAnimatedMesh* mesh){
+    this->mesh=mesh;
 }
 core::vector3df Grafico::Pieza::getSize(){
     return this->size;

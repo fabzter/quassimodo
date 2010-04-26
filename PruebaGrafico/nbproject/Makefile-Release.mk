@@ -32,6 +32,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Partida.o \
+	${OBJECTDIR}/GUI.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -67,12 +68,17 @@ dist/Release/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 ${OBJECTDIR}/Partida.o: nbproject/Makefile-${CND_CONF}.mk Partida.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
+
+${OBJECTDIR}/GUI.o: nbproject/Makefile-${CND_CONF}.mk GUI.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
