@@ -137,8 +137,7 @@ bool Reglas::Grafo::busqueda_recursiva(const Celda& inicio, const Celda& meta,
         //revisamos que el hijo no está en visitados ya
         if(std::count(visitados.begin(), visitados.end(), hijo) == 0 )
         {
-            if(this->busqueda_recursiva(inicio.getHijo((Direccion)i), meta,
-                                        visitados) )
+            if(this->busqueda_recursiva(*hijo, meta, visitados) )
                 return true;
 
         }

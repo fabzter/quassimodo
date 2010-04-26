@@ -19,7 +19,10 @@ class AgenteBarreras (Reglas.Agente):
     def siguienteJugada(self):
         print self.id, ": Preparo mi jugada"
         
-        j = random.choice(ayudante.getBarrerasPosibles(self.id))
+        if len(ayudante.getBarrerasPosibles(self.id)) != 0:
+            j = random.choice(ayudante.getBarrerasPosibles(self.id))
+        else:
+            j = random.choice(ayudante.getMovimientosPosibles(self.id))
         
         print self.id, ": Hice mi Jugada"
         return j

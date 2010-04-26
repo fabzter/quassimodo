@@ -77,6 +77,15 @@ private:
     void regla_2(Jugada& j, int idJugador);
 
     /**
+     *No se puede mover hacia una dirección si existe una barrera.
+     * @param j una referencia a la Jugada que se quiere revisar.
+     * @param idJugador el id del Jugador que realiza la Jugada.
+     * @throws ReglasRotas si la Jugada no comple con las reglas.
+     * @throws ScriptMalo Si el script tiene errores de sintaxis.
+     */
+    void regla_3(Jugada& j, int idJugador);
+
+    /**
      *Los Jugadores solo pueden moverse una Celda a la vez hacia uno de los
      * cuatro puntos cardinales. (Si se topa con otro peón, lo puede saltar.)
      * @param j una referencia a la Jugada que se quiere revisar.
@@ -84,7 +93,7 @@ private:
      * @throws ReglasRotas si la Jugada no comple con las reglas.
      * @throws ScriptMalo Si el script tiene errores de sintaxis.
      */
-    void regla_3(Jugada& j, int idJugador);
+    void regla_4(Jugada& j, int idJugador);
 
     /**
      * Método auxiliar de regla_3, dado un vector direccion
@@ -118,15 +127,6 @@ private:
      */
     std::vector<int> getVectDireccion(const std::vector<int> &dir_jugada,
                                         const std::vector<int> &dir_actual);
-
-    /**
-     *No se puede mover hacia una dirección si existe una barrera.
-     * @param j una referencia a la Jugada que se quiere revisar.
-     * @param idJugador el id del Jugador que realiza la Jugada.
-     * @throws ReglasRotas si la Jugada no comple con las reglas.
-     * @throws ScriptMalo Si el script tiene errores de sintaxis.
-     */
-    void regla_4(Jugada& j, int idJugador);
 
     /**
      *Si el Jugador no tiene más barreras disponibles, SOLO podrá moverse.

@@ -61,7 +61,7 @@ public:
      * Éste método nos indica al hijo de la celda en alguna dirección.
      * @param d es la direccion de la cual se quiere obtener al hijo.
      * @return un apuntador a la Celda hijo en dirección d.
-     * @throws SinHijo si la Celda no tien un hijo en esa posición.
+     * @throws SinHijo si la Celda no tiene un hijo en esa posición.
      */
     Celda& getHijo(Direccion d) const;
 

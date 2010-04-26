@@ -115,7 +115,33 @@ void Reglas::Juez::regla_2(Jugada& j, int idJugador)
     }
 }
 
-void Reglas::Juez::regla_3(Jugada& j, int idJugador)
+void Reglas::Juez::regla_3(Reglas::Jugada& j, int idJugador)
+{
+    if(j.getTipoDeJugada() != MOVIMIENTO)
+        return;
+
+    std::ostringstream strs;
+    int dir_jugada =
+            this->getDireccionMovimiento(j.getPosicion(),
+                             this->tablero->getCelda(idJugador).getPosicion());
+    if(dir_jugada != -1)
+    {
+        try
+        {
+            this->tablero->getCelda(idJugador).getHijo((Direccion)dir_jugada);
+        }
+        catch(SinHijo &e)
+        {
+            strs << "El Jugador " << idJugador << " intento moverse en hacia una"
+                    "direccion bloqueada por una barrera: (" <<
+                    j.getPosicion().at(0) << ',' << j.getPosicion().at(1) <<
+                    ").";
+            throw ReglasRotas(strs.str());
+        }
+    }
+}
+
+void Reglas::Juez::regla_4(Jugada& j, int idJugador)
 {
     if(j.getTipoDeJugada() != MOVIMIENTO)
         return;
@@ -131,12 +157,17 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
 
     if(!celdaJugada.estaLibre())
     {
-        strs << "El Jugador " << idJugador << " intento colocarse sobre el Jugador "
-                "contrario, en la celda: (" <<
+        try
+        {
+            strs << "El Jugador " << idJugador << " intento colocarse sobre el Jugador "
+                "contrario, en la celda: (";
+            strs <<
                 celdaActual.getHijo(j.getDireccion()).getPosicion().at(0)
                 << ',' <<
                 celdaActual.getHijo(j.getDireccion()).getPosicion().at(1)
                 <<").";
+        }
+        catch(SinHijo &e){}
         throw ReglasRotas(strs.str());
   }
 
@@ -165,26 +196,37 @@ void Reglas::Juez::regla_3(Jugada& j, int idJugador)
               vect_dir_A = celdaActual.getPosicion();
               Direccion dir_V=(Direccion)this->getDireccionMovimiento(vect_dir_A,celdaActual.getPosicion());
 
-              res = ( &celdaActual.getHijo(dir_H)==NULL && !celdaActual.getHijo(dir_V).estaLibre() ) ||
-                  ( &celdaActual.getHijo(dir_V)==NULL && !celdaActual.getHijo(dir_H).estaLibre() );
+              try
+              {
+                  res = ( !celdaActual.getHijo(dir_V).estaLibre() ||
+                          !celdaActual.getHijo(dir_H).estaLibre() );
+              }
+              catch(SinHijo &e){}
           }
       }
       else
       {
-          this->regla_4(j, idJugador);
+          this->regla_3(j, idJugador);
           Celda& hijo = celdaActual.getHijo((Direccion)dir_jugada);
             if( !hijo.estaLibre() )
             {
-              //revisamos si la celda de la Jugada
-                const Celda &nieto = hijo.getHijo((Direccion)dir_jugada);
-
-              if( ! (nieto == celdaJugada) )
-                  res = false;
-              else
-                  res = true;
+                try
+                {
+                    //revisamos si la celda de la Jugada
+                    const Celda &nieto = hijo.getHijo((Direccion)dir_jugada);
+                    if( ! (nieto == celdaJugada) )
+                        res = false;
+                    else
+                    res = true;
+                }
+                catch(SinHijo &e)
+                {
+                    strs << "El Jugador " << idJugador << " esta tratando de "
+                            "llegar a una celda bloqueada por una barrera.";
+                    throw ReglasRotas(strs.str());
+                }
             }
       }
-
   }
 
   if(!res)
@@ -223,32 +265,6 @@ std::vector<int> Reglas::Juez::getVectDireccion(const std::vector<int> &dir_juga
     vect_dir.push_back(dir_jugada.at(1) - dir_actual.at(1));
 
     return vect_dir;
-}
-
-void Reglas::Juez::regla_4(Reglas::Jugada& j, int idJugador)
-{
-    if(j.getTipoDeJugada() != MOVIMIENTO)
-        return;
-    
-    std::ostringstream strs;
-    int dir_jugada =
-            this->getDireccionMovimiento(j.getPosicion(),
-                             this->tablero->getCelda(idJugador).getPosicion());
-    if(dir_jugada != -1)
-    {
-        try
-        {
-            this->tablero->getCelda(idJugador).getHijo((Direccion)dir_jugada);
-        }
-        catch(SinHijo &e)
-        {
-            strs << "El Jugador " << idJugador << " intento moverse en hacia una"
-                    "direccion bloqueada por una barrera: (" <<
-                    j.getPosicion().at(0) << ',' << j.getPosicion().at(1) <<
-                    ").";
-            throw ReglasRotas(strs.str());
-        }
-    }
 }
 
 void Reglas::Juez::regla_5(Reglas::Jugada& j, int idJugador)

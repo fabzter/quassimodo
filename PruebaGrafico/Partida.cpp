@@ -47,7 +47,7 @@ void Partida::iniciarPartida()
         Grafico::Jugador *j=(Grafico::Jugador*)this->jugadores.at(id);
         core::vector3df p=this->t->getPosicionCelda( this->t->getJugador(id).getPosicion())  ;
         p.Y+=this->t->getsizeCelda().Y;
-        j->Gira(core::vector3df(0,90-(id*180),0));
+        //j->Gira(core::vector3df(0,90-(id*180),0));
          j->setPosicion(p);
          
     }

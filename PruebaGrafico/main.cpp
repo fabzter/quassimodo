@@ -59,7 +59,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
          Partida *p=new Partida(smgr);
 
    
-           p->SetJugadores("../bin/agenteBarreras.py","../bin/agenteCamina2.py");
+           p->SetJugadores("../bin/agenteBarreras2.py","../bin/agenteBarreras2.py");
            
            p->iniciarPartida();
             //GUI *gui=new GUI(smgr,env);
@@ -89,13 +89,13 @@ while(device->run())
                
  
                 if(receiver.IsKeyDown(irr::KEY_RETURN)){
-                    //p->siguienteJugada();
-                    gui::IGUIWindow* window = env->addWindow(core::rect<s32>(100, 100 , 300 , 200 ),false,	L"Test window");
+                    p->siguienteJugada();
+                    /*gui::IGUIWindow* window = env->addWindow(core::rect<s32>(100, 100 , 300 , 200 ),false,	L"Test window");
                     env->addStaticText(L"Please close me",
 						core::rect<s32>(35,35,140,50),
 						true, // border?
 						false, // wordwrap?
-						window);
+						window);*/
                 }
 
 
