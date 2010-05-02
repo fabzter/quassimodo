@@ -10,7 +10,6 @@ Partida::Partida(scene::ISceneManager* smgr) {
     this->t=new Tablero(smgr);
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
-    this->smgr=smgr;
     this->juez = NULL; //esto es solo para destruirlo bien!
     //TODO: hacer el Juez Grafico!!
     this->juez = new Reglas::Juez(*t);
@@ -18,7 +17,6 @@ Partida::Partida(scene::ISceneManager* smgr) {
     this->antorchas.reserve(4);
     this->antorchas.resize(4);
      this->Barreras.reserve(20);
-      this->Barreras.resize(20);
      this->jugadores.reserve(2);
    
 
@@ -34,6 +32,20 @@ Partida::Partida(const Partida& orig) {
 Partida::~Partida() {
      if(this->juez != NULL)
         delete this->juez;
+     
+     for(int i=0;i<this->antorchas.size();i++){
+     
+             this->antorchas.at(i)->dropAntorcha();
+         if(i<this->jugadores.size()){
+             Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
+             ju->drop();
+         }
+     }
+    for(int i=0;i<this->Barreras.size();i++){
+         this->Barreras.at(i)->drop();
+     }
+         
+     delete(this->t);
 }
 
 void Partida::iniciarPartida()
@@ -43,18 +55,18 @@ void Partida::iniciarPartida()
 
     for(int id = 0; id < this->t->num_jugadores; id++)
     {
+        Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(id);
         this->t->getJugador(id).iniciar(id);
-        Grafico::Jugador *j=(Grafico::Jugador*)this->jugadores.at(id);
-        core::vector3df p=this->t->getPosicionCelda( this->t->getJugador(id).getPosicion())  ;
-        p.Y+=this->t->getsizeCelda().Y;
-        //j->Gira(core::vector3df(0,90-(id*180),0));
-         j->setPosicion(p);
+        Reglas::Jugada j;
+        j.setPosicion( this->t->getJugador(id).getPosicion() );
+        this->MoverJugador(j,id);
+        ju->Gira(core::vector3df(0,90-(id*180),0));
          
     }
 
     this->en_curso = true;
 }
-bool Partida::siguienteJugada()
+bool Partida::siguienteJugada(scene::ISceneManager* smgr)
 {
     if(!this->en_curso)
         throw Reglas::PartidaTerminada();
@@ -71,7 +83,7 @@ bool Partida::siguienteJugada()
         return this->en_curso;
     }
 
-    this->actualizarTablero(j, this->jugador_en_turno);
+    this->actualizarTablero(j, this->jugador_en_turno,smgr);
     //actualizamos el Jugador en turno.
     this->jugador_en_turno =
             ++(this->jugador_en_turno) % this->t->num_jugadores;
@@ -87,26 +99,32 @@ bool Partida::siguienteJugada()
     return this->en_curso;
 }
 
-void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador)
+void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr)
 {
     if(j.getTipoDeJugada() == Reglas::MOVIMIENTO)
     {
-         Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(idJugador);
-        core::vector3df p=this->t->getPosicionCelda(  j.getPosicion() )  ;
-        p.Y+=this->t->getsizeCelda().Y;
-         ju->setPosicion(p);
-        this->t->moverJugador(idJugador, j.getPosicion());
+        MoverJugador(j,idJugador);
     }
     else if(j.getTipoDeJugada() == Reglas::BARRERA)
     {
-         unsigned int pos=this->t->getBarrerasColocadas().size();
-        this->Barreras.at(pos) =new Barrera(this->smgr);
+        this->Barreras.push_back(new Barrera(smgr));
+         unsigned int pos=this->Barreras.size();
+        
         const std::vector<int> p=j.getPosicion();
-        this->Barreras.at(pos)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
-        this->t->setBarrera(idJugador, *this->Barreras.at(pos));
+       this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
+        this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
     }
 }
+void Partida::MoverJugador(Reglas::Jugada &j, int idJugador){
+    Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(idJugador);
+    core::vector3df p=this->t->getPosicionCelda(  j.getPosicion() )  ;
+    p.Y+=this->t->getsizeCelda().Y;
+    p.Z+=(this->t->getsizeCelda().Z /2);
+    p.X+=(this->t->getsizeCelda().X /2);
+    ju->setPosicion(p);
+    this->t->moverJugador(idJugador, j.getPosicion());
 
+}
 bool Partida::estaEnCurso()
 {
     return this->en_curso;
@@ -137,15 +155,24 @@ bool Partida::hayGanador()
     }
      this->ColocaAntorchas();
  }
- bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2){
+ bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr){
 
       Scripting::Manejador *m = new Scripting::Manejador(*t);
       std::vector<Reglas::Agente*> agentes;
       agentes.push_back(m->getAgente(rutaAgente1));
       agentes.push_back(m->getAgente(rutaAgente2));
       
-      this->jugadores.push_back(new Grafico::Jugador(this->smgr,0, agentes[0]));
-     this->jugadores.push_back(new Grafico::Jugador(this->smgr,1, agentes[1]));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0]));
+     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1]));
        
       this->t->setJugadores( this->jugadores);
  }
+  void Partida::NuevaPartida(scene::ISceneManager* smgr){
+      for(int i=0;i<this->jugadores.size();i++){
+            Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
+            ju->terminar();
+             ju->drop();
+      }
+      delete(this->t);
+      this->t=new Tablero(smgr);
+  }

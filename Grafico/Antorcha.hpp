@@ -69,6 +69,8 @@ using namespace irr;
 
        void setEscalaAntorcha(int x,int y, int z);
 
+       void dropAntorcha();
+
     private:
         /**
          *Metodo auxiliar que sirve para colocarle los valores a los vectores de posicion de la antorcha y del fuego

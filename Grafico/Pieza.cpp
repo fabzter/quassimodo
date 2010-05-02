@@ -17,7 +17,7 @@ Grafico::Pieza::Pieza(const Pieza& orig) {
 }
 
 Grafico::Pieza::~Pieza() {
-
+     this->drop();
 }
 
    void Grafico::Pieza::setPosicion(core::vector3df posicion){
@@ -43,7 +43,7 @@ core::vector3df Grafico::Pieza::getPosicionEscena(){
 
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
 
-                this->nodoA=smgr->addAnimatedMeshSceneNode( mesh );
+                this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
                 this->nodoA->setMaterialType(video::EMT_SOLID);
 		this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
                 this->nodoA->setPosition( this->posicion );
@@ -61,4 +61,8 @@ core::vector3df Grafico::Pieza::getSize(){
 }
 core::vector3df  Grafico::Pieza::getEscala(){
     return this->nodoA->getScale();
+}
+void Grafico::Pieza::drop(){
+     this->nodoA->remove();
+
 }

@@ -1,9 +1,3 @@
-/* 
- * File:   Partida.hpp
- * Author: tokayo
- *
- * Created on 23 de marzo de 2010, 12:19
- */
 
 #ifndef _PARTIDA_HPP
 #define	_PARTIDA_HPP
@@ -20,7 +14,14 @@
 using namespace irr;
 
 class Partida {
+    friend class Aplicacion;
 public:
+
+    /**
+     * Constructor de la case partida, se encarga de inicializar todas las variables ecepto
+     * los jugadores,
+     * @param smgr Un apuntador al  manejador de la escena
+     */
     Partida(scene::ISceneManager* smgr);
     Partida(const Partida& orig);
     virtual ~Partida();
@@ -51,7 +52,7 @@ public:
      * @throws PartidaTerminada si se intenta llamar cuando la partida ha
      * terminado por cualquier motivo.
      */
-    bool siguienteJugada();
+    bool siguienteJugada(scene::ISceneManager* smgr);
 
     /**
      * Nos indica el valor de la bandera esta_en_curso.
@@ -73,7 +74,13 @@ public:
      * @param rutaAgente2 un string que contiene la ruta en la que se encuentra el agente 2
      * @return true si los agentes fueron cargados exitosamente, false en caso contrario.
      */
-    bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2);
+    bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr);
+    /**
+     *Elimina la partida en curso (los jugadores, las barreras colocadas,etc) y coloca la partida
+     * en blanco (antes de colocar a os jugadores)
+     * @param smgr Un apuntador al  manejador de la escena
+     */
+    void NuevaPartida(scene::ISceneManager* smgr);
 private:
     void ColocaAntorchas();
     /**
@@ -92,7 +99,6 @@ private:
     /**
      * Un apuntador al  manejador de la escena.
      */
-    scene::ISceneManager* smgr;
     /**
      * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se
      * eliminen hasta el final de la partida.
@@ -106,11 +112,19 @@ private:
      * @param j es la Jugada con la que se a actualizar el Tablero.
      * @param idJugador es el id del Jugador que realiza la Jugada.
      */
-    void actualizarTablero(Reglas::Jugada &j, int idJugador);
+    void actualizarTablero(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr);
+    /**
+     * Método llamado por Actualizar tablero, este metodo es encargado de calcular la posicion
+     * en la que el jugador se movera y colocara a el jugador en dicha posicion
+     * @param j Jugada a realizar por el jugador
+     * @param idJugador id del jugador que quiere realizar el movimiento
+     */
+    void MoverJugador(Reglas::Jugada &j, int idJugador);
     /**
      * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se
      * construye la Partida, éste Juez se construye en el contructor de Partida.
      */
+
     Reglas::Juez* juez;
     /**
      * El identificador del Jugador al que se le pedirá la siguiente Jugada.

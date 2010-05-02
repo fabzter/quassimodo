@@ -63,9 +63,16 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr){
 Grafico::Tablero::Tablero(const Tablero& orig): Pieza(orig), Reglas::Tablero(orig) {
 
 }
+Grafico::Tablero::~Tablero(){
 
 
-Grafico::Tablero::~Tablero() {
+     for(std::size_t i = 0; i < this->datos.size(); i++){
+        for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
+            this->datos.at(i).at(j)->drop();
+        }
+    }
+
+    
 }
 void Grafico::Tablero::setPosicionTablero(int x,int y,int z){
 

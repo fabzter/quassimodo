@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Aplicacion.hpp</itemPath>
+      <itemPath>Menu.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -13,8 +15,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>GUI.cpp</itemPath>
-      <itemPath>GUI.hpp</itemPath>
+      <itemPath>Aplicacion.cpp</itemPath>
+      <itemPath>Menu.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>

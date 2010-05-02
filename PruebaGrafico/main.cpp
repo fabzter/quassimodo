@@ -1,9 +1,3 @@
-/*
- * File:   main.cpp
- * Author: tokayo
- *
- * Created on 15 de marzo de 2010, 10:17
- */
 
 #include <stdlib.h>
 #include<Grafico/Antorcha.hpp>
@@ -15,13 +9,19 @@
 #include<Grafico/Celda.hpp>
 #include<Reglas/Agente.hpp>
 #include<Scripting/Manejador.hpp>
+#include<Scripting/Excepciones.hpp>
+#include<Reglas/Excepciones.hpp>
 #include<Grafico/Jugador.hpp>
 #include<Grafico/Barrera.hpp>
+#include<string.h>
 #include"Partida.hpp"
-#include"GUI.hpp"
+#include"Menu.hpp"
+#include "Aplicacion.hpp"
+#include <cstdlib>
+
 using namespace irr;
 using namespace Grafico;
-
+void MsgBox(gui::IGUIEnvironment* env,const char* msg );
 int main(int argc, char** argv) {
 
 video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
@@ -56,14 +56,15 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
 
 
-         Partida *p=new Partida(smgr);
+        // Partida *p;//=new Partida(smgr);
 
    
-           p->SetJugadores("../bin/agenteBarreras2.py","../bin/agenteBarreras2.py");
+           //p->SetJugadores("../bin/agenteBarreras2.py","../bin/agenteBarreras2.py");
            
-           p->iniciarPartida();
-            //GUI *gui=new GUI(smgr,env);
-         
+          // p->iniciarPartida();
+           // Menu *gui=new Menu(smgr,env);
+            Aplicacion *app=new Aplicacion(smgr,env);
+            bool haymenu=true;
 
 
          smgr->addSkyDomeSceneNode(sky);
@@ -78,24 +79,36 @@ while(device->run())
 
 		driver->beginScene(true, true, video::SColor(0,00,00,00));
                 if(receiver.IsKeyDown(irr::KEY_KEY_Q)){
-                    p->SetEscala(1,1,1);
-                   // b->setPosicion(x++,y,z);
+                    if(haymenu){
+                       /* delete(gui);//->dropMenuP();
+                        smgr = device->getSceneManager();
+                        smgr->clear();
+                        env->clear();
+                        haymenu=false;*/
+                        app->setPartida();
+                        haymenu=false;
+                    }
 
                 }
                 if(receiver.IsKeyDown(irr::KEY_KEY_W)){
-                   p->SetEscala(2,2,2);
+                    if(!haymenu){
+                        app->setMenu();
+                        haymenu=true;
+                    }
+                /* p=new Partida(smgr);
+                  p->SetJugadores("../bin/agenteBarreras2.py","../bin/agenteBarreras2.py");
+                     p->iniciarPartida();
+                    smgr->addCubeSceneNode();*/
+
+                   //p->SetEscala(2,2,2);
                    // b->setPosicion(x--,y,z);
                 }
                
  
                 if(receiver.IsKeyDown(irr::KEY_RETURN)){
-                    p->siguienteJugada();
-                    /*gui::IGUIWindow* window = env->addWindow(core::rect<s32>(100, 100 , 300 , 200 ),false,	L"Test window");
-                    env->addStaticText(L"Please close me",
-						core::rect<s32>(35,35,140,50),
-						true, // border?
-						false, // wordwrap?
-						window);*/
+
+                        app->SiguienteJugada();
+                   
                 }
 
 
@@ -112,3 +125,4 @@ while(device->run())
 
     return (EXIT_SUCCESS);
 }
+

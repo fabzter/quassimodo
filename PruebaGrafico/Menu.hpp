@@ -1,13 +1,15 @@
 
 
-#ifndef _GUI_HPP
-#define	_GUI_HPP
-
+#ifndef _Menu_HPP
+#define	_Menu_HPP
+#include<string.h>
 #include<irrlicht.h>
+#include <irrlicht/ICameraSceneNode.h>
+#include <irrlicht/vector3d.h>
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Tablero.hpp>
 #include<vector>
-#include<string>
+
 using namespace irr;
 /**
  * Enum que contiene los identificadores para cada boton en em Menú de la aplicación
@@ -21,7 +23,7 @@ enum GUI_BOTONES{
     B_AYUDA,
     /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
      se agregan antes de COUNT*/
-    B_COUNT
+    B_COUNT=5
 
 };
 
@@ -45,25 +47,26 @@ L"Ayuda de como usar la Aplicacion",
 };
 
 
-class GUI {
+class Menu {
 public:
-    GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env);
-    GUI(const GUI& orig);
-    virtual ~GUI();
-    void SetJugadores();
-    void setCamara();
-    void setGUI();
+    Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t);
+
+    Menu(const Menu& orig);
+    virtual ~Menu();
+    void setMenuP(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t);
+    void dropMenuP();
+    void MsgBox(gui::IGUIEnvironment* env,const char* msg );
 private:
-     void ColocaAntorchas();
-     void setSkin();
-     void setBotones();
-    Grafico::Tablero *t;
-    std::vector<Grafico::Antorcha*> antorchas;
+      void setCamara(scene::ISceneManager* smgr);
+     void setSkin(gui::IGUIEnvironment* env);
+      void SetJugadores(scene::ISceneManager* smgr,Grafico::Tablero* t);
+     void setBotones(scene::ISceneManager* smgr,gui::IGUIEnvironment* env);
     std::vector<Grafico::Pieza*> jugadores;
     std::vector<gui::IGUIButton *> botones;
-    scene::ISceneManager* smgr;
-    gui::IGUIEnvironment* env;
+    bool haymenu;
+    /*scene::ISceneManager* smgr;
+    gui::IGUIEnvironment* env;*/
 };
 
-#endif	/* _GUI_HPP */
+#endif	/* _MenuHPP */
 

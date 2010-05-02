@@ -75,6 +75,10 @@ public:
          * @return un vector que tiene la escala de cada uno de sus ejes
          */
         core::vector3df getEscala();
+        /**
+         *Elimina de la escena la pieza actual.
+         */
+        void drop();
 
 protected:
          /**
