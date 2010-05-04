@@ -8,7 +8,6 @@
       <itemPath>Barrera.hpp</itemPath>
       <itemPath>Celda.hpp</itemPath>
       <itemPath>Constantes.hpp</itemPath>
-      <itemPath>EventReceiver.hpp</itemPath>
       <itemPath>Jugador.hpp</itemPath>
       <itemPath>Pieza.hpp</itemPath>
       <itemPath>Tablero.hpp</itemPath>
@@ -23,7 +22,6 @@
       <itemPath>Antorcha.cpp</itemPath>
       <itemPath>Barrera.cpp</itemPath>
       <itemPath>Celda.cpp</itemPath>
-      <itemPath>EventReceiver.cpp</itemPath>
       <itemPath>Jugador.cpp</itemPath>
       <itemPath>Pieza.cpp</itemPath>
       <itemPath>Tablero.cpp</itemPath>

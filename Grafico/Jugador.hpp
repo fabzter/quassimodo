@@ -18,7 +18,7 @@ public:
      * @param num parametro requerido por Reglas::Jugador
      * @param a parametro requerido por ReglasJugador
      */
-    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a);
+    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback);
     /**
      *Constructor copia de la clase Jugador
      * @param orig una referencia a un objeto de la clase Jugador del namespace Grafico
@@ -32,7 +32,10 @@ public:
      */
     void Gira(core::vector3df giro);
 
+    bool Mover(scene::ISceneManager* smgr,core::vector3df npos);
+
 private:
+    scene::IAnimationEndCallBack* callback;
 
 };
 }

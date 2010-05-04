@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Constantes.hpp>
-#include<Grafico/EventReceiver.hpp>
+#include"EventReceiver.hpp"
 #include<irrlicht.h>
 #include<vector>
 #include<Grafico/Tablero.hpp>
@@ -65,6 +65,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
            // Menu *gui=new Menu(smgr,env);
             Aplicacion *app=new Aplicacion(smgr,env);
             bool haymenu=true;
+             bool curso=false;
 
 
          smgr->addSkyDomeSceneNode(sky);
@@ -107,7 +108,15 @@ while(device->run())
  
                 if(receiver.IsKeyDown(irr::KEY_RETURN)){
 
-                        app->SiguienteJugada();
+                        if(!curso){
+                        curso=true;
+                       // while(!app->hayGanador()){
+                             app->SiguienteJugada();
+                             //device->sleep(1000,true);
+                       // }
+
+
+                    }
                    
                 }
 

@@ -84,7 +84,7 @@ protected:
          /**
          * Un vector de 3 enteros que indica la posicion de la pieza
          */
-     core::vector3df posicion;
+     core::vector3df posiciong;
              /**
          * Una malla en donde es cargada la pieza
          */

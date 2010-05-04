@@ -5,14 +5,14 @@ using namespace std;
 
 Grafico::Pieza::Pieza() {
     this->mesh=NULL;
-    this->posicion=core::vector3df(0,0,0);
+    this->posiciong=core::vector3df(0,0,0);
     this->nodoA=NULL;
     this->size.X=0, this->size.Y=0, this->size.Z=0;
 }
 
 Grafico::Pieza::Pieza(const Pieza& orig) {
     this->nodoA=orig.nodoA;
-    this->posicion=orig.posicion;
+    this->posiciong=orig.posiciong;
     this->mesh=orig.mesh;
 }
 
@@ -26,10 +26,10 @@ Grafico::Pieza::~Pieza() {
    }
 
     void Grafico::Pieza::setPosicion(int x, int y ,int z){
-        this->posicion.X=x;
-        this->posicion.Y=y;
-        this->posicion.Z=z;
-        this->nodoA->setPosition( this->posicion );
+        this->posiciong.X=x;
+        this->posiciong.Y=y;
+        this->posiciong.Z=z;
+        this->nodoA->setPosition( this->posiciong );
 
    }
 
@@ -46,7 +46,7 @@ void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
                 this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
                 this->nodoA->setMaterialType(video::EMT_SOLID);
 		this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
-                this->nodoA->setPosition( this->posicion );
+                this->nodoA->setPosition( this->posiciong );
                  this->size =this->nodoA->getBoundingBox().getExtent();
 }
 void Grafico::Pieza::setEscala(int x, int y ,int z){

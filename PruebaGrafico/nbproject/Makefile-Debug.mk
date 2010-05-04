@@ -31,9 +31,11 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/AnimacionEnd.o \
 	${OBJECTDIR}/Aplicacion.o \
 	${OBJECTDIR}/Partida.o \
 	${OBJECTDIR}/Menu.o \
+	${OBJECTDIR}/EventReceiver.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -66,6 +68,11 @@ dist/Debug/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebagrafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/AnimacionEnd.o: nbproject/Makefile-${CND_CONF}.mk AnimacionEnd.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/AnimacionEnd.o AnimacionEnd.cpp
+
 ${OBJECTDIR}/Aplicacion.o: nbproject/Makefile-${CND_CONF}.mk Aplicacion.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -80,6 +87,11 @@ ${OBJECTDIR}/Menu.o: nbproject/Makefile-${CND_CONF}.mk Menu.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
+
+${OBJECTDIR}/EventReceiver.o: nbproject/Makefile-${CND_CONF}.mk EventReceiver.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -4,7 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>AnimacionEnd.hpp</itemPath>
       <itemPath>Aplicacion.hpp</itemPath>
+      <itemPath>EventReceiver.hpp</itemPath>
       <itemPath>Menu.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
     </logicalFolder>
@@ -15,7 +17,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>AnimacionEnd.cpp</itemPath>
       <itemPath>Aplicacion.cpp</itemPath>
+      <itemPath>EventReceiver.cpp</itemPath>
       <itemPath>Menu.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>main.cpp</itemPath>

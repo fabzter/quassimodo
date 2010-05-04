@@ -4,6 +4,7 @@
 #define	_APLICACION_HPP
 #include "Menu.hpp"
 #include "Partida.hpp"
+#include "AnimacionEnd.hpp"
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
 #include<string.h>
@@ -22,6 +23,7 @@ private:
     gui::IGUIEnvironment* env;
     Menu *menu;
     Partida *partida;
+    AnimacionEnd *aniend;
 
 };
 

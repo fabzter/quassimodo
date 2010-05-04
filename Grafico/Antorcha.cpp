@@ -40,9 +40,9 @@ Grafico::Antorcha::~Antorcha() {
 }
 
 void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
-        this->posicion.X=x;
-        this->posicion.Y=y;
-        this->posicion.Z=z;
+        this->posiciong.X=x;
+        this->posiciong.Y=y;
+        this->posiciong.Z=z;
        core::vector3df v;
        if(this->nodoA!=NULL)
            v= this->nodoA->getScale();
@@ -50,9 +50,9 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
            v.X=1,v.Y=1,v.Z=1;
 
 
-        this->posicionF.X= this->posicion.X;
-        this->posicionF.Y=this->posicion.Y+(this->size.Y*v.Y);
-        this->posicionF.Z=this->posicion.Z;
+        this->posicionF.X= this->posiciong.X;
+        this->posicionF.Y=this->posiciong.Y+(this->size.Y*v.Y);
+        this->posicionF.Z=this->posiciong.Z;
 }
 
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
@@ -96,7 +96,7 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
                                     video::SColor(0, 255, 255, 255), // foot color
                                     video::SColor(0, 0, 0, 0));      // tail color
                 }
-                this->setPosicionAntorcha(this->posicion);
+                this->setPosicionAntorcha(this->posiciong);
 
 
    }
@@ -127,7 +127,7 @@ void Grafico::Antorcha::setEscalaAntorcha(int x,int y, int z){
     this->nfuego->setScale(core::vector3df(x,y,z));
     this->setEscala(x,y,z);
 
-    this->setPosicionAntorcha(this->posicion);
+    this->setPosicionAntorcha(this->posiciong);
 }
 void Grafico::Antorcha::dropAntorcha(){
     this->nfuego->removeAll();

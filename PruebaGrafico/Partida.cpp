@@ -59,7 +59,7 @@ void Partida::iniciarPartida()
         this->t->getJugador(id).iniciar(id);
         Reglas::Jugada j;
         j.setPosicion( this->t->getJugador(id).getPosicion() );
-        this->MoverJugador(j,id);
+        this->MoverJugador(j,id,NULL);
         ju->Gira(core::vector3df(0,90-(id*180),0));
          
     }
@@ -103,7 +103,7 @@ void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador,scene::ISceneMa
 {
     if(j.getTipoDeJugada() == Reglas::MOVIMIENTO)
     {
-        MoverJugador(j,idJugador);
+        MoverJugador(j,idJugador,smgr);
     }
     else if(j.getTipoDeJugada() == Reglas::BARRERA)
     {
@@ -115,15 +115,19 @@ void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador,scene::ISceneMa
         this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
     }
 }
-void Partida::MoverJugador(Reglas::Jugada &j, int idJugador){
+bool Partida::MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr){
     Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(idJugador);
     core::vector3df p=this->t->getPosicionCelda(  j.getPosicion() )  ;
     p.Y+=this->t->getsizeCelda().Y;
     p.Z+=(this->t->getsizeCelda().Z /2);
     p.X+=(this->t->getsizeCelda().X /2);
-    ju->setPosicion(p);
+    bool termino=true;
+    if(smgr!=NULL)
+        termino=ju->Mover(smgr,p);
+    else
+        ju->setPosicion(p);
     this->t->moverJugador(idJugador, j.getPosicion());
-
+    return termino;
 }
 bool Partida::estaEnCurso()
 {
@@ -155,15 +159,15 @@ bool Partida::hayGanador()
     }
      this->ColocaAntorchas();
  }
- bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr){
+ bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr,scene::IAnimationEndCallBack* callback){
 
       Scripting::Manejador *m = new Scripting::Manejador(*t);
       std::vector<Reglas::Agente*> agentes;
       agentes.push_back(m->getAgente(rutaAgente1));
       agentes.push_back(m->getAgente(rutaAgente2));
       
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0]));
-     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1]));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback));
+     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback));
        
       this->t->setJugadores( this->jugadores);
  }

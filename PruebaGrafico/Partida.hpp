@@ -74,7 +74,7 @@ public:
      * @param rutaAgente2 un string que contiene la ruta en la que se encuentra el agente 2
      * @return true si los agentes fueron cargados exitosamente, false en caso contrario.
      */
-    bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr);
+    bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr,scene::IAnimationEndCallBack* callback);
     /**
      *Elimina la partida en curso (los jugadores, las barreras colocadas,etc) y coloca la partida
      * en blanco (antes de colocar a os jugadores)
@@ -119,7 +119,7 @@ private:
      * @param j Jugada a realizar por el jugador
      * @param idJugador id del jugador que quiere realizar el movimiento
      */
-    void MoverJugador(Reglas::Jugada &j, int idJugador);
+    bool MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr);
     /**
      * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se
      * construye la Partida, éste Juez se construye en el contructor de Partida.
