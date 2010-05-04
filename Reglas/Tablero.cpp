@@ -12,13 +12,34 @@ Reglas::Tablero::Tablero()
 
 Reglas::Tablero::Tablero(const Tablero& orig)
 {
+    //le damos el tamaño al tablero y construimos las Celdas.
     this->init_tablero();
-    this->datos = datos;
-    this->grafo = orig.grafo;
-    this->jugadores.resize(orig.jugadores.size());
-    this->jugadores = orig.jugadores;
-    this->barreras_colocadas.resize(orig.barreras_colocadas.size());
+    //Posicionamos las Celdas en el Grafo y las conectamos correctamente.
+    this->grafo = new Grafo(*this);
+    
+    //iteramos por todas las celdas
+    for(int y = 0; y < this->size_y; y++)
+    {
+        for(int x = 0; x < this->size_x; x++)
+        {
+            if(!orig.datos.at(y).at(x).estaLibre())
+            {
+                this->datos.at(y).at(x).bloquear();
+                this->celdas_ocupadas.push_back((Celda*)&orig.datos.at(y).at(x));
+            }
+            //iteramos por los lados de las celdas
+            for(int lado = (int)NORTE; lado <= (int)OESTE; lado++)
+            {
+                if( !orig.datos.at(y).at(x).estaLibreDireccion((Direccion)lado) )
+                {
+                    this->datos.at(y).at(x).bloquearDireccion((Direccion)lado);
+                }
+            }
+        }
+    }
     this->barreras_colocadas = orig.barreras_colocadas;
+    this->jugadores = orig.jugadores;
+
 }
 
 Reglas::Tablero::~Tablero()

@@ -9,7 +9,7 @@ Reglas::Excepcion::Excepcion(std::string what)
 }
 const char* Reglas::Excepcion:: what() const throw()
 {
-        return msg.c_str();
+    return msg.c_str();
 }
 Reglas::Excepcion::~Excepcion() throw()
 {

@@ -52,6 +52,12 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
 
         //exponemos el Tablero
         this->namespace_modulo["tablero"] = object(boost::python::ptr(&t));
+        //y le quitamos el metodo moverJugador
+        exec("tablero.moverJugador = None\n", this->namespace_modulo,
+                                                this->namespace_modulo);
+        //le quitamos setBarrera
+        exec("tablero.setBarrera = None\n", this->namespace_modulo,
+                                                this->namespace_modulo);
         //exponemos el ayudante
         this->ayudante = new Reglas::AyudanteDeAgente(t);
         this->namespace_modulo["ayudante"] =
