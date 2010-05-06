@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
+import sys
+sys.path.append("../lib")
 import Reglas
 import random
 
@@ -17,11 +19,6 @@ class AgenteBarreras (Reglas.Agente):
         
         
     def siguienteJugada(self):
-        tab2 = Reglas.Tablero(self.tab)
-        print "mira mi tablero creado!\n{0}".format(tab2)
-        print tab2.print_tab()
-        print self.id, ": Preparo mi jugada"
-        
         if len(ayudante.getBarrerasPosibles(self.id)) != 0:
             j = random.choice(ayudante.getBarrerasPosibles(self.id))
         else:
