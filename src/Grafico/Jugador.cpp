@@ -3,8 +3,8 @@
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback):Grafico::Pieza() ,Reglas::Jugador(num,a) {
-      this->mesh=smgr->getMesh("Texturas/Mono.3ds");
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
+      this->mesh=skin->getJugador1();
       this->dibuja(smgr);
       this->callback=callback;
     

@@ -1,12 +1,12 @@
 
 #include "Antorcha.hpp"
-#include<iostream>
+
 using namespace irr;
 
-Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,bool sombra): Pieza(){
+Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,Skin *skin,bool sombra): Pieza(){
         //this->nodoA=NULL;
-        this->mesh =smgr->getMesh("Texturas/Lumbrera4.3ds");
-        this->fuego=smgr->getVideoDriver()->getTexture("Texturas/fire.bmp");
+        this->mesh =skin->getAntorcha();
+        this->fuego=skin->getTAntorcha();
         this->sombra=sombra;
         this->dibuja(smgr);
         this->setVectPosicion(x,0,z);
@@ -57,9 +57,6 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
 
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
-
-
-
                  this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),40.0f*this->getEscala().X);
                 //hacemos el fuego
         	scene::IParticleSystemSceneNode* ps =	smgr->addParticleSystemSceneNode(false,nfuego);

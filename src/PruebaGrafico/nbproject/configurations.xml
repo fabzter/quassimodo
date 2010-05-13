@@ -7,6 +7,8 @@
       <itemPath>AnimacionEnd.hpp</itemPath>
       <itemPath>Aplicacion.hpp</itemPath>
       <itemPath>EventReceiver.hpp</itemPath>
+      <itemPath>Juego.hpp</itemPath>
+      <itemPath>ManejadorJuego.hpp</itemPath>
       <itemPath>Menu.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
     </logicalFolder>
@@ -21,9 +23,7 @@
       <itemPath>Aplicacion.cpp</itemPath>
       <itemPath>EventReceiver.cpp</itemPath>
       <itemPath>Juego.cpp</itemPath>
-      <itemPath>Juego.hpp</itemPath>
       <itemPath>ManejadorJuego.cpp</itemPath>
-      <itemPath>ManejadorJuego.hpp</itemPath>
       <itemPath>Menu.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>main.cpp</itemPath>

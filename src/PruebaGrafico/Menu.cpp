@@ -4,9 +4,10 @@
 using namespace irr;
 using namespace Grafico;
 
-Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t) {
+Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin) {
     this->env=env;
     this->smgr=smgr;
+    this->skin=skin;
     this->jugadores.reserve(4);
     this->jugadores.resize(4);
     this->botones.reserve(B_COUNT);
@@ -24,10 +25,9 @@ Menu::~Menu() {
 
  void Menu::SetJugadores(Grafico::Tablero* t){
 
-    scene::IAnimatedMesh *mono=this->smgr->getMesh("Texturas/Mono.3ds") ;
     for(int i=0;i<t->num_jugadores;i++){
          this->jugadores.at(i)=new Grafico::Pieza();
-        this->jugadores.at(i)->setMesh( mono);
+        this->jugadores.at(i)->setMesh( this->skin->getJugador1() );
         this->jugadores.at(i)->dibuja( this->smgr );
         core::vector3df p=t->getPosicionCelda(4,(i*8));
         p.Y+=t->getsizeCelda().Y;

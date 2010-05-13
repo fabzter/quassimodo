@@ -7,11 +7,12 @@
 ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env) {
     this->smgr=smgr;
     this->env=env;
+    this->skin=new Grafico::Skin(smgr);
     this->Agentes.resize(2);
     this->clearAgentes();
     this->hayagente=false;
-     this->partida=new Partida(this->smgr);
-    this->menu=new Menu(this->smgr,this->env,this->partida->t);
+     this->partida=new Partida(this->smgr,this->skin);
+    this->menu=new Menu(this->smgr,this->env,this->partida->t,this->skin);
     this->aniend=new AnimacionEnd(this->partida,this->smgr);
 
 
@@ -26,8 +27,8 @@ void ManejadorJuego::setMenu(){
     delete(this->partida);
     delete(this->menu);
     this->smgr->clear();
-    this->partida=new Partida(this->smgr);
-     this->menu=new Menu(this->smgr,this->env,this->partida->t);
+    this->partida=new Partida(this->smgr,this->skin);
+     this->menu=new Menu(this->smgr,this->env,this->partida->t,this->skin);
 }
 
 void ManejadorJuego::setPartida(){
@@ -35,6 +36,7 @@ void ManejadorJuego::setPartida(){
         this->menu->dropMenuP();
         this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
         this->partida->iniciarPartida();
+         this->smgr->addCameraSceneNodeMaya(0,200.f,200.f,200.0f);
     }
     else{
          this->menu->MsgBox("No ha seleccionado agentes");

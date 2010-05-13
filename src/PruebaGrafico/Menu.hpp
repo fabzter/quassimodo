@@ -8,6 +8,7 @@
 #include <irrlicht/vector3d.h>
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Tablero.hpp>
+#include<Grafico/Skin.hpp>
 #include<string>
 #include<vector>
 #include<wchar.h>
@@ -69,7 +70,7 @@ L"Ayuda de como usar la Aplicación",
 
 class Menu {
 public:
-    Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t);
+    Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin);
 
     Menu(const Menu& orig);
     virtual ~Menu();
@@ -88,6 +89,7 @@ private:
     std::vector<Grafico::Pieza*> jugadores;
     std::vector<gui::IGUIButton *> botones;
     bool haymenu;
+    Grafico::Skin* skin;
     scene::ISceneManager* smgr;
     gui::IGUIEnvironment* env;
     gui::IGUIFileOpenDialog *op;

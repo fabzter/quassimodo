@@ -5,7 +5,7 @@
 #include<Reglas/Celda.hpp>
 #include<irrlicht.h>
 #include"Pieza.hpp"
-
+#include "Skin.hpp"
 namespace Grafico{
 /**
  * La clase celda se encarga de conocer el estado de cada celda en el trblero, deriva de la
@@ -18,7 +18,7 @@ public:
      * y dibuja la celda en la escena en la posicion (0,0,0).
      * @param smgr Un apuntador al  manejador de la escena
      */
-    Celda(scene::ISceneManager* smgr);
+    Celda(scene::ISceneManager* smgr,Skin* skin);
     /**
      *Constructor copia de la clase Celda
      * @param orig una referencia a un objeto de la clase Celda del namespace Grafico

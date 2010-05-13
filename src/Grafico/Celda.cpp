@@ -1,13 +1,14 @@
 
 #include "Celda.hpp"
+
 using namespace irr;
 
-Grafico::Celda::Celda(scene::ISceneManager* smgr):Grafico::Pieza(){
-       this->mesh=smgr->getMesh("Texturas/Celda4.3ds");
+Grafico::Celda::Celda(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza(){
+       this->mesh=skin->getCelda();
        this->celdaR=NULL;
        this->nodoA=NULL;
       this->dibuja(smgr);
-       this->nodoA->setMaterialTexture(0,smgr->getVideoDriver()->getTexture( "Texturas/arena2.JPG" ) );
+       this->nodoA->setMaterialTexture(0,skin->getTCelda() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
       core::aabbox3d<f32> t=this->nodoA->getBoundingBox();
       this->size= t.getExtent();

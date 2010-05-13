@@ -6,12 +6,13 @@
 using namespace irr;
 using namespace Grafico;
 
-Partida::Partida(scene::ISceneManager* smgr) {
-    this->t=new Tablero(smgr);
+Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
+    this->skin=skin;
+    this->t=new Tablero(smgr,this->skin);
+
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
     this->juez = NULL; //esto es solo para destruirlo bien!
-    //TODO: hacer el Juez Grafico!!
     this->juez = new Reglas::Juez(*t);
 
     this->antorchas.reserve(4);
@@ -21,7 +22,7 @@ Partida::Partida(scene::ISceneManager* smgr) {
    
 
      for(std::size_t i = 0; i < this->antorchas.size(); i++){
-         this->antorchas.at(i)=new Antorcha(smgr,0,0);
+         this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
     }
      this->ColocaAntorchas();
 }
@@ -107,7 +108,7 @@ void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador,scene::ISceneMa
     }
     else if(j.getTipoDeJugada() == Reglas::BARRERA)
     {
-        this->Barreras.push_back(new Barrera(smgr));
+        this->Barreras.push_back(new Barrera(smgr,this->skin));
          unsigned int pos=this->Barreras.size();
         
         const std::vector<int> p=j.getPosicion();
@@ -166,8 +167,8 @@ bool Partida::hayGanador()
       agentes.push_back(m->getAgente(rutaAgente1));
       agentes.push_back(m->getAgente(rutaAgente2));
       
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback));
-     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback,this->skin));
+     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback,this->skin));
        
       this->t->setJugadores( this->jugadores);
  }
@@ -178,5 +179,5 @@ bool Partida::hayGanador()
              ju->drop();
       }
       delete(this->t);
-      this->t=new Tablero(smgr);
+      this->t=new Tablero(smgr,this->skin);
   }

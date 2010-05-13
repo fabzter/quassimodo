@@ -2,11 +2,10 @@
 
 #include "Tablero.hpp"
 #include "Celda.hpp"
+#include "Skin.hpp"
 using namespace irr;
 
-Grafico::Tablero::Tablero(scene::ISceneManager* smgr) : Pieza(), Reglas::Tablero(){
-
-    this->mesh=smgr->getMesh("Texturas/Tablero4.3ds");
+Grafico::Tablero::Tablero(scene::ISceneManager* smgr,Skin *skin) : Pieza(), Reglas::Tablero(){
     //le damos el tamaño vertical
     this->datos.reserve(this->size_y);
     this->datos.resize(this->size_y);
@@ -16,7 +15,7 @@ Grafico::Tablero::Tablero(scene::ISceneManager* smgr) : Pieza(), Reglas::Tablero
         this->datos.at(i).reserve(this->size_x);
         this->datos.at(i).resize(this->size_x);
     }
-    this->DibujaTodo(smgr);
+    this->DibujaTodo(smgr,skin);
 
     core::vector3df v=this->getPosicionEscena();
 
@@ -31,28 +30,27 @@ Grafico::Tablero::Tablero(scene::ISceneManager* smgr) : Pieza(), Reglas::Tablero
 
 }
 
-void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr){
+void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
     //dibujamos el tablero
+      this->mesh=skin->getTablero();
       this->dibuja(smgr);
       this->size =this->nodoA->getBoundingBox().getExtent();
     scene::IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(
 			this->nodoA->getMesh());
      // this->nodoA->setMaterialType(video::EMT_NORMAL_MAP_SOLID);
-       this->nodoA->setMaterialTexture(0,smgr->getVideoDriver()->getTexture( "Texturas/arena1.jpg" ) );
+       this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
 
 		//this->nodoA->setMaterialFlag(video::EMF_FOG_ENABLE, true);
 		//this->nodoA->setMaterialType(video::EMT_PARALLAX_MAP_SOLID);
 		// adjust height for parallax effect
 		//this->nodoA->getMaterial(0).MaterialTypeParam = 0.035f;
-
 		// drop mesh because we created it with a create.. call.
 		tangentMesh->drop();
-      //dibujamos las celdas
-        //ahora le damos su posición a cada celda...
+      //dibujamos las celdas y le damos su posición a cada celda...
     for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
-            this->datos.at(i).at(j)=new Celda(smgr);
+            this->datos.at(i).at(j)=new Celda(smgr,skin);
             this->datos.at(i).at(j)->setCeldaR( &this->getCelda(j,i));
            this->datos.at(i).at(j)->colocar(0,this->size.Y-2,0);
         }

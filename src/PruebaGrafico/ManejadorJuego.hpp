@@ -11,6 +11,7 @@
 #include "Menu.hpp"
 #include "Partida.hpp"
 #include "AnimacionEnd.hpp"
+#include <Grafico/Skin.hpp>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
 #include<string.h>
@@ -35,6 +36,7 @@ private:
     bool hayagente;
     Menu *menu;
     Partida *partida;
+    Grafico::Skin* skin;
     AnimacionEnd *aniend;
 
 };

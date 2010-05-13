@@ -6,6 +6,8 @@
 #include<Reglas/Enums.hpp>
 #include"Pieza.hpp"
 #include<irrlicht.h>
+#include <irrlicht/vector3d.h>
+#include "Skin.hpp"
 
 namespace Grafico{
   using namespace irr;
@@ -22,7 +24,7 @@ public:
      * clase Reglas::Barrera
      * @param smgr Un apuntador al  manejador de la escena
      */
-    Barrera(scene::ISceneManager* smgr);
+    Barrera(scene::ISceneManager* smgr,Skin* skin);
     /**
      *Constructor copia de la clase Barrera
      * @param orig una referencia a un objeto de la clase Barera del namespace Grafico

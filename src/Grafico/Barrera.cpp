@@ -1,14 +1,14 @@
 
-#include <irrlicht/vector3d.h>
 
 #include "Barrera.hpp"
+
 using namespace irr;
 
-Grafico::Barrera:: Barrera(scene::ISceneManager* smgr) {
+Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin) {
 
-      this->mesh=smgr->getMesh("Texturas/Barrera3.3ds");
-    this->dibuja(smgr);
-     this->nodoA->setMaterialTexture(0,smgr->getVideoDriver()->getTexture( "Texturas/wall.jpg" ) );
+      this->mesh=skin->getBarrera();
+     this->dibuja(smgr);
+     this->nodoA->setMaterialTexture( 0, skin->getTBarrera() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
 }
 

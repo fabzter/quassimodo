@@ -4,6 +4,7 @@
 #include<irrlicht.h>
 #include"Pieza.hpp"
 #include<Reglas/Jugador.hpp>
+#include "Skin.hpp"
 
 namespace Grafico{
     using namespace irr;
@@ -18,7 +19,7 @@ public:
      * @param num parametro requerido por Reglas::Jugador
      * @param a parametro requerido por ReglasJugador
      */
-    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback);
+    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback,Skin* skin);
     /**
      *Constructor copia de la clase Jugador
      * @param orig una referencia a un objeto de la clase Jugador del namespace Grafico
