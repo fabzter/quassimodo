@@ -20,6 +20,10 @@
       <itemPath>AnimacionEnd.cpp</itemPath>
       <itemPath>Aplicacion.cpp</itemPath>
       <itemPath>EventReceiver.cpp</itemPath>
+      <itemPath>Juego.cpp</itemPath>
+      <itemPath>Juego.hpp</itemPath>
+      <itemPath>ManejadorJuego.cpp</itemPath>
+      <itemPath>ManejadorJuego.hpp</itemPath>
       <itemPath>Menu.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>main.cpp</itemPath>

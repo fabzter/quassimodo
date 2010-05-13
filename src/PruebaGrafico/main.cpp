@@ -16,7 +16,7 @@
 #include<string.h>
 #include"Partida.hpp"
 #include"Menu.hpp"
-#include "Aplicacion.hpp"
+#include "Juego.hpp"
 #include <cstdlib>
 
 using namespace irr;
@@ -27,10 +27,10 @@ int main(int argc, char** argv) {
 video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
 	// create device
-       EventReceiver receiver;
+      // EventReceiver receiver;
 
 	IrrlichtDevice* device = irr::createDevice(driverType,
-			core::dimension2d<u32>(800, 600), 16, false, false, false,&receiver);
+			core::dimension2d<u32>(800, 600), 16, false, false, false);
 
 
 	if (device == 0)
@@ -63,7 +63,8 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
            
           // p->iniciarPartida();
            // Menu *gui=new Menu(smgr,env);
-            Aplicacion *app=new Aplicacion(smgr,env);
+            Juego *app=new Juego(smgr,env);
+            device->setEventReceiver(app->getEventReceiver());
             bool haymenu=true;
              bool curso=false;
 
@@ -79,13 +80,13 @@ while(device->run())
 		{
 
 		driver->beginScene(true, true, video::SColor(0,00,00,00));
-                if(receiver.IsKeyDown(irr::KEY_KEY_Q)){
+              /*  if(receiver.IsKeyDown(irr::KEY_KEY_Q)){
                     if(haymenu){
                        /* delete(gui);//->dropMenuP();
                         smgr = device->getSceneManager();
                         smgr->clear();
                         env->clear();
-                        haymenu=false;*/
+                        haymenu=false;
                         app->setPartida();
                         haymenu=false;
                     }
@@ -95,7 +96,7 @@ while(device->run())
                     if(!haymenu){
                         app->setMenu();
                         haymenu=true;
-                    }
+                    }*/
                 /* p=new Partida(smgr);
                   p->SetJugadores("../bin/agenteBarreras2.py","../bin/agenteBarreras2.py");
                      p->iniciarPartida();
@@ -103,10 +104,10 @@ while(device->run())
 
                    //p->SetEscala(2,2,2);
                    // b->setPosicion(x--,y,z);
-                }
+                
                
  
-                if(receiver.IsKeyDown(irr::KEY_RETURN)){
+              /*  if(receiver.IsKeyDown(irr::KEY_RETURN)){
 
                         if(!curso){
                         curso=true;
@@ -118,7 +119,7 @@ while(device->run())
 
                     }
                    
-                }
+                }*/
 
 
                 smgr->drawAll();

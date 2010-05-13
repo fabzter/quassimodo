@@ -3,8 +3,11 @@
 
  using namespace irr;
 
-EventReceiver::EventReceiver()
+EventReceiver::EventReceiver(ManejadorJuego* manj)
 {
+    this->manj=manj;
+    this->piniciada=false;
+    this->noA=-1;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
     KeyIsDown[i] = false;
 }
@@ -14,30 +17,77 @@ bool EventReceiver::OnEvent(const SEvent& event)
 {
 
  // revisa si el evento fue un evento del teclado, y si es así se modifica el estado de la tecla presionada
-if (event.EventType == irr::EET_KEY_INPUT_EVENT){
-    KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+    switch(event.EventType){
+        case irr::EET_KEY_INPUT_EVENT:
+            KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+            if(  this->piniciada && event.KeyInput.Key==irr::KEY_KEY_R)
+              this->piniciada=this->manj->SiguienteJugada();
+             if(  event.KeyInput.Key==irr::KEY_KEY_Q)
+                 if(!this->piniciada){
+                     this->manj->quick();
+                     this->piniciada=true;
+                 }
+                
+            break;
+            // si el elento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.
+       case irr::EET_MOUSE_INPUT_EVENT:
+            //bool evento=false;
+            switch(event.MouseInput.Event)
+            {
+                    case EMIE_LMOUSE_PRESSED_DOWN:
+                            MouseState.LeftButtonDown = true;
+                            break;
+                    case EMIE_LMOUSE_LEFT_UP:
+                            MouseState.LeftButtonDown = false;
+                            break;
+
+                    case EMIE_MOUSE_MOVED:
+                            MouseState.Posicion.X = event.MouseInput.X;
+                            MouseState.Posicion.Y = event.MouseInput.Y;
+                            break;
+
+            }
+            break;
+            //si es un evento dela GUI
+        case irr::EET_GUI_EVENT:
+
+            if(event.GUIEvent.EventType== gui::EGET_BUTTON_CLICKED){
+                s32 id = event.GUIEvent.Caller->getID();
+                switch(id){
+                    case B_AGENTE_VS_MAKINA:
+                        this->manj->getMenu()->AgntVSAgnt();
+                        break;
+                    case BA_AGENTE_1:
+                        this->noA=0;
+                        this->manj->getMenu()->OpenFileDialog();
+                        break;
+                    case BA_AGENTE_2:
+                        this->noA=1;
+                        this->manj->getMenu()->OpenFileDialog();
+                        break;
+                    case BO_INICIA:
+                        this->manj->setPartida();
+                          this->piniciada=true;
+                        break;
+                    case BO_CANCELA:
+                        this->manj->clearAgentes();
+                        break;
+                } 
+            }
+            if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
+                this->manj->setAgente( this->manj->getMenu()->getPath(), this->noA);
+                this->noA=-1;
+              }
+      
+            break;
+
+
+
+
 }
 
-// si el efento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.
-if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
-{
-    bool evento=false;
-	switch(event.MouseInput.Event)
-	{
-		case EMIE_LMOUSE_PRESSED_DOWN:
-			MouseState.LeftButtonDown = true;
-			break;
-		case EMIE_LMOUSE_LEFT_UP:
-			MouseState.LeftButtonDown = false;
-        		break;
+    
 
-		case EMIE_MOUSE_MOVED:
-			MouseState.Posicion.X = event.MouseInput.X;
-			MouseState.Posicion.Y = event.MouseInput.Y;
-			break;
-
-	}
-}
 return false;
 
 }

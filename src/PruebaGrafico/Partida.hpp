@@ -14,7 +14,7 @@
 using namespace irr;
 
 class Partida {
-    friend class Aplicacion;
+    friend class ManejadorJuego;
 public:
 
     /**
