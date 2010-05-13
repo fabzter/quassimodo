@@ -10,13 +10,8 @@ using namespace std;
 string Celda_to_str(Celda &c)
 {
     ostringstream strs;
-    std::vector<int> pos( c.getPosicion() );
     
-    strs << '(' << pos.at(0) << ", " << pos.at(1) << ") " << c.estaLibre() <<
-            "\n\t" << c.estaLibreDireccion(Reglas::NORTE) << '\n' <<
-            c.estaLibreDireccion(Reglas::OESTE) << "\t\t" << 
-            c.estaLibreDireccion(Reglas::ESTE) << '\n' <<
-            '\t' << c.estaLibreDireccion(Reglas::SUR);
+    strs << c;
     
     return strs.str();
 }
@@ -25,6 +20,8 @@ void export_celda()
 {
     object celda =
     class_< Celda, bases<Pieza> >("Celda")
+        .def(init<Jugada &>())
+        
         .def("estaLibre", &Celda::estaLibre )
         
         .def("getHijo", &Celda::getHijo, 

@@ -19,6 +19,7 @@ void export_jugada()
                             return_value_policy<reference_existing_object>() )
         .def("setTipoDeJugada", &Jugada::setTipoDeJugada)
         .def("getTipoDeJugada", &Jugada::getTipoDeJugada)
+        
         .def("setDireccion", &Jugada::setDireccion)
         .def("getDireccion", &Jugada::getDireccion)
     ;

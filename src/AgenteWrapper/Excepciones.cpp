@@ -1,9 +1,7 @@
 #include <boost/python.hpp>
 #include <Reglas/Excepciones.cpp>
 #include <iostream>
-
 #include <string>
-
 
 using namespace boost::python;
 using namespace Reglas;
@@ -12,6 +10,8 @@ using namespace std;
 PyObject *ExcepcionType = NULL;
 PyObject *ParametrosMalosType = NULL;
 PyObject *SinHijoType = NULL;
+PyObject *PiezaNoColocadaType = NULL;
+
 void translate_excepcion(Excepcion const &e)
 {
     assert(ExcepcionType != NULL);
@@ -31,6 +31,13 @@ void translate_sin_hijo(SinHijo const &e)
     assert(SinHijoType != NULL);
     object pythonExceptionInstance(e);
     PyErr_SetObject(SinHijoType, pythonExceptionInstance.ptr());
+}
+
+void translate_pieza_no_colocada(PiezaNoColocada const &e)
+{
+    assert(PiezaNoColocadaType != NULL);
+    object pythonExceptionInstance(e);
+    PyErr_SetObject(PiezaNoColocadaType, pythonExceptionInstance.ptr());
 }
 
 string Excepcion_to_str(Excepcion &e)
@@ -55,9 +62,15 @@ void export_excepciones()
     register_exception_translator<ParametrosMalos>(&translate_parametros_malos);
     
     class_< SinHijo, bases<Excepcion> >
-    SinHijoClass("SinHijos")
+    SinHijoClass("SinHijo")
     ;
     SinHijoType = SinHijoClass.ptr();
     register_exception_translator<SinHijo>(&translate_sin_hijo);
+    
+    class_<PiezaNoColocada, bases<Excepcion> >
+    PiezaNoColocadaClass("PiezaNoColocada")
+    ;
+    PiezaNoColocadaType = PiezaNoColocadaClass.ptr();
+    register_exception_translator<PiezaNoColocada>(&translate_pieza_no_colocada);
     
 }

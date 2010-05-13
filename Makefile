@@ -23,3 +23,6 @@ clean:
 	cd $(SRC_DIR)/Reglas && make clean
 	cd $(SRC_DIR)/Scripting && make clean
 	cd $(BIN_DIR) && ${RM} ./*.pyc
+
+.PHONY: doc bin test all clean
+

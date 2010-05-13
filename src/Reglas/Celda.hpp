@@ -23,7 +23,7 @@ class Celda : public Pieza{
 public:
     /**
      * Este es el constructor default de la clase Celda. Le da una posición de
-     * -1 en ambos ejes, la pone disponible al igual que sus lados. Y la pone
+     * -1 en ambos ejes, pone como bloqueados a sus lados. Y la pone
      * como no colocada, y como libre.
      */
     Celda();

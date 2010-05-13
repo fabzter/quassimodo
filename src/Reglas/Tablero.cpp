@@ -38,8 +38,12 @@ Reglas::Tablero::Tablero(const Tablero& orig)
         }
     }
     this->barreras_colocadas = orig.barreras_colocadas;
-    this->jugadores = orig.jugadores;
 
+    this->jugadores.resize(orig.jugadores.size());
+    for(int i = 0; i < this->jugadores.size(); i++)
+    {
+        this->jugadores.at(i) = new Jugador(orig.jugadores.at(i));
+    }
 }
 
 Reglas::Tablero::~Tablero()
