@@ -9,7 +9,6 @@ using namespace Grafico;
 Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
     this->skin=skin;
     this->t=new Tablero(smgr,this->skin);
-
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
     this->juez = NULL; //esto es solo para destruirlo bien!
@@ -24,7 +23,10 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
      for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
     }
+       core::vector3df v= this->t->getSize();
+     this->t->setPosicionTablero(-v.X/2,0,(v.Z/2)-15);
      this->ColocaAntorchas();
+
 }
 
 Partida::Partida(const Partida& orig) {
@@ -143,11 +145,12 @@ bool Partida::hayGanador()
  void Partida::ColocaAntorchas(){
 
       int x,x1,z,z1,y;
-    x=this->t->getPosicionTablero().X+(this->t->getEscala().X);
-    x1=this->t->getPosicionTablero().X+(this->t->getsizeLineaCeldas().X*this->t->getEscala().X);
-    z=this->t->getPosicionTablero().Z+(this->t->getEscala().Z);
-    z1=this->t->getPosicionTablero().Z+(this->t->getsizeLineaCeldas().Z*this->t->getEscala().Z);
-    y=this->t->getPosicionTablero().Y+(this->t->getEscala().Y);
+     core::vector3df v=this->t->getPosicionCelda(0,0);
+    x=v.X+(this->t->getEscala().X);
+    x1=(this->t->getsizeLineaCeldas().X*this->t->getEscala().X);
+    z=v.Z+(this->t->getEscala().Z);
+    z1=(this->t->getsizeLineaCeldas().Z*this->t->getEscala().Z);
+    y=v.Y+(this->t->getEscala().Y);
      this->antorchas.at(0)->setPosicionAntorcha(x,y,z);
      this->antorchas.at(1)->setPosicionAntorcha(x1,y,z);
      this->antorchas.at(2)->setPosicionAntorcha(x1,y,z1);

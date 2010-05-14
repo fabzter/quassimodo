@@ -27,6 +27,9 @@ bool EventReceiver::OnEvent(const SEvent& event)
                      this->manj->quick();
                      this->piniciada=true;
                  }
+             if(  event.KeyInput.Key==irr::KEY_KEY_P){
+                 this->manj->printCam();
+             }
                 
             break;
             // si el elento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.

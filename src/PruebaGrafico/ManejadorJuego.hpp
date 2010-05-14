@@ -29,6 +29,7 @@ public:
     void setAgente(std::string Agente,int noAgente);
     void clearAgentes();
     void quick();
+    void printCam();
 private:
     scene::ISceneManager* smgr;
     gui::IGUIEnvironment* env;

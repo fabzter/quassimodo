@@ -36,7 +36,11 @@ void ManejadorJuego::setPartida(){
         this->menu->dropMenuP();
         this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
         this->partida->iniciarPartida();
-         this->smgr->addCameraSceneNodeMaya(0,200.f,200.f,200.0f);
+        scene::ICameraSceneNode *cam= this->smgr->addCameraSceneNodeMaya(0,200.f,200.f,200.0f);
+        cam->setTarget(core::vector3df(18.993,22.82,100.268));
+        cam->setPosition(core::vector3df(49.33476,110.99,99.7382));
+        //cam->bindTargetAndRotation(true);
+        std::cout<<cam->getTargetAndRotationBinding()<<std::endl;
     }
     else{
          this->menu->MsgBox("No ha seleccionado agentes");
@@ -90,5 +94,15 @@ void ManejadorJuego::clearAgentes(){
     this->Agentes[1]="../../bin/agenteBarreras2.py";
     this->hayagente=true;
     this->setPartida();
+  }
+  void ManejadorJuego::printCam(){
+      scene::ICameraSceneNode *cam=this->smgr->getActiveCamera();
+      core::vector3df v;
+      v=cam->getTarget();
+      std::cout<<"target "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+      v=cam->getPosition();
+      std::cout<<"posicion "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+     v=cam->getRotation();
+      std::cout<<"rotation "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
   }
 

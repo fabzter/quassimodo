@@ -37,8 +37,8 @@ Menu::~Menu() {
 }
  void Menu::setCamara(){
      scene::ICameraSceneNode *cam= this->smgr->addCameraSceneNode();
-     cam->setTarget(core::vector3df(18.993,22.82,100.268));
-     cam->setPosition(core::vector3df(-3.18,24.48,122.98));
+     cam->setTarget(core::vector3df(-12.2491,8.5962,107.647));
+     cam->setPosition(core::vector3df(-66.0566,28.3357,174.094));
     this->smgr->setActiveCamera(cam);
  }
  void Menu::setMenuP(Grafico::Tablero* t){
