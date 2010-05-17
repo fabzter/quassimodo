@@ -42,7 +42,7 @@ Reglas::Tablero::Tablero(const Tablero& orig)
     this->jugadores.resize(orig.jugadores.size());
     for(int i = 0; i < this->jugadores.size(); i++)
     {
-        this->jugadores.at(i) = new Jugador(orig.jugadores.at(i));
+        this->jugadores.at(i) = new Jugador(*orig.jugadores.at(i));
     }
 }
 
