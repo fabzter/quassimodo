@@ -4,6 +4,8 @@
 #define	_ANTORCHA_HPP
 #include<irrlicht.h>
 #include "Pieza.hpp"
+#include "Skin.hpp"
+#include<iostream>
 namespace Grafico{
 using namespace irr;
     /**
@@ -19,7 +21,7 @@ using namespace irr;
          * @param z Un entero que representa la posicion que tendrá en el eje de las z
          * @param sombra Un booleano que indica si la antorcha llevara sombra o no por default no lleva.
          */
-        Antorcha(scene::ISceneManager* smgr,int x, int z,bool sombra=false);
+        Antorcha(scene::ISceneManager* smgr,int x, int z,Skin* skin,bool sombra=false);
         /**
          *Constructor copia de la clase Antorcha
          * @param orig una referecnia a un objeto Antorcha

@@ -31,9 +31,11 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Aplicacion.o \
+	${OBJECTDIR}/Juego.o \
 	${OBJECTDIR}/AnimacionEnd.o \
+	${OBJECTDIR}/Aplicacion.o \
 	${OBJECTDIR}/Partida.o \
+	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/Menu.o \
 	${OBJECTDIR}/EventReceiver.o \
 	${OBJECTDIR}/main.o
@@ -52,7 +54,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -Wl,-rpath ../lib -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -Wl,-R../lib -lScripting -lIrrlicht
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -Wl,-rpath ../lib -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -lIrrlicht
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -68,20 +70,30 @@ dist/Release/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebagrafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Aplicacion.o: nbproject/Makefile-${CND_CONF}.mk Aplicacion.cpp 
+${OBJECTDIR}/Juego.o: nbproject/Makefile-${CND_CONF}.mk Juego.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Juego.o Juego.cpp
 
 ${OBJECTDIR}/AnimacionEnd.o: nbproject/Makefile-${CND_CONF}.mk AnimacionEnd.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/AnimacionEnd.o AnimacionEnd.cpp
 
+${OBJECTDIR}/Aplicacion.o: nbproject/Makefile-${CND_CONF}.mk Aplicacion.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
+
 ${OBJECTDIR}/Partida.o: nbproject/Makefile-${CND_CONF}.mk Partida.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
+
+${OBJECTDIR}/ManejadorJuego.o: nbproject/Makefile-${CND_CONF}.mk ManejadorJuego.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorJuego.o ManejadorJuego.cpp
 
 ${OBJECTDIR}/Menu.o: nbproject/Makefile-${CND_CONF}.mk Menu.cpp 
 	${MKDIR} -p ${OBJECTDIR}

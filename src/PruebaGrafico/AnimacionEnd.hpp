@@ -1,9 +1,3 @@
-/* 
- * File:   AnimacionEnd.hpp
- * Author: tokayo
- *
- * Created on 4 de mayo de 2010, 11:09
- */
 
 #ifndef _ANIMACIONEND_HPP
 #define	_ANIMACIONEND_HPP

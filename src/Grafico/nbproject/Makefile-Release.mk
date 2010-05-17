@@ -31,10 +31,12 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Exepciones.o \
 	${OBJECTDIR}/Tablero.o \
 	${OBJECTDIR}/Barrera.o \
 	${OBJECTDIR}/Celda.o \
 	${OBJECTDIR}/Antorcha.o \
+	${OBJECTDIR}/Skin.o \
 	${OBJECTDIR}/Jugador.o \
 	${OBJECTDIR}/Pieza.o
 
@@ -68,6 +70,11 @@ dist/Release/GNU-Linux-x86/grafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/grafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/Exepciones.o: nbproject/Makefile-${CND_CONF}.mk Exepciones.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exepciones.o Exepciones.cpp
+
 ${OBJECTDIR}/Tablero.o: nbproject/Makefile-${CND_CONF}.mk Tablero.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -87,6 +94,11 @@ ${OBJECTDIR}/Antorcha.o: nbproject/Makefile-${CND_CONF}.mk Antorcha.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
+
+${OBJECTDIR}/Skin.o: nbproject/Makefile-${CND_CONF}.mk Skin.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Skin.o Skin.cpp
 
 ${OBJECTDIR}/Jugador.o: nbproject/Makefile-${CND_CONF}.mk Jugador.cpp 
 	${MKDIR} -p ${OBJECTDIR}

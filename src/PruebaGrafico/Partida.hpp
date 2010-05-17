@@ -11,10 +11,11 @@
 #include<Scripting/Manejador.hpp>
 #include<Reglas/Juez.hpp>
 #include<vector>
+#include<Grafico/Skin.hpp>
 using namespace irr;
 
 class Partida {
-    friend class Aplicacion;
+    friend class ManejadorJuego;
 public:
 
     /**
@@ -22,7 +23,7 @@ public:
      * los jugadores,
      * @param smgr Un apuntador al  manejador de la escena
      */
-    Partida(scene::ISceneManager* smgr);
+    Partida(scene::ISceneManager* smgr,Grafico::Skin* skin);
     Partida(const Partida& orig);
     virtual ~Partida();
     /**
@@ -145,6 +146,8 @@ private:
       * Bandera que se encuentra en true mientras la Partida no ha terminado.
       */
      bool en_curso;
+     Grafico::Skin* skin;
+
 
 };
 

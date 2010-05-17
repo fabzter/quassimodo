@@ -3,8 +3,8 @@
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback):Grafico::Pieza() ,Reglas::Jugador(num,a) {
-        this->mesh=smgr->getMesh("Texturas/Mono.3ds");
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
+      this->mesh=skin->getJugador1();
       this->dibuja(smgr);
       this->callback=callback;
     
@@ -22,15 +22,16 @@ Grafico::Jugador::~Jugador() {
 
  bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos){
 
-       this->nodoA->removeAnimators();
-      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,500,false,false);
+      // this->nodoA->removeAnimators();
+      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,250,false,false);
       if (anim)
 		{
 			this->nodoA->addAnimator(anim);
-			//anim->drop();
+			anim->drop();
       }
+
       this->posiciong=npos;
-        this->nodoA->setAnimationEndCallback(this->callback);
+       this->nodoA->setAnimationEndCallback(this->callback);
       return true;
      
   }

@@ -2,6 +2,7 @@
 #ifndef _EVENTRECEIVER_HPP
 #define	_EVENTRECEIVER_HPP
 #include<irrlicht.h>
+#include"ManejadorJuego.hpp"
 
 /**
  * El namespace Grafico contiene todo lo relacionado al manejo de la GUI, como la pantalla principal,
@@ -30,7 +31,7 @@ public:
     /**
      *Constructor de la clase EventReceiver, inicializa el elstado de todas las teclas en false
      */
-    EventReceiver();
+    EventReceiver(ManejadorJuego* manj );
     /**
      *Constructor copia de la clase EventReceiver
      * @param orig un objeto de la clase EventReceiver
@@ -71,6 +72,9 @@ private:
         * un arrego de bool en el cual se almacena el estado de todas las teclas del teclado.
         */
 	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+        ManejadorJuego* manj;
+        int noA;
+        bool piniciada;
 
 };
 

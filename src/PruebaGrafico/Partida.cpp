@@ -6,12 +6,12 @@
 using namespace irr;
 using namespace Grafico;
 
-Partida::Partida(scene::ISceneManager* smgr) {
-    this->t=new Tablero(smgr);
+Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
+    this->skin=skin;
+    this->t=new Tablero(smgr,this->skin);
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
     this->juez = NULL; //esto es solo para destruirlo bien!
-    //TODO: hacer el Juez Grafico!!
     this->juez = new Reglas::Juez(*t);
 
     this->antorchas.reserve(4);
@@ -21,9 +21,12 @@ Partida::Partida(scene::ISceneManager* smgr) {
    
 
      for(std::size_t i = 0; i < this->antorchas.size(); i++){
-         this->antorchas.at(i)=new Antorcha(smgr,0,0);
+         this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
     }
+       core::vector3df v= this->t->getSize();
+     this->t->setPosicionTablero(-v.X/2,0,(v.Z/2)-15);
      this->ColocaAntorchas();
+
 }
 
 Partida::Partida(const Partida& orig) {
@@ -107,7 +110,7 @@ void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador,scene::ISceneMa
     }
     else if(j.getTipoDeJugada() == Reglas::BARRERA)
     {
-        this->Barreras.push_back(new Barrera(smgr));
+        this->Barreras.push_back(new Barrera(smgr,this->skin));
          unsigned int pos=this->Barreras.size();
         
         const std::vector<int> p=j.getPosicion();
@@ -142,11 +145,12 @@ bool Partida::hayGanador()
  void Partida::ColocaAntorchas(){
 
       int x,x1,z,z1,y;
-    x=this->t->getPosicionTablero().X+(this->t->getEscala().X);
-    x1=this->t->getPosicionTablero().X+(this->t->getsizeLineaCeldas().X*this->t->getEscala().X);
-    z=this->t->getPosicionTablero().Z+(this->t->getEscala().Z);
-    z1=this->t->getPosicionTablero().Z+(this->t->getsizeLineaCeldas().Z*this->t->getEscala().Z);
-    y=this->t->getPosicionTablero().Y+(this->t->getEscala().Y);
+     core::vector3df v=this->t->getPosicionCelda(0,0);
+    x=v.X+(this->t->getEscala().X);
+    x1=(this->t->getsizeLineaCeldas().X*this->t->getEscala().X);
+    z=v.Z+(this->t->getEscala().Z);
+    z1=(this->t->getsizeLineaCeldas().Z*this->t->getEscala().Z);
+    y=v.Y+(this->t->getEscala().Y);
      this->antorchas.at(0)->setPosicionAntorcha(x,y,z);
      this->antorchas.at(1)->setPosicionAntorcha(x1,y,z);
      this->antorchas.at(2)->setPosicionAntorcha(x1,y,z1);
@@ -166,8 +170,8 @@ bool Partida::hayGanador()
       agentes.push_back(m->getAgente(rutaAgente1));
       agentes.push_back(m->getAgente(rutaAgente2));
       
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback));
-     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback,this->skin));
+     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback,this->skin));
        
       this->t->setJugadores( this->jugadores);
  }
@@ -178,5 +182,5 @@ bool Partida::hayGanador()
              ju->drop();
       }
       delete(this->t);
-      this->t=new Tablero(smgr);
+      this->t=new Tablero(smgr,this->skin);
   }

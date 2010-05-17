@@ -19,7 +19,7 @@ public:
      * clase Reglas::Tablero
      * @param smgr Un apuntador al  manejador de la escena
      */
-    Tablero(scene::ISceneManager* smgr);
+    Tablero(scene::ISceneManager* smgr,Skin* skin);
     /**
      *Constructor copia de la clase Tablero
      * @param orig una referencia a un objeto de la clase Tablero del namespace Grafico
@@ -30,7 +30,7 @@ public:
      *Metodo encargado de dibujar todo tanto el tablero como las celdas
      * @param smgr Un apuntador al  manejador de la escena
      */
-    void DibujaTodo(scene::ISceneManager* smgr);
+    void DibujaTodo(scene::ISceneManager* smgr,Skin* skin);
     /**
      *Método encargado de colocar a todo el tablero en una nueva posición
       * @param x Un entero que representa la nueva posición que tendrá en el eje de las X

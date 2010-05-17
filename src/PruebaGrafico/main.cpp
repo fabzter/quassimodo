@@ -16,7 +16,7 @@
 #include<string.h>
 #include"Partida.hpp"
 #include"Menu.hpp"
-#include "Aplicacion.hpp"
+#include "Juego.hpp"
 #include <cstdlib>
 
 using namespace irr;
@@ -26,11 +26,8 @@ int main(int argc, char** argv) {
 
 video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
-	// create device
-       EventReceiver receiver;
-
 	IrrlichtDevice* device = irr::createDevice(driverType,
-			core::dimension2d<u32>(800, 600), 16, false, false, false,&receiver);
+			core::dimension2d<u32>(800, 600), 16, false, false, false);
 
 
 	if (device == 0)
@@ -54,16 +51,8 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
            video::ITexture *sky= driver->getTexture( "Texturas/3.tree.skydome.png" ) ;
             smgr->setShadowColor(video::SColor(150,0,0,0));
 
-
-
-        // Partida *p;//=new Partida(smgr);
-
-   
-           //p->SetJugadores("../bin/agenteBarreras2.py","../bin/agenteBarreras2.py");
-           
-          // p->iniciarPartida();
-           // Menu *gui=new Menu(smgr,env);
-            Aplicacion *app=new Aplicacion(smgr,env);
+            Juego *app=new Juego(smgr,env);
+            device->setEventReceiver(app->getEventReceiver());
             bool haymenu=true;
              bool curso=false;
 
@@ -79,48 +68,7 @@ while(device->run())
 		{
 
 		driver->beginScene(true, true, video::SColor(0,00,00,00));
-                if(receiver.IsKeyDown(irr::KEY_KEY_Q)){
-                    if(haymenu){
-                       /* delete(gui);//->dropMenuP();
-                        smgr = device->getSceneManager();
-                        smgr->clear();
-                        env->clear();
-                        haymenu=false;*/
-                        app->setPartida();
-                        haymenu=false;
-                    }
-
-                }
-                if(receiver.IsKeyDown(irr::KEY_KEY_W)){
-                    if(!haymenu){
-                        app->setMenu();
-                        haymenu=true;
-                    }
-                /* p=new Partida(smgr);
-                  p->SetJugadores("../bin/agenteBarreras2.py","../bin/agenteBarreras2.py");
-                     p->iniciarPartida();
-                    smgr->addCubeSceneNode();*/
-
-                   //p->SetEscala(2,2,2);
-                   // b->setPosicion(x--,y,z);
-                }
-               
- 
-                if(receiver.IsKeyDown(irr::KEY_RETURN)){
-
-                        if(!curso){
-                        curso=true;
-                       // while(!app->hayGanador()){
-                             app->SiguienteJugada();
-                             //device->sleep(1000,true);
-                       // }
-
-
-                    }
-                   
-                }
-
-
+             
                 smgr->drawAll();
                 env->drawAll();
                 driver->endScene();
