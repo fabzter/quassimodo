@@ -1,9 +1,3 @@
-/* 
- * File:   ManejadorJuego.hpp
- * Author: tokayo
- *
- * Created on 11 de mayo de 2010, 19:26
- */
 
 #ifndef _MANEJADORJUEGO_HPP
 #define	_MANEJADORJUEGO_HPP
@@ -15,6 +9,7 @@
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
 #include<string.h>
+//TODO: documentar!!
 using namespace irr;
 class ManejadorJuego {
 public:

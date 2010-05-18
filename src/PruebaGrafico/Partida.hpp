@@ -13,7 +13,7 @@
 #include<vector>
 #include<Grafico/Skin.hpp>
 using namespace irr;
-
+//TODO: documentar
 class Partida {
     friend class ManejadorJuego;
 public:

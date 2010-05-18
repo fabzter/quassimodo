@@ -6,6 +6,7 @@
 #include<Grafico/Skin.hpp>
 #include"Enums.hpp"
 #include<iostream>
+//TODO: documentar
 using namespace irr;
 class GUI {
 public:

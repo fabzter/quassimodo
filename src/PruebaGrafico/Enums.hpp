@@ -1,6 +1,7 @@
 
 #ifndef __ENUMS_HPP_
 #define	__ENUMS_HPP_
+//TODO: documentar
 /**
  * Enum que contiene los identificadores para cada boton en em Menú de la aplicación
  */

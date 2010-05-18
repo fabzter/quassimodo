@@ -7,6 +7,7 @@
 #include<Grafico/Tablero.hpp>
 #include"Menu.hpp"
 #include"GUI.hpp"
+//TODO: documentar
 using namespace irr;
 class ManejadorGUI {
 public:
