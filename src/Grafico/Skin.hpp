@@ -7,7 +7,7 @@ using namespace irr;
 namespace Grafico{
 class Skin {
 public:
-    Skin(scene::ISceneManager* smgr);
+    Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env);
     Skin(const Skin& orig);
     virtual ~Skin();
     scene::IAnimatedMesh* getCelda();
@@ -20,12 +20,22 @@ public:
     video::ITexture* getTCelda();
     video::ITexture* getTAntorcha();
     video::ITexture* getTBarrera();
+    gui::IGUIFont* getMenuBoton();
+    gui::IGUIFont* getDefault();
+    gui::IGUIFont* getMenuToolTip();
+    gui::IGUIFont* getGUIBoton();
+    gui::IGUIFont* getGUIWindow();
 private:
     void setTablero(scene::ISceneManager* smgr);
     void setJugadores(scene::ISceneManager* smgr);
     void setAntorcha(scene::ISceneManager* smgr);
     void setBarrera(scene::ISceneManager* smgr);
     void setCelda(scene::ISceneManager* smgr);
+    void setMenuBoton(gui::IGUIEnvironment* env);
+    void setDefault(gui::IGUIEnvironment* env);
+    void setMenuToolTip(gui::IGUIEnvironment* env);
+    void setGUIBoton(gui::IGUIEnvironment* env);
+    void setGUIWindow(gui::IGUIEnvironment* env);
      scene::IAnimatedMesh* Tablero;
      scene::IAnimatedMesh* Celda;
      scene::IAnimatedMesh* Antorcha;
@@ -36,6 +46,11 @@ private:
      video::ITexture* TCelda;
      video::ITexture* TTAblero;
      video::ITexture* TAntorcha;
+     gui::IGUIFont*  MenuBoton;
+     gui::IGUIFont* Default;
+     gui::IGUIFont* MenuToolTip;
+     gui::IGUIFont* GUIBoton;
+     gui::IGUIFont* GUIWindow;
 
 };
 }

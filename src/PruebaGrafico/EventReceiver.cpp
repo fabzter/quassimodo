@@ -58,15 +58,15 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 s32 id = event.GUIEvent.Caller->getID();
                 switch(id){
                     case B_AGENTE_VS_MAKINA:
-                        this->manj->getMenu()->AgntVSAgnt();
+                        this->manj->getManejadorGUI()->AgntVSAgnt();
                         break;
                     case BA_AGENTE_1:
                         this->noA=0;
-                        this->manj->getMenu()->OpenFileDialog();
+                        this->manj->getManejadorGUI()->OpenFileDialog();
                         break;
                     case BA_AGENTE_2:
                         this->noA=1;
-                        this->manj->getMenu()->OpenFileDialog();
+                        this->manj->getManejadorGUI()->OpenFileDialog();
                         break;
                     case BO_INICIA:
                         this->manj->setPartida();
@@ -74,11 +74,12 @@ bool EventReceiver::OnEvent(const SEvent& event)
                         break;
                     case BO_CANCELA:
                         this->manj->clearAgentes();
+                        this->manj->getManejadorGUI()->setMenu();
                         break;
                 } 
             }
             if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
-                this->manj->setAgente( this->manj->getMenu()->getPath(), this->noA);
+                this->manj->setAgente( this->manj->getManejadorGUI()->getPath(), this->noA);
                 this->noA=-1;
               }
       

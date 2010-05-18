@@ -8,7 +8,7 @@
 #ifndef _MANEJADORJUEGO_HPP
 #define	_MANEJADORJUEGO_HPP
 
-#include "Menu.hpp"
+#include "ManejadorGUI.hpp"
 #include "Partida.hpp"
 #include "AnimacionEnd.hpp"
 #include <Grafico/Skin.hpp>
@@ -25,7 +25,7 @@ public:
     void setPartida();
    bool SiguienteJugada();
     bool hayGanador();
-    Menu* getMenu();
+    ManejadorGUI* getManejadorGUI();
     void setAgente(std::string Agente,int noAgente);
     void clearAgentes();
     void quick();
@@ -33,9 +33,10 @@ public:
 private:
     scene::ISceneManager* smgr;
     gui::IGUIEnvironment* env;
+
     std::vector<std::string> Agentes;
     bool hayagente;
-    Menu *menu;
+    ManejadorGUI *mgui;
     Partida *partida;
     Grafico::Skin* skin;
     AnimacionEnd *aniend;

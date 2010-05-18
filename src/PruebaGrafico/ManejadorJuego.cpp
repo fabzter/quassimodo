@@ -7,12 +7,14 @@
 ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env) {
     this->smgr=smgr;
     this->env=env;
-    this->skin=new Grafico::Skin(smgr);
+    this->skin=new Grafico::Skin(smgr,env);
     this->Agentes.resize(2);
     this->clearAgentes();
     this->hayagente=false;
      this->partida=new Partida(this->smgr,this->skin);
-    this->menu=new Menu(this->smgr,this->env,this->partida->t,this->skin);
+
+
+    this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin);
     this->aniend=new AnimacionEnd(this->partida,this->smgr);
 
 
@@ -25,15 +27,15 @@ ManejadorJuego::~ManejadorJuego() {
 }
 void ManejadorJuego::setMenu(){
     delete(this->partida);
-    delete(this->menu);
+    delete(this->mgui);
     this->smgr->clear();
     this->partida=new Partida(this->smgr,this->skin);
-     this->menu=new Menu(this->smgr,this->env,this->partida->t,this->skin);
+     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin);
 }
 
 void ManejadorJuego::setPartida(){
     if(this->hayagente){
-        this->menu->dropMenuP();
+        this->mgui->dropMenu();
         this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
         this->partida->iniciarPartida();
         scene::ICameraSceneNode *cam= this->smgr->addCameraSceneNodeMaya(0,200.f,200.f,200.0f);
@@ -43,7 +45,7 @@ void ManejadorJuego::setPartida(){
         std::cout<<cam->getTargetAndRotationBinding()<<std::endl;
     }
     else{
-         this->menu->MsgBox("No ha seleccionado agentes");
+         this->mgui->MsgBox("No ha seleccionado agentes");
     }
     
 
@@ -56,17 +58,17 @@ bool ManejadorJuego::SiguienteJugada(){
         }
          catch(Scripting::ScriptMalo &e)
          {
-            this->menu->MsgBox(e.what());
+            this->mgui->MsgBox(e.what());
          }
          catch(Reglas::ReglasRotas &e)
          {
-             this->menu->MsgBox(e.what());
+             this->mgui->MsgBox(e.what());
          }
 
 //}
      if(this->hayGanador())
       {
-        this->menu->MsgBox("Hay un ganador!" );
+        this->mgui->MsgBox("Hay un ganador!" );
       }
     return curso;
 
@@ -74,8 +76,8 @@ bool ManejadorJuego::SiguienteJugada(){
 bool ManejadorJuego::hayGanador(){
     return this->partida->hayGanador();
 }
-Menu* ManejadorJuego::getMenu(){
-    return this->menu;
+ManejadorGUI* ManejadorJuego::getManejadorGUI(){
+    return this->mgui;
 }
 void ManejadorJuego::setAgente(std::string Agente,int noAgente){
 

@@ -41,6 +41,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 	scene::ISceneManager* smgr = device->getSceneManager();
         gui::IGUIEnvironment* env = device->getGUIEnvironment();
 
+
       int x=0,y=0,z=0;
      // scene::ICameraSceneNode* cam= smgr->addCameraSceneNode(0, core::vector3df(x,y,z), core::vector3df(0,0,0));
      scene::ICameraSceneNode* cam =  smgr->addCameraSceneNodeMaya(0,200.f,200.f,200.0f);
@@ -58,9 +59,7 @@ video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
 
          smgr->addSkyDomeSceneNode(sky);
-    
-          core::vector3df v;//=a->getPosicionEscena();
-          // x=v.X,y=v.Y,z=v.Z;
+   
 while(device->run())
 	{
 
