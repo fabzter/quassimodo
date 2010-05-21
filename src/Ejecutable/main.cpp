@@ -20,12 +20,12 @@ int main(int argc, char** argv)
 
     try
     {
-        agentes.push_back(m->getAgente("../../bin/agenteBarreras2.py"));
+        agentes.push_back(m->getAgente("../../bin/agenteBusca.py"));
         agentes.push_back(m->getAgente("../../bin/agenteBarreras2.py"));
     }
     catch(Scripting::ScriptMalo &e)
     {
-        agentes.push_back(m->getAgente("../bin/agenteBarreras2.py"));
+        agentes.push_back(m->getAgente("../bin/agenteBusca.py"));
         agentes.push_back(m->getAgente("../bin/agenteBarreras2.py"));
     }
 

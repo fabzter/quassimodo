@@ -44,6 +44,14 @@ Reglas::Tablero::Tablero(const Tablero& orig)
     {
         this->jugadores.at(i) = new Jugador(*orig.jugadores.at(i));
     }
+
+    //copiamos celdas ocupadas.
+    this->celdas_ocupadas.resize(orig.celdas_ocupadas.size());
+    for(int i = 0; i < orig.celdas_ocupadas.size(); i++)
+    {
+        this->celdas_ocupadas.at(i) =
+                (Celda*)&this->getCelda(orig.celdas_ocupadas.at(i)->getPosicion());
+    }
 }
 
 Reglas::Tablero::~Tablero()
@@ -98,7 +106,7 @@ void Reglas::Tablero::setJugadores(const std::vector<Jugador*> &jugadores)
 }
 
 void Reglas::Tablero::setBarrera(Reglas::Jugador &j,
-        const Reglas::Barrera &b) //TODO: dividri en funciones :(
+        const Reglas::Barrera &b) //TODO: dividir en funciones :(
 {
     //vemos la direccion de las primeras Celdas que vamos a bloquearles.
     Direccion d_bloqueada = b.getDireccion() == NORTE? OESTE: SUR;

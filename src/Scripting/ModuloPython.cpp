@@ -57,7 +57,7 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     }
     catch(error_already_set& e)
     {
-        throw ScriptMalo("Archivo no encontrado.");
+        throw ScriptMalo("Archivo no encontrado o con errores de sintaxis.");
     }
 
     try

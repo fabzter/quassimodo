@@ -11,6 +11,8 @@ PyObject *ExcepcionType = NULL;
 PyObject *ParametrosMalosType = NULL;
 PyObject *SinHijoType = NULL;
 PyObject *PiezaNoColocadaType = NULL;
+PyObject *JugadorNoColocadoType = NULL;
+PyObject *JugadorSinBarrerasType = NULL;
 
 void translate_excepcion(Excepcion const &e)
 {
@@ -38,6 +40,20 @@ void translate_pieza_no_colocada(PiezaNoColocada const &e)
     assert(PiezaNoColocadaType != NULL);
     object pythonExceptionInstance(e);
     PyErr_SetObject(PiezaNoColocadaType, pythonExceptionInstance.ptr());
+}
+
+void translate_jugador_no_colocado(JugadorNoColocado const &e)
+{
+    assert(JugadorNoColocadoType != NULL);
+    object pythonExceptionInstance(e);
+    PyErr_SetObject(JugadorNoColocadoType, pythonExceptionInstance.ptr() );
+}
+
+void translate_jugador_sin_barreras(JugadorSinBarreras const &e)
+{
+    assert(JugadorSinBarrerasType != NULL);
+    object pythonExceptionInstance(e);
+    PyErr_SetObject(JugadorSinBarrerasType, pythonExceptionInstance.ptr() );
 }
 
 string Excepcion_to_str(Excepcion &e)
@@ -72,5 +88,17 @@ void export_excepciones()
     ;
     PiezaNoColocadaType = PiezaNoColocadaClass.ptr();
     register_exception_translator<PiezaNoColocada>(&translate_pieza_no_colocada);
+    
+    class_<JugadorNoColocado, bases<PiezaNoColocada> >
+    JugadorNoColocadoClass("JugadorNoColocado")
+    ;
+    JugadorNoColocadoType = JugadorNoColocadoClass.ptr();
+    register_exception_translator<JugadorNoColocado>(&translate_jugador_no_colocado);
+    
+    class_<JugadorSinBarreras, bases<Excepcion> >
+    JugadorSinBarrerasClass("JugadorSinBarreras")
+    ;
+    JugadorSinBarrerasType = JugadorSinBarrerasClass.ptr();
+    register_exception_translator<JugadorSinBarreras>(&translate_jugador_sin_barreras);
     
 }
