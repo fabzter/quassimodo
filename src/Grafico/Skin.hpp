@@ -25,6 +25,9 @@ public:
     gui::IGUIFont* getMenuToolTip();
     gui::IGUIFont* getGUIBoton();
     gui::IGUIFont* getGUIWindow();
+    io::path getHTerrain();
+    video::ITexture* getTTerrain();
+    video::ITexture* getTSkydome();
 private:
     void setTablero(scene::ISceneManager* smgr);
     void setJugadores(scene::ISceneManager* smgr);
@@ -36,6 +39,8 @@ private:
     void setMenuToolTip(gui::IGUIEnvironment* env);
     void setGUIBoton(gui::IGUIEnvironment* env);
     void setGUIWindow(gui::IGUIEnvironment* env);
+    void setTerrain(scene::ISceneManager* smgr);
+    void setSkyDome(scene::ISceneManager* smgr);
      scene::IAnimatedMesh* Tablero;
      scene::IAnimatedMesh* Celda;
      scene::IAnimatedMesh* Antorcha;
@@ -51,6 +56,9 @@ private:
      gui::IGUIFont* MenuToolTip;
      gui::IGUIFont* GUIBoton;
      gui::IGUIFont* GUIWindow;
+     io::path heightMTerrain;
+     video::ITexture* TTerrain;
+     video::ITexture* Tskydome;
 
 };
 }

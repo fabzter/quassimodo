@@ -26,9 +26,12 @@ void ManejadorGUI::MsgBox(const char* msg){
 Menu* ManejadorGUI::getMenu(){
     return this->menu;
 }
- void ManejadorGUI::AgntVSAgnt(){
+ void ManejadorGUI::AgntVSAgnt(bool ambos){
      this->menu->dropMenuP();
-     this->Gui->AgntVSAgnt();
+     if(ambos)
+         this->Gui->AgntVSAgnt();
+     else
+         this->Gui->AgntVSMkn();
  }
  std::string ManejadorGUI::getPath(){
      return this->Gui->getPath();
@@ -39,4 +42,10 @@ Menu* ManejadorGUI::getMenu(){
  void ManejadorGUI::setMenu(){
      this->Gui->dropAvsA();
      this->menu->setMenuP(this->t);
+ }
+ void ManejadorGUI::SetTextBtnAngt(int num, std::string text){
+     this->Gui->setTextAgnt(num,text.c_str() );
+ }
+ void ManejadorGUI::setEscala(int x,int y,int z){
+     this->menu->SetEscala(x,y,z);
  }

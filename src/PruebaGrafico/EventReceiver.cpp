@@ -58,7 +58,14 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 s32 id = event.GUIEvent.Caller->getID();
                 switch(id){
                     case B_AGENTE_VS_MAKINA:
-                        this->manj->getManejadorGUI()->AgntVSAgnt();
+                         this->manj->setAgente("../bin/agenteBarreras2.py", 1);
+                        this->manj->getManejadorGUI()->AgntVSAgnt(false);
+                        break;
+                    case B_AGENTE_VS_AGENTE:
+                         this->manj->getManejadorGUI()->AgntVSAgnt(true);
+                         break;
+                    case B_OPCIONES:
+                        this->manj->getManejadorGUI()->MsgBox("Proximamente!!");
                         break;
                     case BA_AGENTE_1:
                         this->noA=0;
@@ -80,6 +87,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
             }
             if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
                 this->manj->setAgente( this->manj->getManejadorGUI()->getPath(), this->noA);
+                this->manj->CambiaTextoAgnt(this->noA);
                 this->noA=-1;
               }
       

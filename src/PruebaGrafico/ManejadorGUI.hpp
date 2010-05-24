@@ -7,6 +7,7 @@
 #include<Grafico/Tablero.hpp>
 #include"Menu.hpp"
 #include"GUI.hpp"
+#include<string>
 //TODO: documentar
 using namespace irr;
 class ManejadorGUI {
@@ -17,10 +18,12 @@ public:
     void dropMenu();
     void MsgBox(const char* msg);
     Menu* getMenu();
-     void AgntVSAgnt();
+     void AgntVSAgnt(bool ambos);
      std::string getPath();
      void  OpenFileDialog();
      void setMenu();
+     void SetTextBtnAngt(int num, std::string text);
+     void setEscala(int x,int y,int z);
 private:
     Menu* menu;
     GUI* Gui;

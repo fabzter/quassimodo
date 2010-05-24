@@ -8,6 +8,7 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
     this->env=env;
     this->smgr=smgr;
     this->skin=skin;
+    this->t=t;
     this->jugadores.reserve(4);
     this->jugadores.resize(4);
     this->botones.reserve(B_COUNT);
@@ -23,29 +24,35 @@ Menu::~Menu() {
     this->dropMenuP();
 }
 
- void Menu::SetJugadores(Grafico::Tablero* t){
+ void Menu::SetJugadores(){
 
-    for(int i=0;i<t->num_jugadores;i++){
+    for(int i=0;i<this->t->num_jugadores;i++){
          this->jugadores.at(i)=new Grafico::Pieza();
         this->jugadores.at(i)->setMesh( this->skin->getJugador1() );
         this->jugadores.at(i)->dibuja( this->smgr );
-        core::vector3df p=t->getPosicionCelda(4,(i*8));
-        p.Y+=t->getsizeCelda().Y;
-        this->jugadores.at(i)->setPosicion( p );
     }
+    this->setPosicionJugadores();
 
 }
- void Menu::setCamara(){
-     scene::ICameraSceneNode *cam= this->smgr->addCameraSceneNode();
-     cam->setTarget(core::vector3df(-12.2491,8.5962,107.647));
-     cam->setPosition(core::vector3df(-66.0566,28.3357,174.094));
-    this->smgr->setActiveCamera(cam);
+ void Menu::setPosicionJugadores(){
+     
+     for(int i=0;i<this->t->num_jugadores;i++){
+        core::vector3df p=this->t->getPosicionCelda(4,(i*8));
+        p.Y+=this->t->getsizeCelda().Y;
+        this->jugadores.at(i)->setPosicion( p );
+     }
  }
+ void Menu::SetEscala(int x,int y,int z){
+     for(int i=0;i<this->t->num_jugadores;i++){
+         this->jugadores.at(i)->setEscala(x,y,z);
+     }
+      this->setPosicionJugadores();
+ }
+
  void Menu::setMenuP(Grafico::Tablero* t){
 
      haymenu=true;
-     this->SetJugadores(t);
-     this->setCamara();
+     this->SetJugadores();
      this->setSkin();
      this->setBotones();
  }
@@ -60,8 +67,6 @@ void Menu::dropMenuP(){
          this->botones.clear();
     }
   
-/*    this->botones.clear();
-    this->jugadores.clear();*/
 }
  void Menu::setSkin(bool dialogo){
      gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
@@ -72,6 +77,13 @@ void Menu::dropMenuP(){
          skin->setFont(this->skin->getMenuToolTip(),gui::EGDF_TOOLTIP);
       
       skin->setColor(gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255));
+            //ponemos mas opaco los colores de la GUI
+     for (u32 i=0; i<gui::EGDC_COUNT ; ++i)
+     {
+         video::SColor  col = skin->getColor((gui::EGUI_DEFAULT_COLOR)i);
+         col.setAlpha(250);
+         skin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
+     }
 
 
     skin->drop();

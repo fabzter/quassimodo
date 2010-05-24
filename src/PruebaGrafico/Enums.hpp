@@ -12,9 +12,10 @@ enum GUI_BOTONES{
     B_OPCIONES,
     B_CREDITOS,
     B_AYUDA,
+    B_SALIR,
     /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
      se agregan antes de COUNT*/
-    B_COUNT=5
+    B_COUNT=6
 
 };
 enum GUI_BOTONES_AGENTES{
@@ -43,6 +44,7 @@ L"Agente VS Agente",
 L"Opciones",
 L"Creditos",
 L"Ayuda",
+L"Salir",
 0
 };
 const wchar_t* const GUI_BOTONES_TOLTIP[B_COUNT+1]=
@@ -52,6 +54,7 @@ L"Partida rápida de dos Agentes Inteligentes creados por algun usuario",
 L"Cambia algunas propiedades de la Aplicación",
 L"Creditos",
 L"Ayuda de como usar la Aplicación",
+L"Sale de la Aplicación",
 0
 };
 

@@ -6,6 +6,8 @@ GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Ski
     this->smgr=smgr;
     this->env=env;
     this->skin=Skin;
+    this->botonAgente.resize(2);
+    this->AvsA=NULL;
   //  this->setSkin();
 }
 
@@ -37,36 +39,16 @@ void GUI::setSkin(){
  }
 void GUI::MsgBox(const char* msg ){
 
-    wchar_t* m;
-    size_t requiredSize=strlen(msg);
-    m = (wchar_t*)malloc( requiredSize);
-    mbstowcs( m,msg, requiredSize);
+    wchar_t m[strlen(msg)] ;
+    this->charTowchar(m,msg);
     gui::IGUIWindow* window=this->env->addMessageBox(L"Quassimodo dice:",m);
-    //free(m);
+
 }
  void GUI::AgntVSAgnt(){
-
-     this->setSkin();
-        core::dimension2d<unsigned int> S_S=this->smgr->getVideoDriver()->getScreenSize();
-      int d_a=100,d_al=150;
-        core::rect<s32> recW=core::rect<s32>(100, 150 , S_S.Width-d_a ,S_S.Height-d_al);
-
-      AvsA= this->env->addWindow(recW,true,L"Agentes:");
-
-       this->env->addStaticText(L"Vs",core::rect<s32>((recW.getWidth()/2)-15,(recW.getHeight()/2)-30,(recW.getWidth()/2)+15,(recW.getHeight()/2)+40),\
-               false,false,AvsA);
-
-       this->env->addStaticText( L"Selecciona los Agentes", core::rect<s32>(35,35,300,60), false, false, AvsA );
-       //botones de los agentes
-       this->env->addButton( core::rect<s32>( (recW.getWidth()/2)-185,(recW.getHeight()/2)-50 ,(recW.getWidth()/2)-35,(recW.getHeight()/2) ),\
-               AvsA, BA_AGENTE_1, L"Agente?");
-       this->env->addButton( core::rect<s32>( (recW.getWidth()/2)+40,(recW.getHeight()/2)-50 ,(recW.getWidth()/2)+190,(recW.getHeight()/2) ),\
-               AvsA, BA_AGENTE_2, L"Agente?");
-       //botones de Opcion
-       this->env->addButton( core::rect<s32>( recW.getWidth()-360,recW.getHeight()-60 ,recW.getWidth()-190,recW.getHeight()-20) ,\
-               AvsA, BO_CANCELA, L"Cancelar");
-       this->env->addButton( core::rect<s32>( recW.getWidth()-160,recW.getHeight()-60 ,recW.getWidth()-20,recW.getHeight()-20 ),\
-               AvsA, BO_INICIA, L"Inicia");
+     this->dibujaSelector(true);
+ }
+ void GUI::AgntVSMkn(){
+     this->dibujaSelector(false);
  }
 std::string GUI::getPath(){
 
@@ -91,5 +73,48 @@ std::string GUI::getPath(){
       op = this->env->addFileOpenDialog(L"Selecciona el Agente",true,0,5);
   }
 void GUI::dropAvsA(){
-    this->AvsA->remove();
+    if(this->AvsA!=NULL)
+        this->AvsA->remove();
+}
+
+void GUI::dibujaSelector(bool ambos){
+    this->setSkin();
+        core::dimension2d<unsigned int> S_S=this->smgr->getVideoDriver()->getScreenSize();
+      int d_a=100,d_al=150;
+        core::rect<s32> recW=core::rect<s32>(100, 150 , S_S.Width-d_a ,S_S.Height-d_al);
+
+      AvsA= this->env->addWindow(recW,true,L"Agentes:");
+
+       this->env->addStaticText(L"Vs",core::rect<s32>((recW.getWidth()/2)-15,(recW.getHeight()/2)-30,(recW.getWidth()/2)+15,(recW.getHeight()/2)+40),\
+               false,false,AvsA);
+
+       this->env->addStaticText( L"Selecciona los Agentes", core::rect<s32>(35,35,300,60), false, false, AvsA );
+       //botones de los agentes
+      this->botonAgente[0]= this->env->addButton( core::rect<s32>( (recW.getWidth()/2)-185,(recW.getHeight()/2)-50 ,(recW.getWidth()/2)-35,(recW.getHeight()/2) ),\
+               AvsA, BA_AGENTE_1, L"Agente?");
+       this->botonAgente[1]= this->env->addButton( core::rect<s32>( (recW.getWidth()/2)+40,(recW.getHeight()/2)-50 ,(recW.getWidth()/2)+190,(recW.getHeight()/2) ),\
+               AvsA, BA_AGENTE_2, L"Agente?");
+      if(!ambos){
+          this->botonAgente[1]->setText(L"Agente Camina");
+          this->botonAgente[1]->setEnabled(ambos);
+          this->botonAgente[1]-> setPressed(!ambos);
+      }
+       //botones de Opcion
+       this->env->addButton( core::rect<s32>( recW.getWidth()-360,recW.getHeight()-60 ,recW.getWidth()-190,recW.getHeight()-20) ,\
+               AvsA, BO_CANCELA, L"Cancelar");
+       this->env->addButton( core::rect<s32>( recW.getWidth()-160,recW.getHeight()-60 ,recW.getWidth()-20,recW.getHeight()-20 ),\
+               AvsA, BO_INICIA, L"Inicia");
+
+}
+void  GUI::charTowchar(wchar_t m[],const char* msg){
+   size_t requiredSize=strlen(msg);
+    mbstowcs( m,msg, requiredSize);
+
+}
+void GUI::setTextAgnt(int num,const char* text){
+    if(this->AvsA!=NULL){
+        wchar_t m[strlen(text)] ;
+        this->charTowchar(m,text);
+        this->botonAgente.at(num)->setText(m);
+    }
 }

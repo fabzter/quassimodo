@@ -23,13 +23,14 @@ public:
     virtual ~Menu();
     void setMenuP(Grafico::Tablero* t);
     void dropMenuP();
+    void SetEscala(int x,int y,int z);
 
 private:
-      void setCamara();
      void setSkin(bool dialogo=false);
-      void SetJugadores(Grafico::Tablero* t);
+      void SetJugadores();
+      void setPosicionJugadores();
      void setBotones();
-    
+    Grafico::Tablero* t;
     std::vector<Grafico::Pieza*> jugadores;
     std::vector<gui::IGUIButton *> botones;
     bool haymenu;
