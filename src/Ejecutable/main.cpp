@@ -4,6 +4,7 @@
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Jugador.hpp>
 #include <Reglas/Juez.hpp>
+#include <Reglas/AyudanteDeAgente.hpp>
 #include "Partida.hpp"
 #include <Scripting/Manejador.hpp>
 #include <Scripting/Excepciones.hpp>
@@ -34,6 +35,13 @@ int main(int argc, char** argv)
     jugadores.push_back(new Jugador(1, agentes[1]));
 
     t.setJugadores(jugadores);
+
+    Tablero t_copia(t);
+
+    if(t_copia == t)
+        cout << "Sirve la comparacion de dos tabs iguales!!" << endl;
+    else
+        cout << "NO Sirve la comparacion de dos tabs iguales!!" << endl;
 
     Partida *p = new Partida(&t);
 

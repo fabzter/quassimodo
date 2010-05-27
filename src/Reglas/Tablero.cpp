@@ -286,6 +286,42 @@ bool Reglas::Tablero::tieneJugador(int id) const
     return !(j == NULL);
 }
 
+bool Reglas::Tablero::operator==(const Reglas::Tablero &otro) const
+{
+    if(this->barreras_colocadas.size() != otro.barreras_colocadas.size())
+        return false;
+
+    //revisamos que esten puestas las mismas barreras en ambos tableros.
+    std::list<Barrera>::const_iterator it;
+    for(it = this->barreras_colocadas.begin();
+                                    it != this->barreras_colocadas.end(); it++)
+    {
+        //si no encontramos una barrera en el otro tablero, no son los mismos...
+        if ( !(std::count(otro.barreras_colocadas.begin(),
+                otro.barreras_colocadas.end(), *it) > 0) )
+        {
+            return false;
+        }
+    }
+
+    //revisamos que los jugadores estén en el mismo lugar.
+    for(int i = 0; i < this->num_jugadores; i++)
+    {
+        int id = this->jugadores.at(i)->getIdentificador();
+        if( !(this->getCelda(id) == otro.getCelda(id)) )
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool Reglas::Tablero::operator!=(const Reglas::Tablero &otro) const
+{
+    return !(*this == otro);
+}
+
 std::ostream& operator<< (std::ostream &out, const Reglas::Tablero &tab)
 {
     Reglas::Tablero *tablero = (Reglas::Tablero*)&tab;

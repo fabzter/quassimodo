@@ -202,6 +202,24 @@ public:
     bool tieneJugador(int id) const;
 
     /**
+     * El operador == sobrecargado. Compara si dos Tableros tienen el mismo
+     * estado. (los jugadores en la misma posición, y las mismas barreras
+     * colocadas)
+     * @param otro una referencia a un Tablero.
+     * @return true si los tableros tienen el mismo estado, false de lo contrario.
+     */
+    bool operator==(const Tablero &otro) const;
+
+    /**
+     * El operador != sobrecargado. Compara si dos Tableros tienen el mismo
+     * estado. (los jugadores en la misma posición, y las mismas barreras
+     * colocadas)
+     * @param otro una referencia a un Tablero.
+     * @return false si los tableros tienen el mismo estado, true de lo contrario.
+     */
+    bool operator!=(const Tablero &otro) const;
+
+    /**
      * Estos dos miembros nos indican el numero de Celdas que tiene el Tablero,
      * tanto horizontal como verticalmente.
      */
