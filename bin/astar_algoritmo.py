@@ -69,9 +69,9 @@ def estimate(tableroActual):
     """
     pos_1 = tableroActual.getCelda(tableroActual.idJugador).getPosicion()
     
-    #ok... escogemos la maxima distancia entre la posicion actual del jugador al
+    #ok... escogemos la minima distancia entre la posicion actual del jugador al
     #que le toco tirar y todas sus metas
-    return max( manhattan(pos_1, celda_2.getPosicion()) for celda_2 in \
+    return min( manhattan(pos_1, celda_2.getPosicion()) for celda_2 in \
                                 tableroActual.getMetas(tableroActual.idJugador))
     
 
@@ -79,7 +79,8 @@ def astar(start_pos, neighbors = get_neighbors, goal = is_goal, start_g = 0,
             cost = costo, heuristic = estimate, limit=maxint, debug=None):
 
     """
-    Encuentra el camino mas corto (posiblemente) a la meta.
+    Encuentra el camino mas corto (posiblemente) a la meta y regresa el primer
+    vecino al que se tiene que mover para llegar a ella.
 
 Argumentos:
 
@@ -179,12 +180,12 @@ Regresa el mejor camino encontrado sin contar la posicion inicial.
         # Pasamos el diccionario de nodos al llamador.
         debug(nodes)
 
-    # Regresamos el mejor path como una lista.
-    path = []
+    # Buscamos el primer vecino de la posicion actual.
     current = best
+    previous = best
     while current[PARENT] is not None:
-        path.append(current[POS])
+        previous = current
         current = nodes[current[PARENT]]
-    path.reverse()
-    return path
-
+    
+    #regresamos el vecino al que se tiene que mover.
+    return previous[POS]

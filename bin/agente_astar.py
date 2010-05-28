@@ -21,7 +21,7 @@ class AgenteAStar (Reglas.Agente):
         if len(ayudante.getBarrerasPosibles(self.id)) != 0:
             j = random.choice(ayudante.getBarrerasPosibles(self.id))
         else:
-            j = astar_algoritmo.astar(tablero)[0].jugada
+            j = astar_algoritmo.astar(tablero).jugada
         
         print self.id, ": Hice mi Jugada"
         return j
