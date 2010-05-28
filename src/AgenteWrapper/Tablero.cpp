@@ -27,9 +27,9 @@ string print_tab(Tablero *tab)
     return strs.str();
 }
 
-bool eq_tablero(Tablero * tab, Tablero &otro)
+bool eq_tablero(Tablero * tab, Tablero *otro)
 {
-    return *tab == otro;
+    return *tab == *otro;
 }
 
 void export_tablero()
