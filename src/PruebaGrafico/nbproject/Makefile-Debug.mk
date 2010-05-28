@@ -34,10 +34,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/Juego.o \
 	${OBJECTDIR}/AnimacionEnd.o \
 	${OBJECTDIR}/Aplicacion.o \
+	${OBJECTDIR}/ManejadorGUI.o \
 	${OBJECTDIR}/Partida.o \
 	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/Menu.o \
 	${OBJECTDIR}/EventReceiver.o \
+	${OBJECTDIR}/GUI.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -85,6 +87,11 @@ ${OBJECTDIR}/Aplicacion.o: nbproject/Makefile-${CND_CONF}.mk Aplicacion.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
 
+${OBJECTDIR}/ManejadorGUI.o: nbproject/Makefile-${CND_CONF}.mk ManejadorGUI.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
+
 ${OBJECTDIR}/Partida.o: nbproject/Makefile-${CND_CONF}.mk Partida.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -104,6 +111,11 @@ ${OBJECTDIR}/EventReceiver.o: nbproject/Makefile-${CND_CONF}.mk EventReceiver.cp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
+
+${OBJECTDIR}/GUI.o: nbproject/Makefile-${CND_CONF}.mk GUI.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

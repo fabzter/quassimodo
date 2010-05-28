@@ -52,7 +52,7 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
             this->datos.at(i).at(j)=new Celda(smgr,skin);
             this->datos.at(i).at(j)->setCeldaR( &this->getCelda(j,i));
-           this->datos.at(i).at(j)->colocar(0,this->size.Y-2,0);
+           this->datos.at(i).at(j)->colocar(0,this->size.Y,0);
         }
     }
       this->setPosicion(0,0,0);
@@ -76,7 +76,7 @@ void Grafico::Tablero::setPosicionTablero(int x,int y,int z){
 
      for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
-           this->datos.at(i).at(j)->colocar(x,y+this->size.Y-2,z);
+           this->datos.at(i).at(j)->colocar(x,y+ ( (this->size.Y-2) *this->getEscala().Y ) ,z);
         }
     }
     // core::vector3df v= this->datos.at(8).at(8)->getPosicionEscena();
@@ -84,7 +84,7 @@ void Grafico::Tablero::setPosicionTablero(int x,int y,int z){
 }
 
 void Grafico::Tablero::setEscalaTablero(int x,int y,int z){
-     core::vector3df v= this->datos.at(0).at(0)->getPosicionEscena();
+     core::vector3df v= this->getPosicionTablero();
     this->setEscala(x,y,z);
 
     for(std::size_t i = 0; i < this->datos.size(); i++){
@@ -93,7 +93,7 @@ void Grafico::Tablero::setEscalaTablero(int x,int y,int z){
         }
     }
 
-    this->setPosicionTablero(0,0,0);
+    this->setPosicionTablero(v.X,v.Y,v.Z);
 }
  irr::core::vector3df Grafico::Tablero::getPosicionTablero(){
       return this->getPosicionEscena();
@@ -109,8 +109,8 @@ void Grafico::Tablero::setEscalaTablero(int x,int y,int z){
 
      irr::core::vector3df v;
      v=this->getPosicionCelda(8,8);
-     v.X+=this->datos.at(0).at(0)->getSize().X;
-     v.Z+=this->datos.at(0).at(0)->getSize().Z;
+     v.X+=( this->datos.at(0).at(0)->getSize().X*this->getEscala().X );
+     v.Z+=( this->datos.at(0).at(0)->getSize().Z*this->getEscala().Z );
 
       return v;
   }

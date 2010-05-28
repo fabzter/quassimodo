@@ -22,7 +22,7 @@ void Grafico::Barrera::giraEste(){
     if(this->nodoA->getRotation().Y==0){
         this->nodoA->setRotation(core::vector3df(0,90,0));
         core::vector3df p=this->getPosicionEscena();
-        p.X+=this->size.X;
+        p.X+=this->size.X*this->getEscala().X;
         this->setPosicion(p);
     }
 }
@@ -32,13 +32,13 @@ void Grafico::Barrera::giraNorte(){
         this->nodoA->setRotation(core::vector3df(0,0,0));
         core::vector3df p=this->getPosicionEscena();
         // p.Z+=this->size.X;
-         p.X-=this->size.X;
+         p.X-=this->size.X*this->getEscala().X;
         this->setPosicion(p);
     }
 }
 void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vector<int>& pos, Reglas::Direccion dir){
 
-    this->setPosicion( posg.X-this->getSize().X, posg.Y, posg.Z);
+    this->setPosicion( posg.X - (this->getSize().X*this->getEscala().X) , posg.Y, posg.Z);
     if(dir==Reglas::ESTE)
         this->giraEste();
     this->colocar(pos,dir);

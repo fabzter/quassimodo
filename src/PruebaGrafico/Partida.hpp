@@ -13,7 +13,7 @@
 #include<vector>
 #include<Grafico/Skin.hpp>
 using namespace irr;
-
+//TODO: documentar
 class Partida {
     friend class ManejadorJuego;
 public:
@@ -121,6 +121,8 @@ private:
      * @param idJugador id del jugador que quiere realizar el movimiento
      */
     bool MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr);
+
+    void SetBarrera(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr);
     /**
      * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se
      * construye la Partida, éste Juez se construye en el contructor de Partida.
@@ -147,6 +149,7 @@ private:
       */
      bool en_curso;
      Grafico::Skin* skin;
+     core::vector3df escala;
 
 
 };

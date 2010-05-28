@@ -1,12 +1,18 @@
 
 #include "Skin.hpp"
 
-Grafico::Skin::Skin(scene::ISceneManager* smgr) {
+Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env) {
     this->setAntorcha(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
     this->setJugadores(smgr);
     this->setTablero(smgr);
+    this->setDefault(env);
+    this->setGUIBoton(env);
+    this->setMenuBoton(env);
+    this->setMenuToolTip(env);
+    this->setTerrain(smgr);
+    this->setSkyDome(smgr);
 }
 
 Grafico::Skin::Skin(const Skin& orig) {
@@ -64,6 +70,67 @@ void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
             throw SkinNoCargado(strs.str().c_str());
         }
 }
+void Grafico::Skin::setMenuBoton(gui::IGUIEnvironment* env){
+     std::ostringstream strs;
+     this->MenuBoton=env->getFont("Texturas/bigfont.png");
+     if(this->MenuBoton==0){
+          strs << "No pudo ser cargada la Fuente de los Botones del Menú ";
+            throw SkinNoCargado(strs.str().c_str());
+     }
+}
+void Grafico::Skin::setDefault(gui::IGUIEnvironment* env){
+    std::ostringstream strs;
+     this->Default=env->getFont("Texturas/defaultfont2.png");
+     if(this->Default==0){
+          strs << "No pudo ser cargada la Fuente Default ";
+            throw SkinNoCargado(strs.str().c_str());
+     }
+}
+void Grafico::Skin::setMenuToolTip(gui::IGUIEnvironment* env){
+    std::ostringstream strs;
+     this->MenuToolTip=env->getFont("Texturas/tooltipfont.png");
+     if(this->MenuToolTip==0){
+          strs << "No pudo ser cargada la Fuente del Tooltip del Menú ";
+            throw SkinNoCargado(strs.str().c_str());
+     }
+}
+void Grafico::Skin::setGUIBoton(gui::IGUIEnvironment* env){
+     std::ostringstream strs;
+     this->GUIBoton=env->getFont("Texturas/botonFont.png");
+     if(this->GUIBoton==0){
+          strs << "No pudo ser cargada la Fuente de los Botones de la GUI ";
+            throw SkinNoCargado(strs.str().c_str());
+     }
+}
+void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
+      std::ostringstream strs;
+     this->GUIWindow=env->getFont("Texturas/windowfont.png");
+     if(this->GUIWindow==0){
+          strs << "No pudo ser cargada la Fuente de los Botones de la GUI ";
+            throw SkinNoCargado(strs.str().c_str());
+     }
+}
+void Grafico::Skin::setTerrain(scene::ISceneManager* smgr){
+    this->heightMTerrain="Texturas/piso3_HM.bmp";
+     std::ostringstream strs;
+    this->TTerrain =smgr->getVideoDriver()->getTexture( "Texturas/piso3_TX.jpg" );
+     if( this->TTerrain== NULL  )
+        {
+            strs << "No pudo ser cargado el Skin en la parte del Terreno ";
+            throw SkinNoCargado(strs.str().c_str());
+        }
+
+}
+void Grafico::Skin::setSkyDome(scene::ISceneManager* smgr){
+     std::ostringstream strs;
+    this->Tskydome =smgr->getVideoDriver()->getTexture( "Texturas/3.tree.skydome.png" );
+     if( this->Tskydome== NULL  )
+        {
+            strs << "No pudo ser cargado el Skin en la parte del skydome";
+            throw SkinNoCargado(strs.str().c_str());
+        }
+
+}
 scene::IAnimatedMesh* Grafico::Skin::getCelda(){
     return this->Celda;
 }
@@ -94,4 +161,27 @@ video::ITexture* Grafico::Skin::getTAntorcha(){
 video::ITexture* Grafico::Skin::getTBarrera(){
     return this->TBarrera;
 }
-
+gui::IGUIFont* Grafico::Skin::getMenuBoton(){
+    return this->MenuBoton;
+}
+gui::IGUIFont* Grafico::Skin::getDefault(){
+    return this->Default;
+}
+gui::IGUIFont* Grafico::Skin::getMenuToolTip(){
+    return this->MenuToolTip;
+}
+gui::IGUIFont* Grafico::Skin::getGUIBoton(){
+    return this->GUIBoton;
+}
+gui::IGUIFont* Grafico::Skin::getGUIWindow(){
+    return this->GUIWindow;
+}
+io::path Grafico::Skin::getHTerrain(){
+    return this->heightMTerrain;
+}
+video::ITexture* Grafico::Skin::getTTerrain(){
+    return this->TTerrain;
+}
+video::ITexture* Grafico::Skin::getTSkydome(){
+    return this->Tskydome;
+}

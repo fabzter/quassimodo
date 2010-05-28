@@ -1,4 +1,10 @@
 
+#include <irrlicht/ISceneManager.h>
+
+
+#include <irrlicht/ILightSceneNode.h>
+#include <irrlicht/IParticleSystemSceneNode.h>
+
 #include "Antorcha.hpp"
 
 using namespace irr;
@@ -59,10 +65,10 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
                  this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),40.0f*this->getEscala().X);
                 //hacemos el fuego
-        	scene::IParticleSystemSceneNode* ps =	smgr->addParticleSystemSceneNode(false,nfuego);
+        	this->ps =	smgr->addParticleSystemSceneNode(false,nfuego);
                 scene::IParticleEmitter* em = ps->createBoxEmitter(
 		core::aabbox3d<f32>(-2,0,-2,2,1,2), // tamaño del emisor
-		core::vector3df(0.0f,0.02f,0.00f),   // direccion inicial
+		core::vector3df(0.0f,0.01f,0.00f),   // direccion inicial
 		80,100,                             // emit rate
 		video::SColor(0,255,255,255),       // color obscuro
 		video::SColor(0,255,255,255),       // color brillo
@@ -75,23 +81,22 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
 
                 scene::IParticleAffector* paf = ps->createFadeOutParticleAffector();
 
-                ps->addAffector(paf); // same goes for the affector
+                this->ps->addAffector(paf); // same goes for the affector
                 paf->drop();
 
-                ps->setMaterialFlag(video::EMF_LIGHTING,false);
-                ps->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
-                ps->setMaterialTexture(0,this->fuego);
-                ps->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
-                ps->getMaterial(0).NormalizeNormals=true;
-
+                this->ps->setMaterialFlag(video::EMF_LIGHTING,false);
+                this->ps->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
+                this->ps->setMaterialTexture(0,this->fuego);
+                this->ps->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
+                this->ps->getMaterial(0).NormalizeNormals=true;
                 if(this->sombra)
                 {
                    this->nodoA->addShadowVolumeSceneNode();
-                   this->nfuego=  smgr->addVolumeLightSceneNode(0, -1,
+                  /* this->nfuego=  smgr->addVolumeLightSceneNode(0, -1,
                                     32,                              // Subdivisions on U axis
                                     32,                              // Subdivisions on V axis
                                     video::SColor(0, 255, 255, 255), // foot color
-                                    video::SColor(0, 0, 0, 0));      // tail color
+                                    video::SColor(0, 0, 0, 0));      // tail color*/
                 }
                 this->setPosicionAntorcha(this->posiciong);
 
@@ -123,8 +128,13 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
 void Grafico::Antorcha::setEscalaAntorcha(int x,int y, int z){
     this->nfuego->setScale(core::vector3df(x,y,z));
     this->setEscala(x,y,z);
-
+    this->nfuego->setRadius(40.0f*x);
     this->setPosicionAntorcha(this->posiciong);
+     scene::IParticleEmitter* em=this->ps->getEmitter();
+     em->setMinStartSize( core::dimension2df( 2.f*x , 2.f*z ) );
+     em->setMaxStartSize( core::dimension2df( 7.f*x , 7.f*z) );
+     em->setDirection(core::vector3df(0.0f,0.015f*y,0.00f));
+
 }
 void Grafico::Antorcha::dropAntorcha(){
     this->nfuego->removeAll();

@@ -6,6 +6,7 @@
 #include "Pieza.hpp"
 #include "Skin.hpp"
 #include<iostream>
+//TODO:documentar
 namespace Grafico{
 using namespace irr;
     /**
@@ -91,7 +92,7 @@ using namespace irr;
         /**
          * Un nodo escena que contiene el fuego
          */
-        scene::ISceneNode *nfuego;
+        scene::ILightSceneNode *nfuego;
         /**
          * La textura o la imagen que la que el fuego toma
          */
@@ -100,6 +101,7 @@ using namespace irr;
          *una bandera si se quiere sombra o  no
          */
          bool sombra;
+         scene::IParticleSystemSceneNode* ps;
 
     };
 }
