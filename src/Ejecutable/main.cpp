@@ -36,13 +36,6 @@ int main(int argc, char** argv)
 
     t.setJugadores(jugadores);
 
-    Tablero t_copia(t);
-
-    if(t_copia == t)
-        cout << "Sirve la comparacion de dos tabs iguales!!" << endl;
-    else
-        cout << "NO Sirve la comparacion de dos tabs iguales!!" << endl;
-
     Partida *p = new Partida(&t);
 
     cout << t << endl;
