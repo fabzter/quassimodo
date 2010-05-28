@@ -36,7 +36,7 @@ void export_tablero()
 {
     object tablero = //<--parte 2
     class_<Tablero>("Tablero")
-        .def(init<const Tablero&>())
+        .def(init<const Tablero*>())
         
         .def("getPosicion", &Tablero::getPosicion, 
         return_value_policy<reference_existing_object>() )
