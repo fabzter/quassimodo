@@ -12,11 +12,48 @@ Reglas::Tablero::Tablero()
 
 Reglas::Tablero::Tablero(const Tablero& orig)
 {
+    this->copiar(orig);
+}
+
+Reglas::Tablero::Tablero(const Tablero* orig)
+{
+    this->copiar(*orig);
+}
+
+Reglas::Tablero::~Tablero()
+{
+}
+
+void Reglas::Tablero::init_tablero()
+{
+    //le damos el tamaño vertical
+    this->datos.reserve(this->size_y);
+    this->datos.resize(this->size_y);
+
+    //ahora el tamaño horizontal
+    for(std::size_t i = 0; i < this->datos.size(); i++){
+        this->datos.at(i).reserve(this->size_x);
+        this->datos.at(i).resize(this->size_x);
+    }
+
+    //ahora le damos su posición a cada celda...
+    for(std::size_t i = 0; i < this->datos.size(); i++){
+        for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
+            this->datos.at(i).at(j).colocar(j, i);
+        }
+    }
+
+    //ponemos a los jugadores en blanco.
+    this->jugadores.reserve(this->num_jugadores);
+}
+
+void Reglas::Tablero::copiar(const Reglas::Tablero& orig)
+{
     //le damos el tamaño al tablero y construimos las Celdas.
     this->init_tablero();
     //Posicionamos las Celdas en el Grafo y las conectamos correctamente.
     this->grafo = new Grafo(*this);
-    
+
     //iteramos por todas las celdas
     for(int y = 0; y < this->size_y; y++)
     {
@@ -52,33 +89,6 @@ Reglas::Tablero::Tablero(const Tablero& orig)
         this->celdas_ocupadas.at(i) =
                 (Celda*)&this->getCelda(orig.celdas_ocupadas.at(i)->getPosicion());
     }
-}
-
-Reglas::Tablero::~Tablero()
-{
-}
-
-void Reglas::Tablero::init_tablero()
-{
-    //le damos el tamaño vertical
-    this->datos.reserve(this->size_y);
-    this->datos.resize(this->size_y);
-
-    //ahora el tamaño horizontal
-    for(std::size_t i = 0; i < this->datos.size(); i++){
-        this->datos.at(i).reserve(this->size_x);
-        this->datos.at(i).resize(this->size_x);
-    }
-
-    //ahora le damos su posición a cada celda...
-    for(std::size_t i = 0; i < this->datos.size(); i++){
-        for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
-            this->datos.at(i).at(j).colocar(j, i);
-        }
-    }
-
-    //ponemos a los jugadores en blanco.
-    this->jugadores.reserve(this->num_jugadores);
 }
 
 void Reglas::Tablero::setJugadores(const std::vector<Jugador*> &jugadores)

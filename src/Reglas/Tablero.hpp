@@ -1,6 +1,5 @@
 /**
  */
-
 #ifndef _TABLERO_HPP
 #define	_TABLERO_HPP
 #include <vector>
@@ -35,7 +34,24 @@ public:
      * hijas, dejando efectivamente sus lados libres.
      */
     Tablero();
+
+    /**
+     * Constructor copia para Tablero. Crea un Tablero con el mismo estado del
+     * que se va a copiar. Los Jugadores mantienen el mismo agente.
+     * @param orig una referencia al Tablero que se va a copiar.
+     * @sa Tablero::copiar
+     */
     Tablero(const Tablero& orig);
+
+    /**
+     * Otro tipo de constructor copia para Tablero. Hace lo mismo que el
+     * constructor copia habitual, pero recibe un apuntador a Tablero en lugar
+     * de una referencia.
+     * @param orig un apuntador al Tablero que se va a copiar.
+     * @sa Tablero::copiar
+     */
+    Tablero(const Tablero* orig);
+
     virtual ~Tablero();
 
     /**
@@ -268,7 +284,13 @@ private:
      */
     void init_tablero();
 
-
+    /**
+     * Realiza el trabajo para los constructores copia de Tablero. Copia todo el
+     * estado del Tablero origen en el que se está creando (jugadores, Barreras,
+     * etc). Mantiene el Agente en los Jugadores.
+     * @param orig
+     */
+    void copiar(const Tablero& orig);
 };
 }
 
