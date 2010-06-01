@@ -6,7 +6,7 @@ using namespace std;
 
 void export_ayudante_de_agente()
 {
-    class_<AyudanteDeAgente>("AyudanteDeAgente", init<Tablero &>())
+    class_<AyudanteDeAgente>("AyudanteDeAgente", init<Tablero *>())
     .def("getMovimientosPosibles", &AyudanteDeAgente::getMovimientosPosibles)
     .def("getBarrerasPosibles", &AyudanteDeAgente::getBarrerasPosibles)
     ;

@@ -25,6 +25,7 @@ def get_neighbors(tableroActual):
     
     # para cada movimiento posible para el jugador al que le toca tirar
     for jugada in ayudanteTemp.getMovimientosPosibles(tableroActual.idJugador):
+        print "LLEGO AQUI1", len(vecinos)
         # creamos un tablero con dicho movimiento realizado
         tab = agente_astar.Reglas.Tablero(tableroActual)
         tab.moverJugador( tableroActual.idJugador, 
@@ -32,9 +33,11 @@ def get_neighbors(tableroActual):
         
         tab.jugada = jugada # agregamos la jugada que nos llevo a dicho estado
         tab.idJugador = tableroActual.idJugador # ...
-        
         vecinos.append(tab)
+        print "LLEGO AQUI2 ", len(vecinos)
     
+    print "Regreso ", len(vecinos)
+    print "El primero de los vecinos\n", vecinos[0]
     return vecinos
 
 def is_goal(tableroActual):
@@ -76,7 +79,7 @@ def estimate(tableroActual):
     
 
 def astar(start_pos, neighbors = get_neighbors, goal = is_goal, start_g = 0, 
-            cost = costo, heuristic = estimate, limit=maxint, debug=None):
+            cost = costo, heuristic = estimate, limit=200000, debug=None):
 
     """
     Encuentra el camino mas corto (posiblemente) a la meta y regresa el primer
@@ -122,7 +125,7 @@ Regresa el mejor camino encontrado sin contar la posicion inicial.
         if goal(current[POS]):
             best = current
             break
-
+            
         # Visitamos a los vecinos del nodo actual
         for neighbor_pos in neighbors(current[POS]):
             neighbor_g = current[G] + cost(current[POS], neighbor_pos)

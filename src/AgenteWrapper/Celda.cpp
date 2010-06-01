@@ -7,11 +7,11 @@ using namespace boost::python;
 using namespace Reglas;
 using namespace std;
 
-string Celda_to_str(Celda &c)
+string Celda_to_str(Celda *c)
 {
     ostringstream strs;
     
-    strs << c;
+    strs << *c;
     
     return strs.str();
 }

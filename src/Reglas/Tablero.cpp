@@ -22,6 +22,7 @@ Reglas::Tablero::Tablero(const Tablero* orig)
 
 Reglas::Tablero::~Tablero()
 {
+    delete this->grafo;
 }
 
 void Reglas::Tablero::init_tablero()
