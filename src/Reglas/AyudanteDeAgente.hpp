@@ -93,7 +93,7 @@ public:
         {
             return first.at(0) > second.at(0);
         }
-    } acomodadorHeap;
+    };
 
 private:
     Tablero *tablero;

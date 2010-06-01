@@ -25,7 +25,6 @@ def get_neighbors(tableroActual):
     
     # para cada movimiento posible para el jugador al que le toca tirar
     for jugada in ayudanteTemp.getMovimientosPosibles(tableroActual.idJugador):
-        print "LLEGO AQUI1", len(vecinos)
         # creamos un tablero con dicho movimiento realizado
         tab = agente_astar.Reglas.Tablero(tableroActual)
         tab.moverJugador( tableroActual.idJugador, 
@@ -34,10 +33,7 @@ def get_neighbors(tableroActual):
         tab.jugada = jugada # agregamos la jugada que nos llevo a dicho estado
         tab.idJugador = tableroActual.idJugador # ...
         vecinos.append(tab)
-        print "LLEGO AQUI2 ", len(vecinos)
-    
-    print "Regreso ", len(vecinos)
-    print "El primero de los vecinos\n", vecinos[0]
+
     return vecinos
 
 def is_goal(tableroActual):

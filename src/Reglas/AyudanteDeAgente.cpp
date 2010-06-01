@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <map>
+#include <vector>
 
 #include "AyudanteDeAgente.hpp"
 
@@ -177,7 +178,7 @@ Reglas::AyudanteDeAgente::astar(int idJugador, int limit)
     //mantenemos un heap de los nodos.
     std::vector< std::vector<int> > heap;
     heap.push_back(start);
-    std::push_heap(heap.begin(), heap.end(), acomodadorHeap);
+    std::push_heap(heap.begin(), heap.end(), AcomodadorHeap());
 
     //Track the best path found so far.
     std::vector<int> best(start);
@@ -186,7 +187,7 @@ Reglas::AyudanteDeAgente::astar(int idJugador, int limit)
     {
         //sacamos el siguiente nodo del heap
         std::vector<int> current = heap.at(0);
-        std::pop_heap(heap.begin(), heap.end(), acomodadorHeap);
+        std::pop_heap(heap.begin(), heap.end(), AcomodadorHeap());
         AyudanteDeAgente ayudante_current((Tablero*)current.at(POS));
         //y lo marcamos como no abierto.
         current.at(OPEN) = false;
@@ -237,7 +238,7 @@ Reglas::AyudanteDeAgente::astar(int idJugador, int limit)
                 nodes[neighbor_pos] = neighbor;
 
                 heap.push_back(neighbor);
-                std::push_heap(heap.begin(), heap.end(), acomodadorHeap);
+                std::push_heap(heap.begin(), heap.end(), AcomodadorHeap());
 
                 if(neighbor_h < best.at(H))
                 {
@@ -255,13 +256,59 @@ Reglas::AyudanteDeAgente::astar(int idJugador, int limit)
                     //En lugar de eso lo marcamos como invalido y hacemos una
                     //copia actualizada de él.
                     neighbor.at(VALID) = false;
-                    
+                    neighbor.at(F) = neighbor_g + neighbor.at(H);
+                    neighbor.at(NUM) = nums++;
+                    neighbor.at(G) = neighbor_g;
+                    neighbor.at(VALID) = true;
+                    neighbor.at(PARENT) = current.at(POS);
+                    nodes[neighbor_pos] = neighbor;
+
+                    heap.push_back(neighbor);
+                    std::push_heap(heap.begin(), heap.end(), AcomodadorHeap());
+                }
+                else
+                {
+                    //re-abrimos al vecino.
+                    neighbor.at(F) = neighbor_g + neighbor.at(H);
+                    neighbor.at(G) = neighbor_g;
+                    neighbor.at(PARENT) = current.at(POS);
+                    neighbor.at(OPEN) = true;
+
+                    heap.push_back(neighbor);
+                    std::push_heap(heap.begin(), heap.end(), AcomodadorHeap());
                 }
             }
         }
-
+        //botamos a los nodos invalidos al inicio del heap.
+        while( (heap.size() > 0) && !heap.at(0).at(VALID) )
+        {
+            std::pop_heap(heap.begin(), heap.end(), AcomodadorHeap());
+        }
     }
 
+    //buscamos al primer vecino de la posicion actual
+    std::vector<int> current = best;
+    std::vector<int> previous = best;
+    while((Tablero*)current.at(PARENT) != NULL)
+    {
+        previous = current;
+        current = nodes.at( (Tablero*)current.at(PARENT) );
+    }
+
+    //limpiamos
+    for(int i = 0; i < heap.size(); i++)
+    {
+        if(heap.at(i).at(POS) != previous.at(POS))
+        {
+            delete (Tablero*)heap.at(i).at(POS);
+        }
+    }
+
+    //obtenemos la jugada...
+    Tablero *t = (Tablero*)previous.at(POS);
+    Jugada *j = new Jugada(t->getCelda(idJugador));
+
+    return new std::pair<Reglas::Tablero*, Reglas::Jugada*>(t, j);
 }
 
 std::list< std::pair<Reglas::Tablero*, Reglas::Jugada*> >
