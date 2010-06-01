@@ -1,7 +1,6 @@
 
 #ifndef __ENUMS_HPP_
 #define	__ENUMS_HPP_
-//TODO: documentar
 /**
  * Enum que contiene los identificadores para cada boton en em Menú de la aplicación
  */
@@ -18,6 +17,9 @@ enum GUI_BOTONES{
     B_COUNT=6
 
 };
+/**
+ * Este enum, contiene los identificadores para los botones de seleccionar agente.
+ */
 enum GUI_BOTONES_AGENTES{
 
     BA_AGENTE_1=10,
@@ -27,6 +29,9 @@ enum GUI_BOTONES_AGENTES{
     BA_COUNT=2
 
 };
+/**
+ * Enum que contiene los identificadores de las opciones del cuadro de dialogo de selecciona agentes
+ */
 enum GUI_BOTONES_OPCION{
 
     BO_INICIA=100,
@@ -36,7 +41,26 @@ enum GUI_BOTONES_OPCION{
     BO_COUNT=2
 
 };
+/**
+ *  Enum que contiene los identificadores de las opciones del a partida como son Vistas, salir al menú y pausa
+ */
+enum GUI_BOTONES_PARTIDA{
 
+    BP_VISTA1=1000,
+    BP_VISTA2,
+    BP_VISTA3,
+    BP_VISTA4,
+    BP_PAUSA,
+    BP_MENU,
+    /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
+     se agregan antes de COUNT*/
+    BP_COUNT=6
+
+};
+
+/**
+ * Arreglo en el cual se contiene el texto que tendrá el menu del juego
+ */
 const wchar_t* const GUI_BOTONES_TEXTO[B_COUNT+1]=
 {
 L"Agente VS Maquina",
@@ -47,6 +71,9 @@ L"Ayuda",
 L"Salir",
 0
 };
+/**
+ * Arreglo que contiene el ToolTip de cada Boton del Menú
+ */
 const wchar_t* const GUI_BOTONES_TOLTIP[B_COUNT+1]=
 {
 L"Partida rápida en el que el segundo competidor es el Agente Integrado en la aplicación",

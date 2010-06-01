@@ -7,7 +7,9 @@ GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Ski
     this->env=env;
     this->skin=Skin;
     this->botonAgente.resize(2);
+    this->botonPartida.resize(BP_COUNT);
     this->AvsA=NULL;
+    botonesPartida=false;
   //  this->setSkin();
 }
 
@@ -18,7 +20,7 @@ GUI::~GUI() {
 }
 void GUI::setSkin(){
      gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
-     this->env->setSkin(skin);
+    
 //	gui::IGUISkin* skin =this->env->getSkin();
 
          skin->setFont(this->skin->getGUIBoton() ,gui::EGDF_BUTTON);
@@ -35,6 +37,7 @@ void GUI::setSkin(){
          col.setAlpha(250);
          skin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
      }
+   this->env->setSkin(skin);
     skin->drop();
  }
 void GUI::MsgBox(const char* msg ){
@@ -78,10 +81,10 @@ void GUI::dropAvsA(){
 }
 
 void GUI::dibujaSelector(bool ambos){
-    this->setSkin();
-        core::dimension2d<unsigned int> S_S=this->smgr->getVideoDriver()->getScreenSize();
+      this->setSkin();
+      core::dimension2d<unsigned int> S_S=this->smgr->getVideoDriver()->getScreenSize();
       int d_a=100,d_al=150;
-        core::rect<s32> recW=core::rect<s32>(100, 150 , S_S.Width-d_a ,S_S.Height-d_al);
+      core::rect<s32> recW=core::rect<s32>(100, 150 , S_S.Width-d_a ,S_S.Height-d_al);
 
       AvsA= this->env->addWindow(recW,true,L"Agentes:");
 
@@ -117,4 +120,29 @@ void GUI::setTextAgnt(int num,const char* text){
         this->charTowchar(m,text);
         this->botonAgente.at(num)->setText(m);
     }
+}
+void GUI::setBotonesPartida(){
+    
+    core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();
+      int dis_ancho=20,dis_alto=20;
+      float size=50,dan=dis_ancho;
+      for(int i=0;i<BP_COUNT;i++){
+          
+            this->botonPartida.at(i)= this->env->addButton(core::rect<s32>( dan,dis_alto,dan+size, dis_alto+size ),0,i+1000,L"2") ;
+            dan+=size+10;
+      this->botonPartida.at(i)->setDrawBorder(true);
+
+      }
+      botonesPartida=true;
+    
+}
+void GUI::dropBotonesPartida(){
+    if(botonesPartida){
+
+          for(int i=0;i<BP_COUNT;i++){
+            this->botonPartida.at(i)->remove();
+      }
+
+    }
+
 }

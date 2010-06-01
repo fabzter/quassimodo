@@ -12,7 +12,7 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
     this->jugadores.reserve(4);
     this->jugadores.resize(4);
     this->botones.reserve(B_COUNT);
-    this->setMenuP(t);
+    this->setMenuP();
 
 }
 
@@ -49,7 +49,7 @@ Menu::~Menu() {
       this->setPosicionJugadores();
  }
 
- void Menu::setMenuP(Grafico::Tablero* t){
+ void Menu::setMenuP(){
 
      haymenu=true;
      this->SetJugadores();
@@ -68,7 +68,9 @@ void Menu::dropMenuP(){
     }
   
 }
- void Menu::setSkin(bool dialogo){
+//TODO: arreglar las letras del menú! las de la ventana que no se ven
+ void Menu::setSkin(){
+
      gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
 	this->env->setSkin(skin);
    

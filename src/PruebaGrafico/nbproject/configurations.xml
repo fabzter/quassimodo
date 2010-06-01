@@ -9,11 +9,13 @@
       <itemPath>Enums.hpp</itemPath>
       <itemPath>EventReceiver.hpp</itemPath>
       <itemPath>GUI.hpp</itemPath>
+      <itemPath>IAnimatorCameraTokayo.hpp</itemPath>
       <itemPath>Juego.hpp</itemPath>
       <itemPath>ManejadorGUI.hpp</itemPath>
       <itemPath>ManejadorJuego.hpp</itemPath>
       <itemPath>Menu.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
+      <itemPath>tokayoCamera.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -32,6 +34,7 @@
       <itemPath>Menu.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>tokayoCamera.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

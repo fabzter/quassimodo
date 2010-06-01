@@ -13,7 +13,6 @@
 #include<vector>
 #include<Grafico/Skin.hpp>
 using namespace irr;
-//TODO: documentar
 class Partida {
     friend class ManejadorJuego;
 public:
@@ -22,13 +21,24 @@ public:
      * Constructor de la case partida, se encarga de inicializar todas las variables ecepto
      * los jugadores,
      * @param smgr Un apuntador al  manejador de la escena
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
     Partida(scene::ISceneManager* smgr,Grafico::Skin* skin);
+    /**
+     * Constructor copia de la clase Partida
+     * @param orig un objeto de la clase Partida
+     */
     Partida(const Partida& orig);
+    /**
+     * Destructor
+     */
     virtual ~Partida();
     /**
      * Cambia la escala del juego por si acaso los modelos llegan a ser muy grandes o muy pequeños
      * actualiza el tamaño de todo, tanto de las celdas, el tablero, los jugadores, el juez, las antorchas etc.
+     * @param x Un entero que representa la escala que tendrá en el eje de las X
+     * @param y Un entero que representa la escala que tendrá en el eje de las Y
+     * @param z Un entero que representa la escala que tendrá en el eje de las Z
      */
     void SetEscala(int x,int y,int z);
     /**
@@ -73,6 +83,7 @@ public:
      * ubicados dichos agentes
      * @param rutaAgente1 un string que contiene la ruta en la que se encuentra el agente 1
      * @param rutaAgente2 un string que contiene la ruta en la que se encuentra el agente 2
+     * @param  smgr un apuntador al manejador de la escena
      * @return true si los agentes fueron cargados exitosamente, false en caso contrario.
      */
     bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr,scene::IAnimationEndCallBack* callback);
@@ -82,30 +93,17 @@ public:
      * @param smgr Un apuntador al  manejador de la escena
      */
     void NuevaPartida(scene::ISceneManager* smgr);
-private:
-    void ColocaAntorchas();
     /**
-     * Tablero sobre el que se realizará la partida.
+     *Calcula el centro del tablero y lo regresa
+     * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
-    Grafico::Tablero *t;
-    /**
-     * Un vector de antorchas que será la iluminación del juego
-     */
-    std::vector<Grafico::Antorcha*> antorchas;
-    /**
-     * Un vector de barreras, esto pues ya que las barreras serán dibujadas y no queremos que se
-     * eliminen hasta el final de la partida.
-     */
-    std::vector<Grafico::Barrera*> Barreras;
-    /**
-     * Un apuntador al  manejador de la escena.
-     */
-    /**
-     * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se
-     * eliminen hasta el final de la partida.
-     */
-    std::vector< Reglas::Jugador* > jugadores;
+    core::vector3df getCentro();
 
+private:
+    /**
+     *Coloca las antorchas su posicion
+     */
+    void ColocaAntorchas();
     /**
      * Llamada por siguienteJugada, si la Jugada es válida. Realiza la parte de
      * actualización especificada en siguienteJugada.
@@ -119,15 +117,40 @@ private:
      * en la que el jugador se movera y colocara a el jugador en dicha posicion
      * @param j Jugada a realizar por el jugador
      * @param idJugador id del jugador que quiere realizar el movimiento
+     * @param  smgr un apuntador al manejador de la escena
      */
     bool MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr);
-
+    /**
+     *Coloca la barrera segun la posicion que indica la jugada
+     * @param j un objeto de la clase Reglas::Jugada que indica la jugada a realizarse
+     * @param idJugador id del juegador que realizara la Jugada
+     * @param  smgr un apuntador al manejador de la escena
+     */
     void SetBarrera(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr);
+ 
+    /**
+     * Tablero sobre el que se realizará la partida.
+     */
+    Grafico::Tablero *t;
+    /**
+     * Un vector de antorchas que será la iluminación del juego
+     */
+    std::vector<Grafico::Antorcha*> antorchas;
+    /**
+     * Un vector de barreras, esto pues ya que las barreras serán dibujadas y no queremos que se
+     * eliminen hasta el final de la partida.
+     */
+    std::vector<Grafico::Barrera*> Barreras;
+
+    /**
+     * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se
+     * eliminen hasta el final de la partida.
+     */
+    std::vector< Reglas::Jugador* > jugadores;
     /**
      * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se
      * construye la Partida, éste Juez se construye en el contructor de Partida.
      */
-
     Reglas::Juez* juez;
     /**
      * El identificador del Jugador al que se le pedirá la siguiente Jugada.
@@ -148,7 +171,14 @@ private:
       * Bandera que se encuentra en true mientras la Partida no ha terminado.
       */
      bool en_curso;
+     /**
+      *  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+         * @param sombra Un booleano que indica si la antorcha llevara sombra o no por default no lleva.
+      */
      Grafico::Skin* skin;
+     /**
+      * vector en donde se almacena la escala que tendrá el juego.
+      */
      core::vector3df escala;
 
 

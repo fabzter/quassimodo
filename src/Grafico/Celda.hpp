@@ -6,6 +6,8 @@
 #include<irrlicht.h>
 #include"Pieza.hpp"
 #include "Skin.hpp"
+#include <stdlib.h>
+#include <time.h>
 namespace Grafico{
 /**
  * La clase celda se encarga de conocer el estado de cada celda en el trblero, deriva de la

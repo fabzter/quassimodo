@@ -175,7 +175,8 @@ bool Partida::hayGanador()
          this->antorchas.at(i)->setEscalaAntorcha(this->escala.X,this->escala.Y,this->escala.Z);
     }
       core::vector3df v= this->t->getSize();
-      this->t->setPosicionTablero(- (v.X*x) /2,0,( (v.Z*z) /2)-15);
+      this->t->setPosicionTablero(-(v.X*x) /2,0,-( (v.Z*z) /2));
+       std::cout<<"posicion t "<< (v.X*x) /2<<" "<<( (v.Z*z) /2)-15<<std::endl;
      this->ColocaAntorchas();
  }
  bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr,scene::IAnimationEndCallBack* callback){
@@ -200,4 +201,14 @@ bool Partida::hayGanador()
       delete(this->t);
       this->t=new Tablero(smgr,this->skin);
       this->jugadores.clear();
+  }
+
+ core::vector3df Partida::getCentro(){
+     core::vector3df pos=this->t->getPosicionTablero();
+     core::vector3df tam=this->t->getSize()*this->escala;
+     core::vector3df cen;
+     cen.X=pos.X+(tam.X/2);
+     cen.Z=pos.Z+(tam.Z/2);
+     cen.Y=pos.Y;
+     return cen;
   }

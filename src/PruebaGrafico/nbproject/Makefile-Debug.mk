@@ -38,9 +38,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/Partida.o \
 	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/Menu.o \
-	${OBJECTDIR}/EventReceiver.o \
 	${OBJECTDIR}/GUI.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/EventReceiver.o \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/tokayoCamera.o
 
 # C Compiler Flags
 CFLAGS=
@@ -107,20 +108,25 @@ ${OBJECTDIR}/Menu.o: nbproject/Makefile-${CND_CONF}.mk Menu.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
 
-${OBJECTDIR}/EventReceiver.o: nbproject/Makefile-${CND_CONF}.mk EventReceiver.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
-
 ${OBJECTDIR}/GUI.o: nbproject/Makefile-${CND_CONF}.mk GUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
+${OBJECTDIR}/EventReceiver.o: nbproject/Makefile-${CND_CONF}.mk EventReceiver.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
+
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/tokayoCamera.o: nbproject/Makefile-${CND_CONF}.mk tokayoCamera.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/tokayoCamera.o tokayoCamera.cpp
 
 # Subprojects
 .build-subprojects:

@@ -1,4 +1,6 @@
 
+#include <irrlicht/irrList.h>
+
 #include "ManejadorJuego.hpp"
 
 
@@ -6,12 +8,14 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->smgr=smgr;
     this->env=env;
     this->skin=new Grafico::Skin(smgr,env);
+    this->terrain==NULL;
     this->Agentes.resize(2);
     this->clearAgentes();
      this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin);
     this->aniend=new AnimacionEnd(this->partida,this->smgr);
-     this->setSkinAmbiente();
+    this->setSkinAmbiente();
+     this->cam=NULL;
     this->setCamMenu();
 
 }
@@ -37,6 +41,7 @@ void ManejadorJuego::setPartida(){
         this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
         this->partida->iniciarPartida();
          this->setCamJuego();
+         this->mgui->setMenuPartida();
         //cam->setPosition(core::vector3df(49.33476,110.99,99.7382));
         //cam->bindTargetAndRotation(true);
        // std::cout<<cam->getTargetAndRotationBinding()<<std::endl;
@@ -98,7 +103,7 @@ void ManejadorJuego::clearAgentes(){
     this->setPartida();
   }
   void ManejadorJuego::printCam(){
-      scene::ICameraSceneNode *cam=this->smgr->getActiveCamera();
+      //scene::ICameraSceneNode *cam=this->smgr->getActiveCamera();
       core::vector3df v;
       v=cam->getTarget();
       std::cout<<"target "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
@@ -106,6 +111,10 @@ void ManejadorJuego::clearAgentes(){
       std::cout<<"posicion "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
      v=cam->getRotation();
       std::cout<<"rotation "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+      std::cout<<"lejania "<<cam->getFarValue()<<std::endl;
+      std::cout<<"cercania "<<cam->getNearValue()<<std::endl;
+       //std::cout<<"matriz "<<cam->getAbsoluteTransformation()<<std::endl;
+
   }
  void ManejadorJuego::CambiaTextoAgnt(int bAgente){
 
@@ -120,27 +129,42 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 
 }
  void ManejadorJuego::setCamJuego(){
-     scene::ICameraSceneNode *cam= this->smgr->addCameraSceneNodeMaya(0,200.f,200.f,200.0f);
-     cam->setTarget(core::vector3df(242.634,42.6679,597.024));
+     if(cam!=NULL)
+         cam->remove();
+     cam = smgr->addCameraSceneNode();
+	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
+        anm->setRotationNumbers(270,57) ;
+        anm->setZoom(602);
+	cam->addAnimator(anm);
+	anm->drop();
+     
+     core::vector3df v=this->partida->getCentro();
+     std::cout<<"centro "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+     cam->setTarget(core::vector3df(-47.5287,32.6925,-63.6243));
      this->smgr->setActiveCamera(cam);
+   
      //colocamos el tope de la camara para que nosevea debajo del piso
-     scene::ITriangleSelector* selector= this->smgr->createTerrainTriangleSelector(this->terrain, 0);
-	this->terrain->setTriangleSelector(selector);
+     if(this->terrain!=NULL){
+         scene::ITriangleSelector* selector= this->smgr->createTerrainTriangleSelector(this->terrain, 0);
+            this->terrain->setTriangleSelector(selector);
 
-	// create collision response animator and attach it to the camera
-	scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-		selector,cam , core::vector3df(60,100,60),
-		core::vector3df(0,0,0),
-		core::vector3df(0,50,0));
-	selector->drop();
-	cam->addAnimator(anim);
-	anim->drop();
+            // create collision response animator and attach it to the camera
+            scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
+                    selector,cam , core::vector3df(10,50,10),
+                    core::vector3df(0,0,0),
+                    core::vector3df(0,50,0));
+            selector->drop();
+            cam->addAnimator(anim);
+            anim->drop();
+     }
 
  }
  void ManejadorJuego::setCamMenu(){
-     scene::ICameraSceneNode *cam= this->smgr->addCameraSceneNode();
-     cam->setTarget(core::vector3df(-271.296,117.212,844.29));
-     cam->setPosition(core::vector3df(-355.767,139.423,926.578));
+     if(cam!=NULL)
+         cam->remove();
+     cam= this->smgr->addCameraSceneNode();
+     cam->setTarget(core::vector3df(-344.395,170.816,333.796));
+     cam->setPosition(core::vector3df(-357.9,173,352.904));
     this->smgr->setActiveCamera(cam);
  }
  void ManejadorJuego::setSkinAmbiente(){
@@ -163,4 +187,27 @@ std::string ManejadorJuego::SplitNombre (std::string str)
  void ManejadorJuego::dropSkinAmbiente(){
      this->terrain->removeAll();
      this->skydome->removeAll();
+ }
+ void ManejadorJuego::cambiaVistaJuego(int vista){
+
+   core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=cam->getAnimators().begin() ;
+
+  IAnimatorCameraTokayo* anm = (IAnimatorCameraTokayo*) *a;
+    anm->setZoom(602);
+     switch(vista){
+         case 1:
+             anm->setRotationNumbers(1260,45);
+             break;
+         case 2:
+            anm->setRotationNumbers(1078,45);
+             break;
+        case 3:
+             anm->setRotationNumbers(1170,45);
+             break;
+         case 4:
+             anm->setRotationNumbers(1350,45);
+             break;
+
+     }
+
  }

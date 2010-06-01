@@ -6,7 +6,7 @@
 #include "Pieza.hpp"
 #include "Skin.hpp"
 #include<iostream>
-//TODO:documentar
+
 namespace Grafico{
 using namespace irr;
     /**
@@ -15,12 +15,15 @@ using namespace irr;
    class Antorcha : public Pieza {
 
     public:
+
         /**
          *Constructor de la clase Antorcha  se crea pegada al piso por lo que solo se podra mover en dirección X o Z.
          * @param smgr Un apuntador al  manejador de la escena que nos servira para crear la antorcha y el fuego
          * @param x Un entero que representa la posicion que tendrá en el eje de las X
          * @param z Un entero que representa la posicion que tendrá en el eje de las z
+         * @param skin  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
          * @param sombra Un booleano que indica si la antorcha llevara sombra o no por default no lleva.
+         * @return
          */
         Antorcha(scene::ISceneManager* smgr,int x, int z,Skin* skin,bool sombra=false);
         /**
@@ -71,7 +74,9 @@ using namespace irr;
          */
 
        void setEscalaAntorcha(int x,int y, int z);
-
+       /**
+        *Metodo que elimina la antorcha de la escena
+        */
        void dropAntorcha();
 
     private:
@@ -82,8 +87,6 @@ using namespace irr;
          * @param z Un entero que representa la posicion que tendrá en el eje de las Z
          */
         void setVectPosicion(int x, int y, int z);
-   
-        
          /**
          * Un vector de 3 enteros que indica la posicion del fuego.
          */
@@ -101,6 +104,9 @@ using namespace irr;
          *una bandera si se quiere sombra o  no
          */
          bool sombra;
+         /**
+          * Un objeto que maneja el fuego.
+          */
          scene::IParticleSystemSceneNode* ps;
 
     };

@@ -23,7 +23,7 @@ Grafico::Skin::~Skin() {
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
     this->Tablero=smgr->getMesh("Texturas/Tablero4.3ds");
-    this->TTAblero=smgr->getVideoDriver()->getTexture( "Texturas/arena1.jpg" );
+    this->TTAblero=smgr->getVideoDriver()->getTexture( "Texturas/Moss0138_10_S.jpg" );
     if( this->Tablero== NULL || this->TTAblero==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte del Tablero ";
@@ -53,7 +53,7 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->Barrera=smgr->getMesh("Texturas/Barrera3.3ds");
-    this->TBarrera=smgr->getVideoDriver()->getTexture( "Texturas/wall.jpg" );
+    this->TBarrera=smgr->getVideoDriver()->getTexture( "Texturas/Moss0088_5_S.jpg" );
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Barrera ";
@@ -62,8 +62,8 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Celda=smgr->getMesh("Texturas/Celda4.3ds");
-    this->TCelda=smgr->getVideoDriver()->getTexture( "Texturas/arena2.JPG" );
+    this->Celda=smgr->getMesh("Texturas/Celda4.3ds");//Moss0138_2_S.jpg RockMossy0018_S.jpg
+    this->TCelda=smgr->getVideoDriver()->getTexture( "Texturas/Moss0138_2_S.jpg" );
     if( this->Celda== NULL || this->TCelda== 0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Celda ";

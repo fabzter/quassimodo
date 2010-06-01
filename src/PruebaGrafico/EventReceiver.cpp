@@ -83,6 +83,19 @@ bool EventReceiver::OnEvent(const SEvent& event)
                         this->manj->clearAgentes();
                         this->manj->getManejadorGUI()->setMenu();
                         break;
+                    case BP_VISTA1:
+                        this->manj->cambiaVistaJuego(1);
+                        break;
+                    case BP_VISTA2:
+                        this->manj->cambiaVistaJuego(2);
+                        break;
+                    case BP_VISTA3:
+                        this->manj->cambiaVistaJuego(3);
+                        break;
+                    case BP_VISTA4:
+                        this->manj->cambiaVistaJuego(4);
+                        break;
+
                 } 
             }
             if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
