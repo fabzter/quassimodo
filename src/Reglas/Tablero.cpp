@@ -12,38 +12,12 @@ Reglas::Tablero::Tablero()
 
 Reglas::Tablero::Tablero(const Tablero& orig)
 {
-    //le damos el tamaño al tablero y construimos las Celdas.
-    this->init_tablero();
-    //Posicionamos las Celdas en el Grafo y las conectamos correctamente.
-    this->grafo = new Grafo(*this);
-    
-    //iteramos por todas las celdas
-    for(int y = 0; y < this->size_y; y++)
-    {
-        for(int x = 0; x < this->size_x; x++)
-        {
-            if(!orig.datos.at(y).at(x).estaLibre())
-            {
-                this->datos.at(y).at(x).bloquear();
-                this->celdas_ocupadas.push_back((Celda*)&orig.datos.at(y).at(x));
-            }
-            //iteramos por los lados de las celdas
-            for(int lado = (int)NORTE; lado <= (int)OESTE; lado++)
-            {
-                if( !orig.datos.at(y).at(x).estaLibreDireccion((Direccion)lado) )
-                {
-                    this->datos.at(y).at(x).bloquearDireccion((Direccion)lado);
-                }
-            }
-        }
-    }
-    this->barreras_colocadas = orig.barreras_colocadas;
+    this->copiar(orig);
+}
 
-    this->jugadores.resize(orig.jugadores.size());
-    for(int i = 0; i < this->jugadores.size(); i++)
-    {
-        this->jugadores.at(i) = new Jugador(*orig.jugadores.at(i));
-    }
+Reglas::Tablero::Tablero(const Tablero* orig)
+{
+    this->copiar(*orig);
 }
 
 Reglas::Tablero::~Tablero()
@@ -73,6 +47,50 @@ void Reglas::Tablero::init_tablero()
     this->jugadores.reserve(this->num_jugadores);
 }
 
+void Reglas::Tablero::copiar(const Reglas::Tablero& orig)
+{
+    //le damos el tamaño al tablero y construimos las Celdas.
+    this->init_tablero();
+    //Posicionamos las Celdas en el Grafo y las conectamos correctamente.
+    this->grafo = new Grafo(*this);
+
+    //iteramos por todas las celdas
+    for(int y = 0; y < this->size_y; y++)
+    {
+        for(int x = 0; x < this->size_x; x++)
+        {
+            if(!orig.datos.at(y).at(x).estaLibre())
+            {
+                this->datos.at(y).at(x).bloquear();
+                this->celdas_ocupadas.push_back((Celda*)&orig.datos.at(y).at(x));
+            }
+            //iteramos por los lados de las celdas
+            for(int lado = (int)NORTE; lado <= (int)OESTE; lado++)
+            {
+                if( !orig.datos.at(y).at(x).estaLibreDireccion((Direccion)lado) )
+                {
+                    this->datos.at(y).at(x).bloquearDireccion((Direccion)lado);
+                }
+            }
+        }
+    }
+    this->barreras_colocadas = orig.barreras_colocadas;
+
+    this->jugadores.resize(orig.jugadores.size());
+    for(int i = 0; i < this->jugadores.size(); i++)
+    {
+        this->jugadores.at(i) = new Jugador(*orig.jugadores.at(i));
+    }
+
+    //copiamos celdas ocupadas.
+    this->celdas_ocupadas.resize(orig.celdas_ocupadas.size());
+    for(int i = 0; i < orig.celdas_ocupadas.size(); i++)
+    {
+        this->celdas_ocupadas.at(i) =
+                (Celda*)&this->getCelda(orig.celdas_ocupadas.at(i)->getPosicion());
+    }
+}
+
 void Reglas::Tablero::setJugadores(const std::vector<Jugador*> &jugadores)
 {
     std::cout<<"en reglas setjugadores iddel 0 ="<<jugadores.size()<<std::endl;
@@ -98,7 +116,7 @@ void Reglas::Tablero::setJugadores(const std::vector<Jugador*> &jugadores)
 }
 
 void Reglas::Tablero::setBarrera(Reglas::Jugador &j,
-        const Reglas::Barrera &b) //TODO: dividri en funciones :(
+        const Reglas::Barrera &b) //TODO: dividir en funciones :(
 {
     //vemos la direccion de las primeras Celdas que vamos a bloquearles.
     Direccion d_bloqueada = b.getDireccion() == NORTE? OESTE: SUR;
@@ -276,6 +294,42 @@ bool Reglas::Tablero::tieneJugador(int id) const
             j = this->jugadores.at(i);
     }
     return !(j == NULL);
+}
+
+bool Reglas::Tablero::operator==(const Reglas::Tablero &otro) const
+{
+    if(this->barreras_colocadas.size() != otro.barreras_colocadas.size())
+        return false;
+
+    //revisamos que esten puestas las mismas barreras en ambos tableros.
+    std::list<Barrera>::const_iterator it;
+    for(it = this->barreras_colocadas.begin();
+                                    it != this->barreras_colocadas.end(); it++)
+    {
+        //si no encontramos una barrera en el otro tablero, no son los mismos...
+        if ( !(std::count(otro.barreras_colocadas.begin(),
+                otro.barreras_colocadas.end(), *it) > 0) )
+        {
+            return false;
+        }
+    }
+
+    //revisamos que los jugadores estén en el mismo lugar.
+    for(int i = 0; i < this->num_jugadores; i++)
+    {
+        int id = this->jugadores.at(i)->getIdentificador();
+        if( !(this->getCelda(id) == otro.getCelda(id)) )
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool Reglas::Tablero::operator!=(const Reglas::Tablero &otro) const
+{
+    return !(*this == otro);
 }
 
 std::ostream& operator<< (std::ostream &out, const Reglas::Tablero &tab)

@@ -18,16 +18,25 @@ static const int Tablero_size_x = Tablero::size_x;
 static const int Tablero_size_y = Tablero::size_y;
 static const int Tablero_tam_barrera = Tablero::tam_barrera;
 
-void print_tab(Tablero* tab)
+string print_tab(Tablero *tab)
 {
-    cout << *tab << endl;
+    ostringstream strs;
+    
+    strs << *tab;
+    
+    return strs.str();
+}
+
+bool eq_tablero(Tablero * tab, Tablero *otro)
+{
+    return *tab == *otro;
 }
 
 void export_tablero()
 {
     object tablero = //<--parte 2
     class_<Tablero>("Tablero")
-        .def(init<const Tablero&>())
+        .def(init<const Tablero*>())
         
         .def("getPosicion", &Tablero::getPosicion, 
         return_value_policy<reference_existing_object>() )
@@ -45,7 +54,9 @@ void export_tablero()
         
         .def("setBarrera", setBarrera_with_int(&Tablero::setBarrera))
         
-        .def("print_tab", &print_tab)
+        .def("__eq__", &eq_tablero)
+        
+        .def("__str__", &print_tab)
 
     ;
     //parte 3...v
