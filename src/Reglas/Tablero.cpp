@@ -333,11 +333,6 @@ bool Reglas::Tablero::operator!=(const Reglas::Tablero &otro) const
     return !(*this == otro);
 }
 
-bool operator < (const Reglas::Tablero &a, const Reglas::Tablero &b)
-{
-    return &a < &b;
-}
-
 std::ostream& operator<< (std::ostream &out, const Reglas::Tablero &tab)
 {
     Reglas::Tablero *tablero = (Reglas::Tablero*)&tab;

@@ -6,24 +6,10 @@
 #include "Tablero.hpp"
 #include "Jugada.hpp"
 #include "Juez.hpp"
+#include "Astar.hpp"
 #include <list>
-#include <algorithm>
-#include <cmath>
-#include <functional>
-namespace Reglas{
 
- /*Constantes para el A* NO DOCUMENTAR.*/
-enum AStar
-{
-    F,
-    H,
-    NUM,
-    G,
-    POS,
-    OPEN,
-    VALID,
-    PARENT
-};
+namespace Reglas{
 /**
  * Esta clase sirve como un ayudante para el Agente implementado en un Script.
  * Debe ser expuesto, tal como el Tablero lo es, y le da información útil al
@@ -82,26 +68,12 @@ public:
      */
     std::list<Jugada> getBarrerasPosibles(int numJugador);
 
-    /*NO DOCUMENTAR. Realiza la busqueda A* y regresa un par de
-     * (Tablero, Jugada) con la siguiente Jugada a la que se debe mover el
-     Jugador con id idJugador*/
-    std::pair<Reglas::Tablero*, Reglas::Jugada*>* astar(int idJugador, int limit);
-
-    struct AcomodadorHeap
-    {
-        bool operator()(std::vector<int> *first, std::vector<int> *second)
-        {
-            return first->at(0) > second->at(0);
-        }
-    };
-
-    struct AcomodadorMap
-    {
-        bool operator()(const Tablero &first, const Tablero &second)
-        {
-            return &first < &second;
-        }
-    };
+    /**
+     * Nos regresa al Juez que revisa el Tablero con el que esta trabajando el
+     * AyudanteDeAgente.
+     * @return Una referencia al Juez que ocupa el AyudanteDeAgente.
+     */
+    Juez& getJuez();
 
 private:
     Tablero *tablero;
@@ -147,32 +119,6 @@ private:
      * @param orig una referencia al AyudanteDeAgente de origen.
      */
     void copiar(const AyudanteDeAgente &orig);
-
-    /*Siguen funciones de apoyo al A*, NO DOCUMENTARLAS PARA DOXYGEN.*/
-
-    /* Regresa los tableros que se pueden crear moviendo al Jugador con id 
-     * idJugador a todos sus movimientos posibles, junto con la jugada que llevo
-     * a dicho Tablero. Deja la propiedad de los apuntadores al llamador.
-     */
-    std::list< std::pair<Reglas::Tablero*, Reglas::Jugada*> >
-    neighbors(int idJugador);
-
-    /*Indica si el Tablero actual es meta del jugador idJugador (es decir, si el
-     * Jugador con id idJugador ha llegado a su meta)
-     */
-    bool goal(int idJugador);
-
-    /*Regresa la distancia cuadrada entre los dos puntos a y b*/
-    int manhattan(const std::vector<int> &a, const std::vector<int> &b);
-
-    /*Regresa el costo de mover al Jugador con id idJugador de su posicion en el
-     tablero del ayudante a su posicion en el Tablero destino.*/
-    int cost(Tablero* destino, int idJugador);
-
-    /*Regresa el costo estimado para llevar al Jugador con id idJugador de su
-     posicion en el tablero del ayudante a su meta.*/
-    int heuristic(int idJugador);
-
 };
 }
 #endif	/* _AYUDANTEDEAGENTE_HPP */
