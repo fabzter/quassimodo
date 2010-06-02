@@ -28,7 +28,10 @@ Menu::~Menu() {
 
     for(int i=0;i<this->t->num_jugadores;i++){
          this->jugadores.at(i)=new Grafico::Pieza();
-        this->jugadores.at(i)->setMesh( this->skin->getJugador1() );
+         if(i==0)
+             this->jugadores.at(i)->setMesh( this->skin->getJugador1() );
+         else
+             this->jugadores.at(i)->setMesh( this->skin->getJugador2() );
         this->jugadores.at(i)->dibuja( this->smgr );
     }
     this->setPosicionJugadores();

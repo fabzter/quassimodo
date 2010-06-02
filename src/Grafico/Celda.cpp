@@ -46,7 +46,7 @@ Grafico::Celda::~Celda() {
            v.X=1,v.Y=1,v.Z=1;
       x+=this->celdaR->getPosicion().at(0)* ( (this->size.X+this->size.Y)*v.X ) ;
       z+=this->celdaR->getPosicion().at(1)*( (this->size.X+this->size.Y)*v.Z );
-     // y+=( this->size.Y*v.Y );
+      y+=1;//( this->size.Y*v.Y );
       this->setPosicion(x,y,z);
   }
   void Grafico::Celda::SetEscalaCelda(int x, int y, int z){

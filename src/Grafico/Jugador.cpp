@@ -4,7 +4,10 @@
 using namespace irr;
 
 Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
-      this->mesh=skin->getJugador1();
+    if (num==0)
+        this->mesh=skin->getJugador1();
+    else
+        this->mesh=skin->getJugador2();
       this->dibuja(smgr);
       this->callback=callback;
     

@@ -108,6 +108,10 @@ using namespace irr;
           * Un objeto que maneja el fuego.
           */
          scene::IParticleSystemSceneNode* ps;
+         /**
+          * Indica el radio de iluminacion que tendrá la luz de la antorcha!
+          */
+         f32 radioLuz;
 
     };
 }

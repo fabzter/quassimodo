@@ -13,6 +13,7 @@ Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,int x, int z,Skin *skin,b
         //this->nodoA=NULL;
         this->mesh =skin->getAntorcha();
         this->fuego=skin->getTAntorcha();
+        this->radioLuz=35.0f;
         this->sombra=sombra;
         this->dibuja(smgr);
         this->setVectPosicion(x,0,z);
@@ -63,14 +64,14 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
 
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
-                 this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f),40.0f*this->getEscala().X);
+                 this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f,1.0f),this->radioLuz*this->getEscala().X);
                 //hacemos el fuego
         	this->ps =	smgr->addParticleSystemSceneNode(false,nfuego);
                 scene::IParticleEmitter* em = ps->createBoxEmitter(
 		core::aabbox3d<f32>(-2,0,-2,2,1,2), // tamaño del emisor
 		core::vector3df(0.0f,0.01f,0.00f),   // direccion inicial
 		80,100,                             // emit rate
-		video::SColor(0,255,255,255),       // color obscuro
+		video::SColor(0,0,0,0),       // color obscuro
 		video::SColor(0,255,255,255),       // color brillo
 		800,2000,0,                         // min and max age, angle
 		core::dimension2df(2.f,2.f),         // tamaño minimo
@@ -128,7 +129,7 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
 void Grafico::Antorcha::setEscalaAntorcha(int x,int y, int z){
     this->nfuego->setScale(core::vector3df(x,y,z));
     this->setEscala(x,y,z);
-    this->nfuego->setRadius(40.0f*x);
+    this->nfuego->setRadius(this->radioLuz*x);
     this->setPosicionAntorcha(this->posiciong);
      scene::IParticleEmitter* em=this->ps->getEmitter();
      em->setMinStartSize( core::dimension2df( 2.f*x , 2.f*z ) );

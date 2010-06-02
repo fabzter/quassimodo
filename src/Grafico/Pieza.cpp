@@ -42,14 +42,17 @@ core::vector3df Grafico::Pieza::getPosicionEscena(){
     }
 
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
-
+                 this->mesh->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
                 this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
-                this->nodoA->setMaterialType(video::EMT_SOLID);
-		this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
+                this->nodoA->setMaterialType(video::EMT_DETAIL_MAP);
+                //this->nodoA->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
+
+               this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
                 this->nodoA->setPosition( this->posiciong );
                  this->size =this->nodoA->getBoundingBox().getExtent();
 }
 void Grafico::Pieza::setEscala(int x, int y ,int z){
+
      this->nodoA->setScale(core::vector3df(x,y,z));
      this->nodoA->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
 }

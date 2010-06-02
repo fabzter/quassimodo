@@ -32,13 +32,22 @@ void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
      std::ostringstream strs;
-    this->Jugador1=smgr->getMesh("Texturas/Mono.3ds");
-    this->Jugador2=smgr->getMesh("Texturas/Mono.3ds");
-     if( this->Jugador1== NULL || this->Jugador2== NULL  )
+
+     this->Jugador2=smgr->getMesh("Texturas/MonoBlanco.3ds");
+      if( this->Jugador2== NULL  )
         {
-            strs << "No pudo ser cargado el Skin en la parte de los Jugadores ";
+            strs << "No pudo ser cargado el Skin del jugador 2 ";
             throw SkinNoCargado(strs.str().c_str());
         }
+
+     this->Jugador1=smgr->getMesh("Texturas/Mono.3ds");
+    
+     if( this->Jugador1== NULL  )
+        {
+            strs << "No pudo ser cargado el Skin del jugador 1 ";
+            throw SkinNoCargado(strs.str().c_str());
+        }
+     
 }
 void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
     std::ostringstream strs;
@@ -52,8 +61,8 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Barrera=smgr->getMesh("Texturas/Barrera3.3ds");
-    this->TBarrera=smgr->getVideoDriver()->getTexture( "Texturas/Moss0088_5_S.jpg" );
+    this->Barrera=smgr->getMesh("Texturas/BarreraC1.3ds");
+    this->TBarrera=smgr->getVideoDriver()->getTexture( "Texturas/BrickOldDirty0078_S.jpg" );
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Barrera ";

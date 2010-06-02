@@ -134,10 +134,10 @@ bool Partida::MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager
      this->Barreras.push_back(new Barrera(smgr,this->skin));
          unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
-        this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
+        
        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
         this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
-
+        this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
  }
 
 bool Partida::estaEnCurso()
