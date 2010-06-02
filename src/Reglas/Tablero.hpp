@@ -303,5 +303,7 @@ private:
      * @endcode
      */
     std::ostream& operator<< (std::ostream &out, const Reglas::Tablero &tab);
+
+    bool operator<(const Reglas::Tablero &a, const Reglas::Tablero &b);
 #endif	/* _TABLERO_HPP */
 

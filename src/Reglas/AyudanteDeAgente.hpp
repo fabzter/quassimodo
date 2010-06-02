@@ -89,9 +89,17 @@ public:
 
     struct AcomodadorHeap
     {
-        bool operator()(std::vector<int> &first, std::vector<int> &second)
+        bool operator()(std::vector<int> *first, std::vector<int> *second)
         {
-            return first.at(0) > second.at(0);
+            return first->at(0) > second->at(0);
+        }
+    };
+
+    struct AcomodadorMap
+    {
+        bool operator()(const Tablero &first, const Tablero &second)
+        {
+            return &first < &second;
         }
     };
 
