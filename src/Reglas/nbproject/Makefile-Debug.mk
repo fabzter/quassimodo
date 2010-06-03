@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Jugada.o \
 	${OBJECTDIR}/Juez.o \
 	${OBJECTDIR}/Jugador.o \
+	${OBJECTDIR}/Astar.o \
 	${OBJECTDIR}/Pieza.o \
 	${OBJECTDIR}/AyudanteDeAgente.o
 
@@ -105,6 +106,11 @@ ${OBJECTDIR}/Jugador.o: nbproject/Makefile-${CND_CONF}.mk Jugador.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
+
+${OBJECTDIR}/Astar.o: nbproject/Makefile-${CND_CONF}.mk Astar.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Astar.o Astar.cpp
 
 ${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp 
 	${MKDIR} -p ${OBJECTDIR}

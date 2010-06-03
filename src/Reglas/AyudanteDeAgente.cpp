@@ -1,15 +1,39 @@
 /*
  */
 
+#include <stdint.h>
+#include <map>
+#include <vector>
+
 #include "AyudanteDeAgente.hpp"
 
 Reglas::AyudanteDeAgente::AyudanteDeAgente(Tablero &t)
+{
+    this->init(t);
+}
+
+Reglas::AyudanteDeAgente::AyudanteDeAgente(Tablero *t)
+{
+    this->init(*t);
+}
+
+void Reglas::AyudanteDeAgente::init(Tablero& t)
 {
     this->tablero = &t;
     this->juez = new Juez(t);
 }
 
 Reglas::AyudanteDeAgente::AyudanteDeAgente(const AyudanteDeAgente& orig)
+{
+    this->copiar(orig);
+}
+
+Reglas::AyudanteDeAgente::AyudanteDeAgente(const AyudanteDeAgente* orig)
+{
+    this->copiar(orig);
+}
+
+void Reglas::AyudanteDeAgente::copiar(const AyudanteDeAgente& orig)
 {
     this->tablero = orig.tablero;
     this->juez = orig.juez;
@@ -131,4 +155,9 @@ Reglas::AyudanteDeAgente::getBarrerasPosibles(int numJugador)
         }
     }
     return jugadas;
+}
+
+Reglas::Juez& Reglas::AyudanteDeAgente::getJuez()
+{
+    return *this->juez;
 }

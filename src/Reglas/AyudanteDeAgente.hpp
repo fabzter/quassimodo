@@ -6,7 +6,9 @@
 #include "Tablero.hpp"
 #include "Jugada.hpp"
 #include "Juez.hpp"
+#include "Astar.hpp"
 #include <list>
+
 namespace Reglas{
 /**
  * Esta clase sirve como un ayudante para el Agente implementado en un Script.
@@ -21,7 +23,28 @@ public:
      * @param t una referencia al Tablero de la Partida en curso.
      */
     AyudanteDeAgente(Tablero &t);
+
+    /**
+     * Es igual al constructor que recibe un referencia al Tablero, solamente
+     * que este recibe un apuntador.
+     * @param t un apuntador al Tablero de la Partida en curso.
+     */
+    AyudanteDeAgente(Tablero *t);
+
+    /**
+     * Se queda con el apuntador al Tablero del AyudanteDeAgente origen, pero
+     * crea su propio Juez.
+     * @param orig una referencia al AyudanteDeAgente origen.
+     */
     AyudanteDeAgente(const AyudanteDeAgente& orig);
+
+    /**
+     * Igual que el constructor copia, pero recibe un apuntador en lugar de una
+     * referenica al origen.
+     * @param orig un apuntador al AyudanteDeAgente de origen.
+     */
+    AyudanteDeAgente(const AyudanteDeAgente* orig);
+    
     virtual ~AyudanteDeAgente();
 
     /**
@@ -44,6 +67,14 @@ public:
      * disponibles a colocar el Jugador.
      */
     std::list<Jugada> getBarrerasPosibles(int numJugador);
+
+    /**
+     * Nos regresa al Juez que revisa el Tablero con el que esta trabajando el
+     * AyudanteDeAgente.
+     * @return Una referencia al Juez que ocupa el AyudanteDeAgente.
+     */
+    Juez& getJuez();
+
 private:
     Tablero *tablero;
     Juez *juez;
@@ -74,6 +105,20 @@ private:
      */
     void agregarJugadaSelectivamente(int numJugador, Jugada &j,
                                     std::list<Jugada> &js);
+
+    /**
+     * Realiza el trabajo de los constructores que reciben un Tablero. Se quedan
+     * un apuntador a él, pero no toman posecion del apuntador.
+     * @param t el Tablero que se usa para este ayudante.
+     */
+    void init(Tablero &t);
+
+    /**
+     * Realiza el trabajo del constructor copia. Se queda un un apuntador al
+     * mismo Tablero que el AyudanteDeAgente origen, pero crea su propio Juez.
+     * @param orig una referencia al AyudanteDeAgente de origen.
+     */
+    void copiar(const AyudanteDeAgente &orig);
 };
 }
 #endif	/* _AYUDANTEDEAGENTE_HPP */
