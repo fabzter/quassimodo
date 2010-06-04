@@ -11,6 +11,6 @@ void export_ayudante_de_agente()
     .def("getBarrerasPosibles", &AyudanteDeAgente::getBarrerasPosibles)
     ;
     
-    def("astar", Reglas::astar, return_value_policy<manage_new_object>());
+    def("astar", astar);
 }
 

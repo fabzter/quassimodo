@@ -31,17 +31,18 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Grafo.o \
 	${OBJECTDIR}/Tablero.o \
-	${OBJECTDIR}/Barrera.o \
 	${OBJECTDIR}/Celda.o \
-	${OBJECTDIR}/Excepciones.o \
-	${OBJECTDIR}/Jugada.o \
 	${OBJECTDIR}/Juez.o \
 	${OBJECTDIR}/Jugador.o \
-	${OBJECTDIR}/Astar.o \
+	${OBJECTDIR}/micropather.o \
 	${OBJECTDIR}/Pieza.o \
-	${OBJECTDIR}/AyudanteDeAgente.o
+	${OBJECTDIR}/AyudanteDeAgente.o \
+	${OBJECTDIR}/Grafo.o \
+	${OBJECTDIR}/Barrera.o \
+	${OBJECTDIR}/Excepciones.o \
+	${OBJECTDIR}/Jugada.o \
+	${OBJECTDIR}/Astar.o
 
 # C Compiler Flags
 CFLAGS=
@@ -67,35 +68,15 @@ dist/Release/GNU-Linux-x86/libReglas.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libReglas.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Grafo.o: nbproject/Makefile-${CND_CONF}.mk Grafo.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Grafo.o Grafo.cpp
-
 ${OBJECTDIR}/Tablero.o: nbproject/Makefile-${CND_CONF}.mk Tablero.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
 
-${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
-
 ${OBJECTDIR}/Celda.o: nbproject/Makefile-${CND_CONF}.mk Celda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
-
-${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
-
-${OBJECTDIR}/Jugada.o: nbproject/Makefile-${CND_CONF}.mk Jugada.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugada.o Jugada.cpp
 
 ${OBJECTDIR}/Juez.o: nbproject/Makefile-${CND_CONF}.mk Juez.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -107,10 +88,10 @@ ${OBJECTDIR}/Jugador.o: nbproject/Makefile-${CND_CONF}.mk Jugador.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
 
-${OBJECTDIR}/Astar.o: nbproject/Makefile-${CND_CONF}.mk Astar.cpp 
+${OBJECTDIR}/micropather.o: nbproject/Makefile-${CND_CONF}.mk micropather.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Astar.o Astar.cpp
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/micropather.o micropather.cpp
 
 ${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -121,6 +102,31 @@ ${OBJECTDIR}/AyudanteDeAgente.o: nbproject/Makefile-${CND_CONF}.mk AyudanteDeAge
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AyudanteDeAgente.o AyudanteDeAgente.cpp
+
+${OBJECTDIR}/Grafo.o: nbproject/Makefile-${CND_CONF}.mk Grafo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Grafo.o Grafo.cpp
+
+${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
+
+${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
+
+${OBJECTDIR}/Jugada.o: nbproject/Makefile-${CND_CONF}.mk Jugada.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugada.o Jugada.cpp
+
+${OBJECTDIR}/Astar.o: nbproject/Makefile-${CND_CONF}.mk Astar.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Astar.o Astar.cpp
 
 # Subprojects
 .build-subprojects:
