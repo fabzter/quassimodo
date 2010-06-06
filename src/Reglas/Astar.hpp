@@ -32,8 +32,8 @@ private:
     int idJugador;
     micropather::MicroPather* pather;
 };
-}
 
-Reglas::Jugada astar(Reglas::Tablero *t, int idJugador);
+Jugada astar(Tablero *t, int idJugador);
+}
 #endif	/* _ASTAR_HPP */
 

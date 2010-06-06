@@ -75,20 +75,36 @@ micropather::MicroPather* Reglas::Mapa::getPather()
     return this->pather;
 }
 
-Reglas::Jugada astar(Reglas::Tablero *t, int idJugador)
+Reglas::Jugada Reglas::astar(Reglas::Tablero *t, int idJugador)
 {
-    Reglas::Mapa mapa(t, idJugador);
+    Mapa mapa(t, idJugador);
 
     std::vector< void* > path;
     float totalCost;
 
-    int result = mapa.getPather()->Solve( (void*)&(t->getCelda(idJugador)),
-                        (void*)&(t->getMetas(idJugador).at(1)), &path,
-                        &totalCost );
+    const std::vector<Reglas::Celda>& metas = t->getMetas(idJugador);
+    float min_cost = 99999;
+    Jugada min_jugada;
 
-    if(result == micropather::MicroPather::SOLVED)
+    //iteramos por todas las metas del jugador.
+    std::vector<Reglas::Celda>::const_iterator meta_it;
+    for(meta_it = metas.begin(); meta_it != metas.end(); meta_it++)
     {
-        std::cout << "Llego aqui" << std::endl;
-        return Reglas::Jugada( *((Reglas::Celda*)(path.at(1))) );
+        if(!meta_it->estaLibre())
+            continue;
+
+        int result = mapa.getPather()->Solve( (void*)&(t->getCelda(idJugador)),
+                        (void*)&(*meta_it), &path, &totalCost );
+
+        if(result == micropather::MicroPather::SOLVED)
+        {
+            if(totalCost < min_cost)
+            {
+                min_cost = totalCost;
+                min_jugada = Jugada( *((Celda*)path.at(1)) );
+            }
+        }
     }
+
+    return min_jugada;
 }

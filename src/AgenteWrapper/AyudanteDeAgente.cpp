@@ -11,6 +11,6 @@ void export_ayudante_de_agente()
     .def("getBarrerasPosibles", &AyudanteDeAgente::getBarrerasPosibles)
     ;
     
-    def("astar", astar);
+    def("astar", &Reglas::astar);
 }
 
