@@ -4,6 +4,8 @@
 #ifndef _JUGADA_HPP
 #define	_JUGADA_HPP
 #include<vector>
+#include <algorithm>
+#include <functional>
 #include "Enums.hpp"
 #include "Excepciones.hpp"
 
@@ -30,6 +32,12 @@ public:
      * @param c la Celda a partir de la cual se quiere construir la Jugada.
      */
     Jugada(const Celda &c);
+
+    /**
+     * Construye la Jugada con las propiedades de una Celda.
+     * @param c la Celda a partir de la cual se quiere construir la Jugada.
+     */
+    Jugada(const Celda* c);
 
     /**
      * Construye la Jugada con las propiedades de una Barrera.
@@ -82,7 +90,38 @@ public:
     */
     Direccion getDireccion() const;
 
+    /**
+     * Compara los estados de dos objetos Jugada.
+     * @param otro es la Jugada con la que se va a comparar.
+     * @return true si los objetos tienen exactamente el mismo estado, false de
+     * lo contrario
+     */
+    bool operator==(const Jugada &otro) const;
+
+    /**
+     * Compara los estados de dos objetos Jugada.
+     * @param otro es la Jugada con la que se va a comparar.
+     * @return false si los objetos tienen exactamente el mismo estado, true de
+     * lo contrario
+     */
+    bool operator!=(const Jugada &otro) const;
+
+    /**
+     * Copia el estado de rhs en la Jugada actual. Hace uso del constructor
+     * copia.
+     * @param rhs es la Jugada a la que se le copiará el estado.
+     * @return una referencia a la Jugada a la que se le  cambió el estado.
+     */
+    Jugada& operator=(const Jugada& rhs);
+
 private:
+
+    /**
+     * Realiza el trabajo de los constructores que reciben una Celda.
+     * @param orig es la Celda desde la que se va a crear la Jugada.
+     */
+    void init_from_celda(const Celda &orig);
+    
     /**
      * Un vector de enteros que representa la posición a la que la que se quiere
      * mover o colocar la barrera. Debe tener un tamaño dos. Por default = (0,0)

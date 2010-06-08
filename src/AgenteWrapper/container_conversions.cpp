@@ -16,22 +16,6 @@
 using namespace boost::python;
 using namespace Reglas;
 
-void PairTableroJugada_del( std::pair<Tablero*, Jugada*>* p )
-{
-    delete p->first;
-    delete p->second;
-}
-
-Tablero* PairTableroJugada_getTab( std::pair<Tablero*, Jugada*>* p )
-{
-    return p->first;
-}
-
-Jugada* PairTableroJugada_getJug( std::pair<Tablero*, Jugada*>* p )
-{
-    return p->second;
-}
-
 void export_container_conversions()
 {
 
@@ -72,14 +56,13 @@ from_python_sequence<
 class_<std::vector<Celda> >("CeldaVector")
         .def(vector_indexing_suite<std::vector<Celda> >())
 ;
-/*pares*/
-class_< std::pair<Reglas::Tablero*, Reglas::Jugada*> > ("PairTableroJugada")
-        .def("__del__", &PairTableroJugada_del)
-        .add_property("tablero",
-            make_function(PairTableroJugada_getTab, return_internal_reference<>())
-        )
-        .add_property("jugada",
-            make_function(PairTableroJugada_getJug, return_internal_reference<>())
-        )
+class_<std::vector<Celda*> >("CeldaPtVector")
+        .def(vector_indexing_suite<std::vector<Celda*> >())
 ;
+
+//Vectores de Jugadas.
+class_<std::vector<Jugada> >("JugadaVector")
+        .def(vector_indexing_suite<std::vector<Jugada> >())
+;
+
 }
