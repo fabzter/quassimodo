@@ -67,7 +67,7 @@ void Reglas::Mapa::PrintStateInfo(void *state)
 
     tab_copia.moverJugador(this->idJugador, *c);
 
-    std::cout << tab_copia << std::endl;
+    std::cout << "State Info:\n" << tab_copia << std::endl;
 }
 
 micropather::MicroPather* Reglas::Mapa::getPather()
@@ -79,12 +79,12 @@ std::vector<void*>* Reglas::astar(Reglas::Tablero *t, int idJugador)
 {
     Mapa mapa(t, idJugador);
 
-    std::vector< void* >* path = new std::vector< void* >();
+    std::vector< void* >* path;
+    std::vector< void* >* min_path = NULL;
     float totalCost;
+    float min_cost = 99999;
 
     const std::vector<Reglas::Celda>& metas = t->getMetas(idJugador);
-    float min_cost = 99999;
-    std::vector< void* >* min_path = new std::vector< void* >();
 
     //iteramos por todas las metas del jugador.
     std::vector<Reglas::Celda>::const_iterator meta_it;
@@ -94,15 +94,23 @@ std::vector<void*>* Reglas::astar(Reglas::Tablero *t, int idJugador)
         if(!meta_it->estaLibre())
             continue;
 
+        path = new std::vector< void* >();
+
         int result = mapa.getPather()->Solve( (void*)&(t->getCelda(idJugador)),
                         (void*)&(*meta_it), path, &totalCost );
 
-        if(result == micropather::MicroPather::SOLVED)
+        if(result == micropather::MicroPather::SOLVED )
         {
             if(totalCost < min_cost)
             {
+                if(min_path != NULL)
+                    delete min_path;
                 min_cost = totalCost;
                 min_path = path;
+            }
+            else
+            {
+                delete path;
             }
         }
         else
