@@ -18,7 +18,7 @@ void export_jugada()
         .def("setPosicion", setPosicion_with_vect(&Jugada::setPosicion) )
         
         .def("getPosicion", &Jugada::getPosicion, 
-                            return_value_policy<reference_existing_object>() )
+                            return_value_policy<copy_const_reference>() )
         .def("setTipoDeJugada", &Jugada::setTipoDeJugada)
         .def("getTipoDeJugada", &Jugada::getTipoDeJugada)
         

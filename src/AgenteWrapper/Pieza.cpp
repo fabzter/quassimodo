@@ -30,7 +30,7 @@ void export_pieza()
     class_<PiezaWrapper, boost::noncopyable>("Pieza")
     
     .def("getPosicion", &Pieza::getPosicion, &PiezaWrapper::default_getPosicion, 
-            return_value_policy<reference_existing_object>() )
+            return_value_policy<copy_const_reference>() )
     .def(self == self)
     ;
 }

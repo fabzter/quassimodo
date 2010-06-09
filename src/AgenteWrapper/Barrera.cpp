@@ -21,10 +21,10 @@ void export_barrera()
         .def("getDireccion", &Barrera::getDireccion )
         
         .def("getPuntoMedio", &Barrera::getPuntoMedio,
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def("getPunta", &Barrera::getPunta,
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def(self == self)
     ;

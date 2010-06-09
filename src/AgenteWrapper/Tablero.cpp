@@ -39,7 +39,7 @@ void export_tablero()
         .def(init<const Tablero*>())
         
         .def("getPosicion", &Tablero::getPosicion, 
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def("getBarrerasColocadas", &Tablero::getBarrerasColocadas, 
         return_value_policy<copy_const_reference>() )
@@ -48,7 +48,7 @@ void export_tablero()
         return_value_policy<reference_existing_object>() )
         
         .def("getMetas", &Tablero::getMetas, 
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def("moverJugador", moverJugador_with_int(&Tablero::moverJugador))
         
