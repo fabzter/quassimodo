@@ -9,6 +9,7 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
     this->smgr=smgr;
     this->skin=skin;
     this->t=t;
+    this->escala.X=1 ,this->escala.Y=1, this->escala.Z=1;
     this->jugadores.reserve(4);
     this->jugadores.resize(4);
     this->botones.reserve(B_COUNT);
@@ -46,6 +47,7 @@ Menu::~Menu() {
      }
  }
  void Menu::SetEscala(int x,int y,int z){
+      this->escala.X=x ,this->escala.Y=y, this->escala.Z=z;
      for(int i=0;i<this->t->num_jugadores;i++){
          this->jugadores.at(i)->setEscala(x,y,z);
      }
@@ -56,8 +58,9 @@ Menu::~Menu() {
 
      haymenu=true;
      this->SetJugadores();
-     this->setSkin();
      this->setBotones();
+     this->setSkin();
+     this->SetEscala( this->escala.X ,this->escala.Y, this->escala.Z);
  }
 void Menu::dropMenuP(){
     if( haymenu){
@@ -71,27 +74,15 @@ void Menu::dropMenuP(){
     }
   
 }
-//TODO: arreglar las letras del menú! las de la ventana que no se ven
+
  void Menu::setSkin(){
 
-     gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
-	this->env->setSkin(skin);
-   
-         skin->setFont(this->skin->getMenuBoton(),gui::EGDF_BUTTON);
-         skin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
-         skin->setFont(this->skin->getMenuToolTip(),gui::EGDF_TOOLTIP);
-      
-      skin->setColor(gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255));
-            //ponemos mas opaco los colores de la GUI
-     for (u32 i=0; i<gui::EGDC_COUNT ; ++i)
-     {
-         video::SColor  col = skin->getColor((gui::EGUI_DEFAULT_COLOR)i);
-         col.setAlpha(250);
-         skin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
-     }
+     for(int i=0;i<B_COUNT;i++){
 
+            this->botones.at(i)->setOverrideFont(this->skin->getMenuBoton());
 
-    skin->drop();
+      }
+
  }
  void Menu::setBotones(){
       core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();

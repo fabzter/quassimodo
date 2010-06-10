@@ -10,6 +10,7 @@ Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin) {
      this->dibuja(smgr);
      this->nodoA->setMaterialTexture( 0, skin->getTBarrera() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+      // this->nodoA->addShadowVolumeSceneNode();
 }
 
 Grafico::Barrera::Barrera(const Barrera& orig) {

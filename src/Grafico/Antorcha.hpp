@@ -6,7 +6,10 @@
 #include "Pieza.hpp"
 #include "Skin.hpp"
 #include<iostream>
-
+/**
+ * El namespace Grafico contiene todo lo relacionado al manejo de la GUI, como la pantalla principal,
+ * el tablero, los jugadores, los eventos. etc.
+ */
 namespace Grafico{
 using namespace irr;
     /**

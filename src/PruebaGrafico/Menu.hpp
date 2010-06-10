@@ -97,6 +97,10 @@ private:
      * un apuntador al manejador de GUI de irrlicht
      */
     gui::IGUIEnvironment* env;
+    /**
+     * La escala que tendrá en el juego;
+     */
+    core::vector3df escala;
 
 };
 

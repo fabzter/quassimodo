@@ -35,8 +35,11 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
       this->mesh=skin->getTablero();
       this->dibuja(smgr);
       this->size =this->nodoA->getBoundingBox().getExtent();
-    scene::IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(
-			this->nodoA->getMesh());
+   //   this->nodoA->setMaterialType(video::EMT_PARALLAX_MAP_SOLID);
+       this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
+       this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+   //    this->nodoA->getMaterial(0).MaterialTypeParam = 0.035f;
+    /*scene::IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(this->nodoA-> );
      // this->nodoA->setMaterialType(video::EMT_NORMAL_MAP_SOLID);
        this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
@@ -46,7 +49,7 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
 		// adjust height for parallax effect
 		//this->nodoA->getMaterial(0).MaterialTypeParam = 0.035f;
 		// drop mesh because we created it with a create.. call.
-		tangentMesh->drop();
+		tangentMesh->drop();*/
       //dibujamos las celdas y le damos su posición a cada celda...
     for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){

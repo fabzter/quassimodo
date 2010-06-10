@@ -93,6 +93,8 @@ public:
      * @param vista numero de vista a colocar
      */
     void cambiaVistaJuego(int vista);
+    void aumentaAngulo(bool inner);
+    void disminuyeAngulo(bool inner);
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente
@@ -159,6 +161,7 @@ private:
      * Un nodo camara que es la camara que se maneja durante el juego y el menú
      */
     scene::ICameraSceneNode* cam;
+    scene::ILightSceneNode* luna;
 
 };
 

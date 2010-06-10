@@ -51,6 +51,11 @@ public:
      */
     scene::IAnimatedMesh* getJugador2();
     /**
+     *Obtiene el Mesh (la malla) con el que es dibujado la sombra de los jugadores
+     * @return un apuntador a un objeto de la clase IAnimatedMesh
+     */
+    scene::IAnimatedMesh* getSombraJugador();
+    /**
      *Obtiene el Mesh (la malla) con la que es dibujada la Barrera
      *@return un apuntador a un objeto de la clase IAnimatedMesh
      */
@@ -123,7 +128,7 @@ private:
      */
     void setTablero(scene::ISceneManager* smgr);
     /**
-     *Carga la malla de los jugadores
+     *Carga la malla de los jugadores y de su sombra
      * @param smgr un apuntador al manejador de escena del juego
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
@@ -208,6 +213,10 @@ private:
       * Malla con la que se dibujará el Jugador 2
       */
      scene::IAnimatedMesh* Jugador2;
+     /**
+      * Malla con la que se dibujará la sombra de los jugadores
+      */
+     scene::IAnimatedMesh* SombraJugador;
      /**
       * Malla con la que se dibujará la barrera
       */

@@ -33,18 +33,25 @@ void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
 void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
      std::ostringstream strs;
 
-     this->Jugador2=smgr->getMesh("Texturas/MonoBlanco.3ds");
+     this->Jugador2=smgr->getMesh("Texturas/MonoBlanco3.3ds");
       if( this->Jugador2== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 2 ";
             throw SkinNoCargado(strs.str().c_str());
         }
 
-     this->Jugador1=smgr->getMesh("Texturas/Mono.3ds");
+     this->Jugador1=smgr->getMesh("Texturas/Mono3.3ds");
     
      if( this->Jugador1== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 1 ";
+            throw SkinNoCargado(strs.str().c_str());
+        }
+     this->SombraJugador=smgr->getMesh("Texturas/MonoSombra.3ds");
+
+     if( this->SombraJugador== NULL  )
+         {
+            strs << "No pudo ser cargado el Skin de la sombra de los jugadores ";
             throw SkinNoCargado(strs.str().c_str());
         }
      
@@ -115,7 +122,7 @@ void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
       std::ostringstream strs;
      this->GUIWindow=env->getFont("Texturas/windowfont.png");
      if(this->GUIWindow==0){
-          strs << "No pudo ser cargada la Fuente de los Botones de la GUI ";
+          strs << "No pudo ser cargada la Fuente de la ventana de la GUI ";
             throw SkinNoCargado(strs.str().c_str());
      }
 }
@@ -155,6 +162,9 @@ scene::IAnimatedMesh* Grafico::Skin::getJugador1(){
 scene::IAnimatedMesh* Grafico::Skin::getJugador2(){
     return this->Jugador2;
 }
+ scene::IAnimatedMesh* Grafico::Skin::getSombraJugador(){
+   return  this->SombraJugador;
+ }
 scene::IAnimatedMesh* Grafico::Skin::getBarrera(){
     return this->Barrera;
 }

@@ -25,7 +25,7 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
     }
        core::vector3df v= this->t->getSize();
      this->t->setPosicionTablero(-v.X/2,0,(v.Z/2)-15);
-     this->ColocaAntorchas();
+    this->ColocaAntorchas();
 
 }
 

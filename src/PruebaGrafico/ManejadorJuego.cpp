@@ -42,9 +42,7 @@ void ManejadorJuego::setPartida(){
         this->partida->iniciarPartida();
          this->setCamJuego();
          this->mgui->setMenuPartida();
-        //cam->setPosition(core::vector3df(49.33476,110.99,99.7382));
-        //cam->bindTargetAndRotation(true);
-       // std::cout<<cam->getTargetAndRotationBinding()<<std::endl;
+     
     }
     else{
          this->mgui->MsgBox("No ha seleccionado agentes");
@@ -113,6 +111,8 @@ void ManejadorJuego::clearAgentes(){
       std::cout<<"rotation "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
       std::cout<<"lejania "<<cam->getFarValue()<<std::endl;
       std::cout<<"cercania "<<cam->getNearValue()<<std::endl;
+       std::cout<<"inner "<<luna->getLightData().InnerCone<<std::endl;
+        std::cout<<"outer "<<luna->getLightData().OuterCone<<std::endl;
        //std::cout<<"matriz "<<cam->getAbsoluteTransformation()<<std::endl;
 
   }
@@ -182,7 +182,27 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 	this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
         this->terrain->scaleTexture(1.0f, 20.0f);
+        //this->smgr->setAmbientLight(video::SColor(10,10,10,10));
+       
+        /* luna= smgr-> addLightSceneNode(0,core::vector3df(200,200,100),video::SColorf(1.0f, 1.0f, 1.0f,1.0f),600);
+       luna->setLightType(video::ELT_SPOT);
+       //luna->getLightData().InnerCone=-30;
+        //luna->getLightData().OuterCone=120;
+        scene::ISceneNode *l=this->smgr->addSphereSceneNode(20,16,luna,-1,core::vector3df(0,0,0));
+        l->setMaterialFlag(video::EMF_LIGHTING, false);*/
 
+ }
+ void ManejadorJuego::aumentaAngulo(bool inner){
+     if(inner)
+           luna->getLightData().InnerCone+=1;
+     else
+          luna->getLightData().OuterCone+=1;
+ }
+ void ManejadorJuego::disminuyeAngulo(bool inner){
+      if(inner)
+           luna->getLightData().InnerCone-=1;
+     else
+          luna->getLightData().OuterCone-=1;
  }
  void ManejadorJuego::dropSkinAmbiente(){
      this->terrain->removeAll();

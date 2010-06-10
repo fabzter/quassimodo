@@ -31,16 +31,17 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Juego.o \
 	${OBJECTDIR}/AnimacionEnd.o \
 	${OBJECTDIR}/Aplicacion.o \
-	${OBJECTDIR}/ManejadorGUI.o \
 	${OBJECTDIR}/Partida.o \
-	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/Menu.o \
-	${OBJECTDIR}/GUI.o \
-	${OBJECTDIR}/EventReceiver.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/Video.o \
+	${OBJECTDIR}/Juego.o \
+	${OBJECTDIR}/ManejadorGUI.o \
+	${OBJECTDIR}/ManejadorJuego.o \
+	${OBJECTDIR}/EventReceiver.o \
+	${OBJECTDIR}/GUI.o \
 	${OBJECTDIR}/tokayoCamera.o
 
 # C Compiler Flags
@@ -73,11 +74,6 @@ dist/Release/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebagrafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Juego.o: nbproject/Makefile-${CND_CONF}.mk Juego.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Juego.o Juego.cpp
-
 ${OBJECTDIR}/AnimacionEnd.o: nbproject/Makefile-${CND_CONF}.mk AnimacionEnd.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -88,40 +84,50 @@ ${OBJECTDIR}/Aplicacion.o: nbproject/Makefile-${CND_CONF}.mk Aplicacion.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
 
-${OBJECTDIR}/ManejadorGUI.o: nbproject/Makefile-${CND_CONF}.mk ManejadorGUI.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
-
 ${OBJECTDIR}/Partida.o: nbproject/Makefile-${CND_CONF}.mk Partida.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
-
-${OBJECTDIR}/ManejadorJuego.o: nbproject/Makefile-${CND_CONF}.mk ManejadorJuego.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorJuego.o ManejadorJuego.cpp
 
 ${OBJECTDIR}/Menu.o: nbproject/Makefile-${CND_CONF}.mk Menu.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
 
-${OBJECTDIR}/GUI.o: nbproject/Makefile-${CND_CONF}.mk GUI.cpp 
+${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/Video.o: nbproject/Makefile-${CND_CONF}.mk Video.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
+
+${OBJECTDIR}/Juego.o: nbproject/Makefile-${CND_CONF}.mk Juego.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Juego.o Juego.cpp
+
+${OBJECTDIR}/ManejadorGUI.o: nbproject/Makefile-${CND_CONF}.mk ManejadorGUI.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
+
+${OBJECTDIR}/ManejadorJuego.o: nbproject/Makefile-${CND_CONF}.mk ManejadorJuego.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorJuego.o ManejadorJuego.cpp
 
 ${OBJECTDIR}/EventReceiver.o: nbproject/Makefile-${CND_CONF}.mk EventReceiver.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
 
-${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
+${OBJECTDIR}/GUI.o: nbproject/Makefile-${CND_CONF}.mk GUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
 ${OBJECTDIR}/tokayoCamera.o: nbproject/Makefile-${CND_CONF}.mk tokayoCamera.cpp 
 	${MKDIR} -p ${OBJECTDIR}

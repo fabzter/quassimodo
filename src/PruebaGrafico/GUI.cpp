@@ -10,7 +10,7 @@ GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Ski
     this->botonPartida.resize(BP_COUNT);
     this->AvsA=NULL;
     botonesPartida=false;
-  //  this->setSkin();
+   this->setSkin();
 }
 
 GUI::GUI(const GUI& orig) {
@@ -19,16 +19,18 @@ GUI::GUI(const GUI& orig) {
 GUI::~GUI() {
 }
 void GUI::setSkin(){
-     gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
+     //gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
     
-//	gui::IGUISkin* skin =this->env->getSkin();
+	gui::IGUISkin* skin =this->env->getSkin();
+
+         //skin->setFont(this->skin->getGUIWindow(),gui::EGDF_WINDOW);
 
          skin->setFont(this->skin->getGUIBoton() ,gui::EGDF_BUTTON);
          skin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
          skin->setFont(this->skin->getMenuToolTip(),gui::EGDF_TOOLTIP);
-         //skin->setFont(this->skin->getGUIWindow(),gui::EGDF_WINDOW);
+        
          
-      //skin->setColor(gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255));
+      skin->setColor(gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255));
 
       //ponemos mas opaco los colores de la GUI
      for (u32 i=0; i<gui::EGDC_COUNT ; ++i)
@@ -37,8 +39,8 @@ void GUI::setSkin(){
          col.setAlpha(250);
          skin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
      }
-   this->env->setSkin(skin);
-    skin->drop();
+  // this->env->setSkin(skin);
+    //skin->drop();
  }
 void GUI::MsgBox(const char* msg ){
 
@@ -81,7 +83,6 @@ void GUI::dropAvsA(){
 }
 
 void GUI::dibujaSelector(bool ambos){
-      this->setSkin();
       core::dimension2d<unsigned int> S_S=this->smgr->getVideoDriver()->getScreenSize();
       int d_a=100,d_al=150;
       core::rect<s32> recW=core::rect<s32>(100, 150 , S_S.Width-d_a ,S_S.Height-d_al);

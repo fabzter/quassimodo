@@ -3,9 +3,9 @@
 
  using namespace irr;
 
-EventReceiver::EventReceiver(ManejadorJuego* manj)
+EventReceiver::EventReceiver(Juego* juego)
 {
-    this->manj=manj;
+    this->juego=juego;
     this->piniciada=false;
     this->noA=-1;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
@@ -21,14 +21,26 @@ bool EventReceiver::OnEvent(const SEvent& event)
         case irr::EET_KEY_INPUT_EVENT:
             KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
             if(  this->piniciada && event.KeyInput.Key==irr::KEY_KEY_R)
-              this->piniciada=this->manj->SiguienteJugada();
+              this->piniciada=this->juego->getManJ()->SiguienteJugada();
              if(  event.KeyInput.Key==irr::KEY_KEY_Q)
                  if(!this->piniciada){
-                     this->manj->quick();
+                    this->juego->getManJ()->quick();
                      this->piniciada=true;
                  }
              if(  event.KeyInput.Key==irr::KEY_KEY_P){
-                 this->manj->printCam();
+                this->juego->getManJ()->printCam();
+             }
+            if(  event.KeyInput.Key==irr::KEY_KEY_A){
+                this->juego->getManJ()->aumentaAngulo(true);
+             }
+            if(  event.KeyInput.Key==irr::KEY_KEY_S){
+                this->juego->getManJ()->disminuyeAngulo(true);
+             }
+            if(  event.KeyInput.Key==irr::KEY_KEY_Z){
+                this->juego->getManJ()->aumentaAngulo(false);
+             }
+            if(  event.KeyInput.Key==irr::KEY_KEY_X){
+                this->juego->getManJ()->disminuyeAngulo(false);
              }
                 
             break;
@@ -58,60 +70,57 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 s32 id = event.GUIEvent.Caller->getID();
                 switch(id){
                     case B_AGENTE_VS_MAKINA:
-                         this->manj->setAgente("../bin/agenteBarreras2.py", 1);
-                        this->manj->getManejadorGUI()->AgntVSAgnt(false);
+                        this->juego->getManJ()->setAgente("../bin/agenteBarreras2.py", 1);
+                       this->juego->getManJ()->getManejadorGUI()->AgntVSAgnt(false);
                         break;
                     case B_AGENTE_VS_AGENTE:
-                         this->manj->getManejadorGUI()->AgntVSAgnt(true);
+                        this->juego->getManJ()->getManejadorGUI()->AgntVSAgnt(true);
                          break;
                     case B_OPCIONES:
-                        this->manj->getManejadorGUI()->MsgBox("Proximamente!!");
+                       this->juego->getManJ()->getManejadorGUI()->MsgBox("Proximamente!!");
+                        break;
+                    case B_SALIR:
+                        this->juego->setSalir(true);
                         break;
                     case BA_AGENTE_1:
                         this->noA=0;
-                        this->manj->getManejadorGUI()->OpenFileDialog();
+                       this->juego->getManJ()->getManejadorGUI()->OpenFileDialog();
                         break;
                     case BA_AGENTE_2:
                         this->noA=1;
-                        this->manj->getManejadorGUI()->OpenFileDialog();
+                       this->juego->getManJ()->getManejadorGUI()->OpenFileDialog();
                         break;
                     case BO_INICIA:
-                        this->manj->setPartida();
+                       this->juego->getManJ()->setPartida();
                           this->piniciada=true;
                         break;
                     case BO_CANCELA:
-                        this->manj->clearAgentes();
-                        this->manj->getManejadorGUI()->setMenu();
+                       this->juego->getManJ()->clearAgentes();
+                       this->juego->getManJ()->getManejadorGUI()->setMenu();
                         break;
                     case BP_VISTA1:
-                        this->manj->cambiaVistaJuego(1);
+                       this->juego->getManJ()->cambiaVistaJuego(1);
                         break;
                     case BP_VISTA2:
-                        this->manj->cambiaVistaJuego(2);
+                       this->juego->getManJ()->cambiaVistaJuego(2);
                         break;
                     case BP_VISTA3:
-                        this->manj->cambiaVistaJuego(3);
+                       this->juego->getManJ()->cambiaVistaJuego(3);
                         break;
                     case BP_VISTA4:
-                        this->manj->cambiaVistaJuego(4);
+                       this->juego->getManJ()->cambiaVistaJuego(4);
                         break;
 
                 } 
             }
             if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
-                this->manj->setAgente( this->manj->getManejadorGUI()->getPath(), this->noA);
-                this->manj->CambiaTextoAgnt(this->noA);
+               this->juego->getManJ()->setAgente(this->juego->getManJ()->getManejadorGUI()->getPath(), this->noA);
+               this->juego->getManJ()->CambiaTextoAgnt(this->noA);
                 this->noA=-1;
               }
       
             break;
-
-
-
-
 }
-
-    
 
 return false;
 
