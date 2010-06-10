@@ -29,8 +29,10 @@ def evaluate(tab):
             - (0.5)*(CELLS - len(astar(tab, idEnemigo) ) )  # si el path es menor, es mejor calificacion
     return res
     
-def minmax(currentTab, currentDepth = 0, maxDepth = 4):
+def minmax(currentTab, currentDepth = 0, maxDepth = 3):
+    
     ayudanteCurrent = Reglas.AyudanteDeAgente(currentTab)
+    
     #si llegamos al final de la recursion o hay un ganador, evaluamos el tab.
     if currentDepth >= maxDepth or ayudanteCurrent.hayGanador():
         currentTab.val = evaluate(currentTab)
@@ -42,6 +44,7 @@ def minmax(currentTab, currentDepth = 0, maxDepth = 4):
     #jugadas.extend( ayudanteCurrent.getBarrerasPosibles(currentTab.idJugador) )
     ayudanteCurrent = None
     currentTab.hijos = []
+    
     while len(jugadas) > 0:
         jugada = jugadas.pop( random.randint(0, len(jugadas) - 1 ) )
         tabHijo = Reglas.Tablero(currentTab)
@@ -66,8 +69,6 @@ def minmax(currentTab, currentDepth = 0, maxDepth = 4):
     valsHijos = (tab.val for tab in currentTab.hijos)
     currentTab.val = max( valsHijos ) if currentTab.tipo is MAX \
                     else min( valsHijos )
-                    
-    printInfo(currentTab)
     
     #limpiamos?
     if currentDepth > 1:
