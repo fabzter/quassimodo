@@ -157,6 +157,11 @@ Reglas::AyudanteDeAgente::getBarrerasPosibles(int numJugador)
     return jugadas;
 }
 
+bool Reglas::AyudanteDeAgente::hayGanador()
+{
+    return this->juez->hayGanador() > 0;
+}
+
 Reglas::Juez& Reglas::AyudanteDeAgente::getJuez()
 {
     return *this->juez;

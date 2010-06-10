@@ -33,6 +33,14 @@ public:
      * una Barrera.
      */
     Barrera(Jugada &j);
+
+    /**
+     * Igual que el constructor que recibe una referencia a Jugada, sólo que
+     * éste recibe un apuntador.
+     * @param j una referencia a la Jugada desde la cual se quiere construir
+     * una Barrera.
+     */
+    Barrera(Jugada *j);
     Barrera(const Barrera& orig);
     virtual ~Barrera();
 
@@ -98,6 +106,15 @@ public:
     bool operator!=(const Barrera &otro) const;
 
 private:
+
+    /**
+     * Realiza el trabajo de los constructores de Barrera que reciben una Jugada.
+     * Es decir, copian los datos, el punto de inicio, y calcula los otros dos
+     * puntos.
+     * @param j una referencia a la Jugada desde la que se construirá, la
+     * barrera.
+     */
+    void init_jugada(Jugada &j);
     /**
      * La direccion en la que esta dirigida la barrera. Para este caso particular
      * solo puede ser ESTE o NORTE.

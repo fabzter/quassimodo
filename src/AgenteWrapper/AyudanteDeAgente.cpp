@@ -24,6 +24,7 @@ void export_ayudante_de_agente()
     class_<AyudanteDeAgente>("AyudanteDeAgente", init<Tablero *>())
     .def("getMovimientosPosibles", &AyudanteDeAgente::getMovimientosPosibles)
     .def("getBarrerasPosibles", &AyudanteDeAgente::getBarrerasPosibles)
+    .def("hayGanador", &AyudanteDeAgente::hayGanador)
     ;
     
     def("astar", &__astar__);

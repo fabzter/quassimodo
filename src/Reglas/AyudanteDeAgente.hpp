@@ -69,6 +69,12 @@ public:
     std::list<Jugada> getBarrerasPosibles(int numJugador);
 
     /**
+     * Nos indica sí el Tablero que revisa el Ayudante tiene ya un ganador.
+     * @return true si hay un ganador. false de lo contrario.
+     */
+    bool hayGanador();
+
+    /**
      * Nos regresa al Juez que revisa el Tablero con el que esta trabajando el
      * AyudanteDeAgente.
      * @return Una referencia al Juez que ocupa el AyudanteDeAgente.

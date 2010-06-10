@@ -18,11 +18,11 @@ class AgenteAStar (Reglas.Agente):
     def siguienteJugada(self):
         tablero.idJugador = self.id
         
-        if len(ayudante.getBarrerasPosibles(self.id)) != 0:
-            j = random.choice(ayudante.getBarrerasPosibles(self.id))
-        else:
-            #j = astar_algoritmo.astar(self.tab).jugada
-            j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
+        #if len(ayudante.getBarrerasPosibles(self.id)) != 0:
+        #    j = random.choice(ayudante.getBarrerasPosibles(self.id))
+        #else:
+        #    j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
+        j =  Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
         
         print self.id, ": Hice mi Jugada"
         return j
