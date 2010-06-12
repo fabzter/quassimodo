@@ -5,8 +5,9 @@
 #include<irrlicht/irrlicht.h>
 #include<string>
 #include"Video.hpp"
-#include"Juego.hpp"
+#include"ManejadorJuego.hpp"
 #include"EventReceiver.hpp"
+#include<iostream>
 using namespace irr;
 /**
  *Esta clase es la encargada de manejar a Toda la aplicación
@@ -42,13 +43,27 @@ public:
     void run();
 private:
     /**
+     * Loop principal de la aplicacion si solo se ejecuta en modo consola
+     */
+    void loopConsola();
+    /**
+     *Loop principal de la aplicacion si se ejecuta en modo 3D
+     */
+    void loopGrafico();
+    /**
+     *Maneja la opcion seleccionada del menu de consola.
+     * @param op un caracter que representa la opcion
+     * @return true si la opcion seleccionada inica partida, false en caso contrario
+     */
+    bool seleccionaOpcion(char op);
+    /**
      * Un objeto de la clase video encargado de Seleccionar el driver de video
      */
     Video *Dvideo;
     /**
      * Un objeto de la clase Juego que es el nucleo de la aplicación
      */
-    Juego *juego;
+    ManejadorJuego *juego;
     /**
      * El recibidor de eventos
      */
@@ -70,6 +85,10 @@ private:
      * un apuntador al creador de GUI que proporciona irrlicht
      */
     gui::IGUIEnvironment* env;
+    /**
+     * indica si la partida sera en modo grafico o no
+     */
+    bool grafico;
 
 
 };

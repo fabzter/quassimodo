@@ -1,5 +1,8 @@
 
 
+#include <irrlicht/IAnimatedMeshSceneNode.h>
+#include <irrlicht/IShadowVolumeSceneNode.h>
+
 #include "Jugador.hpp"
 using namespace irr;
 
@@ -10,9 +13,9 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
         this->mesh=skin->getJugador2();
       this->dibuja(smgr);
       this->callback=callback;
-     //this->nodoA->setMaterialType(video::EMT_LIGHTMAP_LIGHTING_M4);
-      this->nodoA->getMaterial(0).NormalizeNormals=true;
-     this->nodoA  ->addShadowVolumeSceneNode(skin->getSombraJugador());
+      this->setSombra(skin->getSombraJugador());
+     //scene::IShadowVolumeSceneNode *sombra=this->nodoA->addShadowVolumeSceneNode();
+
 
     
 }

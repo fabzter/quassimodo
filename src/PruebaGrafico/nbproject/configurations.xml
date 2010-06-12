@@ -10,7 +10,6 @@
       <itemPath>EventReceiver.hpp</itemPath>
       <itemPath>GUI.hpp</itemPath>
       <itemPath>IAnimatorCameraTokayo.hpp</itemPath>
-      <itemPath>Juego.hpp</itemPath>
       <itemPath>ManejadorGUI.hpp</itemPath>
       <itemPath>ManejadorJuego.hpp</itemPath>
       <itemPath>Menu.hpp</itemPath>
@@ -29,7 +28,6 @@
       <itemPath>Aplicacion.cpp</itemPath>
       <itemPath>EventReceiver.cpp</itemPath>
       <itemPath>GUI.cpp</itemPath>
-      <itemPath>Juego.cpp</itemPath>
       <itemPath>ManejadorGUI.cpp</itemPath>
       <itemPath>ManejadorJuego.cpp</itemPath>
       <itemPath>Menu.cpp</itemPath>

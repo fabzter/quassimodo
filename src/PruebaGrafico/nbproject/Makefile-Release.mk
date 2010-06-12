@@ -37,7 +37,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Menu.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/Video.o \
-	${OBJECTDIR}/Juego.o \
 	${OBJECTDIR}/ManejadorGUI.o \
 	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/EventReceiver.o \
@@ -103,11 +102,6 @@ ${OBJECTDIR}/Video.o: nbproject/Makefile-${CND_CONF}.mk Video.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
-
-${OBJECTDIR}/Juego.o: nbproject/Makefile-${CND_CONF}.mk Juego.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Juego.o Juego.cpp
 
 ${OBJECTDIR}/ManejadorGUI.o: nbproject/Makefile-${CND_CONF}.mk ManejadorGUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}

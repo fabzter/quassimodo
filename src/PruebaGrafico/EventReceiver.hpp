@@ -2,7 +2,7 @@
 #ifndef _EVENTRECEIVER_HPP
 #define	_EVENTRECEIVER_HPP
 #include<irrlicht.h>
-#include"Juego.hpp"
+#include"ManejadorJuego.hpp"
 
 
 
@@ -28,7 +28,7 @@ public:
     /**
      *Constructor de la clase EventReceiver, inicializa el elstado de todas las teclas en false
      */
-    EventReceiver(Juego* juego);
+    EventReceiver(ManejadorJuego* juego);
     /**
      *Constructor copia de la clase EventReceiver
      * @param orig un objeto de la clase EventReceiver
@@ -71,7 +71,7 @@ private:
         /**
          * Un apuntador Nucleo de la aplicacion (la clase Juego)
          */
-        Juego* juego;
+        ManejadorJuego* juego;
         /**
          * un entero en donde almacenamos el numero del agente elegido
          */

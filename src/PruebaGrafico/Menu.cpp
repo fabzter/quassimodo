@@ -10,13 +10,11 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
     this->skin=skin;
     this->t=t;
     this->escala.X=1 ,this->escala.Y=1, this->escala.Z=1;
-    this->jugadores.reserve(4);
-    this->jugadores.resize(4);
+    this->jugadores.reserve(2);
     this->botones.reserve(B_COUNT);
-    this->setMenuP();
+    //this->setMenuP();
 
 }
-
 
 Menu::Menu(const Menu& orig) {
 }
@@ -28,11 +26,12 @@ Menu::~Menu() {
  void Menu::SetJugadores(){
 
     for(int i=0;i<this->t->num_jugadores;i++){
-         this->jugadores.at(i)=new Grafico::Pieza();
+         this->jugadores.push_back(new Grafico::Pieza());
          if(i==0)
              this->jugadores.at(i)->setMesh( this->skin->getJugador1() );
          else
              this->jugadores.at(i)->setMesh( this->skin->getJugador2() );
+
         this->jugadores.at(i)->dibuja( this->smgr );
     }
     this->setPosicionJugadores();
@@ -74,7 +73,6 @@ void Menu::dropMenuP(){
     }
   
 }
-
  void Menu::setSkin(){
 
      for(int i=0;i<B_COUNT;i++){
@@ -99,3 +97,17 @@ void Menu::dropMenuP(){
       }
     
  }
+  char Menu::MenuConsola(){
+     char op;
+    std::cout<<std::endl<<"\t\t¡¡Bienvenido a Quassimodo!!"<<std::endl<<std::endl;
+    std::cout<<"Por favor selecciona la letra indicada según la Opcion que desees: "<<std::endl<<std::endl;
+    std::cout<<"a) Agente Vs Agente"<<std::endl;
+    std::cout<<"b) Agente Vs Maquina"<<std::endl;
+    std::cout<<"c) Creditos"<<std::endl;
+    std::cout<<"d) Ayuda"<<std::endl;
+    std::cout<<"e) Salir"<<std::endl;
+    std::cin>>op;
+    return op;
+  }
+  
+ 

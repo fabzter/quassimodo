@@ -8,7 +8,7 @@ GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Ski
     this->skin=Skin;
     this->botonAgente.resize(2);
     this->botonPartida.resize(BP_COUNT);
-    this->AvsA=NULL;
+    this->AvsA=0;
     botonesPartida=false;
    this->setSkin();
 }
@@ -78,7 +78,7 @@ std::string GUI::getPath(){
       op = this->env->addFileOpenDialog(L"Selecciona el Agente",true,0,5);
   }
 void GUI::dropAvsA(){
-    if(this->AvsA!=NULL)
+    if(this->AvsA!=0)
         this->AvsA->remove();
 }
 

@@ -16,8 +16,8 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
     this->escala.X=1,this->escala.Y=1,this->escala.Z=1;
     this->antorchas.reserve(4);
     this->antorchas.resize(4);
-     this->Barreras.reserve(20);
-     this->jugadores.reserve(2);
+    this->Barreras.reserve(20);
+    this->jugadores.reserve(2);
    
 
      for(std::size_t i = 0; i < this->antorchas.size(); i++){
@@ -69,6 +69,7 @@ void Partida::iniciarPartida()
 
     this->en_curso = true;
 }
+
 bool Partida::siguienteJugada(scene::ISceneManager* smgr)
 {
     if(!this->en_curso)
@@ -82,7 +83,7 @@ bool Partida::siguienteJugada(scene::ISceneManager* smgr)
     this->en_curso = true;
     }
     catch(Reglas::Excepcion e ){
-        std::cout<<"error del jugador"<<this->jugador_en_turno<<" que es: "<<e.what()<<std::endl;
+        throw;
         return this->en_curso;
     }
 
@@ -164,6 +165,7 @@ bool Partida::hayGanador()
      this->antorchas.at(2)->setPosicionAntorcha(x1,y,z1);
      this->antorchas.at(3)->setPosicionAntorcha(x,y,z1);
  }
+
  void Partida::SetEscala(int x, int y, int z){
       this->escala.X=x,this->escala.Y=y,this->escala.Z=z;
      this->t->setEscalaTablero(this->escala.X,this->escala.Y,this->escala.Z);
@@ -171,6 +173,7 @@ bool Partida::hayGanador()
           Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
           ju->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
       }
+
       for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)->setEscalaAntorcha(this->escala.X,this->escala.Y,this->escala.Z);
     }
@@ -179,6 +182,7 @@ bool Partida::hayGanador()
        std::cout<<"posicion t "<< (v.X*x) /2<<" "<<( (v.Z*z) /2)-15<<std::endl;
      this->ColocaAntorchas();
  }
+
  bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr,scene::IAnimationEndCallBack* callback){
 
       Scripting::Manejador *m = new Scripting::Manejador(*t);
@@ -192,7 +196,8 @@ bool Partida::hayGanador()
       this->t->setJugadores( this->jugadores);
       this->SetEscala(this->escala.X,this->escala.Y,this->escala.Z);
  }
-  void Partida::NuevaPartida(scene::ISceneManager* smgr){
+
+void Partida::NuevaPartida(scene::ISceneManager* smgr){
       for(int i=0;i<this->jugadores.size();i++){
             Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
             ju->terminar();
@@ -201,9 +206,9 @@ bool Partida::hayGanador()
       delete(this->t);
       this->t=new Tablero(smgr,this->skin);
       this->jugadores.clear();
-  }
+}
 
- core::vector3df Partida::getCentro(){
+core::vector3df Partida::getCentro(){
      core::vector3df pos=this->t->getPosicionTablero();
      core::vector3df tam=this->t->getSize()*this->escala;
      core::vector3df cen;
@@ -211,4 +216,4 @@ bool Partida::hayGanador()
      cen.Z=pos.Z+(tam.Z/2);
      cen.Y=pos.Y;
      return cen;
-  }
+}
