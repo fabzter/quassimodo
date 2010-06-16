@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <Reglas/Tablero.hpp>
 #include <Reglas/Celda.hpp>
@@ -21,13 +22,13 @@ int main(int argc, char** argv)
 
     try
     {
+        agentes.push_back(m->getAgente("../../bin/agenteBusca.py"));
         agentes.push_back(m->getAgente("../../bin/agente_astar.py"));
-        agentes.push_back(m->getAgente("../../bin/agenteBarreras2.py"));
     }
     catch(Scripting::ScriptMalo &e)
     {
+        agentes.push_back(m->getAgente("../bin/agenteBusca.py"));
         agentes.push_back(m->getAgente("../bin/agente_astar.py"));
-        agentes.push_back(m->getAgente("../bin/agenteBarreras2.py"));
     }
 
     std::vector< Jugador* > jugadores;
@@ -58,11 +59,12 @@ int main(int argc, char** argv)
         catch(Scripting::ScriptMalo &e)
         {
            cout << "Error en un Script: \n" << e.what() << endl;
-           throw;
+           break;
         }
         catch(ReglasRotas &e)
         {
            cout << "Se rompieron la reglas!: \n" << e.what() << endl;
+           break;
         }
         cout << t << endl;
         cin.get();

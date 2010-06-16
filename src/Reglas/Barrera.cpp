@@ -17,6 +17,16 @@ Reglas::Barrera::Barrera() : Pieza()
 
 Reglas::Barrera::Barrera(Jugada &j) : Pieza(j)
 {
+    this->init_jugada(j);
+}
+
+Reglas::Barrera::Barrera(Jugada* j): Pieza(*j)
+{
+    this->init_jugada(*j);
+}
+
+void Reglas::Barrera::init_jugada(Jugada& j)
+{
     this->direccion_actual = j.getDireccion();
     this->punto_medio.resize(2);
     this->punto_final.resize(2);
@@ -30,11 +40,11 @@ Reglas::Barrera::Barrera(Jugada &j) : Pieza(j)
     {
         deltaX = 1;
     }
-    this->punto_medio.at(0) = this->posicion.at(0) + deltaX;
-    this->punto_medio.at(1) = this->posicion.at(1) + deltaY;
+    this->punto_medio.at(0) = j.getPosicion().at(0) + deltaX;
+    this->punto_medio.at(1) = j.getPosicion().at(1) + deltaY;
 
-    this->punto_final.at(0) = this->posicion.at(0) + (2*deltaX);
-    this->punto_final.at(1) = this->posicion.at(1) + (2*deltaY);
+    this->punto_final.at(0) = j.getPosicion().at(0) + (2*deltaX);
+    this->punto_final.at(1) = j.getPosicion().at(1) + (2*deltaY);
 
     this->esta_colocado = true;
 }

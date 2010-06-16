@@ -6,80 +6,74 @@ sys.path.append("../lib")
 import random
 import math
 from heapq import heappush, heappop
+from Reglas import astar
 import Reglas
-from astar_algoritmo import astar
 
-MIN = 0
-MAX = 1
+MIN = False
+MAX = True
 
-sys.setrecursionlimit(20000)
+CELLS = 81
 
-def busqueda_recursiva(tableroActual):
-    """
-        Funcion que realiza la busqueda recursiva sobre el tablero de juego. 
-        Recibe un tablero de Juego iniciado, con unos miembros agregados:
-        idJugador: el id del Jugador al que le toca tirar
-        tableroActual.idCaller: el id del Jugador que inicio al principio la 
-        busqueda.
-        tableroActual.tipo: si el tableroActual es MIN o MAX.
-    """
+def printInfo(tab):
+    print "Soy un tablero esperando tiro por el Jugador {0}, mi valor es {1}.".format(tab.idJugador, tab.val)
+    print "Soy de tipo", "MAX" if tab.tipo is MAX else "MIN"
+    print "Este soy yo\n", tab
+    try:
+        print "Mis hijos son:"
+        for hijo in tab.hijos: printInfo(hijo)
+    except AttributeError: pass
+
+def evaluate(tab):
+    idEnemigo = 0 if tab.idJugador == 1 else 1
+    res = (CELLS - len(astar(tab, tab.idJugador) ) ) \
+            - (0.5)*(CELLS - len(astar(tab, idEnemigo) ) )  # si el path es menor, es mejor calificacion
+    return res
     
-    idEnemigo = 1 if tableroActual.idJugador == 0 else 0
-    ayudanteTemp = Reglas.AyudanteDeAgente(tableroActual)
+def minmax(currentTab, currentDepth = 0, maxDepth = 4):
+    ayudanteCurrent = Reglas.AyudanteDeAgente(currentTab)
+    #si llegamos al final de la recursion o hay un ganador, evaluamos el tab.
+    if currentDepth >= maxDepth or ayudanteCurrent.hayGanador():
+        currentTab.val = evaluate(currentTab)
+        return
     
-    #ponemos en una sola lista todas las jugadas
+    #si no, generamos a sus hijos.
     jugadas = []
-    jugadas.extend(ayudanteTemp.getMovimientosPosibles(tableroActual.idJugador))
-    jugadas.extend( ayudanteTemp.getBarrerasPosibles(tableroActual.idJugador))
-    
-    #creamos la lista que contendra a los hijos
-    tableroActual.hijos = []
-    
-    #mientras no hay ganador, y haya hijos.
-    while ( tableroActual.getCelda(0) not in tableroActual.getMetas(0) ) and \
-           ( tableroActual.getCelda(1) not in tableroActual.getMetas(1) ) and \
-           len(jugadas) > 0:
-
-        #creamos un hijo
-        t = Reglas.Tablero(tableroActual)
-        j = jugadas.pop( random.randint(0, len(jugadas) -1 ) )
-        
-        #si el hijo es movimiento
-        if j.getTipoDeJugada() == Reglas.TipoDeJugada.MOVIMIENTO:
-            t.moverJugador( tableroActual.idJugador, 
-            j.getPosicion()[0], j.getPosicion()[1] )
-        #si es de barrera
+    jugadas.extend( ayudanteCurrent.getMovimientosPosibles(currentTab.idJugador) )
+    #jugadas.extend( ayudanteCurrent.getBarrerasPosibles(currentTab.idJugador) )
+    ayudanteCurrent = None
+    currentTab.hijos = []
+    while len(jugadas) > 0:
+        jugada = jugadas.pop( random.randint(0, len(jugadas) - 1 ) )
+        tabHijo = Reglas.Tablero(currentTab)
+        if jugada.getTipoDeJugada() == Reglas.TipoDeJugada.MOVIMIENTO:
+            tabHijo.moverJugador(currentTab.idJugador, jugada.getPosicion() )
         else:
-            b = Reglas.Barrera(j)
-            try: t.setBarrera(tableroActual.idJugador, b)
-            except Reglas.JugadorSinBarreras:
-                print "Jugador:", tableroActual.idJugador
-                raise Exception, "Jugador {0} sin barreras".format(tableroActual.idJugador)
+            tabHijo.setBarrera(currentTab.idJugador, Reglas.Barrera(jugada) )
         
-        #le ponemos el id del jugador al que le toca tirar sobre ese hijo
-        t.idJugador = idEnemigo
-        #le ponemos si es un tablero tipo min o tipo max
-        t.tipo = MIN if tableroActual.tipo == MAX else MAX
-        #le ponemos la jugada que nos llevo a ese tablero
-        t.jugada = j
-        #ponemos al jugador que hizo la llamada inicial
-        t.idCaller = tableroActual.idCaller
+        #revisamos que el hijo no sea igual al padre
+        if tabHijo == currentTab or tabHijo in currentTab.hijos:
+            tabHijo = None
+            continue
         
-        #agregamos el hijo a la lista de hijos del tablero actual
-        tableroActual.hijos.append(t)
+        tabHijo.idJugador = 0 if currentTab.idJugador == 1 else 1
+        tabHijo.tipo = not currentTab.tipo
+        tabHijo.jugada = jugada
+        minmax(tabHijo, currentDepth + 1)
         
-        #si t es ganado para idCaller, lo regresamos, sino, recurrimos
-        if t.getCelda(t.idCaller) in t.getMetas(t.idCaller):
-            return t
-        else:
-            try: busqueda_recursiva(t)
-            except RuntimeError as error:
-                if error.message.find("recursion") != -1:
-                    return t
-                raise error
+        currentTab.hijos.append(tabHijo)
+    
+    #propagamos hacia arriba los valores de los hijos
+    valsHijos = (tab.val for tab in currentTab.hijos)
+    currentTab.val = max( valsHijos ) if currentTab.tipo is MAX \
+                    else min( valsHijos )
+                    
+    printInfo(currentTab)
+    
+    #limpiamos?
+    if currentDepth > 1:
+        del currentTab.hijos[:]
 
 class AgenteInteligente (Reglas.Agente):
-
     def __init__(self):
         Reglas.Agente.__init__(self)
         
@@ -91,9 +85,12 @@ class AgenteInteligente (Reglas.Agente):
     def siguienteJugada(self):
         print "Jugador {0} prepara jugada.".format(self.id)
         tablero.tipo = MAX
-        tablero.idCaller = tablero.idJugador = self.id
+        tablero.idJugador = self.id
         
-        return busqueda_recursiva(tablero)
+        minmax(tablero)
+        for hijo in tablero.hijos:
+            if hijo.val == tablero.val:
+                return hijo.jugada
     
     def terminar(self):
         print "Jugador {0} ha terminado.".format( self.id )

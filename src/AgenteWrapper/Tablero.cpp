@@ -10,6 +10,7 @@ using namespace std;
 //esto se hace pues getCelda esta sobrecargada!
 typedef const Celda& (Tablero::*getCelda_with_id)(int) const;
 typedef void (Tablero::*moverJugador_with_int)(int, int, int);
+typedef void (Tablero::*moverJugador_with_vect)(int, const std::vector<int>&);
 typedef void (Tablero::*setBarrera_with_int)(int, const Barrera&);
 
 /*Esto es la pare 1 de un hack re feo para poder ver los atributos estaticos de
@@ -39,7 +40,7 @@ void export_tablero()
         .def(init<const Tablero*>())
         
         .def("getPosicion", &Tablero::getPosicion, 
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def("getBarrerasColocadas", &Tablero::getBarrerasColocadas, 
         return_value_policy<copy_const_reference>() )
@@ -48,9 +49,11 @@ void export_tablero()
         return_value_policy<reference_existing_object>() )
         
         .def("getMetas", &Tablero::getMetas, 
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def("moverJugador", moverJugador_with_int(&Tablero::moverJugador))
+        
+        .def("moverJugador", moverJugador_with_vect(&Tablero::moverJugador))
         
         .def("setBarrera", setBarrera_with_int(&Tablero::setBarrera))
         

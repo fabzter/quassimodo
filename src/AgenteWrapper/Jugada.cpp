@@ -1,4 +1,5 @@
 #include <boost/python.hpp>
+#include <Reglas/Celda.hpp>
 #include <Reglas/Jugada.hpp>
 #include <Reglas/Enums.hpp>
 
@@ -12,11 +13,12 @@ typedef void (Jugada::*setPosicion_with_vect)(const std::vector<int>& pos);
 void export_jugada()
 {
     class_<Jugada>("Jugada")
+        .def(init<Celda*>())
         .def("setPosicion", setPosicion_with_int(&Jugada::setPosicion) )
         .def("setPosicion", setPosicion_with_vect(&Jugada::setPosicion) )
         
         .def("getPosicion", &Jugada::getPosicion, 
-                            return_value_policy<reference_existing_object>() )
+                            return_value_policy<copy_const_reference>() )
         .def("setTipoDeJugada", &Jugada::setTipoDeJugada)
         .def("getTipoDeJugada", &Jugada::getTipoDeJugada)
         

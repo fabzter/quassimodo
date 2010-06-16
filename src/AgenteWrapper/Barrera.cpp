@@ -12,7 +12,7 @@ typedef void (Barrera::*colocar_con_int_y_id)(int x, int y, Direccion d);
 void export_barrera()
 {
     class_< Barrera, bases<Pieza> >("Barrera")
-        .def(init<Jugada &>())
+        .def(init<Jugada *>())
     
         .def("colocar", colocar_con_vect_y_id(&Barrera::colocar) )
     
@@ -21,10 +21,10 @@ void export_barrera()
         .def("getDireccion", &Barrera::getDireccion )
         
         .def("getPuntoMedio", &Barrera::getPuntoMedio,
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def("getPunta", &Barrera::getPunta,
-        return_value_policy<reference_existing_object>() )
+        return_value_policy<copy_const_reference>() )
         
         .def(self == self)
     ;

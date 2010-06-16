@@ -22,6 +22,7 @@ Reglas::Tablero::Tablero(const Tablero* orig)
 
 Reglas::Tablero::~Tablero()
 {
+    delete this->grafo;
 }
 
 void Reglas::Tablero::init_tablero()
@@ -301,6 +302,16 @@ bool Reglas::Tablero::operator==(const Reglas::Tablero &otro) const
     if(this->barreras_colocadas.size() != otro.barreras_colocadas.size())
         return false;
 
+    //revisamos que los jugadores estén en el mismo lugar.
+    for(int i = 0; i < this->num_jugadores; i++)
+    {
+        int id = this->jugadores.at(i)->getIdentificador();
+        if( !(this->getCelda(id) == otro.getCelda(id)) )
+        {
+            return false;
+        }
+    }
+
     //revisamos que esten puestas las mismas barreras en ambos tableros.
     std::list<Barrera>::const_iterator it;
     for(it = this->barreras_colocadas.begin();
@@ -313,17 +324,6 @@ bool Reglas::Tablero::operator==(const Reglas::Tablero &otro) const
             return false;
         }
     }
-
-    //revisamos que los jugadores estén en el mismo lugar.
-    for(int i = 0; i < this->num_jugadores; i++)
-    {
-        int id = this->jugadores.at(i)->getIdentificador();
-        if( !(this->getCelda(id) == otro.getCelda(id)) )
-        {
-            return false;
-        }
-    }
-
     return true;
 }
 

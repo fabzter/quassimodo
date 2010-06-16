@@ -7,10 +7,12 @@
 #include <boost/python/suite/indexing/indexing_suite.hpp>
 #include <boost/python/suite/indexing/container_utils.hpp>
 
-#include <Reglas/Jugada.cpp>
+#include <Reglas/Tablero.hpp>
+#include <Reglas/Jugada.hpp>
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Celda.cpp>
 #include <list>
+#include <map>
 using namespace boost::python;
 using namespace Reglas;
 
@@ -54,4 +56,13 @@ from_python_sequence<
 class_<std::vector<Celda> >("CeldaVector")
         .def(vector_indexing_suite<std::vector<Celda> >())
 ;
+class_<std::vector<Celda*> >("CeldaPtVector")
+        .def(vector_indexing_suite<std::vector<Celda*> >())
+;
+
+//Vectores de Jugadas.
+class_<std::vector<Jugada> >("JugadaVector")
+        .def(vector_indexing_suite<std::vector<Jugada> >())
+;
+
 }
