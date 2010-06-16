@@ -79,7 +79,7 @@ void Grafico::Tablero::setPosicionTablero(int x,int y,int z){
 
      for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
-           this->datos.at(i).at(j)->colocar(x,y+ ( (this->size.Y-2) *this->getEscala().Y ) ,z);
+           this->datos.at(i).at(j)->colocar(x,y+ ( (this->size.Y) *this->getEscala().Y ) ,z);
         }
     }
     // core::vector3df v= this->datos.at(8).at(8)->getPosicionEscena();

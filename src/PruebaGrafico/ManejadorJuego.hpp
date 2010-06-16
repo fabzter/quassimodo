@@ -117,7 +117,10 @@ public:
      * @param ambos, si se van a pedia ambos agentes o no.
      */
     void SetAgentesConsola(bool ambos);
-
+    /**
+     *Imprime el tablero en consola y espera hasta que se presione la tecla INTRO.
+     */
+    void imprimeTableroConsola();
     void aumentaAngulo(bool inner);
     void disminuyeAngulo(bool inner);
 private:
@@ -145,8 +148,13 @@ private:
      */
     void dropSkinAmbiente();
     /**
+     *Coloca el objetivo de la camara en el centro del tablero.
+     */
+    void setObjetivoCam();
+    /**
      * Un apuntador al manejador de la escena del juego
      */
+
     scene::ISceneManager* smgr;
     /**
      * un apuntador al creador de GUI que proporciona irrlicht
@@ -194,6 +202,10 @@ private:
      * bandera que indica si la partida sera en modo 3D o en modo consola.
      */
     bool grafico;
+    /**
+     * bandera que indica si la partida fue iniciada o no.
+     */
+    bool partidainiciada;
     scene::ILightSceneNode* luna;
 
 };

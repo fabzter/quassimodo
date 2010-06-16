@@ -44,10 +44,11 @@ core::vector3df Grafico::Pieza::getPosicionEscena(){
 }
 
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
-                 this->mesh->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
+                
                 this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
                 this->nodoA->setMaterialType(video::EMT_DETAIL_MAP);
                this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
+                this->mesh->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
                 this->nodoA->setPosition( this->posiciong );
                  this->size =this->nodoA->getBoundingBox().getExtent();
 }
@@ -79,5 +80,7 @@ void Grafico::Pieza::drop(){
 }
 
  void Grafico::Pieza::setSombra(scene::IMesh* shadowMesh){
-    this->sombra=this->nodoA->addShadowVolumeSceneNode(shadowMesh);
+    this->sombra=this->nodoA->addShadowVolumeSceneNode(shadowMesh,-1,false);
+  
+  
  }

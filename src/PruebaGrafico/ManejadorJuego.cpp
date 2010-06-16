@@ -14,13 +14,13 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->clearAgentes();
     this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
+    this->partidainiciada=false;
     if(this->grafico){
         this->aniend=new AnimacionEnd(this->partida,this->smgr);
         this->setSkinAmbiente();
         this->cam=NULL;
-        this->mgui->setMenu(this->grafico);
-        this->setCamMenu();
-        this->setEscala(5,5,5);
+        this->setMenu();
+       this->setEscala(5,5,5);
     }
     
 }
@@ -31,12 +31,18 @@ ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 ManejadorJuego::~ManejadorJuego() {
 }
 char ManejadorJuego::setMenu(){
-    delete(this->partida);
-    this->smgr->clear();
-    this->partida=new Partida(this->smgr,this->skin);
-    this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
+    
+    if(this->partidainiciada)
+    {
+        delete(this->partida);
+        this->smgr->clear();
+        this->partida=new Partida(this->smgr,this->skin);
+        this->setSkinAmbiente();
+        this->partidainiciada=false;
+    }
     if(this->grafico){
-        delete(this->mgui);
+        /*delete(this->mgui);
+         this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);*/
         this->setCamMenu();
     }
     return this->mgui->setMenu(this->grafico);
@@ -55,6 +61,7 @@ void ManejadorJuego::setPartida(){
         try{
             this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
             this->partida->iniciarPartida();
+            this->partidainiciada=true;
         }
 
       catch (Scripting::ScriptMalo &e)
@@ -140,8 +147,7 @@ void ManejadorJuego::clearAgentes(){
       std::cout<<"rotation "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
       std::cout<<"lejania "<<cam->getFarValue()<<std::endl;
       std::cout<<"cercania "<<cam->getNearValue()<<std::endl;
-       std::cout<<"inner "<<luna->getLightData().InnerCone<<std::endl;
-        std::cout<<"outer "<<luna->getLightData().OuterCone<<std::endl;
+       
        //std::cout<<"matriz "<<cam->getAbsoluteTransformation()<<std::endl;
 
   }
@@ -158,20 +164,9 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 
 }
  void ManejadorJuego::setCamJuego(){
-     if(cam!=NULL)
-         cam->remove();
-     cam = smgr->addCameraSceneNode();
-	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
-        anm->setRotationNumbers(270,57) ;
-        anm->setZoom(602);
-	cam->addAnimator(anm);
-	anm->drop();
-     
-     core::vector3df v=this->partida->getCentro();
-     std::cout<<"centro "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-     cam->setTarget(core::vector3df(-47.5287,32.6925,-63.6243));
-     this->smgr->setActiveCamera(cam);
-   /*
+   
+     this->setObjetivoCam();
+   
      //colocamos el tope de la camara para que nosevea debajo del piso
      if(this->terrain!=NULL){
          scene::ITriangleSelector* selector= this->smgr->createTerrainTriangleSelector(this->terrain, 0);
@@ -186,7 +181,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
             cam->addAnimator(anim);
             anim->drop();
      }
-*/
+
  }
  void ManejadorJuego::setCamMenu(){
      if(cam!=NULL)
@@ -238,11 +233,11 @@ std::string ManejadorJuego::SplitNombre (std::string str)
      this->skydome->removeAll();
  }
  void ManejadorJuego::cambiaVistaJuego(int vista){
-
+  this->setObjetivoCam();
    core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=cam->getAnimators().begin() ;
-
   IAnimatorCameraTokayo* anm = (IAnimatorCameraTokayo*) *a;
-    anm->setZoom(602);
+   // anm->setZoom(602);
+     
      switch(vista){
          case 1:
              anm->setRotationNumbers(1260,45);
@@ -256,8 +251,10 @@ std::string ManejadorJuego::SplitNombre (std::string str)
          case 4:
              anm->setRotationNumbers(1350,45);
              break;
+    
 
      }
+  
  }
  bool ManejadorJuego::getSalir(){
     return this->salir;
@@ -270,7 +267,36 @@ void ManejadorJuego::SetAgentesConsola(bool ambos){
     if(ambos)
         this->setAgente(this->getManejadorGUI()->getPath(false,2), 1);
     else
-        this->setAgente("../bin/agenteBarreras2.py", 1);
+        this->setAgente("../../bin/agenteBarreras2.py", 1);
     this->setPartida();
 
+}
+void ManejadorJuego::imprimeTableroConsola(){
+    this->partida->impimeTablero();
+    std::cin.get();
+}
+
+void ManejadorJuego::setObjetivoCam(){
+    //-47.5287,32.6925,-63.6243
+      if(cam!=NULL)
+         cam->remove();
+     cam = smgr->addCameraSceneNode();
+	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
+        anm->setRotationNumbers(270,57) ;
+        anm->setZoom(602);
+	cam->addAnimator(anm);
+	anm->drop();
+
+     core::vector3df v=this->partida->getCentro();
+    core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
+     std::cout<<"centro "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+     cam->setTarget(t+v);
+     
+     this->smgr->setActiveCamera(cam);
+
+    
+     v=t+v;//cam->getTarget();
+     std::cout<<"target+v  "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
+
+//-48.275,57.6925,-63.6251
 }

@@ -22,7 +22,7 @@ Grafico::Skin::~Skin() {
 }
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
-    this->Tablero=smgr->getMesh("Texturas/Tablero4.3ds");
+    this->Tablero=smgr->getMesh("Texturas/Tablero.3ds");
     this->TTAblero=smgr->getVideoDriver()->getTexture( "Texturas/Moss0138_10_S.jpg" );
     if( this->Tablero== NULL || this->TTAblero==0 )
         {
@@ -33,14 +33,14 @@ void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
 void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
      std::ostringstream strs;
 
-     this->Jugador2=smgr->getMesh("Texturas/MonoBlanco3.3ds");
+     this->Jugador2=smgr->getMesh("Texturas/MonoBlanco.3ds");
       if( this->Jugador2== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 2 ";
             throw SkinNoCargado(strs.str().c_str());
         }
 
-     this->Jugador1=smgr->getMesh("Texturas/Mono3.3ds");
+     this->Jugador1=smgr->getMesh("Texturas/Mono.3ds");
     
      if( this->Jugador1== NULL  )
         {
@@ -58,7 +58,7 @@ void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
 }
 void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Antorcha=smgr->getMesh("Texturas/Lumbrera4.3ds");
+    this->Antorcha=smgr->getMesh("Texturas/Lumbrera.3ds");
     this->TAntorcha=smgr->getVideoDriver()->getTexture("Texturas/fire.bmp");
       if( this->Antorcha== NULL || this->TAntorcha== 0  )
         {
@@ -68,7 +68,7 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Barrera=smgr->getMesh("Texturas/BarreraC1.3ds");
+    this->Barrera=smgr->getMesh("Texturas/Barrera.3ds");
     this->TBarrera=smgr->getVideoDriver()->getTexture( "Texturas/BrickOldDirty0078_S.jpg" );
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
@@ -78,7 +78,7 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Celda=smgr->getMesh("Texturas/Celda4.3ds");//Moss0138_2_S.jpg RockMossy0018_S.jpg
+    this->Celda=smgr->getMesh("Texturas/Celda.3ds");//Moss0138_2_S.jpg RockMossy0018_S.jpg
     this->TCelda=smgr->getVideoDriver()->getTexture( "Texturas/Moss0138_2_S.jpg" );
     if( this->Celda== NULL || this->TCelda== 0 )
         {

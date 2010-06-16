@@ -79,6 +79,9 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case B_OPCIONES:
                        this->juego->getManejadorGUI()->MsgBox("Proximamente!!");
                         break;
+                    case  B_CREDITOS:
+                        this->juego->getManejadorGUI()->creditos(true);
+                        break;
                     case B_SALIR:
                         this->juego->setSalir(true);
                         break;
@@ -91,11 +94,13 @@ bool EventReceiver::OnEvent(const SEvent& event)
                        this->juego->getManejadorGUI()->OpenFileDialog();
                         break;
                     case BO_INICIA:
+                        this->juego->getManejadorGUI()->dropAvsA();
                        this->juego->setPartida();
                           this->piniciada=true;
                         break;
                     case BO_CANCELA:
                        this->juego->clearAgentes();
+                        this->juego->getManejadorGUI()->dropAvsA();
                        this->juego->getManejadorGUI()->setMenu();
                         break;
                     case BP_VISTA1:

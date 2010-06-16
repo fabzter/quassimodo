@@ -17,7 +17,7 @@ ManejadorGUI::~ManejadorGUI() {
 }
 void ManejadorGUI::dropMenu(){
     this->menu->dropMenuP();
-    this->Gui->dropAvsA();
+    //this->Gui->dropAvsA();
 }
 void ManejadorGUI::MsgBox(const char* msg,bool grafico){
 
@@ -87,14 +87,16 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico){
   }
 
   void ManejadorGUI::creditos(bool grafico){
-      std::string creditos;
-      if (!grafico)
-          creditos="\n###############################################################################";
-      creditos+="\n\n\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernández Hernández \t\t <faboster@gmail.com>\n"
-              "Hugo César Hernández Piña \t\t\t <eltokyo@gmail.com>\n";
-      if (!grafico)
-          creditos+="\n###############################################################################\n\n";
+      char* creditos;
+      creditos="\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernandez Hernandez \t\t <faboster@gmail.com>\n"
+              "Hugo Cesar Hernandez Pinha \t\t\t <eltokyo@gmail.com>";
 
-      this->MsgBox(creditos.c_str(),grafico);
+      this->MsgBox(creditos,grafico);
+
+  }
+
+  void ManejadorGUI::dropAvsA(){
+
+      this->Gui->dropAvsA();
 
   }

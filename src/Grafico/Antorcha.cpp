@@ -70,7 +70,7 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
         	this->ps =	smgr->addParticleSystemSceneNode(false,nfuego);
                 scene::IParticleEmitter* em = ps->createBoxEmitter(
 		core::aabbox3d<f32>(-2,0,-2,2,1,2), // tamaño del emisor
-		core::vector3df(0.0f,0.01f,0.00f),   // direccion inicial
+		core::vector3df(0.0f,0.015f,0.00f),   // direccion inicial
 		80,100,                             // emit rate
 		video::SColor(0,0,0,0),       // color obscuro
 		video::SColor(0,255,255,255),       // color brillo

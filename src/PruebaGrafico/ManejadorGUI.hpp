@@ -92,6 +92,10 @@ public:
       * @param grafico si se va mostrar en modo consola o modo grafico.
       */
      void creditos(bool grafico);
+     /**
+      *Borra la ventana de selector de agentes
+      */
+     void dropAvsA();
 private:
 
     /**

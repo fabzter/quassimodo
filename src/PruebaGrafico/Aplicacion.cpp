@@ -39,15 +39,14 @@ void Aplicacion::loopConsola(){
         while(this->juego->enCurso())
         {
             this->juego->SiguienteJugada();
-
-            //std::cout << t << endl;
-            std::cin.get();
+            this->juego->imprimeTableroConsola();
         }
    }
-   /* if(this->juego->hayGanador())
+    if(this->juego->hayGanador())
     {
-        cout << "Hay un ganador!" << endl;
-    }*/
+        this->juego->getManejadorGUI()->MsgBox( "Hay un ganador! desde menu",false);
+        this->loopConsola();
+    }
 
 }
 void Aplicacion::loopGrafico(){

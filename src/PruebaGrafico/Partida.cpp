@@ -24,7 +24,7 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
          this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
     }
        core::vector3df v= this->t->getSize();
-     this->t->setPosicionTablero(-v.X/2,0,(v.Z/2)-15);
+     this->t->setPosicionTablero(-(v.X) /2,-5,-( (v.Z) /2));
     this->ColocaAntorchas();
 
 }
@@ -135,10 +135,10 @@ bool Partida::MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager
      this->Barreras.push_back(new Barrera(smgr,this->skin));
          unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
-        
+        this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
         this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
-        this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
+        
  }
 
 bool Partida::estaEnCurso()
@@ -177,9 +177,10 @@ bool Partida::hayGanador()
       for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)->setEscalaAntorcha(this->escala.X,this->escala.Y,this->escala.Z);
     }
-      core::vector3df v= this->t->getSize();
-      this->t->setPosicionTablero(-(v.X*x) /2,0,-( (v.Z*z) /2));
-       std::cout<<"posicion t "<< (v.X*x) /2<<" "<<( (v.Z*z) /2)-15<<std::endl;
+       core::vector3df v= this->t->getSize();
+     this->t->setPosicionTablero(-(v.X*x) /2,-5*y,-( (v.Z*z) /2));
+
+      
      this->ColocaAntorchas();
  }
 
@@ -216,4 +217,7 @@ core::vector3df Partida::getCentro(){
      cen.Z=pos.Z+(tam.Z/2);
      cen.Y=pos.Y;
      return cen;
+}
+void Partida::impimeTablero(){
+    std::cout<<*this->t<<std::endl;
 }

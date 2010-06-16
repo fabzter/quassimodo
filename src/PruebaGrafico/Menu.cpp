@@ -12,7 +12,6 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
     this->escala.X=1 ,this->escala.Y=1, this->escala.Z=1;
     this->jugadores.reserve(2);
     this->botones.reserve(B_COUNT);
-    //this->setMenuP();
 
 }
 
@@ -76,7 +75,6 @@ void Menu::dropMenuP(){
  void Menu::setSkin(){
 
      for(int i=0;i<B_COUNT;i++){
-
             this->botones.at(i)->setOverrideFont(this->skin->getMenuBoton());
 
       }

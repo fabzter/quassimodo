@@ -22,9 +22,7 @@ Grafico::Celda::Celda(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza(){
        //mat=mat.setTextureTranslate(rand() % 1000,rand() % 1000);
        this->nodoA->getMaterial(0).setTextureMatrix(1,mat);*/
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
-      core::aabbox3d<f32> t=this->nodoA->getBoundingBox();
-      this->size= t.getExtent();
-
+       this->setSombra();
 
 }
 
@@ -48,7 +46,7 @@ Grafico::Celda::~Celda() {
            v.X=1,v.Y=1,v.Z=1;
       x+=this->celdaR->getPosicion().at(0)* ( (this->size.X+this->size.Y)*v.X ) ;
       z+=this->celdaR->getPosicion().at(1)*( (this->size.X+this->size.Y)*v.Z );
-      y+=1;//( this->size.Y*v.Y );
+      y-=12;//( this->size.Y*v.Y );
       this->setPosicion(x,y,z);
   }
   void Grafico::Celda::SetEscalaCelda(int x, int y, int z){

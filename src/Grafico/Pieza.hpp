@@ -3,6 +3,7 @@
 #ifndef _PIEZA_HPP_
 #define	_PIEZA_HPP_
 #include<irrlicht.h>
+
 namespace Grafico{
  /**
   * Clase Pieza del paquete grafico que contiene la posicion en la que se  encuentra la pieza grafica (el tablero, el jugador la barrera etc.).
