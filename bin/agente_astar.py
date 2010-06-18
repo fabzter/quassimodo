@@ -4,7 +4,6 @@ import sys
 sys.path.append("../lib")
 import random
 import Reglas
-import astar_algoritmo
 
 class AgenteAStar (Reglas.Agente):
     def __init__(self):
