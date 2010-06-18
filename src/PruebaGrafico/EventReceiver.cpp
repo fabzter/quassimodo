@@ -30,18 +30,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
              if(  event.KeyInput.Key==irr::KEY_KEY_P){
                 this->juego->printCam();
              }
-            if(  event.KeyInput.Key==irr::KEY_KEY_A){
-                this->juego->aumentaAngulo(true);
-             }
-            if(  event.KeyInput.Key==irr::KEY_KEY_S){
-                this->juego->disminuyeAngulo(true);
-             }
-            if(  event.KeyInput.Key==irr::KEY_KEY_Z){
-                this->juego->aumentaAngulo(false);
-             }
-            if(  event.KeyInput.Key==irr::KEY_KEY_X){
-                this->juego->disminuyeAngulo(false);
-             }
+            
                 
             break;
             // si el elento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.
@@ -115,6 +104,11 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case BP_VISTA4:
                        this->juego->cambiaVistaJuego(4);
                         break;
+                    case BP_MENU:
+                        this->juego->getManejadorGUI()->dropBotonesPartida();
+                        this->juego->setMenu();
+                         this->piniciada=false;
+                         break;
 
                 } 
             }

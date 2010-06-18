@@ -32,20 +32,52 @@ public:
      * @return un valor del enum video::E_DRIVER_TYPE
      */
     video::E_DRIVER_TYPE getVideoType();
+    /**
+     *Inicializa la interfaz de video.
+     * @param device
+     */
+    void inicializaInterfazVideo( IrrlichtDevice* device);
+    /**
+     *Crea al device de la aplicación, este metodo se encuentra en la parte de video ya que
+     * los parametros necesarios para la creacion son mayoritariamente dependientes del video.
+     * @param fullscreen si el juego será presentado en fullscreen, por default no.
+     * @return device device a creado
+     */
+     IrrlichtDevice* creaDevice(bool fullscreen=false);
+     
+
 private:
     /**
      *Busca el tipo de driver que se utilizara en la aplicacion y lo almacena
      */
     void SeleccionaDriverType();
+
     /**
      *Almacena el tipo de driver que será utilizado por la aplicación
      * @param tipo un valor del enum video::E_DRIVER_TYPE
      */
     void setDriver(video::E_DRIVER_TYPE tipo);
     /**
+     *detecta la configuracion del escritorio, lo que es la resolucion y la profundidad de este
+     */
+    void DetectaEscritorio();
+    /**
      * El tipo de video que será usado por la aplicacion
      */
     video::E_DRIVER_TYPE type;
+    /**
+     * interfaz al driver de video, el cual permite realizar funciones en 2D y 3D.
+     */
+    video::IVideoDriver* Vdriver;
+    /**
+     * resolucion Actual del escritorio.
+     */
+    core::dimension2d<u32> DResolution;
+    /**
+     * tamaño de cada pixel en el escritorio actual en modo de bits
+     */
+    s32  DPixel;
+
 
 };
 

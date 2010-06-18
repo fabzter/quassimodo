@@ -11,17 +11,9 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->skin=new Grafico::Skin(smgr,env);
     this->terrain==NULL;
     this->Agentes.resize(2);
-    this->clearAgentes();
-    this->partida=new Partida(this->smgr,this->skin);
-    this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
-    this->partidainiciada=false;
-    if(this->grafico){
-        this->aniend=new AnimacionEnd(this->partida,this->smgr);
-        this->setSkinAmbiente();
-        this->cam=NULL;
-        this->setMenu();
-       this->setEscala(5,5,5);
-    }
+    this->init();
+    this->setMenu();
+
     
 }
 
@@ -30,20 +22,35 @@ ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 
 ManejadorJuego::~ManejadorJuego() {
 }
+void ManejadorJuego::init(){
+
+    this->clearAgentes();
+    this->partida=new Partida(this->smgr,this->skin);
+    this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
+    this->partidainiciada=false;
+    if(this->grafico){
+        this->aniend=new AnimacionEnd(this->partida,this->smgr);
+        this->setSkinAmbiente();
+        this->cam=NULL;
+        this->setEscala(5,5,5);
+    }
+
+}
 char ManejadorJuego::setMenu(){
     
     if(this->partidainiciada)
     {
-        delete(this->partida);
+       
+        delete(this->partida);   
+        delete(this->mgui);
+        delete(this->aniend);
         this->smgr->clear();
-        this->partida=new Partida(this->smgr,this->skin);
-        this->setSkinAmbiente();
-        this->partidainiciada=false;
+        this->env->clear();
+        this->init();
     }
     if(this->grafico){
-        /*delete(this->mgui);
-         this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);*/
         this->setCamMenu();
+
     }
     return this->mgui->setMenu(this->grafico);
 
@@ -137,7 +144,7 @@ void ManejadorJuego::clearAgentes(){
     this->setPartida();
   }
   void ManejadorJuego::printCam(){
-      //scene::ICameraSceneNode *cam=this->smgr->getActiveCamera();
+
       core::vector3df v;
       v=cam->getTarget();
       std::cout<<"target "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
@@ -145,10 +152,7 @@ void ManejadorJuego::clearAgentes(){
       std::cout<<"posicion "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
      v=cam->getRotation();
       std::cout<<"rotation "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-      std::cout<<"lejania "<<cam->getFarValue()<<std::endl;
-      std::cout<<"cercania "<<cam->getNearValue()<<std::endl;
-       
-       //std::cout<<"matriz "<<cam->getAbsoluteTransformation()<<std::endl;
+     
 
   }
  void ManejadorJuego::CambiaTextoAgnt(int bAgente){
@@ -184,18 +188,18 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 
  }
  void ManejadorJuego::setCamMenu(){
-     if(cam!=NULL)
-         cam->remove();
-     cam= this->smgr->addCameraSceneNode();
-     cam->setTarget(core::vector3df(-344.395,170.816,333.796));
-     cam->setPosition(core::vector3df(-357.9,173,352.904));
-    this->smgr->setActiveCamera(cam);
+    /* if(this->cam!=NULL)
+         this->cam->remove();*/
+    this->cam= this->smgr->addCameraSceneNode();
+     this->cam->setTarget(core::vector3df(-344.395,170.816,333.796));
+     this->cam->setPosition(core::vector3df(-357.9,173,352.904));
+    this->smgr->setActiveCamera(this->cam);
  }
  void ManejadorJuego::setSkinAmbiente(){
 
          this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome() );
          this->terrain =  this->smgr->addTerrainSceneNode(this->skin->getHTerrain(),
-		0,-1,core::vector3df(-3000.f, -80.f, -3000.f),		// position
+		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
 		core::vector3df(0.f, 0.f, 0.f),		// rotation
 		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
 		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
@@ -206,37 +210,17 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 	this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
         this->terrain->scaleTexture(1.0f, 20.0f);
-        //this->smgr->setAmbientLight(video::SColor(10,10,10,10));
-       
-        /* luna= smgr-> addLightSceneNode(0,core::vector3df(200,200,100),video::SColorf(1.0f, 1.0f, 1.0f,1.0f),600);
-       luna->setLightType(video::ELT_SPOT);
-       //luna->getLightData().InnerCone=-30;
-        //luna->getLightData().OuterCone=120;
-        scene::ISceneNode *l=this->smgr->addSphereSceneNode(20,16,luna,-1,core::vector3df(0,0,0));
-        l->setMaterialFlag(video::EMF_LIGHTING, false);*/
 
- }
- void ManejadorJuego::aumentaAngulo(bool inner){
-     if(inner)
-           luna->getLightData().InnerCone+=1;
-     else
-          luna->getLightData().OuterCone+=1;
- }
- void ManejadorJuego::disminuyeAngulo(bool inner){
-      if(inner)
-           luna->getLightData().InnerCone-=1;
-     else
-          luna->getLightData().OuterCone-=1;
+
  }
  void ManejadorJuego::dropSkinAmbiente(){
      this->terrain->removeAll();
      this->skydome->removeAll();
  }
  void ManejadorJuego::cambiaVistaJuego(int vista){
-  this->setObjetivoCam();
+     this->setCamJuego();
    core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=cam->getAnimators().begin() ;
   IAnimatorCameraTokayo* anm = (IAnimatorCameraTokayo*) *a;
-   // anm->setZoom(602);
      
      switch(vista){
          case 1:
@@ -278,25 +262,20 @@ void ManejadorJuego::imprimeTableroConsola(){
 
 void ManejadorJuego::setObjetivoCam(){
     //-47.5287,32.6925,-63.6243
-      if(cam!=NULL)
-         cam->remove();
-     cam = smgr->addCameraSceneNode();
+      if(this->cam!=NULL)
+         this->cam->remove();
+     this->cam = smgr->addCameraSceneNode();
 	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
         anm->setRotationNumbers(270,57) ;
         anm->setZoom(602);
-	cam->addAnimator(anm);
+	this->cam->addAnimator(anm);
 	anm->drop();
 
      core::vector3df v=this->partida->getCentro();
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
-     std::cout<<"centro "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
      cam->setTarget(t+v);
      
      this->smgr->setActiveCamera(cam);
 
     
-     v=t+v;//cam->getTarget();
-     std::cout<<"target+v  "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-
-//-48.275,57.6925,-63.6251
 }

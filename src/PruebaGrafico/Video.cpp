@@ -15,7 +15,6 @@ Video::Video(std::string video) {
             this->setDriver(video::EDT_NULL);
         else
             this->SeleccionaDriverType();
-    
 
 }
 
@@ -43,8 +42,6 @@ this->setDriver(video::EDT_OPENGL);
     this->setDriver(video::EDT_DIRECT3D9);
     std::cout<<"direct3d9"<<std::endl;
 #endif
- 
-
 
 }
 
@@ -54,3 +51,21 @@ void Video::setDriver(video::E_DRIVER_TYPE tipo){
 video::E_DRIVER_TYPE Video::getVideoType(){
     return this->type;
 }
+ void Video::inicializaInterfazVideo( IrrlichtDevice* device){
+      this->Vdriver = device->getVideoDriver();
+ }
+ IrrlichtDevice* Video::creaDevice( bool fullscreen){
+     this->DetectaEscritorio();
+     return irr::createDevice(this->getVideoType(),this->DResolution, this->DPixel,fullscreen,true, false);
+
+ }
+void Video::DetectaEscritorio(){
+  IrrlichtDevice* device;
+  device=irr::createDevice(video::EDT_SOFTWARE);
+  video::IVideoModeList *VL = device->getVideoModeList();
+  this->DResolution=VL->getDesktopResolution();
+  this->DPixel=VL->getDesktopDepth();
+  device->drop();
+
+
+  }

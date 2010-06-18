@@ -17,7 +17,6 @@ ManejadorGUI::~ManejadorGUI() {
 }
 void ManejadorGUI::dropMenu(){
     this->menu->dropMenuP();
-    //this->Gui->dropAvsA();
 }
 void ManejadorGUI::MsgBox(const char* msg,bool grafico){
 
@@ -99,4 +98,7 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico){
 
       this->Gui->dropAvsA();
 
+  }
+  void ManejadorGUI::dropBotonesPartida(){
+      this->Gui->dropBotonesPartida();
   }

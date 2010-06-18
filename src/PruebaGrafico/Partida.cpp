@@ -24,7 +24,7 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
          this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
     }
        core::vector3df v= this->t->getSize();
-     this->t->setPosicionTablero(-(v.X) /2,-5,-( (v.Z) /2));
+     this->t->setPosicionTablero(-(v.X) /2,-15,-( (v.Z) /2));
     this->ColocaAntorchas();
 
 }
@@ -178,7 +178,7 @@ bool Partida::hayGanador()
          this->antorchas.at(i)->setEscalaAntorcha(this->escala.X,this->escala.Y,this->escala.Z);
     }
        core::vector3df v= this->t->getSize();
-     this->t->setPosicionTablero(-(v.X*x) /2,-5*y,-( (v.Z*z) /2));
+     this->t->setPosicionTablero(-(v.X*x) /2,-13.3*y,-( (v.Z*z) /2));
 
       
      this->ColocaAntorchas();

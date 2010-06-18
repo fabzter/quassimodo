@@ -36,6 +36,10 @@ public:
      */
     virtual ~ManejadorJuego();
     /**
+     *Inicializa los atrubutios de la clase.
+     */
+    void init();
+    /**
      * Coloca el Menu en la escena
      * @return un caracter que representa la opcion seleccionada en modo consola, o un caracter cualquiera si fue ejecutado en modo grafico
      */
@@ -121,8 +125,6 @@ public:
      *Imprime el tablero en consola y espera hasta que se presione la tecla INTRO.
      */
     void imprimeTableroConsola();
-    void aumentaAngulo(bool inner);
-    void disminuyeAngulo(bool inner);
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente
@@ -206,7 +208,6 @@ private:
      * bandera que indica si la partida fue iniciada o no.
      */
     bool partidainiciada;
-    scene::ILightSceneNode* luna;
 
 };
 

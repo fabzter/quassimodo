@@ -6,13 +6,14 @@ using namespace irr;
 Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,bool fullscreen, int Vel){
     
     this->Dvideo=new Video(video);
+   // this->Dvideo->getSizeScreen();
      if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
-    this->device = irr::createDevice(this->Dvideo->getVideoType(),core::dimension2d<u32>(800, 600), 16,fullscreen,true, false);
+    this->device=this->Dvideo->creaDevice(fullscreen);
     this->Vdriver = this->device->getVideoDriver();
     this->smgr = this->device->getSceneManager();
     this->env =this->device->getGUIEnvironment();
     this->juego=new ManejadorJuego(this->smgr,this->env,this->grafico);
-
+    this->device->setResizable(false);
     if(this->grafico){
         this->eventos=new EventReceiver(this->juego);
         this->device->setEventReceiver(this->eventos);

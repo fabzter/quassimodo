@@ -96,6 +96,11 @@ public:
       *Borra la ventana de selector de agentes
       */
      void dropAvsA();
+     /**
+      *Elimina los botones de la partida en curso.
+      */
+     void dropBotonesPartida();
+
 private:
 
     /**

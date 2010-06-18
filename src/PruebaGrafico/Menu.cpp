@@ -12,6 +12,7 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
     this->escala.X=1 ,this->escala.Y=1, this->escala.Z=1;
     this->jugadores.reserve(2);
     this->botones.reserve(B_COUNT);
+    this->haymenu=false;
 
 }
 
@@ -32,6 +33,7 @@ Menu::~Menu() {
              this->jugadores.at(i)->setMesh( this->skin->getJugador2() );
 
         this->jugadores.at(i)->dibuja( this->smgr );
+        this->jugadores.at(i)->setEscala( this->escala.X,this->escala.Y, this->escala.Z);
     }
     this->setPosicionJugadores();
 
@@ -46,10 +48,15 @@ Menu::~Menu() {
  }
  void Menu::SetEscala(int x,int y,int z){
       this->escala.X=x ,this->escala.Y=y, this->escala.Z=z;
-     for(int i=0;i<this->t->num_jugadores;i++){
-         this->jugadores.at(i)->setEscala(x,y,z);
-     }
-      this->setPosicionJugadores();
+
+      if(haymenu){
+
+         for(int i=0;i<this->t->num_jugadores;i++){
+             this->jugadores.at(i)->setEscala(x,y,z);
+         }
+          this->setPosicionJugadores();
+
+      }
  }
 
  void Menu::setMenuP(){

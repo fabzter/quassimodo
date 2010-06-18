@@ -139,11 +139,9 @@ void GUI::setBotonesPartida(){
 }
 void GUI::dropBotonesPartida(){
     if(botonesPartida){
-
           for(int i=0;i<BP_COUNT;i++){
             this->botonPartida.at(i)->remove();
-      }
-
+          }
     }
 
 }
