@@ -6,7 +6,7 @@ sys.path.append("../lib")
 import random
 import math
 from heapq import heappush, heappop
-from Reglas import astar
+from Reglas import astar, TipoDeJugada
 import Reglas
 
 MIN = False
@@ -24,14 +24,15 @@ def printInfo(tab):
     except AttributeError: pass
 
 def evaluate(tab):
-    idEnemigo = 0 if tab.idJugador == 1 else 1
     res = (CELLS - len(astar(tab, tab.idJugador) ) ) \
-            - (0.5)*(CELLS - len(astar(tab, idEnemigo) ) )  # si el path es menor, es mejor calificacion
+            - (CELLS - len(astar(tab, tab.idEnemigo) ) )  # si el path es menor, es mejor calificacion
     return res
     
-def minmax(currentTab, currentDepth = 0, maxDepth = 3):
+def minmax(currentTab, currentDepth = 0, maxDepth = 4, 
+            tipoJug = TipoDeJugada.MOVIMIENTO):
     
     ayudanteCurrent = Reglas.AyudanteDeAgente(currentTab)
+    currentTab.idEnemigo = 0 if currentTab.idJugador == 1 else 1
     
     #si llegamos al final de la recursion o hay un ganador, evaluamos el tab.
     if currentDepth >= maxDepth or ayudanteCurrent.hayGanador():
@@ -40,11 +41,16 @@ def minmax(currentTab, currentDepth = 0, maxDepth = 3):
     
     #si no, generamos a sus hijos.
     jugadas = []
-    jugadas.extend( ayudanteCurrent.getMovimientosPosibles(currentTab.idJugador) )
-    #jugadas.extend( ayudanteCurrent.getBarrerasPosibles(currentTab.idJugador) )
-    ayudanteCurrent = None
-    currentTab.hijos = []
+    if tipoJug == TipoDeJugada.MOVIMIENTO:
+        jugadas.extend( ayudanteCurrent.getMovimientosPosibles(currentTab.idJugador) )
+    else:
+        posEnemigo = tablero.getCelda(currentTab.idEnemigo).getPosicion()
+        jugadas.extend( ( hijo for hijo in ayudanteCurrent.getBarrerasPosibles(currentTab.idJugador)\
+                            if hijo.getPosicion()[1] in \
+                            xrange(posEnemigo[1] -2, posEnemigo[1] +2 ) ) )
+    ayudanteCurrent = None #no necesitamos mas al ayudante
     
+    currentTab.hijos = []
     while len(jugadas) > 0:
         jugada = jugadas.pop( random.randint(0, len(jugadas) - 1 ) )
         tabHijo = Reglas.Tablero(currentTab)
@@ -53,22 +59,27 @@ def minmax(currentTab, currentDepth = 0, maxDepth = 3):
         else:
             tabHijo.setBarrera(currentTab.idJugador, Reglas.Barrera(jugada) )
         
-        #revisamos que el hijo no sea igual al padre
+        #revisamos que el hijo no sea igual al padre, o a sus hermanos :/
         if tabHijo == currentTab or tabHijo in currentTab.hijos:
             tabHijo = None
             continue
         
-        tabHijo.idJugador = 0 if currentTab.idJugador == 1 else 1
+        tabHijo.idJugador = currentTab.idEnemigo
         tabHijo.tipo = not currentTab.tipo
         tabHijo.jugada = jugada
-        minmax(tabHijo, currentDepth + 1)
+        minmax(tabHijo, currentDepth + 1, 4, TipoDeJugada.MOVIMIENTO)
         
         currentTab.hijos.append(tabHijo)
+        print "Aun quedan {0} jugadas por revisar.".format(len(jugadas))
     
     #propagamos hacia arriba los valores de los hijos
     valsHijos = (tab.val for tab in currentTab.hijos)
-    currentTab.val = max( valsHijos ) if currentTab.tipo is MAX \
-                    else min( valsHijos )
+    if currentTab.tipo is MIN:
+        currentTab.val = min( valsHijos )
+    else:
+        currentTab.val = max( valsHijos )
+        
+    #printInfo(currentTab)
     
     #limpiamos?
     if currentDepth > 1:
@@ -88,7 +99,12 @@ class AgenteInteligente (Reglas.Agente):
         tablero.tipo = MAX
         tablero.idJugador = self.id
         
-        minmax(tablero)
+        if len(ayudante.getBarrerasPosibles(self.id)) != 0:
+            minmax(tablero, 0, 1, TipoDeJugada.BARRERA)
+        else:
+            minmax(tablero, 0, 2)
+        #minmax(tablero, 0, 2)
+
         for hijo in tablero.hijos:
             if hijo.val == tablero.val:
                 return hijo.jugada
