@@ -3,6 +3,7 @@
 #ifndef _PIEZA_HPP_
 #define	_PIEZA_HPP_
 #include<irrlicht.h>
+
 namespace Grafico{
  /**
   * Clase Pieza del paquete grafico que contiene la posicion en la que se  encuentra la pieza grafica (el tablero, el jugador la barrera etc.).
@@ -79,13 +80,19 @@ public:
          *Elimina de la escena la pieza actual.
          */
         void drop();
+        /**
+         *Coloca la sombra de la pieza en le escena
+         * @param shadowMesh un mesh que sera utilizado en la sombra, por default utiliza el mismo de la pieza.
+         */
+        void setSombra(scene::IMesh* shadowMesh=0);
+
 
 protected:
          /**
          * Un vector de 3 enteros que indica la posicion de la pieza
          */
-     core::vector3df posiciong;
-             /**
+        core::vector3df posiciong;
+        /**
          * Una malla en donde es cargada la pieza
          */
         scene::IAnimatedMesh* mesh;
@@ -97,6 +104,10 @@ protected:
          * Tamaño de la pieza en los 3 ejes!
         */
         core::vector3df size;
+        /**
+         * El nodo sombra de la pieza.
+         */
+        scene::IShadowVolumeSceneNode *sombra;
 
 };
 }

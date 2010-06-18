@@ -8,6 +8,7 @@
 #include"Menu.hpp"
 #include"GUI.hpp"
 #include<string>
+#include<iostream>
 using namespace irr;
 /**
  * clase que se encarga de todos los objetos de la GUI
@@ -20,8 +21,9 @@ public:
      * @param env un apuntador al manejador de GUI del juego
      * @param t Un apuntador a un objeto de la Clase Grafico::Tablero
      * @param skin  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param grafico indica si la gui sera modo grfico o solo mensajes en consola.
      */
-    ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin);
+    ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin,bool grafico=true);
     /**
      *Constructor copia de la clase ManejadorGUI
      * @param orig un objeto de la clase ManejadorGUI
@@ -36,10 +38,11 @@ public:
      */
     void dropMenu();
     /**
-     * Manda a llamar al metodo de la clase GUI
+     * Manda a llamar al metodo de la clase GUI o manda un mensaje en la consola
      * @as GUI::MsgBox
+     * @param grafico si se mandara mensaje de consola o grafico
      */
-    void MsgBox(const char* msg);
+    void MsgBox(const char* msg,bool grafico=true);
     /**
      *Método que se encarga de lanzar al selector de los agentes
      * @as GUI::AgntVSAgnt
@@ -51,17 +54,21 @@ public:
      *manda a llamar al metodo de la clase GUI
      * @as GUI::getPath()
      * @return un string con el path del archivo seleccionado
+     * @param grafico si se va a pedir desde modo grafico o modo consola el path
+     * @param noA numero del agente a pedir,se ignora en modo 3D
      */
-     std::string getPath();
+     std::string getPath(bool grafico=true,int noA=1);
      /**
       *abrimos una caja de "OpenFile"
       * @as GUI:: OpenFileDialog
       */
      void  OpenFileDialog();
      /**
-      *Se coloca el menú principal en le Juego
+      *Se coloca el menú principal del Juego
+      *@param grafico indica si el menu estara en 3D o en consola.
+      * @return  un caracter que representa la opcion seleccionada en modo consola, o un caracter cualquiera si fue ejecutado en modo grafico
       */
-     void setMenu();
+     char setMenu(bool grafico=true);
      /**
       *Cambia el texto en los botones de la ventana de seleccion de agentes
       * @param num numero de boton del agente
@@ -80,7 +87,33 @@ public:
       * @as GUI::setBotonesPartida
       */
      void setMenuPartida();
+     /**
+      *Muestra los creditos en la aplicacion. ya se a en modo consola o grafico.
+      * @param grafico si se va mostrar en modo consola o modo grafico.
+      */
+     void creditos(bool grafico);
+     /**
+      *Borra la ventana de selector de agentes
+      */
+     void dropAvsA();
+     /**
+      *Elimina los botones de la partida en curso.
+      */
+     void dropBotonesPartida();
+
 private:
+
+    /**
+     *Manda un mensaje en consola 
+     * @param msg mensaje a enviar.
+     */
+    void MsgBoxConsola(const char* msg);
+    /**
+     *Pide el path del agente desde modo consola
+     * @param noA numero del agente que se va a pedir
+     * @return un string que contiene la direccion del archivo del agente.
+     */
+    std::string pideAgente(int noA=1);
     /**
      * un apuntador e un objeto de la Clase Menu
      */
@@ -89,10 +122,7 @@ private:
      * Un apuntador a un objeto de la clase GUI
      */
     GUI* Gui;
-    /**
-     * Un apuntador a un objeto de la clase Grafico::Tablero
-     */
-    Grafico::Tablero* t;
+
 
 };
 

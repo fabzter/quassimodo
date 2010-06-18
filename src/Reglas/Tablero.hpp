@@ -234,6 +234,7 @@ public:
      * @return false si los tableros tienen el mismo estado, true de lo contrario.
      */
     bool operator!=(const Tablero &otro) const;
+    
 
     /**
      * Estos dos miembros nos indican el numero de Celdas que tiene el Tablero,
@@ -293,7 +294,6 @@ private:
     void copiar(const Tablero& orig);
 };
 }
-
 /**
      * Este es una sobrecarga del operador << de cout, para poder imprimir de
      * manera bonita e informativa a stdout la clase Tablero. Ejemplo
@@ -303,5 +303,6 @@ private:
      * @endcode
      */
     std::ostream& operator<< (std::ostream &out, const Reglas::Tablero &tab);
+
 #endif	/* _TABLERO_HPP */
 

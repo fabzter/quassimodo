@@ -65,11 +65,12 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
                  this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f,1.0f),this->radioLuz*this->getEscala().X);
-                //hacemos el fuego
+                 this->nfuego->setLightType(video::ELT_POINT);
+                         //hacemos el fuego
         	this->ps =	smgr->addParticleSystemSceneNode(false,nfuego);
                 scene::IParticleEmitter* em = ps->createBoxEmitter(
 		core::aabbox3d<f32>(-2,0,-2,2,1,2), // tamaño del emisor
-		core::vector3df(0.0f,0.01f,0.00f),   // direccion inicial
+		core::vector3df(0.0f,0.015f,0.00f),   // direccion inicial
 		80,100,                             // emit rate
 		video::SColor(0,0,0,0),       // color obscuro
 		video::SColor(0,255,255,255),       // color brillo
@@ -90,9 +91,11 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
                 this->ps->setMaterialTexture(0,this->fuego);
                 this->ps->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
                 this->ps->getMaterial(0).NormalizeNormals=true;
+              
+             
                 if(this->sombra)
                 {
-                   this->nodoA->addShadowVolumeSceneNode();
+                  // this->nodoA->addShadowVolumeSceneNode();
                   /* this->nfuego=  smgr->addVolumeLightSceneNode(0, -1,
                                     32,                              // Subdivisions on U axis
                                     32,                              // Subdivisions on V axis

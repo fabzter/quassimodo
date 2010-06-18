@@ -23,8 +23,9 @@ public:
      *Constructor de la clase, se encarga de inicializar los atributos y colocar el menu princpal
      * @param smgr un apuntador al manejador de escena del juego
      * @param env un apuntador al creador de GUI que proporciona irrlicht
+     * @param grafico bandera que indica si la aplicacion correra en modo grafico o solo en consola
      */
-    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env);
+    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,bool grafico=true);
     /**
      * Constructor copia de la clase
      *@param orig un objeto de la clase ManejadorJuego
@@ -35,9 +36,14 @@ public:
      */
     virtual ~ManejadorJuego();
     /**
-     * Coloca el Menu en la escena
+     *Inicializa los atrubutios de la clase.
      */
-    void setMenu();
+    void init();
+    /**
+     * Coloca el Menu en la escena
+     * @return un caracter que representa la opcion seleccionada en modo consola, o un caracter cualquiera si fue ejecutado en modo grafico
+     */
+    char setMenu();
     /**
      * elimina el menú principal y si se han seleccionado los agentes inicia la partida
      */
@@ -50,8 +56,8 @@ public:
      */
     void setEscala(int x,int y,int z);
     /**
-     *Matodo encargado de pedir la siguiente juega al agente en turno
-     * @return true si la partida sigue en curso, false en caso contrario
+     *Método encargado de pedir la siguiente juega al agente en turno
+     *@return true si la partida sigue en curso, false en caso contrario
      */
     bool SiguienteJugada();
     /**
@@ -60,6 +66,12 @@ public:
      */
     bool hayGanador();
     /**
+     *Indica si la partida esta en curso o no.
+     * @return true si esta en curso, false en caso contrario
+     */
+    bool enCurso();
+
+    /**
      *Obtiene el objeto Manejador de la GUI
      * @return un apuntador a un objeto de la clase ManejadorGUI
      */
@@ -67,7 +79,7 @@ public:
     /**
      *Coloca el path del agente para ser cargado posteriormente
      * @param Agente path en donde se encuaentra el Agente
-     * @param noAgente numero del Agente
+     * @param noAgente numero del Agente empieza a contar desde cero.
      */
     void setAgente(std::string Agente,int noAgente);
     /**
@@ -93,6 +105,26 @@ public:
      * @param vista numero de vista a colocar
      */
     void cambiaVistaJuego(int vista);
+
+    /**
+     *Indica si el usuario desea salir de la aplicacion
+     * @return true si se desea salir false en caso contrario
+     */
+    bool getSalir();
+    /**
+     *Coloca si el usuario desea salir o no
+     * @param valor un bool
+     */
+    void setSalir(bool valor);
+    /**
+     * Pide los agentes desde modo consola y los almacena.
+     * @param ambos, si se van a pedia ambos agentes o no.
+     */
+    void SetAgentesConsola(bool ambos);
+    /**
+     *Imprime el tablero en consola y espera hasta que se presione la tecla INTRO.
+     */
+    void imprimeTableroConsola();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente
@@ -118,8 +150,13 @@ private:
      */
     void dropSkinAmbiente();
     /**
+     *Coloca el objetivo de la camara en el centro del tablero.
+     */
+    void setObjetivoCam();
+    /**
      * Un apuntador al manejador de la escena del juego
      */
+
     scene::ISceneManager* smgr;
     /**
      * un apuntador al creador de GUI que proporciona irrlicht
@@ -159,6 +196,18 @@ private:
      * Un nodo camara que es la camara que se maneja durante el juego y el menú
      */
     scene::ICameraSceneNode* cam;
+    /**
+     * Bandera que indica si el usuario desea salir de la aplicacion
+     */
+    bool salir;
+    /**
+     * bandera que indica si la partida sera en modo 3D o en modo consola.
+     */
+    bool grafico;
+    /**
+     * bandera que indica si la partida fue iniciada o no.
+     */
+    bool partidainiciada;
 
 };
 

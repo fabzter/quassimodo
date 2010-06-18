@@ -10,6 +10,7 @@ Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin) {
      this->dibuja(smgr);
      this->nodoA->setMaterialTexture( 0, skin->getTBarrera() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+       this->setSombra();
 }
 
 Grafico::Barrera::Barrera(const Barrera& orig) {
@@ -38,7 +39,7 @@ void Grafico::Barrera::giraNorte(){
 }
 void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vector<int>& pos, Reglas::Direccion dir){
 
-    this->setPosicion( posg.X - (this->getSize().X*this->getEscala().X) , posg.Y, posg.Z);
+    this->setPosicion( posg.X-(this->getSize().X*this->getEscala().X) , posg.Y, posg.Z);
     if(dir==Reglas::ESTE)
         this->giraEste();
     this->colocar(pos,dir);

@@ -51,6 +51,14 @@ public:
      * @param z Un entero que representa la escala que tendrá en el eje de las Z
      */
     void SetEscala(int x,int y,int z);
+    /**
+     *Desplega el menu en modo consola
+     * @return la opcion seleccionada del menu
+     */
+    char MenuConsola();
+    std::string pideAgente(int noA=1);
+    std::string AgntvsAgnt();
+    std::string AgntvsMkn();
 
 private:
     /**
@@ -97,6 +105,10 @@ private:
      * un apuntador al manejador de GUI de irrlicht
      */
     gui::IGUIEnvironment* env;
+    /**
+     * La escala que tendrá en el juego;
+     */
+    core::vector3df escala;
 
 };
 

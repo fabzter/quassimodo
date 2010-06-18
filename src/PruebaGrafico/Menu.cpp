@@ -9,13 +9,12 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
     this->smgr=smgr;
     this->skin=skin;
     this->t=t;
-    this->jugadores.reserve(4);
-    this->jugadores.resize(4);
+    this->escala.X=1 ,this->escala.Y=1, this->escala.Z=1;
+    this->jugadores.reserve(2);
     this->botones.reserve(B_COUNT);
-    this->setMenuP();
+    this->haymenu=false;
 
 }
-
 
 Menu::Menu(const Menu& orig) {
 }
@@ -27,12 +26,14 @@ Menu::~Menu() {
  void Menu::SetJugadores(){
 
     for(int i=0;i<this->t->num_jugadores;i++){
-         this->jugadores.at(i)=new Grafico::Pieza();
+         this->jugadores.push_back(new Grafico::Pieza());
          if(i==0)
              this->jugadores.at(i)->setMesh( this->skin->getJugador1() );
          else
              this->jugadores.at(i)->setMesh( this->skin->getJugador2() );
+
         this->jugadores.at(i)->dibuja( this->smgr );
+        this->jugadores.at(i)->setEscala( this->escala.X,this->escala.Y, this->escala.Z);
     }
     this->setPosicionJugadores();
 
@@ -46,18 +47,25 @@ Menu::~Menu() {
      }
  }
  void Menu::SetEscala(int x,int y,int z){
-     for(int i=0;i<this->t->num_jugadores;i++){
-         this->jugadores.at(i)->setEscala(x,y,z);
-     }
-      this->setPosicionJugadores();
+      this->escala.X=x ,this->escala.Y=y, this->escala.Z=z;
+
+      if(haymenu){
+
+         for(int i=0;i<this->t->num_jugadores;i++){
+             this->jugadores.at(i)->setEscala(x,y,z);
+         }
+          this->setPosicionJugadores();
+
+      }
  }
 
  void Menu::setMenuP(){
 
      haymenu=true;
      this->SetJugadores();
-     this->setSkin();
      this->setBotones();
+     this->setSkin();
+     this->SetEscala( this->escala.X ,this->escala.Y, this->escala.Z);
  }
 void Menu::dropMenuP(){
     if( haymenu){
@@ -71,27 +79,13 @@ void Menu::dropMenuP(){
     }
   
 }
-//TODO: arreglar las letras del menú! las de la ventana que no se ven
  void Menu::setSkin(){
 
-     gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
-	this->env->setSkin(skin);
-   
-         skin->setFont(this->skin->getMenuBoton(),gui::EGDF_BUTTON);
-         skin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
-         skin->setFont(this->skin->getMenuToolTip(),gui::EGDF_TOOLTIP);
-      
-      skin->setColor(gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255));
-            //ponemos mas opaco los colores de la GUI
-     for (u32 i=0; i<gui::EGDC_COUNT ; ++i)
-     {
-         video::SColor  col = skin->getColor((gui::EGUI_DEFAULT_COLOR)i);
-         col.setAlpha(250);
-         skin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
-     }
+     for(int i=0;i<B_COUNT;i++){
+            this->botones.at(i)->setOverrideFont(this->skin->getMenuBoton());
 
+      }
 
-    skin->drop();
  }
  void Menu::setBotones(){
       core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();
@@ -108,3 +102,17 @@ void Menu::dropMenuP(){
       }
     
  }
+  char Menu::MenuConsola(){
+     char op;
+    std::cout<<std::endl<<"\t\t¡¡Bienvenido a Quassimodo!!"<<std::endl<<std::endl;
+    std::cout<<"Por favor selecciona la letra indicada según la Opcion que desees: "<<std::endl<<std::endl;
+    std::cout<<"a) Agente Vs Agente"<<std::endl;
+    std::cout<<"b) Agente Vs Maquina"<<std::endl;
+    std::cout<<"c) Creditos"<<std::endl;
+    std::cout<<"d) Ayuda"<<std::endl;
+    std::cout<<"e) Salir"<<std::endl;
+    std::cin>>op;
+    return op;
+  }
+  
+ 

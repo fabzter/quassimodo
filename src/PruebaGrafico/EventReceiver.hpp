@@ -4,10 +4,7 @@
 #include<irrlicht.h>
 #include"ManejadorJuego.hpp"
 
-/**
- * El namespace Grafico contiene todo lo relacionado al manejo de la GUI, como la pantalla principal,
- * el tablero, los jugadores, los eventos. etc.
- */
+
 
  /**
      * Una estructura en la cual almacenamos el estado del raton contiene.
@@ -31,7 +28,7 @@ public:
     /**
      *Constructor de la clase EventReceiver, inicializa el elstado de todas las teclas en false
      */
-    EventReceiver(ManejadorJuego* manj );
+    EventReceiver(ManejadorJuego* juego);
     /**
      *Constructor copia de la clase EventReceiver
      * @param orig un objeto de la clase EventReceiver
@@ -67,13 +64,21 @@ private:
          * Una estructura de tipo SMouseState q nos proporcionara datos del mouse.
          */
        SMouseState MouseState;
-
        /**
         * un arrego de bool en el cual se almacena el estado de todas las teclas del teclado.
         */
 	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
-        ManejadorJuego* manj;
+        /**
+         * Un apuntador Nucleo de la aplicacion (la clase Juego)
+         */
+        ManejadorJuego* juego;
+        /**
+         * un entero en donde almacenamos el numero del agente elegido
+         */
         int noA;
+        /**
+         * Una bandera que indica si la partida ha iniciado o no.
+         */
         bool piniciada;
 
 };

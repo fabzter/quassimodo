@@ -17,36 +17,15 @@ Grafico::Tablero::Tablero(scene::ISceneManager* smgr,Skin *skin) : Pieza(), Regl
     }
     this->DibujaTodo(smgr,skin);
 
-    core::vector3df v=this->getPosicionEscena();
-
-    std::cout<<"Posicion Tablero"<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-    v= this->datos.at(0).at(0)->getPosicionEscena();
-   // this->setPosicion(v.X,v.Y-this->size.Y,v.Z);
-    std::cout<<"Posicion celda (0,0) "<<v.X<<","<<v.Y<<","<<v.Z<<std::endl;
-
-    //this->size =this->nodoA->getBoundingBox().getExtent();
-    std::cout<<"Tamaño tablero: "<<this->size.X<<","<<this->size.Y<<","<<this->size.Z<<std::endl;
-
-
 }
 
 void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
     //dibujamos el tablero
       this->mesh=skin->getTablero();
       this->dibuja(smgr);
-      this->size =this->nodoA->getBoundingBox().getExtent();
-    scene::IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(
-			this->nodoA->getMesh());
-     // this->nodoA->setMaterialType(video::EMT_NORMAL_MAP_SOLID);
        this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
 
-		//this->nodoA->setMaterialFlag(video::EMF_FOG_ENABLE, true);
-		//this->nodoA->setMaterialType(video::EMT_PARALLAX_MAP_SOLID);
-		// adjust height for parallax effect
-		//this->nodoA->getMaterial(0).MaterialTypeParam = 0.035f;
-		// drop mesh because we created it with a create.. call.
-		tangentMesh->drop();
       //dibujamos las celdas y le damos su posición a cada celda...
     for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
@@ -76,10 +55,9 @@ void Grafico::Tablero::setPosicionTablero(int x,int y,int z){
 
      for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
-           this->datos.at(i).at(j)->colocar(x,y+ ( (this->size.Y-2) *this->getEscala().Y ) ,z);
+           this->datos.at(i).at(j)->colocar(x,y+ ( (this->size.Y) *this->getEscala().Y ) ,z);
         }
     }
-    // core::vector3df v= this->datos.at(8).at(8)->getPosicionEscena();
     this->setPosicion(x,y,z);
 }
 

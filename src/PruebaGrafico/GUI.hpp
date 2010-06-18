@@ -67,6 +67,10 @@ public:
       *Coloca los botones de la partida que son los de las vistas, salir al menú y pausa.
       */
      void setBotonesPartida();
+     /**
+     *Elimina nos botones de la partida  (botones de las vistas, pausa y salir al menu)
+     */
+    void dropBotonesPartida();
 private:
     /**
      * Coloca el skin de la GUI
@@ -86,10 +90,7 @@ private:
      * @param msg cadena de char de la que queremos extraer el mensaje
      */
     void charTowchar(wchar_t m[],const char* msg);
-    /**
-     *Elimina nos botones de la partida  (botones de las vistas, pausa y salir al menu)
-     */
-    void dropBotonesPartida();
+    
     /**
      * Un apuntador al manejador de la escena del juego
      */
