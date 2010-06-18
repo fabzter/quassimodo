@@ -106,10 +106,10 @@ public:
      */
     gui::IGUIFont* getGUIWindow();
     /**
-     *Regresa el paht del textura en High del terreno
-     * @return un objeto de la clase io::path
+     *Regresa el nodo escena que contiene el terreno
+     * @return un objeto de la clase scene::ITerrainSceneNode
      */
-    io::path getHTerrain();
+   scene::ITerrainSceneNode* getterrain();
     /**
      *Obtiene la textura que le es aplicada Terreno del juego
      * @return  un apuntador a un objeto de la clase ITexture
@@ -258,10 +258,9 @@ private:
       */
      gui::IGUIFont* GUIWindow;
      /**
-      * path en el que se almacena la textura del Terreno con la que se le dan
-      * las montañas, valles etc.
+      * nodo  del Terreno con la que se le dan las montañas, valles etc.
       */
-     io::path heightMTerrain;
+    scene::ITerrainSceneNode* terrain;
      /**
       *  Textura que le será aplicada al terreno del juego
       */

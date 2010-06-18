@@ -42,11 +42,11 @@ void GUI::setSkin(){
   // this->env->setSkin(skin);
     //skin->drop();
  }
-void GUI::MsgBox(const char* msg ){
+void GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg){
 
     wchar_t m[strlen(msg)] ;
     this->charTowchar(m,msg);
-    gui::IGUIWindow* window=this->env->addMessageBox(L"Quassimodo dice:",m);
+    gui::IGUIWindow* window=this->env->addMessageBox(L"Quassimodo dice:",m,true, gui::EMBF_OK,0, idMsg);
 
 }
  void GUI::AgntVSAgnt(){

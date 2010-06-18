@@ -127,10 +127,19 @@ void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
      }
 }
 void Grafico::Skin::setTerrain(scene::ISceneManager* smgr){
-    this->heightMTerrain="Texturas/piso3_HM.bmp";
+   // this->heightMTerrain=;
      std::ostringstream strs;
     this->TTerrain =smgr->getVideoDriver()->getTexture( "Texturas/piso3_TX.jpg" );
-     if( this->TTerrain== NULL  )
+    this->terrain=smgr->addTerrainSceneNode("Texturas/piso3_HM.bmp",
+		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
+		core::vector3df(0.f, 0.f, 0.f),		// rotation
+		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
+		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+		5,					// maxLOD
+		scene::ETPS_17,				// patchSize
+		4					// smoothFactor
+		);
+     if( this->TTerrain== NULL || this->terrain==NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del Terreno ";
             throw SkinNoCargado(strs.str().c_str());
@@ -195,8 +204,8 @@ gui::IGUIFont* Grafico::Skin::getGUIBoton(){
 gui::IGUIFont* Grafico::Skin::getGUIWindow(){
     return this->GUIWindow;
 }
-io::path Grafico::Skin::getHTerrain(){
-    return this->heightMTerrain;
+scene::ITerrainSceneNode* Grafico::Skin::getterrain(){
+    return this->terrain;
 }
 video::ITexture* Grafico::Skin::getTTerrain(){
     return this->TTerrain;

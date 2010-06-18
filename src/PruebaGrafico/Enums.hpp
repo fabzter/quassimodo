@@ -57,6 +57,18 @@ enum GUI_BOTONES_PARTIDA{
     BP_COUNT=6
 
 };
+/**
+ * Enum que contiene los identificadores de los cuadros de dialogo. si es de advertencia, error, etc;
+ */
+enum GUI_BOTONES_OK{
+    BOK_ERROR=200,
+    BOK_ADVERTENCIA,
+    BOK_CREDITOS,
+    BOK_INFO,
+    /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
+     se agregan antes de COUNT*/
+    BOK_COUNT=5
+};
 
 /**
  * Arreglo en el cual se contiene el texto que tendrá el menu del juego

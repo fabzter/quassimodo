@@ -18,10 +18,10 @@ ManejadorGUI::~ManejadorGUI() {
 void ManejadorGUI::dropMenu(){
     this->menu->dropMenuP();
 }
-void ManejadorGUI::MsgBox(const char* msg,bool grafico){
+void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
 
     if (grafico)
-        this->Gui->MsgBox(msg);
+        this->Gui->MsgBox(msg,idMsg);
     else
         this->MsgBoxConsola(msg);
 

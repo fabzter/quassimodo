@@ -8,7 +8,7 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
-    this->skin=new Grafico::Skin(smgr,env);
+     this->skin=new Grafico::Skin(this->smgr,this->env);
     this->terrain==NULL;
     this->Agentes.resize(2);
     this->init();
@@ -25,6 +25,7 @@ ManejadorJuego::~ManejadorJuego() {
 void ManejadorJuego::init(){
 
     this->clearAgentes();
+   
     this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
     this->partidainiciada=false;
@@ -40,10 +41,10 @@ char ManejadorJuego::setMenu(){
     
     if(this->partidainiciada)
     {
-       
         delete(this->partida);   
         delete(this->mgui);
         delete(this->aniend);
+        //delete(this->skin);
         this->smgr->clear();
         this->env->clear();
         this->init();
@@ -73,12 +74,11 @@ void ManejadorJuego::setPartida(){
 
       catch (Scripting::ScriptMalo &e)
       {
-          this->mgui->MsgBox(e.what(),this->grafico);
-          this->setMenu();
+          this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
       }
     }
     else{
-         this->mgui->MsgBox("No ha seleccionado agentes",true);
+         this->mgui->MsgBox("No ha seleccionado agentes",true,BOK_ADVERTENCIA);
     }
 
 }
@@ -95,13 +95,13 @@ bool ManejadorJuego::SiguienteJugada(){
         }
          catch(Scripting::ScriptMalo &e)
          {
-            this->mgui->MsgBox(e.what(),this->grafico);
-            this->setMenu();
+            this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
+            
          }
          catch(Reglas::ReglasRotas &e)
          {
-             this->mgui->MsgBox(e.what(),this->grafico);
-             this->setMenu();
+             this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
+            
          }
 
      if(this->hayGanador())
@@ -198,17 +198,10 @@ std::string ManejadorJuego::SplitNombre (std::string str)
  void ManejadorJuego::setSkinAmbiente(){
 
          this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome() );
-         this->terrain =  this->smgr->addTerrainSceneNode(this->skin->getHTerrain(),
-		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
-		core::vector3df(0.f, 0.f, 0.f),		// rotation
-		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
-		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
-		5,					// maxLOD
-		scene::ETPS_17,				// patchSize
-		4					// smoothFactor
-		);
-	this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
+         this->terrain =  this->skin->getterrain();
+	
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
+        this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
         this->terrain->scaleTexture(1.0f, 20.0f);
 
 

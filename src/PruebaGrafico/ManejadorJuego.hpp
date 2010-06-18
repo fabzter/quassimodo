@@ -6,6 +6,7 @@
 #include "Partida.hpp"
 #include "AnimacionEnd.hpp"
 #include"tokayoCamera.hpp"
+#include"Enums.hpp"
 #include <Grafico/Skin.hpp>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
