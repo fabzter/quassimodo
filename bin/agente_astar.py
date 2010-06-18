@@ -4,7 +4,6 @@ import sys
 sys.path.append("../lib")
 import random
 import Reglas
-import astar_algoritmo
 
 class AgenteAStar (Reglas.Agente):
     def __init__(self):
@@ -22,7 +21,7 @@ class AgenteAStar (Reglas.Agente):
         #    j = random.choice(ayudante.getBarrerasPosibles(self.id))
         #else:
         #    j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
-        j =  Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
+        j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
         
         print self.id, ": Hice mi Jugada"
         return j
