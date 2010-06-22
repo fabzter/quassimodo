@@ -33,6 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Tablero.o \
 	${OBJECTDIR}/Celda.o \
+	${OBJECTDIR}/Minimax.o \
 	${OBJECTDIR}/Juez.o \
 	${OBJECTDIR}/Jugador.o \
 	${OBJECTDIR}/micropather.o \
@@ -77,6 +78,11 @@ ${OBJECTDIR}/Celda.o: nbproject/Makefile-${CND_CONF}.mk Celda.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
+
+${OBJECTDIR}/Minimax.o: nbproject/Makefile-${CND_CONF}.mk Minimax.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Minimax.o Minimax.cpp
 
 ${OBJECTDIR}/Juez.o: nbproject/Makefile-${CND_CONF}.mk Juez.cpp 
 	${MKDIR} -p ${OBJECTDIR}

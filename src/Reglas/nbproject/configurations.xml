@@ -23,6 +23,10 @@
       <itemPath>Pieza.hpp</itemPath>
       <itemPath>Tablero.hpp</itemPath>
     </logicalFolder>
+    <logicalFolder name="f2" displayName="Minimax" projectFiles="true">
+      <itemPath>Minimax.cpp</itemPath>
+      <itemPath>Minimax.hpp</itemPath>
+    </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">

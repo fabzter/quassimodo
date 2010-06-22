@@ -66,7 +66,6 @@ const std::vector<int>& Reglas::Jugada::getPosicion() const
 }
 void Reglas::Jugada::setDireccion(Direccion d)
 {
-
      this->direccion = d;
 }
 Reglas::Direccion Reglas::Jugada::getDireccion() const
