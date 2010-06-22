@@ -155,5 +155,6 @@ float Reglas::evaluate(NodoMinimax* nodo)
     
     return
             (CELLS - astar_jugador_eval)
-           - (CELLS - astar_enemigo_eval);
+           - ( (0.75) * (CELLS - astar_enemigo_eval) )
+            ;
 }
