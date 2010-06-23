@@ -60,7 +60,6 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
                  (posJug_y <= (posEnem_y + 2)) && (posJug_y >= (posEnem_y - 2))
                     ) )
             {
-                std::cout << jugadas.size() << std::endl;
                 jugadas.erase(it_jugs);
                 it_jugs--;
             }
@@ -136,9 +135,6 @@ Reglas::Jugada Reglas::minimax(Reglas::Tablero *currentTab, int idJugador,
 
     Jugada j;
 
-    std::cout << "Soy un tablero de valor: " << nodoCurrent->val << " y soy:\n" <<
-            * nodoCurrent->tablero << '\n' << "Y mis hijos:" << std::endl;
-
     std::list<NodoMinimax*>::iterator it_hijos;
     for(it_hijos = nodoCurrent->hijos.begin();
                             it_hijos != nodoCurrent->hijos.end(); it_hijos++)
@@ -147,8 +143,6 @@ Reglas::Jugada Reglas::minimax(Reglas::Tablero *currentTab, int idJugador,
         {
             j = (*it_hijos)->jugada;
         }
-        std::cout << "Soy un tablero HIJO de valor: " << (*it_hijos)->val << " y soy:\n" <<
-            * (*it_hijos)->tablero << std::endl;
         delete (*it_hijos)->tablero;
         delete ((*it_hijos));
     }
@@ -171,6 +165,6 @@ float Reglas::evaluate(NodoMinimax* nodo)
     
     return
             (CELLS - astar_jugador_eval)
-           - ( (0.75) * (CELLS - astar_enemigo_eval) )
+           - ( (1.5) * (CELLS - astar_enemigo_eval) )
             ;
 }

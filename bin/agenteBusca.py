@@ -106,9 +106,9 @@ class AgenteInteligente (Reglas.Agente):
         
         
         if len(self.ayudante.getBarrerasPosibles(self.id)) > 0: 
-            return minimax(tablero, self.id, 0, 2, TipoDeJugada.BARRERA)
+            return minimax(tablero, self.id, 0, 4, TipoDeJugada.BARRERA)
 
-        return minimax(tablero, self.id, 0, 2, TipoDeJugada.MOVIMIENTO)
+        return minimax(tablero, self.id, 0, 4, TipoDeJugada.MOVIMIENTO)
 
     
     def terminar(self):
