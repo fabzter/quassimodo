@@ -4,6 +4,7 @@
 #include<irrlicht/irrlicht.h>
 #include "CImageGUISkin.h"
 #include "SkinLoader.h"
+#include<vector>
 using namespace irr;
 namespace Grafico{
 /**
@@ -128,6 +129,13 @@ public:
      * @return un apuntador a un objeto de la clase skin::IGUISkin
      */
     gui::IGUISkin*  getSkinGui();
+    /**
+     * regresa la textura del boton de la partida
+     * @param i indice del boton que se desea obtener si textura
+     * @return un apuntador a un objeto de la clase ITexture
+     */
+    video::ITexture* getBotonPartida(int i);
+
 
 private:
     /**
@@ -212,6 +220,12 @@ private:
      */
     void setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,video::IVideoDriver* driver);
     /**
+     * Carga los iconos de los botones del menu de la partida.
+     * @param smgr un apuntador al manejador de escena del juego
+     * @throws SkinNoCargado si algun elemento no pudo ser cargado
+     */
+    void setBotonesPartida(scene::ISceneManager* smgr);
+    /**
      * Malla con la que se dibujará el tablero
      */
      scene::IAnimatedMesh* Tablero;
@@ -291,6 +305,10 @@ private:
       * skin de la GUi que sera cargadda a irrlicht.
       */
      gui::CImageGUISkin* skin;
+     /**
+      * Imagenes de los  iconos de los botones de la partida
+      */
+     std::vector<video::ITexture*> botonesPartida;
 
 };
 }

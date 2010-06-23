@@ -246,10 +246,10 @@ std::string ManejadorJuego::SplitNombre (std::string str)
             anm->setRotationNumbers(1078,45);
              break;
         case 3:
-             anm->setRotationNumbers(1170,45);
+             anm->setRotationNumbers(1350,45);
              break;
          case 4:
-             anm->setRotationNumbers(1350,45);
+             anm->setRotationNumbers(1170,45);
              break;
     
 

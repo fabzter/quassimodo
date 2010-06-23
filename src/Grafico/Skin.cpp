@@ -1,4 +1,6 @@
 
+#include <vector>
+
 #include "Skin.hpp"
 
 Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys) {
@@ -14,6 +16,7 @@ Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IF
     this->setTerrain(smgr,fsys);
     this->setSkyDome(smgr);
     this->setSkinGui(env,fsys,smgr->getVideoDriver());
+    this->setBotonesPartida(smgr);
 }
 
 Grafico::Skin::Skin(const Skin& orig) {
@@ -158,6 +161,23 @@ void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,
    this->skin->setFont(font, gui::EGDF_DEFAULT);*/
 
 }
+void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
+    std::ostringstream strs;
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton3_1lateral1.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton3_1lateral2.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton5_1frente1.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton5_1frente2.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton2_1_pausa.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton_1_menu.png" ) );
+    for(int i=0;i<this->botonesPartida.size();i++){
+         if( this->botonesPartida.at(i)== NULL  )
+            {
+                strs << "No pudo ser cargado el Skin en la parte de los botones de la partida ( el boton "<<i<<" )";
+                throw SkinNoCargado(strs.str().c_str());
+            }
+    }
+}
+
 scene::IAnimatedMesh* Grafico::Skin::getCelda(){
     return this->Celda;
 }
@@ -217,4 +237,7 @@ video::ITexture* Grafico::Skin::getTSkydome(){
 }
 gui::IGUISkin*  Grafico::Skin::getSkinGui(){
     return this->skin;
+}
+video::ITexture*  Grafico::Skin::getBotonPartida(int i){
+    return this->botonesPartida.at(i);
 }

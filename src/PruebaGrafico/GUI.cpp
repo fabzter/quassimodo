@@ -141,10 +141,11 @@ void GUI::setBotonesPartida(){
       float size=50,dan=dis_ancho;
       for(int i=0;i<BP_COUNT;i++){
           
-            this->botonPartida.at(i)= this->env->addButton(core::rect<s32>( dan,dis_alto,dan+size, dis_alto+size ),0,i+1000,L"2") ;
+            this->botonPartida.at(i)= this->env->addButton(core::rect<s32>( dan,dis_alto,dan+size, dis_alto+size ),0,i+1000,L"") ;
             dan+=size+10;
       this->botonPartida.at(i)->setDrawBorder(true);
-
+      this->botonPartida.at(i)->setImage( this->skin->getBotonPartida(i) );
+      this->botonPartida.at(i)->setUseAlphaChannel(true);
       }
       botonesPartida=true;
     
