@@ -6,7 +6,7 @@ sys.path.append("../lib")
 import random
 import math
 from heapq import heappush, heappop
-from Reglas import astar, TipoDeJugada
+from Reglas import astar, TipoDeJugada, minimax
 import Reglas
 
 MIN = False
@@ -99,15 +99,17 @@ class AgenteInteligente (Reglas.Agente):
         tablero.tipo = MAX
         tablero.idJugador = self.id
         
-        if len(ayudante.getBarrerasPosibles(self.id)) != 0:
-            minmax(tablero, 0, 1, TipoDeJugada.BARRERA)
-        else:
-            minmax(tablero, 0, 2)
-        #minmax(tablero, 0, 2)
+        #if len(ayudante.getBarrerasPosibles(self.id)) != 0:
+        #    return minimax(tablero, self.id, 0, 1, TipoDeJugada.BARRERA)
+        #else:
+        #    return minimax(tablero, self.id, 0, 2, TipoDeJugada.MOVIMIENTO)
+        
+        
+        #if len(self.ayudante.getBarrerasPosibles(self.id)) > 0: 
+        #    return minimax(tablero, self.id, 0, 2, TipoDeJugada.BARRERA)
 
-        for hijo in tablero.hijos:
-            if hijo.val == tablero.val:
-                return hijo.jugada
+        return minimax(tablero, self.id, 0, 4, TipoDeJugada.MOVIMIENTO)
+
     
     def terminar(self):
         print "Jugador {0} ha terminado.".format( self.id )

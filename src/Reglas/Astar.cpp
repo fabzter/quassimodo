@@ -99,6 +99,16 @@ std::vector<void*>* Reglas::astar(Reglas::Tablero *t, int idJugador)
         int result = mapa.getPather()->Solve( (void*)&(t->getCelda(idJugador)),
                         (void*)&(*meta_it), path, &totalCost );
 
+        if(result == micropather::MicroPather::START_END_SAME)
+        {
+            path->clear();
+            result = micropather::MicroPather::SOLVED;
+        }
+        if(result == micropather::MicroPather::NO_SOLUTION)
+        {
+            path->resize(82);
+            result = micropather::MicroPather::SOLVED;
+        }
         if(result == micropather::MicroPather::SOLVED )
         {
             if(totalCost < min_cost)
@@ -111,11 +121,13 @@ std::vector<void*>* Reglas::astar(Reglas::Tablero *t, int idJugador)
             else
             {
                 delete path;
+                path = NULL;
             }
         }
         else
         {
             delete path;
+            path = NULL;
         }
     }
     return min_path;

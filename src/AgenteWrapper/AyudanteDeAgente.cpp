@@ -1,8 +1,11 @@
 #include <boost/python.hpp>
 #include <Reglas/AyudanteDeAgente.hpp>
+#include <Reglas/Minimax.hpp>
 using namespace boost::python;
 using namespace Reglas;
 using namespace std;
+
+typedef Jugada (*minimax_with_tab)(Tablero*, int, int, int, TipoDeJugada);
 
 std::vector<Celda*> __astar__(Tablero *t, int idJugador)
 {
@@ -28,4 +31,5 @@ void export_ayudante_de_agente()
     ;
     
     def("astar", &__astar__);
+    def("minimax", minimax_with_tab(&minimax) );
 }
