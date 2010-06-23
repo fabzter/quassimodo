@@ -95,9 +95,9 @@ void GUI::dropAvsA(){
 }
 
 void GUI::dibujaSelector(bool ambos){
-      core::dimension2d<unsigned int> S_S=this->smgr->getVideoDriver()->getScreenSize();
-      int d_a=100,d_al=150;
-      core::rect<s32> recW=core::rect<s32>(100, 150 , S_S.Width-d_a ,S_S.Height-d_al);
+      core::dimension2d<unsigned int> S_S=core::dimension2d<unsigned int>(600,310);
+      int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2,d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
+      core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a ,S_S.Height+d_al);
 
       AvsA= this->env->addWindow(recW,true,L"Agentes:");
 

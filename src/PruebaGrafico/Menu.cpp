@@ -90,10 +90,12 @@ void Menu::dropMenuP(){
 
  }
  void Menu::setBotones(){
+
       core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();
-      int dis_ancho=100,dis_alto=70;
-      float t_alto=(Scren_Size.Height- (2*dis_alto) )/B_COUNT, t_ancho=Scren_Size.Width-(2*dis_ancho);
-      int p_alto=dis_alto;
+      int dis_ancho=Scren_Size.Width/15 ,dis_alto=70;
+      core::dimension2d<unsigned int> recBotones=core::vector2d<unsigned int>( 2*(Scren_Size.Width/4), (Scren_Size.Height/2)-70 );
+      float t_alto= recBotones.Height/B_COUNT, t_ancho=recBotones.Width;
+      int p_alto=50;//Scren_Size.Height/2;
       for(int i=0;i<B_COUNT;i++){
           
             this->botones.push_back( this->env->addButton(core::rect<s32>( dis_ancho, p_alto, t_ancho+dis_ancho, p_alto+t_alto ),0,

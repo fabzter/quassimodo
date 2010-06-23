@@ -26,8 +26,8 @@ Grafico::Skin::~Skin() {
 }
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
-    this->Tablero=smgr->getMesh("Texturas/Tablero.3ds");
-    this->TTAblero=smgr->getVideoDriver()->getTexture( "Texturas/Moss0138_10_S.jpg" );
+    this->Tablero=smgr->getMesh("conf/Texturas/Tablero.3ds");
+    this->TTAblero=smgr->getVideoDriver()->getTexture( "conf/Texturas/Moss0138_10_S.jpg" );
     if( this->Tablero== NULL || this->TTAblero==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte del Tablero ";
@@ -37,21 +37,21 @@ void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
 void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
      std::ostringstream strs;
 
-     this->Jugador2=smgr->getMesh("Texturas/MonoBlanco.3ds");
+     this->Jugador2=smgr->getMesh("conf/Texturas/MonoBlanco.3ds");
       if( this->Jugador2== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 2 ";
             throw SkinNoCargado(strs.str().c_str());
         }
 
-     this->Jugador1=smgr->getMesh("Texturas/Mono.3ds");
+     this->Jugador1=smgr->getMesh("conf/Texturas/Mono.3ds");
     
      if( this->Jugador1== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 1 ";
             throw SkinNoCargado(strs.str().c_str());
         }
-     this->SombraJugador=smgr->getMesh("Texturas/MonoSombra.3ds");
+     this->SombraJugador=smgr->getMesh("conf/Texturas/MonoSombra.3ds");
 
      if( this->SombraJugador== NULL  )
          {
@@ -62,8 +62,8 @@ void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
 }
 void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Antorcha=smgr->getMesh("Texturas/Lumbrera.3ds");
-    this->TAntorcha=smgr->getVideoDriver()->getTexture("Texturas/fire.bmp");
+    this->Antorcha=smgr->getMesh("conf/Texturas/Lumbrera.3ds");
+    this->TAntorcha=smgr->getVideoDriver()->getTexture("conf/Texturas/fire.bmp");
       if( this->Antorcha== NULL || this->TAntorcha== 0  )
         {
             strs << "No pudo ser cargado el Skin en la parte de la antorcha ";
@@ -72,8 +72,8 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Barrera=smgr->getMesh("Texturas/Barrera.3ds");
-    this->TBarrera=smgr->getVideoDriver()->getTexture( "Texturas/BrickOldDirty0078_S.jpg" );
+    this->Barrera=smgr->getMesh("conf/Texturas/Barrera.3ds");
+    this->TBarrera=smgr->getVideoDriver()->getTexture( "conf/Texturas/BrickOldDirty0078_S.jpg" );
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Barrera ";
@@ -82,8 +82,8 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Celda=smgr->getMesh("Texturas/Celda.3ds");//Moss0138_2_S.jpg RockMossy0018_S.jpg
-    this->TCelda=smgr->getVideoDriver()->getTexture( "Texturas/Moss0138_2_S.jpg" );
+    this->Celda=smgr->getMesh("conf/Texturas/Celda.3ds");//Moss0138_2_S.jpg RockMossy0018_S.jpg
+    this->TCelda=smgr->getVideoDriver()->getTexture( "conf/Texturas/Moss0138_2_S.jpg" );
     if( this->Celda== NULL || this->TCelda== 0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Celda ";
@@ -92,7 +92,7 @@ void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setMenuBoton(gui::IGUIEnvironment* env){
      std::ostringstream strs;
-     this->MenuBoton=env->getFont("Texturas/bigfont.png");
+     this->MenuBoton=env->getFont("conf/Texturas/bigfont.png");
      if(this->MenuBoton==0){
           strs << "No pudo ser cargada la Fuente de los Botones del Menú ";
             throw SkinNoCargado(strs.str().c_str());
@@ -100,7 +100,7 @@ void Grafico::Skin::setMenuBoton(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setDefault(gui::IGUIEnvironment* env){
     std::ostringstream strs;
-     this->Default=env->getFont("Texturas/defaultfont2.png");
+     this->Default=env->getFont("conf/Texturas/defaultfont2.png");
      if(this->Default==0){
           strs << "No pudo ser cargada la Fuente Default ";
             throw SkinNoCargado(strs.str().c_str());
@@ -108,7 +108,7 @@ void Grafico::Skin::setDefault(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setMenuToolTip(gui::IGUIEnvironment* env){
     std::ostringstream strs;
-     this->MenuToolTip=env->getFont("Texturas/tooltipfont.png");
+     this->MenuToolTip=env->getFont("conf/Texturas/tooltipfont.png");
      if(this->MenuToolTip==0){
           strs << "No pudo ser cargada la Fuente del Tooltip del Menú ";
             throw SkinNoCargado(strs.str().c_str());
@@ -116,7 +116,7 @@ void Grafico::Skin::setMenuToolTip(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setGUIBoton(gui::IGUIEnvironment* env){
      std::ostringstream strs;
-     this->GUIBoton=env->getFont("Texturas/botonFont.png");
+     this->GUIBoton=env->getFont("conf/Texturas/botonFont.png");
      if(this->GUIBoton==0){
           strs << "No pudo ser cargada la Fuente de los Botones de la GUI ";
             throw SkinNoCargado(strs.str().c_str());
@@ -124,7 +124,7 @@ void Grafico::Skin::setGUIBoton(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
       std::ostringstream strs;
-     this->GUIWindow=env->getFont("Texturas/windowfont.png");
+     this->GUIWindow=env->getFont("conf/Texturas/windowfont.png");
      if(this->GUIWindow==0){
           strs << "No pudo ser cargada la Fuente de la ventana de la GUI ";
             throw SkinNoCargado(strs.str().c_str());
@@ -132,8 +132,8 @@ void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys){
      std::ostringstream strs;
-    this->TTerrain =smgr->getVideoDriver()->getTexture( "Texturas/piso3_TX.jpg" );
-   this->heightMapFile=fsys->createAndOpenFile("Texturas/piso3_HM.bmp");
+    this->TTerrain =smgr->getVideoDriver()->getTexture( "conf/Texturas/piso3_TX.jpg" );
+   this->heightMapFile=fsys->createAndOpenFile("conf/Texturas/piso3_HM.bmp");
      if( this->TTerrain== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del Terreno ";
@@ -143,7 +143,7 @@ void Grafico::Skin::setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys
 }
 void Grafico::Skin::setSkyDome(scene::ISceneManager* smgr){
      std::ostringstream strs;
-    this->Tskydome =smgr->getVideoDriver()->getTexture( "Texturas/3.tree.skydome.png" );
+    this->Tskydome =smgr->getVideoDriver()->getTexture( "conf/Texturas/3.tree.skydome.png" );
      if( this->Tskydome== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del skydome";
@@ -153,7 +153,7 @@ void Grafico::Skin::setSkyDome(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,video::IVideoDriver* driver){
 
-    gui::SImageGUISkinConfig guicfg = LoadGUISkinFromFile(fsys, driver, "Texturas/gui/guiskin.cfg");
+    gui::SImageGUISkinConfig guicfg = LoadGUISkinFromFile(fsys, driver, "conf/Texturas/gui/guiskin.cfg");
     this->skin = new gui::CImageGUISkin(driver, env->getSkin());
     this->skin->loadConfig(guicfg);
 
@@ -163,12 +163,12 @@ void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,
 }
 void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton3_1lateral1.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton3_1lateral2.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton5_1frente1.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton5_1frente2.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton2_1_pausa.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton_1_menu.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_1lateral1.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_1lateral2.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_1frente1.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_1frente2.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton2_1_pausa.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton_1_menu.png" ) );
     for(int i=0;i<this->botonesPartida.size();i++){
          if( this->botonesPartida.at(i)== NULL  )
             {

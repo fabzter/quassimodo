@@ -20,7 +20,7 @@ Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Ju
 }
 
 Grafico::Jugador::~Jugador() {
-    this->terminar();
+    
    // delete this->callback;
     //this->nodoA->removeAnimators();
 

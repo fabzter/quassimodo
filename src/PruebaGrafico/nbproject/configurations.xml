@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="62">
+<configurationDescriptor version="69">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -60,6 +60,8 @@
         <linkerTool>
           <linkerAddLib>
             <pElem>/usr/lib/irrlicht</pElem>
+            <pElem>../lib</pElem>
+            <pElem>./lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>.</pElem>
@@ -103,6 +105,7 @@
             </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
           </linkerLibItems>
+          <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
         </linkerTool>
         <requiredProjects>
           <makeArtifact PL="/home/tokayo/Proyecto/pt/Grafico"
@@ -141,6 +144,8 @@
         <linkerTool>
           <linkerAddLib>
             <pElem>/usr/lib/irrlicht</pElem>
+            <pElem>../lib</pElem>
+            <pElem>./lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../lib</pElem>
@@ -184,6 +189,7 @@
             </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
           </linkerLibItems>
+          <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
         </linkerTool>
       </compileType>
     </conf>

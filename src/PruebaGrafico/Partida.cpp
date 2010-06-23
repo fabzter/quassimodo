@@ -231,5 +231,5 @@ void Partida::impimeTablero(){
             Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
             delete(ju);
       }
-     this->jugadores.clear();
+     
  }

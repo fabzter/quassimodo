@@ -29,7 +29,7 @@ void ManejadorJuego::init(){
 
     this->clearAgentes();
    
-     this->partida=new Partida(this->smgr,this->skin);
+    this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
     this->partidainiciada=false;
     if(this->grafico){

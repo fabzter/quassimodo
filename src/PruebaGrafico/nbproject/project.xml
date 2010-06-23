@@ -15,6 +15,11 @@
                 <make-dep-project>../Reglas</make-dep-project>
                 <make-dep-project>/home/tokayo/Proyecto/pt/Grafico</make-dep-project>
             </make-dep-projects>
+            <sourceRootList/>
+            <confList>
+                <confElem>Debug</confElem>
+                <confElem>Release</confElem>
+            </confList>
         </data>
     </configuration>
 </project>
