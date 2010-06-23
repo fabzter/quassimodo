@@ -4,13 +4,16 @@
 #include "ManejadorJuego.hpp"
 
 
-ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,bool grafico) {
+ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,bool grafico) {
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
-     this->skin=new Grafico::Skin(this->smgr,this->env);
+     this->skin=new Grafico::Skin(this->smgr,this->env,fsys);
     this->terrain==NULL;
+    this->skydome=NULL;
+    this->cam=0;
     this->Agentes.resize(2);
+   
     this->init();
     this->setMenu();
 
@@ -26,7 +29,7 @@ void ManejadorJuego::init(){
 
     this->clearAgentes();
    
-    this->partida=new Partida(this->smgr,this->skin);
+     this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
     this->partidainiciada=false;
     if(this->grafico){
@@ -41,12 +44,14 @@ char ManejadorJuego::setMenu(){
     
     if(this->partidainiciada)
     {
-        delete(this->partida);   
+        delete(this->partida);
+
         delete(this->mgui);
         delete(this->aniend);
-        //delete(this->skin);
+        this->dropSkinAmbiente();
         this->smgr->clear();
         this->env->clear();
+       // this->partida->NuevaPartida(this->smgr);
         this->init();
     }
     if(this->grafico){
@@ -57,7 +62,7 @@ char ManejadorJuego::setMenu(){
 
 }
 
-void ManejadorJuego::setPartida(){
+bool ManejadorJuego::setPartida(){
     if(this->hayagente){
 
         if(this->grafico){
@@ -70,15 +75,18 @@ void ManejadorJuego::setPartida(){
             this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
             this->partida->iniciarPartida();
             this->partidainiciada=true;
+            return this->partidainiciada;
         }
 
       catch (Scripting::ScriptMalo &e)
       {
           this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
+          return this->partidainiciada;
       }
     }
     else{
-         this->mgui->MsgBox("No ha seleccionado agentes",true,BOK_ADVERTENCIA);
+         this->mgui->MsgBox("No ha seleccionado agentes",true, BOK_ERROR);
+         return this->partidainiciada;
     }
 
 }
@@ -134,11 +142,12 @@ void ManejadorJuego::setAgente(std::string Agente,int noAgente){
 void ManejadorJuego::clearAgentes(){
     this->Agentes[0]="";
     this->Agentes[1]="";
+    this->Agentes.clear();
     this->hayagente=false;
 }
 
   void  ManejadorJuego::quick(){
-       this->Agentes[0]="../../bin/agenteBarreras2.py";
+    this->Agentes[0]="../../bin/agenteBarreras2.py";
     this->Agentes[1]="../../bin/agenteBarreras2.py";
     this->hayagente=true;
     this->setPartida();
@@ -156,14 +165,17 @@ void ManejadorJuego::clearAgentes(){
 
   }
  void ManejadorJuego::CambiaTextoAgnt(int bAgente){
-
-     this->mgui->SetTextBtnAngt(bAgente , this->SplitNombre( this->Agentes.at(bAgente) ) );
+     std::string nom= this->SplitNombre( this->Agentes[bAgente] ) ;
+      std::cout<<"nom  " <<nom<<std::endl;
+     this->mgui->SetTextBtnAngt(bAgente ,nom );
 
  }
 std::string ManejadorJuego::SplitNombre (std::string str)
 {
   size_t found;
+   std::cout<<"en find  " <<str<<std::endl;
   found=str.find_last_of("/\\");
+  std::cout<< str.substr(found+1) <<std::endl;
   return str.substr(found+1) ;
 
 }
@@ -188,8 +200,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 
  }
  void ManejadorJuego::setCamMenu(){
-    /* if(this->cam!=NULL)
-         this->cam->remove();*/
+     this->dropCamera();
     this->cam= this->smgr->addCameraSceneNode();
      this->cam->setTarget(core::vector3df(-344.395,170.816,333.796));
      this->cam->setPosition(core::vector3df(-357.9,173,352.904));
@@ -197,18 +208,30 @@ std::string ManejadorJuego::SplitNombre (std::string str)
  }
  void ManejadorJuego::setSkinAmbiente(){
 
-         this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome() );
-         this->terrain =  this->skin->getterrain();
+        this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome() );
+        this->terrain =   this->smgr->addTerrainSceneNode(this->skin->getheightMapFile(),
+		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
+		core::vector3df(0.f, 0.f, 0.f),		// rotation
+		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
+		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+		5,					// maxLOD
+		scene::ETPS_17,				// patchSize
+		4					// smoothFactor
+		);
 	
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
         this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
-        this->terrain->scaleTexture(1.0f, 20.0f);
+       this->terrain->scaleTexture(1.0f, 20.0f);
 
 
  }
  void ManejadorJuego::dropSkinAmbiente(){
      this->terrain->removeAll();
+     this->terrain->remove();
      this->skydome->removeAll();
+     this->skydome->remove();
+     this->terrain=NULL;
+     this->skydome=NULL;
  }
  void ManejadorJuego::cambiaVistaJuego(int vista){
      this->setCamJuego();
@@ -252,11 +275,17 @@ void ManejadorJuego::imprimeTableroConsola(){
     this->partida->impimeTablero();
     std::cin.get();
 }
-
+void ManejadorJuego::dropCamera(){
+    if(this->cam!=0){
+        this->cam->removeAnimators();
+        this->cam->removeAll();
+        this->cam->remove();
+        this->cam=0;
+    }
+}
 void ManejadorJuego::setObjetivoCam(){
     //-47.5287,32.6925,-63.6243
-      if(this->cam!=NULL)
-         this->cam->remove();
+    this->dropCamera();
      this->cam = smgr->addCameraSceneNode();
 	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
         anm->setRotationNumbers(270,57) ;

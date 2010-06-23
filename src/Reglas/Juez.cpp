@@ -333,7 +333,7 @@ void Reglas::Juez::regla_7(Reglas::Jugada& j, int idJugador)
     if(this->estaPuestaEnOrillas(b))
     {
         strs << "EL Jugador " << idJugador << " intento colocar una barrera en un"
-                "sitio y direccion no permitida.";
+                "sitio y direccion no permitida. (una orilla del tablero)";
         throw ReglasRotas(strs.str());
     }
 

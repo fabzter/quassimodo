@@ -83,8 +83,8 @@ bool EventReceiver::OnEvent(const SEvent& event)
                         break;
                     case BO_INICIA:
                         this->juego->getManejadorGUI()->dropAvsA();
-                        this->juego->setPartida();
-                        this->piniciada=true;
+                        if( this->juego->setPartida() )
+                            this->piniciada=true;
                         break;
                     case BO_CANCELA:
                        this->juego->clearAgentes();
@@ -104,9 +104,8 @@ bool EventReceiver::OnEvent(const SEvent& event)
                        this->juego->cambiaVistaJuego(4);
                         break;
                     case BP_MENU:
-                        this->juego->getManejadorGUI()->dropBotonesPartida();
-                        this->juego->setMenu();
-                         this->piniciada=false;
+                        this->piniciada=false;
+                        this->juego->setMenu();     
                          break;
 
                 } 
@@ -122,6 +121,10 @@ bool EventReceiver::OnEvent(const SEvent& event)
             if(event.GUIEvent.EventType==gui::EGET_MESSAGEBOX_OK){
                 switch(event.GUIEvent.Caller->getID()){
                     case BOK_ERROR:
+                        if(this->piniciada){
+                            event.GUIEvent.Caller->remove();
+                            this->piniciada=false;
+                        }
                         this->juego->setMenu();
                         break;
                 }

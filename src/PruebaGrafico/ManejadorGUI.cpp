@@ -14,6 +14,8 @@ ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
 }
 
 ManejadorGUI::~ManejadorGUI() {
+    delete(this->Gui);
+    delete(this->menu);
 }
 void ManejadorGUI::dropMenu(){
     this->menu->dropMenuP();

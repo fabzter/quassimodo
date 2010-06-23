@@ -17,6 +17,7 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
 }
 
 Menu::Menu(const Menu& orig) {
+    this->dropMenuP();
 }
 
 Menu::~Menu() {
@@ -76,6 +77,7 @@ void Menu::dropMenuP(){
         }
          haymenu=false;
          this->botones.clear();
+         this->jugadores.clear();
     }
   
 }

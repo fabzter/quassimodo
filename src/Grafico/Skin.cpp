@@ -1,7 +1,7 @@
 
 #include "Skin.hpp"
 
-Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env) {
+Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys) {
     this->setAntorcha(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
@@ -11,8 +11,9 @@ Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env) {
     this->setGUIBoton(env);
     this->setMenuBoton(env);
     this->setMenuToolTip(env);
-    this->setTerrain(smgr);
+    this->setTerrain(smgr,fsys);
     this->setSkyDome(smgr);
+    this->setSkinGui(env,fsys,smgr->getVideoDriver());
 }
 
 Grafico::Skin::Skin(const Skin& orig) {
@@ -126,20 +127,11 @@ void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
             throw SkinNoCargado(strs.str().c_str());
      }
 }
-void Grafico::Skin::setTerrain(scene::ISceneManager* smgr){
-   // this->heightMTerrain=;
+void Grafico::Skin::setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys){
      std::ostringstream strs;
     this->TTerrain =smgr->getVideoDriver()->getTexture( "Texturas/piso3_TX.jpg" );
-    this->terrain=smgr->addTerrainSceneNode("Texturas/piso3_HM.bmp",
-		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
-		core::vector3df(0.f, 0.f, 0.f),		// rotation
-		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
-		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
-		5,					// maxLOD
-		scene::ETPS_17,				// patchSize
-		4					// smoothFactor
-		);
-     if( this->TTerrain== NULL || this->terrain==NULL  )
+   this->heightMapFile=fsys->createAndOpenFile("Texturas/piso3_HM.bmp");
+     if( this->TTerrain== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del Terreno ";
             throw SkinNoCargado(strs.str().c_str());
@@ -154,6 +146,16 @@ void Grafico::Skin::setSkyDome(scene::ISceneManager* smgr){
             strs << "No pudo ser cargado el Skin en la parte del skydome";
             throw SkinNoCargado(strs.str().c_str());
         }
+
+}
+void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,video::IVideoDriver* driver){
+
+    gui::SImageGUISkinConfig guicfg = LoadGUISkinFromFile(fsys, driver, "Texturas/gui/guiskin.cfg");
+    this->skin = new gui::CImageGUISkin(driver, env->getSkin());
+    this->skin->loadConfig(guicfg);
+
+   /* gui::IGUIFont* font = this->getDefault();
+   this->skin->setFont(font, gui::EGDF_DEFAULT);*/
 
 }
 scene::IAnimatedMesh* Grafico::Skin::getCelda(){
@@ -204,12 +206,15 @@ gui::IGUIFont* Grafico::Skin::getGUIBoton(){
 gui::IGUIFont* Grafico::Skin::getGUIWindow(){
     return this->GUIWindow;
 }
-scene::ITerrainSceneNode* Grafico::Skin::getterrain(){
-    return this->terrain;
+io::IReadFile* Grafico::Skin::getheightMapFile(){
+    return this->heightMapFile;
 }
 video::ITexture* Grafico::Skin::getTTerrain(){
     return this->TTerrain;
 }
 video::ITexture* Grafico::Skin::getTSkydome(){
     return this->Tskydome;
+}
+gui::IGUISkin*  Grafico::Skin::getSkinGui(){
+    return this->skin;
 }

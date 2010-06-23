@@ -8,17 +8,12 @@ using namespace Grafico;
 
 Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
     this->skin=skin;
-    this->t=new Tablero(smgr,this->skin);
-    this->en_curso = this->hay_ganador = false;
-    this->jugador_ganador = this->jugador_en_turno = 0;
-    this->juez = NULL; //esto es solo para destruirlo bien!
-    this->juez = new Reglas::Juez(*t);
     this->escala.X=1,this->escala.Y=1,this->escala.Z=1;
     this->antorchas.reserve(4);
     this->antorchas.resize(4);
     this->Barreras.reserve(20);
     this->jugadores.reserve(2);
-   
+    this->init(smgr);
 
      for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
@@ -28,26 +23,25 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
     this->ColocaAntorchas();
 
 }
+void Partida::init(scene::ISceneManager* smgr){
 
+    this->t=new Tablero(smgr,this->skin);
+    this->en_curso = this->hay_ganador = false;
+    this->jugador_ganador = this->jugador_en_turno = 0;
+    this->juez = NULL; //esto es solo para destruirlo bien!
+    this->juez = new Reglas::Juez(*t);
+}
 Partida::Partida(const Partida& orig) {
 }
 
 Partida::~Partida() {
      if(this->juez != NULL)
         delete this->juez;
-     
+     this->dropJugadores();
      for(int i=0;i<this->antorchas.size();i++){
-     
-             this->antorchas.at(i)->dropAntorcha();
-         if(i<this->jugadores.size()){
-             Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
-             ju->drop();
-         }
+        delete this->antorchas.at(i);
      }
-    for(int i=0;i<this->Barreras.size();i++){
-         this->Barreras.at(i)->drop();
-     }
-         
+     this->dropBarreras();
      delete(this->t);
 }
 
@@ -190,6 +184,8 @@ bool Partida::hayGanador()
       std::vector<Reglas::Agente*> agentes;
       agentes.push_back(m->getAgente(rutaAgente1));
       agentes.push_back(m->getAgente(rutaAgente2));
+      delete(m);
+      ///TODO revisar si los agentes son NULL
       
       this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback,this->skin));
      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback,this->skin));
@@ -199,14 +195,14 @@ bool Partida::hayGanador()
  }
 
 void Partida::NuevaPartida(scene::ISceneManager* smgr){
-      for(int i=0;i<this->jugadores.size();i++){
-            Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
-            ju->terminar();
-             ju->drop();
-      }
+     if(this->juez != NULL)
+        delete this->juez;
+    this->dropJugadores();
+    this->dropBarreras();
       delete(this->t);
-      this->t=new Tablero(smgr,this->skin);
-      this->jugadores.clear();
+     
+      this->init(smgr);
+      
 }
 
 core::vector3df Partida::getCentro(){
@@ -221,3 +217,19 @@ core::vector3df Partida::getCentro(){
 void Partida::impimeTablero(){
     std::cout<<*this->t<<std::endl;
 }
+
+ void Partida::dropBarreras(){
+
+     for(int i=0;i<this->Barreras.size();i++){
+         delete( this->Barreras.at(i) );
+     }
+     this->Barreras.clear();
+ }
+
+ void Partida::dropJugadores() {
+     for(int i=0;i<this->jugadores.size();i++){
+            Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
+            delete(ju);
+      }
+     this->jugadores.clear();
+ }
