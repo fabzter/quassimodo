@@ -49,6 +49,22 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
     else
     {
         jugadas = ayudanteCurrent.getBarrerasPosibles(currentTab->idJugador);
+        //discriminamos las jugadas.
+        std::list<Reglas::Jugada>::iterator it_jugs;
+        for(it_jugs = jugadas.begin(); it_jugs != jugadas.end(); it_jugs++)
+        {
+            int posJug_y = it_jugs->getPosicion().at(1);
+            int posEnem_y = 
+            ayudanteCurrent.getCelda((int)currentTab->idEnemigo).getPosicion().at(1);
+            if( !( 
+                 (posJug_y <= (posEnem_y + 2)) && (posJug_y >= (posEnem_y - 2))
+                    ) )
+            {
+                std::cout << jugadas.size() << std::endl;
+                jugadas.erase(it_jugs);
+                it_jugs--;
+            }
+        }
     }
 
     while(jugadas.size() > 0)

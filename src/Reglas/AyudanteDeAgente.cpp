@@ -157,6 +157,11 @@ Reglas::AyudanteDeAgente::getBarrerasPosibles(int numJugador)
     return jugadas;
 }
 
+const Reglas::Celda& Reglas::AyudanteDeAgente::getCelda(int idJugador)
+{
+    return this->tablero->getCelda(idJugador);
+}
+
 bool Reglas::AyudanteDeAgente::hayGanador()
 {
     return this->juez->hayGanador() > 0;

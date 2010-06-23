@@ -69,6 +69,14 @@ public:
     std::list<Jugada> getBarrerasPosibles(int numJugador);
 
     /**
+     * Nos indica la Celda en la que se encuentra el Jugador con id idJugador.
+     * @param idJugador un entero con el id del Jugador a buscar.
+     * @return una referencia a la Celda donde se encuentra el Jugador buscado.
+     * @throws JugadorNoColocado.
+     */
+    const Celda& getCelda(int idJugador);
+
+    /**
      * Nos indica sí el Tablero que revisa el Ayudante tiene ya un ganador.
      * @return true si hay un ganador. false de lo contrario.
      */
