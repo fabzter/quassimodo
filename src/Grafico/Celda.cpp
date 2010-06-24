@@ -13,14 +13,7 @@ Grafico::Celda::Celda(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza(){
 
        this->nodoA->setMaterialTexture(0,skin->getTCelda() );
        this->nodoA->getMaterial(0).NormalizeNormals=true;
-       //this->nodoA->addShadowVolumeSceneNode();
-       /*core::matrix4 mat= this->nodoA->getMaterial(0).getTextureMatrix(0);
 
-      // mat=mat.setTranslation(core::vector3df(rand() % 100,rand() % 100,rand() % 100));
-      core::vector3df v=core::vector3df(rand() % 100,rand() % 100,rand() % 100) ;
-       mat.rotateVect(v);
-       //mat=mat.setTextureTranslate(rand() % 1000,rand() % 1000);
-       this->nodoA->getMaterial(0).setTextureMatrix(1,mat);*/
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
        this->setSombra();
 
@@ -31,9 +24,8 @@ Grafico::Celda::Celda(const Celda& orig):Grafico::Pieza(orig) {
 
 
 Grafico::Celda::~Celda() {
+
 }
-
-
 
   void Grafico::Celda::setCeldaR (const Reglas::Celda *celdaR){
       this->celdaR=celdaR;

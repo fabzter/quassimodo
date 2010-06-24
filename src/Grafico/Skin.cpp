@@ -1,7 +1,9 @@
 
+#include <vector>
+
 #include "Skin.hpp"
 
-Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env) {
+Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys) {
     this->setAntorcha(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
@@ -11,8 +13,10 @@ Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env) {
     this->setGUIBoton(env);
     this->setMenuBoton(env);
     this->setMenuToolTip(env);
-    this->setTerrain(smgr);
+    this->setTerrain(smgr,fsys);
     this->setSkyDome(smgr);
+    this->setSkinGui(env,fsys,smgr->getVideoDriver());
+    this->setBotonesPartida(smgr);
 }
 
 Grafico::Skin::Skin(const Skin& orig) {
@@ -126,10 +130,10 @@ void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
             throw SkinNoCargado(strs.str().c_str());
      }
 }
-void Grafico::Skin::setTerrain(scene::ISceneManager* smgr){
-    this->heightMTerrain="Texturas/piso3_HM.bmp";
+void Grafico::Skin::setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys){
      std::ostringstream strs;
     this->TTerrain =smgr->getVideoDriver()->getTexture( "Texturas/piso3_TX.jpg" );
+   this->heightMapFile=fsys->createAndOpenFile("Texturas/piso3_HM.bmp");
      if( this->TTerrain== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del Terreno ";
@@ -147,6 +151,33 @@ void Grafico::Skin::setSkyDome(scene::ISceneManager* smgr){
         }
 
 }
+void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,video::IVideoDriver* driver){
+
+    gui::SImageGUISkinConfig guicfg = LoadGUISkinFromFile(fsys, driver, "Texturas/gui/guiskin.cfg");
+    this->skin = new gui::CImageGUISkin(driver, env->getSkin());
+    this->skin->loadConfig(guicfg);
+
+   /* gui::IGUIFont* font = this->getDefault();
+   this->skin->setFont(font, gui::EGDF_DEFAULT);*/
+
+}
+void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
+    std::ostringstream strs;
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton3_1lateral1.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton3_1lateral2.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton5_1frente1.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton5_1frente2.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton2_1_pausa.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "Texturas/gui/boton_1_menu.png" ) );
+    for(int i=0;i<this->botonesPartida.size();i++){
+         if( this->botonesPartida.at(i)== NULL  )
+            {
+                strs << "No pudo ser cargado el Skin en la parte de los botones de la partida ( el boton "<<i<<" )";
+                throw SkinNoCargado(strs.str().c_str());
+            }
+    }
+}
+
 scene::IAnimatedMesh* Grafico::Skin::getCelda(){
     return this->Celda;
 }
@@ -195,12 +226,18 @@ gui::IGUIFont* Grafico::Skin::getGUIBoton(){
 gui::IGUIFont* Grafico::Skin::getGUIWindow(){
     return this->GUIWindow;
 }
-io::path Grafico::Skin::getHTerrain(){
-    return this->heightMTerrain;
+io::IReadFile* Grafico::Skin::getheightMapFile(){
+    return this->heightMapFile;
 }
 video::ITexture* Grafico::Skin::getTTerrain(){
     return this->TTerrain;
 }
 video::ITexture* Grafico::Skin::getTSkydome(){
     return this->Tskydome;
+}
+gui::IGUISkin*  Grafico::Skin::getSkinGui(){
+    return this->skin;
+}
+video::ITexture*  Grafico::Skin::getBotonPartida(int i){
+    return this->botonesPartida.at(i);
 }

@@ -18,12 +18,17 @@ class Partida {
 public:
 
     /**
-     * Constructor de la case partida, se encarga de inicializar todas las variables ecepto
+     * Constructor de la case partida, se encarga de inicializar todas las variables exepto
      * los jugadores,
      * @param smgr Un apuntador al  manejador de la escena
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
     Partida(scene::ISceneManager* smgr,Grafico::Skin* skin);
+    /**
+     *reserva memoria e inicializa al tablero y al juez
+     * @param smgr Un apuntador al  manejador de la escena
+     */
+    void init(scene::ISceneManager* smgr);
     /**
      * Constructor copia de la clase Partida
      * @param orig un objeto de la clase Partida
@@ -131,6 +136,14 @@ private:
      * @param  smgr un apuntador al manejador de la escena
      */
     void SetBarrera(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr);
+    /**
+     *Elimina las Barreras de la partida y de la escena actual.
+     */
+    void dropBarreras();
+    /**
+     *Elimina los jugadores de la partida y de la escena actual.
+     */
+    void dropJugadores();
  
     /**
      * Tablero sobre el que se realizará la partida.

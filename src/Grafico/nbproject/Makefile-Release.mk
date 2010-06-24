@@ -32,13 +32,18 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Exepciones.o \
+	${OBJECTDIR}/SkinLoader.o \
 	${OBJECTDIR}/Tablero.o \
-	${OBJECTDIR}/Barrera.o \
+	${OBJECTDIR}/CGUIProgressBar.o \
+	${OBJECTDIR}/CConfigReader.o \
+	${OBJECTDIR}/CImageGUISkin.o \
 	${OBJECTDIR}/Celda.o \
 	${OBJECTDIR}/Antorcha.o \
 	${OBJECTDIR}/Skin.o \
 	${OBJECTDIR}/Jugador.o \
-	${OBJECTDIR}/Pieza.o
+	${OBJECTDIR}/Pieza.o \
+	${OBJECTDIR}/Barrera.o \
+	${OBJECTDIR}/CConfigMap.o
 
 # C Compiler Flags
 CFLAGS=
@@ -75,15 +80,30 @@ ${OBJECTDIR}/Exepciones.o: nbproject/Makefile-${CND_CONF}.mk Exepciones.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exepciones.o Exepciones.cpp
 
+${OBJECTDIR}/SkinLoader.o: nbproject/Makefile-${CND_CONF}.mk SkinLoader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/SkinLoader.o SkinLoader.cpp
+
 ${OBJECTDIR}/Tablero.o: nbproject/Makefile-${CND_CONF}.mk Tablero.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
 
-${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
+${OBJECTDIR}/CGUIProgressBar.o: nbproject/Makefile-${CND_CONF}.mk CGUIProgressBar.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
+
+${OBJECTDIR}/CConfigReader.o: nbproject/Makefile-${CND_CONF}.mk CConfigReader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigReader.o CConfigReader.cpp
+
+${OBJECTDIR}/CImageGUISkin.o: nbproject/Makefile-${CND_CONF}.mk CImageGUISkin.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CImageGUISkin.o CImageGUISkin.cpp
 
 ${OBJECTDIR}/Celda.o: nbproject/Makefile-${CND_CONF}.mk Celda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -109,6 +129,16 @@ ${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
+
+${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
+
+${OBJECTDIR}/CConfigMap.o: nbproject/Makefile-${CND_CONF}.mk CConfigMap.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigMap.o CConfigMap.cpp
 
 # Subprojects
 .build-subprojects:

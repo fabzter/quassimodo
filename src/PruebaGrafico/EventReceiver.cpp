@@ -35,7 +35,6 @@ bool EventReceiver::OnEvent(const SEvent& event)
             break;
             // si el elento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.
        case irr::EET_MOUSE_INPUT_EVENT:
-            //bool evento=false;
             switch(event.MouseInput.Event)
             {
                     case EMIE_LMOUSE_PRESSED_DOWN:
@@ -80,16 +79,16 @@ bool EventReceiver::OnEvent(const SEvent& event)
                         break;
                     case BA_AGENTE_2:
                         this->noA=1;
-                       this->juego->getManejadorGUI()->OpenFileDialog();
+                        this->juego->getManejadorGUI()->OpenFileDialog();
                         break;
                     case BO_INICIA:
                         this->juego->getManejadorGUI()->dropAvsA();
-                       this->juego->setPartida();
-                          this->piniciada=true;
+                        if( this->juego->setPartida() )
+                            this->piniciada=true;
                         break;
                     case BO_CANCELA:
                        this->juego->clearAgentes();
-                        this->juego->getManejadorGUI()->dropAvsA();
+                       this->juego->getManejadorGUI()->dropAvsA();
                        this->juego->getManejadorGUI()->setMenu();
                         break;
                     case BP_VISTA1:
@@ -105,17 +104,30 @@ bool EventReceiver::OnEvent(const SEvent& event)
                        this->juego->cambiaVistaJuego(4);
                         break;
                     case BP_MENU:
-                        this->juego->getManejadorGUI()->dropBotonesPartida();
-                        this->juego->setMenu();
-                         this->piniciada=false;
+                        this->piniciada=false;
+                        this->juego->setMenu();     
                          break;
 
                 } 
             }
+            //si es un evento que selecciono un archivo
             if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
                this->juego->setAgente(this->juego->getManejadorGUI()->getPath(), this->noA);
                this->juego->CambiaTextoAgnt(this->noA);
                 this->noA=-1;
+
+              }
+            //si es un evento de presionar el botón de OK en un msgBox
+            if(event.GUIEvent.EventType==gui::EGET_MESSAGEBOX_OK){
+                switch(event.GUIEvent.Caller->getID()){
+                    case BOK_ERROR:
+                        if(this->piniciada){
+                            event.GUIEvent.Caller->remove();
+                            this->piniciada=false;
+                        }
+                        this->juego->setMenu();
+                        break;
+                }
               }
       
             break;

@@ -18,6 +18,19 @@
                    displayName="Resource Files"
                    projectFiles="true">
     </logicalFolder>
+    <logicalFolder name="f1" displayName="SkinGUI" projectFiles="true">
+      <itemPath>CConfigMap.cpp</itemPath>
+      <itemPath>CConfigMap.h</itemPath>
+      <itemPath>CConfigReader.cpp</itemPath>
+      <itemPath>CConfigReader.h</itemPath>
+      <itemPath>CGUIProgressBar.cpp</itemPath>
+      <itemPath>CGUIProgressBar.h</itemPath>
+      <itemPath>CImageGUISkin.cpp</itemPath>
+      <itemPath>CImageGUISkin.h</itemPath>
+      <itemPath>SkinLoader.cpp</itemPath>
+      <itemPath>SkinLoader.h</itemPath>
+      <itemPath>clipRects.h</itemPath>
+    </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">

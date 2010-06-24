@@ -12,18 +12,17 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
     else
         this->mesh=skin->getJugador2();
       this->dibuja(smgr);
-      this->callback=callback;
+      //this->callback=callback;
       this->setSombra(skin->getSombraJugador());
-     //scene::IShadowVolumeSceneNode *sombra=this->nodoA->addShadowVolumeSceneNode();
-
-
-    
 }
 
 Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){
 }
 
 Grafico::Jugador::~Jugador() {
+    this->terminar();
+   // delete this->callback;
+    //this->nodoA->removeAnimators();
 
 }
  void Grafico::Jugador::Gira(core::vector3df giro){
@@ -33,15 +32,16 @@ Grafico::Jugador::~Jugador() {
  bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos){
 
       // this->nodoA->removeAnimators();
-      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,250,false,false);
+    /*  scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,250,false,false);
       if (anim)
 		{
 			this->nodoA->addAnimator(anim);
 			anim->drop();
-      }
+      }*/
+      this->setPosicion(npos);
 
-      this->posiciong=npos;
-       this->nodoA->setAnimationEndCallback(this->callback);
+      //this->posiciong=npos;
+     //  this->nodoA->setAnimationEndCallback(this->callback);
       return true;
      
   }

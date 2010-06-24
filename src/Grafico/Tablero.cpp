@@ -42,13 +42,13 @@ Grafico::Tablero::Tablero(const Tablero& orig): Pieza(orig), Reglas::Tablero(ori
 }
 Grafico::Tablero::~Tablero(){
 
-
      for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
-            this->datos.at(i).at(j)->drop();
+            delete( this->datos.at(i).at(j) );
         }
+        this->datos.at(i).clear();
     }
-
+     this->datos.clear();
     
 }
 void Grafico::Tablero::setPosicionTablero(int x,int y,int z){

@@ -2,6 +2,9 @@
 #define	_SKIN_HPP
 #include"Exepciones.hpp"
 #include<irrlicht/irrlicht.h>
+#include "CImageGUISkin.h"
+#include "SkinLoader.h"
+#include<vector>
 using namespace irr;
 namespace Grafico{
 /**
@@ -14,8 +17,9 @@ public:
      *Constructor de la clase skin, manda a llamar a todos los metodos set.
      * @param smgr un apuntador al manejador de la escena del juego
      * @param env un puntador al manejador de la GUI del juego
+     * @param fsys proporciona un apuntador al sistema de archivos
      */
-    Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env);
+    Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys);
     /**
      *Constructor copia de la clase skin
      * @param orig un objeto de la clase skin
@@ -106,10 +110,10 @@ public:
      */
     gui::IGUIFont* getGUIWindow();
     /**
-     *Regresa el paht del textura en High del terreno
-     * @return un objeto de la clase io::path
+     *Regresa el nodo escena que contiene el terreno
+     * @return un objeto de la clase scene::ITerrainSceneNode
      */
-    io::path getHTerrain();
+   io::IReadFile* getheightMapFile();
     /**
      *Obtiene la textura que le es aplicada Terreno del juego
      * @return  un apuntador a un objeto de la clase ITexture
@@ -120,6 +124,19 @@ public:
      * @return  un apuntador a un objeto de la clase ITexture
      */
     video::ITexture* getTSkydome();
+    /**
+     *Regresa el skin de la gui que sera utilizada.
+     * @return un apuntador a un objeto de la clase skin::IGUISkin
+     */
+    gui::IGUISkin*  getSkinGui();
+    /**
+     * regresa la textura del boton de la partida
+     * @param i indice del boton que se desea obtener si textura
+     * @return un apuntador a un objeto de la clase ITexture
+     */
+    video::ITexture* getBotonPartida(int i);
+
+
 private:
     /**
      *Carga la malla y la textura del tablero .
@@ -153,19 +170,19 @@ private:
     void setCelda(scene::ISceneManager* smgr);
     /**
      *Carga la tipografia de los botones del Menu
-     * @param env un apuntador al manejador de la tipografa
+     * @param env un apuntador al manejador de la gui de irrlicht.
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
     void setMenuBoton(gui::IGUIEnvironment* env);
     /**
      *Carga la tipografia que tendrá por default
-     * @param env un apuntador al manejador de la tipografa
+     * @param env un apuntador al manejador de la gui de irrlicht
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
     void setDefault(gui::IGUIEnvironment* env);
     /**
      *Carga la tipografia del ToolTip
-     * @param env un apuntador al manejador de la tipografa
+     * @param env un apuntador al manejador de la gui de irrlicht.
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
     void setMenuToolTip(gui::IGUIEnvironment* env);
@@ -177,22 +194,37 @@ private:
     void setGUIBoton(gui::IGUIEnvironment* env);
     /**
      *Carga la tipografia que se le aplica al titulo de la ventana
-     * @param env un apuntador al manejador de la tipografa
+     * @param env un apuntador al manejador de la gui de irrlicht
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
     void setGUIWindow(gui::IGUIEnvironment* env);
     /**
      *Carga las texturas del Terreno.
      * @param smgr un apuntador al manejador de escena del juego
+     * @param fsys proporciona un apuntador al sistema de archivos
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
-    void setTerrain(scene::ISceneManager* smgr);
+    void setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys);
     /**
      *Carga la textura del skydome .
      * @param smgr un apuntador al manejador de escena del juego
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
     void setSkyDome(scene::ISceneManager* smgr);
+    /**
+     *Carga el skin que será utilizado por la gui.
+     * @param env un apuntador al manejador de la gui de irrlicht
+     * @param fsys un apuntador al sistema de archivos.
+     * @param driver un apuntador al  driver de video
+     * @throws SkinNoCargado si algun elemento no pudo ser cargado
+     */
+    void setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,video::IVideoDriver* driver);
+    /**
+     * Carga los iconos de los botones del menu de la partida.
+     * @param smgr un apuntador al manejador de escena del juego
+     * @throws SkinNoCargado si algun elemento no pudo ser cargado
+     */
+    void setBotonesPartida(scene::ISceneManager* smgr);
     /**
      * Malla con la que se dibujará el tablero
      */
@@ -258,10 +290,9 @@ private:
       */
      gui::IGUIFont* GUIWindow;
      /**
-      * path en el que se almacena la textura del Terreno con la que se le dan
-      * las montañas, valles etc.
+      *Archivo del terreno con las que se dibujan las montañas, valles etc.
       */
-     io::path heightMTerrain;
+     io::IReadFile* heightMapFile;
      /**
       *  Textura que le será aplicada al terreno del juego
       */
@@ -270,6 +301,14 @@ private:
       *  Textura que le será aplicada al skydome
       */
      video::ITexture* Tskydome;
+     /**
+      * skin de la GUi que sera cargadda a irrlicht.
+      */
+     gui::CImageGUISkin* skin;
+     /**
+      * Imagenes de los  iconos de los botones de la partida
+      */
+     std::vector<video::ITexture*> botonesPartida;
 
 };
 }

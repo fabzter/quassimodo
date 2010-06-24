@@ -9,6 +9,7 @@
 #include"GUI.hpp"
 #include<string>
 #include<iostream>
+#include"Enums.hpp"
 using namespace irr;
 /**
  * clase que se encarga de todos los objetos de la GUI
@@ -42,7 +43,7 @@ public:
      * @as GUI::MsgBox
      * @param grafico si se mandara mensaje de consola o grafico
      */
-    void MsgBox(const char* msg,bool grafico=true);
+    void MsgBox(const char* msg,bool grafico=true,GUI_BOTONES_OK idMsg=BOK_INFO);
     /**
      *Método que se encarga de lanzar al selector de los agentes
      * @as GUI::AgntVSAgnt

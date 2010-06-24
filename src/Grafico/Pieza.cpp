@@ -76,7 +76,13 @@ core::vector3df  Grafico::Pieza::getEscala(){
 }
 
 void Grafico::Pieza::drop(){
-     this->nodoA->remove();
+    
+     if(this->sombra!=NULL){
+       //this->sombra->removeAll();
+         this->sombra->remove();
+         this->sombra=NULL;
+     }
+      this->nodoA->remove();
 }
 
  void Grafico::Pieza::setSombra(scene::IMesh* shadowMesh){

@@ -6,6 +6,7 @@
 #include "Partida.hpp"
 #include "AnimacionEnd.hpp"
 #include"tokayoCamera.hpp"
+#include"Enums.hpp"
 #include <Grafico/Skin.hpp>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
@@ -23,9 +24,10 @@ public:
      *Constructor de la clase, se encarga de inicializar los atributos y colocar el menu princpal
      * @param smgr un apuntador al manejador de escena del juego
      * @param env un apuntador al creador de GUI que proporciona irrlicht
+     * @fsys proporciona un apuntador al sistema de archivos
      * @param grafico bandera que indica si la aplicacion correra en modo grafico o solo en consola
      */
-    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,bool grafico=true);
+    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,bool grafico=true);
     /**
      * Constructor copia de la clase
      *@param orig un objeto de la clase ManejadorJuego
@@ -46,8 +48,9 @@ public:
     char setMenu();
     /**
      * elimina el menú principal y si se han seleccionado los agentes inicia la partida
+     * @return true si la partida ha iniciado, false en caso contrario.
      */
-    void setPartida();
+    bool setPartida();
     /**
      *Método encargado aumentar o disminuir la escala del juego
      * @param x Un entero que representa la escala que tendrá en el eje de las X
@@ -125,6 +128,10 @@ public:
      *Imprime el tablero en consola y espera hasta que se presione la tecla INTRO.
      */
     void imprimeTableroConsola();
+    /**
+     *Elimina la camara actual del manejador de la escena.
+     */
+    void dropCamera();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente

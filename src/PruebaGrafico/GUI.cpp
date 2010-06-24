@@ -17,11 +17,14 @@ GUI::GUI(const GUI& orig) {
 }
 
 GUI::~GUI() {
+    this->dropBotonesPartida();
+    this->dropAvsA();
+    this->op=NULL;
 }
 void GUI::setSkin(){
      //gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
     
-	gui::IGUISkin* skin =this->env->getSkin();
+	/*gui::IGUISkin* skin =this->env->getSkin();
 
          //skin->setFont(this->skin->getGUIWindow(),gui::EGDF_WINDOW);
 
@@ -39,14 +42,18 @@ void GUI::setSkin(){
          col.setAlpha(250);
          skin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
      }
-  // this->env->setSkin(skin);
-    //skin->drop();
+      skin->drop();*/
+
+    gui::IGUISkin* sskin = this->skin->getSkinGui();
+    sskin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
+    sskin->setColor( gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255) );
+    this->env->setSkin( sskin );
  }
-void GUI::MsgBox(const char* msg ){
+void GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg){
 
     wchar_t m[strlen(msg)] ;
     this->charTowchar(m,msg);
-    gui::IGUIWindow* window=this->env->addMessageBox(L"Quassimodo dice:",m);
+    gui::IGUIWindow* window=this->env->addMessageBox(L"Quassimodo dice:",m,true, gui::EMBF_OK,0, idMsg);
 
 }
  void GUI::AgntVSAgnt(){
@@ -68,7 +75,6 @@ std::string GUI::getPath(){
     (*py)='\0';
    }
     std::string cosa(msg);
-     std::cout<<msg<<std::endl;
     free(msg);
 
      return cosa;
@@ -78,8 +84,14 @@ std::string GUI::getPath(){
       op = this->env->addFileOpenDialog(L"Selecciona el Agente",true,0,5);
   }
 void GUI::dropAvsA(){
-    if(this->AvsA!=0)
+    if(this->AvsA!=0){
+        this->botonAgente[0]->remove();
+        this->botonAgente[1]->remove();
+        this->botonAgente[0]= this->botonAgente[1]=0;
         this->AvsA->remove();
+        this->AvsA=0;
+    }
+        
 }
 
 void GUI::dibujaSelector(bool ambos){
@@ -129,10 +141,11 @@ void GUI::setBotonesPartida(){
       float size=50,dan=dis_ancho;
       for(int i=0;i<BP_COUNT;i++){
           
-            this->botonPartida.at(i)= this->env->addButton(core::rect<s32>( dan,dis_alto,dan+size, dis_alto+size ),0,i+1000,L"2") ;
+            this->botonPartida.at(i)= this->env->addButton(core::rect<s32>( dan,dis_alto,dan+size, dis_alto+size ),0,i+1000,L"") ;
             dan+=size+10;
       this->botonPartida.at(i)->setDrawBorder(true);
-
+      this->botonPartida.at(i)->setImage( this->skin->getBotonPartida(i) );
+      this->botonPartida.at(i)->setUseAlphaChannel(true);
       }
       botonesPartida=true;
     
@@ -142,6 +155,8 @@ void GUI::dropBotonesPartida(){
           for(int i=0;i<BP_COUNT;i++){
             this->botonPartida.at(i)->remove();
           }
+           botonesPartida=false;
     }
+
 
 }

@@ -34,8 +34,9 @@ public:
      *Un msgBox  con el que solo tienes la opcion de Aceptar y desde aqui no se maneja
      * el evento de darle click al boton
      * @param msg una cadena de caracteres en la cual contiene el mensaje que queremos enviar
+     *  @param idMsg id de la caja de dialogo para indicar si es un mensaje de error de informacion etc
      */
-     void MsgBox(const char* msg );
+     void MsgBox(const char* msg ,GUI_BOTONES_OK idMsg);
      /**
       *Lanza el cuadro selector de los dos agentes.
       */

@@ -37,13 +37,7 @@ Grafico::Antorcha::Antorcha(const Antorcha& orig) : Pieza(orig){
 }
 
 Grafico::Antorcha::~Antorcha() {
-    this->nfuego->removeAnimators();
-    this->nfuego->removeAll();
-    this->nfuego->remove();
-    this->nfuego->drop();
-   // this->nfuego->drop();
-
-    this->fuego->drop();
+    this->dropAntorcha();
 }
 
 void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
@@ -141,6 +135,7 @@ void Grafico::Antorcha::setEscalaAntorcha(int x,int y, int z){
 
 }
 void Grafico::Antorcha::dropAntorcha(){
+    this->nfuego->removeAnimators();
     this->nfuego->removeAll();
-    this->drop();
+    this->nfuego->remove();
 }
