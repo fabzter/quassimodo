@@ -20,6 +20,7 @@ struct NodoMinimax
     NodoMinimax(Tablero *t);
 
     bool tipo; //MIN O MAX
+    TipoDeJugada tipoDeJugadaInicial; //el tipo de la Jugada que se pidio desde el inicio.
     char idJugador; //jugador al que le toca tirar sobre el tablero.
     char idEnemigo; 
     Jugada jugada; //la jugada que llevó a este estado.

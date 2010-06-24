@@ -8,7 +8,7 @@
 Reglas::Jugada::Jugada()
 {
   this->direccion = NORTE;
-  this->setPosicion(0,0);
+  this->setPosicion(-1,-1);
   this->tipo = MOVIMIENTO;
 }
 

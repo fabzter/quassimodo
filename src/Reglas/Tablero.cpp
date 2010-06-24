@@ -94,7 +94,6 @@ void Reglas::Tablero::copiar(const Reglas::Tablero& orig)
 
 void Reglas::Tablero::setJugadores(const std::vector<Jugador*> &jugadores)
 {
-    std::cout<<"en reglas setjugadores iddel 0 ="<<jugadores.size()<<std::endl;
     this->jugadores.resize(jugadores.size());
     this->jugadores = jugadores;
 
