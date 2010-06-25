@@ -49,6 +49,21 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
     else
     {
         jugadas = ayudanteCurrent.getBarrerasPosibles(currentTab->idJugador);
+        //discriminamos las jugadas.
+        std::list<Reglas::Jugada>::iterator it_jugs;
+        for(it_jugs = jugadas.begin(); it_jugs != jugadas.end(); it_jugs++)
+        {
+            int posJug_y = it_jugs->getPosicion().at(1);
+            int posEnem_y = 
+            ayudanteCurrent.getCelda((int)currentTab->idEnemigo).getPosicion().at(1);
+            if( !( 
+                 (posJug_y <= (posEnem_y + 2)) && (posJug_y >= (posEnem_y - 2))
+                    ) )
+            {
+                jugadas.erase(it_jugs);
+                it_jugs--;
+            }
+        }
     }
 
     while(jugadas.size() > 0)
@@ -57,6 +72,7 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
         jugadas.pop_front();
 
         NodoMinimax *tabHijo = new NodoMinimax(new Tablero(currentTab->tablero));
+        tabHijo->tipoDeJugadaInicial = currentTab->tipoDeJugadaInicial;
         if(jugada.getTipoDeJugada() == MOVIMIENTO)
         {
             tabHijo->tablero->moverJugador(currentTab->idJugador, jugada.getPosicion());
@@ -70,6 +86,7 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
         if( (*(tabHijo->tablero) == *(currentTab->tablero)) ||
             tabHijo->estaEn(currentTab->hijos))
         {
+            delete tabHijo->tablero;
             delete tabHijo;
             continue;
         }
@@ -116,23 +133,19 @@ Reglas::Jugada Reglas::minimax(Reglas::Tablero *currentTab, int idJugador,
     NodoMinimax *nodoCurrent = new NodoMinimax(currentTab);
     nodoCurrent->idJugador = idJugador;
     nodoCurrent->tipo = MAX;
+    nodoCurrent->tipoDeJugadaInicial = tipoJug;
     minimax(nodoCurrent, currentDepth, maxDepth, tipoJug);
 
     Jugada j;
-
-    std::cout << "Soy un tablero de valor: " << nodoCurrent->val << " y soy:\n" <<
-            * nodoCurrent->tablero << '\n' << "Y mis hijos:" << std::endl;
 
     std::list<NodoMinimax*>::iterator it_hijos;
     for(it_hijos = nodoCurrent->hijos.begin();
                             it_hijos != nodoCurrent->hijos.end(); it_hijos++)
     {
-        if(nodoCurrent->val == (*it_hijos)->val)
+        if(nodoCurrent->val == (*it_hijos)->val )
         {
             j = (*it_hijos)->jugada;
         }
-        std::cout << "Soy un tablero HIJO de valor: " << (*it_hijos)->val << " y soy:\n" <<
-            * (*it_hijos)->tablero << std::endl;
         delete (*it_hijos)->tablero;
         delete ((*it_hijos));
     }
@@ -150,10 +163,23 @@ float Reglas::evaluate(NodoMinimax* nodo)
     float astar_jugador_eval = astar_jugador_path->size();
     float astar_enemigo_eval = astar_enemigo_path->size();
 
+    float w1 = 1.0f;
+    float w2 = 1.0f;
+
     delete astar_jugador_path;
     delete astar_enemigo_path;
     
+    if(nodo->tipoDeJugadaInicial == BARRERA)
+    {
+        w2 = 1.5f;
+    }
+    else if (nodo->tipoDeJugadaInicial == MOVIMIENTO)
+    {
+        w1 = 1.5f;
+    }
+    
     return
-            (CELLS - astar_jugador_eval)
-           - (CELLS - astar_enemigo_eval);
+            ( w1 * (CELLS - astar_jugador_eval) )
+           - ( w2 * (CELLS - astar_enemigo_eval) )
+            ;
 }

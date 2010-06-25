@@ -103,11 +103,13 @@ std::vector<void*>* Reglas::astar(Reglas::Tablero *t, int idJugador)
         {
             path->clear();
             result = micropather::MicroPather::SOLVED;
+            totalCost = 0;
         }
         if(result == micropather::MicroPather::NO_SOLUTION)
         {
             path->resize(82);
             result = micropather::MicroPather::SOLVED;
+            totalCost = 82;
         }
         if(result == micropather::MicroPather::SOLVED )
         {
