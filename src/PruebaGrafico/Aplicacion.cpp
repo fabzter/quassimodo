@@ -76,8 +76,9 @@ void Aplicacion::loopGrafico(){
             this->device->yield();
                 }
         }
-
-            this->device->drop();
+    this->Vdriver->removeAllHardwareBuffers();
+    this->Vdriver->removeAllTextures();
+    this->device->drop();
 
 }
 bool Aplicacion::seleccionaOpcion(char op){

@@ -14,6 +14,8 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
       this->dibuja(smgr);
       //this->callback=callback;
       this->setSombra(skin->getSombraJugador());
+      this->getNodo()->getMaterial(0).Shininess=20.0f;
+
 }
 
 Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){

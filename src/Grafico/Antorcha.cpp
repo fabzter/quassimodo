@@ -60,6 +60,7 @@ void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
                  this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f,1.0f),this->radioLuz*this->getEscala().X);
                  this->nfuego->setLightType(video::ELT_POINT);
+                 this->nfuego->enableCastShadow(true);
                          //hacemos el fuego
         	this->ps =	smgr->addParticleSystemSceneNode(false,nfuego);
                 scene::IParticleEmitter* em = ps->createBoxEmitter(

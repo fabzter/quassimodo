@@ -90,3 +90,6 @@ void Grafico::Pieza::drop(){
   
   
  }
+scene::IShadowVolumeSceneNode* Grafico::Pieza::getNodoSombra(){
+     return this->sombra;
+ }

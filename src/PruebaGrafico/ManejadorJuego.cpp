@@ -51,7 +51,6 @@ char ManejadorJuego::setMenu(){
         this->dropSkinAmbiente();
         this->smgr->clear();
         this->env->clear();
-       // this->partida->NuevaPartida(this->smgr);
         this->init();
     }
     if(this->grafico){
@@ -297,7 +296,5 @@ void ManejadorJuego::setObjetivoCam(){
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
      cam->setTarget(t+v);
      
-     this->smgr->setActiveCamera(cam);
-
-    
+     this->smgr->setActiveCamera(cam);   
 }

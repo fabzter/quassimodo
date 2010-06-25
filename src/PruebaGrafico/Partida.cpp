@@ -24,7 +24,7 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
 
 }
 void Partida::init(scene::ISceneManager* smgr){
-
+    this->triangle=smgr->createMetaTriangleSelector();
     this->t=new Tablero(smgr,this->skin);
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
@@ -130,8 +130,9 @@ bool Partida::MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager
          unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
         this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
-       this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
+        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
         this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
+        this->setTopeSombra(pos-1,smgr);
         
  }
 
@@ -232,4 +233,28 @@ void Partida::impimeTablero(){
             delete(ju);
       }
      
+ }
+ void Partida::setTopeSombra(int i,scene::ISceneManager* smgr){
+
+
+         scene::ITriangleSelector* selector= smgr->createTriangleSelectorFromBoundingBox(this->Barreras.at(i)->getNodo());
+            this->Barreras.at(i)->getNodo()->setTriangleSelector(selector);
+            this->triangle->addTriangleSelector(selector);
+            selector->drop();
+            for(int j=0;j<this->jugadores.size();j++){
+                Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(j);
+                if(ju->getNodoSombra()->getAnimators().size()>0)
+                    ju->getNodoSombra()->removeAnimators();
+                const core::aabbox3d<f32>& box = ju->getNodoSombra()->getBoundingBox();
+                core::vector3df radius = box.MaxEdge - box.getCenter();
+                // create collision response animator and attach it to the camera
+                scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
+                        this->triangle,ju->getNodoSombra() ,radius,
+                        core::vector3df(0,0,0),
+                        core::vector3df(70,0,0));
+//
+                ju->getNodoSombra()->addAnimator(anim);
+                anim->drop();
+            }
+
  }

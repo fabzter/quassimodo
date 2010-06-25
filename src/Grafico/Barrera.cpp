@@ -4,7 +4,7 @@
 
 using namespace irr;
 
-Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin) {
+Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza(),Reglas::Barrera() {
 
       this->mesh=skin->getBarrera();
      this->dibuja(smgr);
@@ -13,7 +13,7 @@ Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin) {
        this->setSombra();
 }
 
-Grafico::Barrera::Barrera(const Barrera& orig) {
+Grafico::Barrera::Barrera(const Barrera& orig):Grafico::Pieza(orig),Reglas::Barrera(orig) {
 }
 
 Grafico::Barrera::~Barrera() {

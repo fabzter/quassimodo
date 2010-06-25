@@ -144,6 +144,12 @@ private:
      *Elimina los jugadores de la partida y de la escena actual.
      */
     void dropJugadores();
+    /**
+     * Coloca el tope en las barreras para que las sombran no pasen a travez de la barrera.
+     * @param i indice de la barrera que tendrá el tope
+     * @param  smgr un apuntador al manejador de la escena
+     */
+    void setTopeSombra(int i,scene::ISceneManager* smgr);
  
     /**
      * Tablero sobre el que se realizará la partida.
@@ -197,6 +203,7 @@ private:
       * vector en donde se almacena la escala que tendrá el juego.
       */
      core::vector3df escala;
+     scene::IMetaTriangleSelector* triangle;
 
 
 };
