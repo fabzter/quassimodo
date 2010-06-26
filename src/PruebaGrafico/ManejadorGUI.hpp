@@ -115,6 +115,7 @@ private:
      * @return un string que contiene la direccion del archivo del agente.
      */
     std::string pideAgente(int noA=1);
+
     /**
      * un apuntador e un objeto de la Clase Menu
      */

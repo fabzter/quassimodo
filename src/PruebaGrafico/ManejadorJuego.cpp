@@ -24,6 +24,11 @@ ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 }
 
 ManejadorJuego::~ManejadorJuego() {
+    delete this->skin;
+    delete(this->partida);
+    delete(this->mgui);
+    delete(this->aniend);
+    this->dropSkinAmbiente();
 }
 void ManejadorJuego::init(){
 
@@ -42,10 +47,10 @@ void ManejadorJuego::init(){
 }
 char ManejadorJuego::setMenu(){
     
+
     if(this->partidainiciada)
     {
         delete(this->partida);
-
         delete(this->mgui);
         delete(this->aniend);
         this->dropSkinAmbiente();
@@ -64,24 +69,36 @@ char ManejadorJuego::setMenu(){
 bool ManejadorJuego::setPartida(){
     if(this->hayagente){
 
-        if(this->grafico){
-            this->mgui->dropMenu();
-            this->setCamJuego();
-            this->mgui->setMenuPartida();
+        try{
+            this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
+        }
+        catch (Scripting::ScriptMalo &e)
+        {
+            std::string msj;
+            msj="Error al cargar el script del Agente: ";msj.push_back(this->partida->getAgenteCError());
+            msj+="\n";
+            msj.append(e.what());
+          this->mgui->MsgBox(msj.c_str(),this->grafico,BOK_ERROR);
+          return this->partidainiciada;
         }
 
         try{
-            this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
+            
             this->partida->iniciarPartida();
             this->partidainiciada=true;
+            if(this->grafico){
+                this->mgui->dropMenu();
+                this->setCamJuego();
+                this->mgui->setMenuPartida();
+            }
             return this->partidainiciada;
         }
 
-      catch (Scripting::ScriptMalo &e)
-      {
-          this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-          return this->partidainiciada;
-      }
+         catch (Scripting::ScriptMalo &e)
+          {
+              this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
+              return this->partidainiciada;
+          }
     }
     else{
          this->mgui->MsgBox("No ha seleccionado agentes",true, BOK_ERROR);
@@ -145,11 +162,11 @@ void ManejadorJuego::clearAgentes(){
     this->hayagente=false;
 }
 
-  void  ManejadorJuego::quick(){
-    this->Agentes[0]="../../bin/agenteBarreras2.py";
-    this->Agentes[1]="../../bin/agenteBarreras2.py";
+  bool  ManejadorJuego::quick(){
+    this->Agentes[0]="agenteBarreras2.py";
+    this->Agentes[1]="agenteBarreras2.py";
     this->hayagente=true;
-    this->setPartida();
+    return this->setPartida();
   }
   void ManejadorJuego::printCam(){
 

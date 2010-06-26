@@ -10,7 +10,7 @@ Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza
      this->dibuja(smgr);
      this->nodoA->setMaterialTexture( 0, skin->getTBarrera() );
        this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
-       this->setSombra();
+     //  this->setSombra();
 }
 
 Grafico::Barrera::Barrera(const Barrera& orig):Grafico::Pieza(orig),Reglas::Barrera(orig) {

@@ -92,8 +92,9 @@ public:
     /**
      * Inicia una partida Rápida, este metodo generalmente es como un demo
      * de la aplicación
+     * @return true si la partida inicio, false en caso contrario
      */
-    void quick();
+    bool quick();
     /**
      * Imprime los valores de la camara, como son posicion, objetivo y rotación
      */

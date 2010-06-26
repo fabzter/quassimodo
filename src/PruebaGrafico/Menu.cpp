@@ -17,7 +17,7 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
 }
 
 Menu::Menu(const Menu& orig) {
-    this->dropMenuP();
+    
 }
 
 Menu::~Menu() {
@@ -50,7 +50,7 @@ Menu::~Menu() {
  void Menu::SetEscala(int x,int y,int z){
       this->escala.X=x ,this->escala.Y=y, this->escala.Z=z;
 
-      if(haymenu){
+      if(this->menuEnEscena()){
 
          for(int i=0;i<this->t->num_jugadores;i++){
              this->jugadores.at(i)->setEscala(x,y,z);
@@ -61,19 +61,21 @@ Menu::~Menu() {
  }
 
  void Menu::setMenuP(){
-
-     haymenu=true;
-     this->SetJugadores();
-     this->setBotones();
-     this->setSkin();
-     this->SetEscala( this->escala.X ,this->escala.Y, this->escala.Z);
+     if(!this->menuEnEscena()){
+         haymenu=true;
+         this->SetJugadores();
+         this->setBotones();
+         this->setSkin();
+         this->SetEscala( this->escala.X ,this->escala.Y, this->escala.Z);
+     }
  }
 void Menu::dropMenuP(){
-    if( haymenu){
+    if( this->menuEnEscena()){
          for (int i=0;i<B_COUNT;i++){
              this->botones.at(i)->remove();
+             this->botones.at(i)=0;
              if(i<2)
-                  this->jugadores.at(i)->drop();
+                  delete this->jugadores.at(i);
         }
          haymenu=false;
          this->botones.clear();
@@ -119,4 +121,6 @@ void Menu::dropMenuP(){
     return op;
   }
   
- 
+ bool Menu::menuEnEscena(){
+     return this->haymenu;
+ }

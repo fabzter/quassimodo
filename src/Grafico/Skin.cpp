@@ -163,12 +163,18 @@ void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,
 }
 void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_1lateral1.png" ) );
+    /*this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_1lateral1.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_1lateral2.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_1frente1.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_1frente2.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton2_1_pausa.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton_1_menu.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton_1_menu.png" ) );*/
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton4_2-1_vuelta.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton4_2-1_vuelta.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_2-1_frente.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_2-2_vuelta.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton1_2_pausa.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_2_menu.png" ) );
     for(int i=0;i<this->botonesPartida.size();i++){
          if( this->botonesPartida.at(i)== NULL  )
             {

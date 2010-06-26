@@ -24,7 +24,7 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
 
 }
 void Partida::init(scene::ISceneManager* smgr){
-    this->triangle=smgr->createMetaTriangleSelector();
+    //this->triangle=smgr->createMetaTriangleSelector();
     this->t=new Tablero(smgr,this->skin);
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
@@ -43,6 +43,7 @@ Partida::~Partida() {
      }
      this->dropBarreras();
      delete(this->t);
+     //this->triangle->drop();
 }
 
 void Partida::iniciarPartida()
@@ -76,7 +77,11 @@ bool Partida::siguienteJugada(scene::ISceneManager* smgr)
     j = this->juez->siguienteJugada(this->jugador_en_turno);
     this->en_curso = true;
     }
-    catch(Reglas::Excepcion e ){
+    catch(Reglas::Excepcion &e ){
+        throw;
+        return this->en_curso;
+    }
+    catch(Scripting::ScriptMalo &e){
         throw;
         return this->en_curso;
     }
@@ -180,16 +185,40 @@ bool Partida::hayGanador()
  }
 
  bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr,scene::IAnimationEndCallBack* callback){
-
-      Scripting::Manejador *m = new Scripting::Manejador(*t);
+        Scripting::Manejador *m;
+     try{
+        m= new Scripting::Manejador(*t);
+     }
+     catch(Scripting::Excepcion &e){
+         this->errorEnAgente='-1';
+         throw;
+     }
       std::vector<Reglas::Agente*> agentes;
-      agentes.push_back(m->getAgente(rutaAgente1));
-      agentes.push_back(m->getAgente(rutaAgente2));
+      try{
+          agentes.push_back(m->getAgente(rutaAgente1));      
+      }
+      catch(Scripting::Excepcion &e){
+          this->errorEnAgente='1';
+          delete(m);
+          throw;
+          return false;
+      }
+      try{
+          agentes.push_back(m->getAgente(rutaAgente2));
+       }
+          catch(Scripting::Excepcion &e){
+              this->errorEnAgente='2';
+              delete(m);
+              delete agentes.at(0);
+              throw;
+              return false;
+          }
+      
       delete(m);
       ///TODO revisar si los agentes son NULL
       
       this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback,this->skin));
-     this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback,this->skin));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback,this->skin));
        
       this->t->setJugadores( this->jugadores);
       this->SetEscala(this->escala.X,this->escala.Y,this->escala.Z);
@@ -222,6 +251,7 @@ void Partida::impimeTablero(){
  void Partida::dropBarreras(){
 
      for(int i=0;i<this->Barreras.size();i++){
+         std::cout<<"borrando la barrera : "<<i<<" de "<<this->Barreras.size()<<std::endl;
          delete( this->Barreras.at(i) );
      }
      this->Barreras.clear();
@@ -229,6 +259,7 @@ void Partida::impimeTablero(){
 
  void Partida::dropJugadores() {
      for(int i=0;i<this->jugadores.size();i++){
+         std::cout<<"borrando el jugador: "<<i<<" de "<<this->jugadores.size()<<std::endl;
             Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
             delete(ju);
       }
@@ -237,7 +268,7 @@ void Partida::impimeTablero(){
  void Partida::setTopeSombra(int i,scene::ISceneManager* smgr){
 
 
-         scene::ITriangleSelector* selector= smgr->createTriangleSelectorFromBoundingBox(this->Barreras.at(i)->getNodo());
+         /*scene::ITriangleSelector* selector= smgr->createTriangleSelectorFromBoundingBox(this->Barreras.at(i)->getNodo());
             this->Barreras.at(i)->getNodo()->setTriangleSelector(selector);
             this->triangle->addTriangleSelector(selector);
             selector->drop();
@@ -255,6 +286,9 @@ void Partida::impimeTablero(){
 //
                 ju->getNodoSombra()->addAnimator(anim);
                 anim->drop();
-            }
+            }*/
 
+ }
+ char Partida::getAgenteCError(){
+     return this->errorEnAgente;
  }

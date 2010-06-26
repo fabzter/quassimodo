@@ -13,6 +13,7 @@
 #include<vector>
 #include<wchar.h>
 #include"Enums.hpp"
+//TODO: acabar de documentar
 using namespace irr;
 /**
  * Clase que se encarga del menú principal, poner las piezas de los jugadores (solo para el menú estas no son las mismas que se uilizan en la partida)
@@ -59,6 +60,7 @@ public:
     std::string pideAgente(int noA=1);
     std::string AgntvsAgnt();
     std::string AgntvsMkn();
+    
 
 private:
     /**
@@ -89,6 +91,11 @@ private:
      * Vector en donde se almacenan los botones del Menu
      */
     std::vector<gui::IGUIButton *> botones;
+    /**
+     * Indica siel menu se esta  mostrando en la aplicacion o no.
+     * @return true si se muestra, false en caso contrario.
+     */
+    bool menuEnEscena();
     /**
      * bandera que indica si se coloco un menu o no.
      */

@@ -78,7 +78,7 @@ core::vector3df  Grafico::Pieza::getEscala(){
 void Grafico::Pieza::drop(){
     
      if(this->sombra!=NULL){
-       //this->sombra->removeAll();
+         this->sombra->removeAll();
          this->sombra->remove();
          this->sombra=NULL;
      }
