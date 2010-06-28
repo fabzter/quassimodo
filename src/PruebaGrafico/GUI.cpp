@@ -23,8 +23,7 @@ GUI::~GUI() {
 }
 void GUI::setSkin(){
      //gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
-    
-	/*gui::IGUISkin* skin =this->env->getSkin();
+    	/*gui::IGUISkin* skin =this->env->getSkin();
 
          //skin->setFont(this->skin->getGUIWindow(),gui::EGDF_WINDOW);
 

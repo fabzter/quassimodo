@@ -58,6 +58,7 @@ char ManejadorJuego::setMenu(){
         this->env->clear();
         this->init();
     }
+
     if(this->grafico){
         this->setCamMenu();
 
@@ -158,7 +159,7 @@ void ManejadorJuego::setAgente(std::string Agente,int noAgente){
 void ManejadorJuego::clearAgentes(){
     this->Agentes[0]="";
     this->Agentes[1]="";
-    this->Agentes.clear();
+    //this->Agentes.clear();
     this->hayagente=false;
 }
 

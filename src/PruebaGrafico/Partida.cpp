@@ -41,7 +41,7 @@ Partida::~Partida() {
      for(int i=0;i<this->antorchas.size();i++){
         delete this->antorchas.at(i);
      }
-     this->dropBarreras();
+     //this->dropBarreras();
      delete(this->t);
      //this->triangle->drop();
 }
@@ -263,7 +263,7 @@ void Partida::impimeTablero(){
             Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
             delete(ju);
       }
-     
+     this->jugadores.clear();
  }
  void Partida::setTopeSombra(int i,scene::ISceneManager* smgr){
 

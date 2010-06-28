@@ -8,7 +8,7 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
     this->Dvideo=new Video(video);
    // this->Dvideo->getSizeScreen();
      if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
-    this->device=this->Dvideo->creaDevice(!fullscreen);
+    this->device=this->Dvideo->creaDevice(fullscreen);
     this->Vdriver = this->device->getVideoDriver();
     this->smgr = this->device->getSceneManager();
     this->env =this->device->getGUIEnvironment();
