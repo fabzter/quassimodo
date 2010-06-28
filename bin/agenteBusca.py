@@ -104,11 +104,17 @@ class AgenteInteligente (Reglas.Agente):
         #else:
         #    return minimax(tablero, self.id, 0, 2, TipoDeJugada.MOVIMIENTO)
         
+        idEnemigo = 0 if self.id == 1 else 0
         
-        if len(self.ayudante.getBarrerasPosibles(self.id)) > 0: 
-            return minimax(tablero, self.id, 0, 4, TipoDeJugada.BARRERA)
-
-        return minimax(tablero, self.id, 0, 4, TipoDeJugada.MOVIMIENTO)
+        path_yo = astar(self.tab, self.id)
+        path_enemigo = (self.tab, idEnemigo)
+        
+        if len(path_enemigo) < len(path_yo) and \
+                                len(ayudante.getBarrerasPosibles(self.id)) != 0:
+            return minimax(self.tab, self.id, 0, 4, TipoDeJugada.BARRERA)
+        else:
+            return Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )            
+        
 
     
     def terminar(self):
