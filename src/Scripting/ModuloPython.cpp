@@ -1,6 +1,3 @@
-/* 
- */
-
 #include "ModuloPython.hpp"
 
 Scripting::ModuloPython::ModuloPython()

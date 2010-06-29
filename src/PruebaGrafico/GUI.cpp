@@ -1,5 +1,6 @@
-
 #include "GUI.hpp"
+#include <boost/filesystem.hpp>
+
 using namespace irr;
 
 GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Skin) {
@@ -48,12 +49,13 @@ void GUI::setSkin(){
     sskin->setColor( gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255) );
     this->env->setSkin( sskin );
  }
-void GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg){
-
-    wchar_t m[strlen(msg)] ;
-    this->charTowchar(m,msg);
-    gui::IGUIWindow* window=this->env->addMessageBox(L"Quassimodo dice:",m,true, gui::EMBF_OK,0, idMsg);
-
+void GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
+{
+    std::wstringstream wsstring;
+    wsstring << msg;
+    gui::IGUIWindow* window =
+            this->env->addMessageBox(L"Quassimodo dice:", wsstring.str().c_str(),
+                                    true, gui::EMBF_OK,0, idMsg);
 }
  void GUI::AgntVSAgnt(){
      this->dibujaSelector(true);
@@ -61,27 +63,19 @@ void GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg){
  void GUI::AgntVSMkn(){
      this->dibujaSelector(false);
  }
-std::string GUI::getPath(){
+std::string GUI::getPath()
+{
+    wchar_t* m = (wchar_t*)op->getFileName();
+    boost::filesystem::wpath w_path(m);
 
-     const  wchar_t*   m=op->getFileName();
-    size_t requiredSize=  wcslen(m);
-    char* msg = (char*)malloc( requiredSize*sizeof(wchar_t));
-    wcstombs( msg,m, requiredSize);
-   char *py=strrchr(msg,'.');
+    return std::string(w_path.string().begin(), w_path.string().end());
+}
 
-   if(py!=NULL){
-    py+=3;
-    (*py)='\0';
-   }
-    std::string cosa(msg);
-    free(msg);
-
-     return cosa;
-  }
-
- void  GUI::OpenFileDialog(){
+ void  GUI::OpenFileDialog()
+ {
       op = this->env->addFileOpenDialog(L"Selecciona el Agente",true,0,5);
-  }
+ }
+ 
 void GUI::dropAvsA(){
     if(this->AvsA!=0){
         this->botonAgente[0]->remove();
@@ -121,16 +115,14 @@ void GUI::dibujaSelector(bool ambos){
                AvsA, BO_INICIA, L"Inicia");
 
 }
-void  GUI::charTowchar(wchar_t m[],const char* msg){
-   size_t requiredSize=strlen(msg);
-    mbstowcs( m,msg, requiredSize);
 
-}
-void GUI::setTextAgnt(int num,const char* text){
-    if(this->AvsA!=NULL){
-        wchar_t m[strlen(text)] ;
-        this->charTowchar(m,text);
-        this->botonAgente.at(num)->setText(m);
+void GUI::setTextAgnt(int num, const char* text)
+{
+    if(this->AvsA!=NULL)
+    {
+        std::wstringstream wsstream;
+        wsstream << text;
+        this->botonAgente.at(num)->setText(wsstream.str().c_str());
     }
 }
 void GUI::setBotonesPartida(){

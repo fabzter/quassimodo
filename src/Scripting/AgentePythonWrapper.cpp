@@ -1,6 +1,3 @@
-/**
- */
-
 #include "AgentePythonWrapper.hpp"
 
 Scripting::AgentePythonWrapper::AgentePythonWrapper(Reglas::Agente *agente)
