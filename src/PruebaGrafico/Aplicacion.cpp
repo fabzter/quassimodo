@@ -56,7 +56,7 @@ ManejadorJuego* Aplicacion::getManJuego(){
 void Aplicacion::nuevoJuego(){
     delete this->juego;
     this->smgr->clear();
-    //this->env->clear();
+    
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
 }
 

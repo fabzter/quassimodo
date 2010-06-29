@@ -21,8 +21,7 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
 ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 }
 
-ManejadorJuego::~ManejadorJuego() {
-   
+ManejadorJuego::~ManejadorJuego() {  
     delete(this->partida);
     delete(this->mgui);
     if(this->grafico){
@@ -47,17 +46,6 @@ void ManejadorJuego::init(){
 }
 char ManejadorJuego::setMenu(){
     
-
-    if(this->partidainiciada)
-    {
-        delete(this->partida);
-        delete(this->mgui);
-        delete(this->aniend);
-        this->dropSkinAmbiente();
-        this->smgr->clear();
-        this->env->clear();
-        this->init();
-    }
 
     if(this->grafico){
         this->setCamMenu();
