@@ -1,7 +1,5 @@
-/* 
- */
-
 #include "ModuloPython.hpp"
+#include <boost/filesystem.hpp>
 
 Scripting::ModuloPython::ModuloPython()
 {
@@ -26,24 +24,18 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     
     if(this->esta_cargado)
         return;
-    
-    string file_name;
-    string directories;
+
+    boost::filesystem::path ruta_path(ruta);
     //creamos el modulo
     dict locals;
     locals["ruta"] = ruta;
     try
     {
-        //primero extraemos la ruta y el nombre del módulo a cargar
         this->modulo = import("__main__");
         this->namespace_modulo = this->modulo.attr("__dict__");
-        directories = extract<string>( eval("os.path.dirname(ruta)",
-                        this->namespace_modulo, locals) );
-        file_name = extract<string>( eval("os.path.splitext(os.path.basename(ruta))[0]",
-                        this->namespace_modulo, locals) );
         
         //agregamos la ruta del modulo al path de python
-        locals["ruta"] = directories;
+        locals["ruta"] = ruta_path.parent_path().string();
         exec("sys.path.append(ruta)\n", this->namespace_modulo, locals);
     }
     catch(error_already_set& e)
@@ -53,7 +45,7 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     
     try
     {
-        this->modulo = import(str(file_name));
+        this->modulo = import(str(ruta_path.stem()));
     }
     catch(error_already_set& e)
     {

@@ -10,6 +10,8 @@
 # Environment
 MKDIR=mkdir
 CP=cp
+GREP=grep
+NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
@@ -31,12 +33,13 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/AgentePythonWrapper.o \
-	${OBJECTDIR}/ModuloPython.o \
 	${OBJECTDIR}/UtilsPython.o \
-	${OBJECTDIR}/Manejador.o \
+	${OBJECTDIR}/ModuloPython.o \
 	${OBJECTDIR}/Excepciones.o \
+	${OBJECTDIR}/AgentePythonWrapper.o \
+	${OBJECTDIR}/Manejador.o \
 	${OBJECTDIR}/InterpretePython.o
+
 
 # C Compiler Flags
 CFLAGS=
@@ -52,42 +55,42 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/python2.6/config -Wl,-rpath . -lboost_python -lpython2.6 -lutil -ldl
+LDLIBSOPTIONS=-L/usr/lib/python2.6/config -Wl,-rpath . -lboost_python -lpython2.6 -lutil -ldl -lboost_filesystem -lboost_system
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libScripting.so
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libScripting.so
 
 dist/Debug/GNU-Linux-x86/libScripting.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libScripting.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/AgentePythonWrapper.o: nbproject/Makefile-${CND_CONF}.mk AgentePythonWrapper.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgentePythonWrapper.o AgentePythonWrapper.cpp
-
-${OBJECTDIR}/ModuloPython.o: nbproject/Makefile-${CND_CONF}.mk ModuloPython.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ModuloPython.o ModuloPython.cpp
-
-${OBJECTDIR}/UtilsPython.o: nbproject/Makefile-${CND_CONF}.mk UtilsPython.cpp 
+${OBJECTDIR}/UtilsPython.o: UtilsPython.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/UtilsPython.o UtilsPython.cpp
 
-${OBJECTDIR}/Manejador.o: nbproject/Makefile-${CND_CONF}.mk Manejador.cpp 
+${OBJECTDIR}/ModuloPython.o: ModuloPython.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Manejador.o Manejador.cpp
+	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ModuloPython.o ModuloPython.cpp
 
-${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
+${OBJECTDIR}/Excepciones.o: Excepciones.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
 
-${OBJECTDIR}/InterpretePython.o: nbproject/Makefile-${CND_CONF}.mk InterpretePython.cpp 
+${OBJECTDIR}/AgentePythonWrapper.o: AgentePythonWrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgentePythonWrapper.o AgentePythonWrapper.cpp
+
+${OBJECTDIR}/Manejador.o: Manejador.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Manejador.o Manejador.cpp
+
+${OBJECTDIR}/InterpretePython.o: InterpretePython.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/InterpretePython.o InterpretePython.cpp

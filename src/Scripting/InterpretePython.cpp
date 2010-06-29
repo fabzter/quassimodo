@@ -1,7 +1,5 @@
-/**
- */
-
 #include "InterpretePython.hpp"
+#include <boost/filesystem.hpp>
 
 Scripting::InterpretePython::InterpretePython()
 {
@@ -74,6 +72,18 @@ void Scripting::InterpretePython::agregarModulo(std::string ruta)
 
 bool Scripting::InterpretePython::manejaModulo(std::string ruta)
 {
-    std::string subfix = ".py";
-    return (ruta.size() - ruta.rfind(subfix)) == 3;
+    std::vector<std::string> subfixes;
+    subfixes.push_back("py");
+    subfixes.push_back("pyc");
+
+    boost::filesystem::path ruta_path(ruta);
+
+    for(int i = 0; i < subfixes.size(); i++)
+    {
+        if(subfixes.at(i).compare(ruta_path.extension()))
+        {
+            return true;
+        }
+    }
+    return false;
 }
