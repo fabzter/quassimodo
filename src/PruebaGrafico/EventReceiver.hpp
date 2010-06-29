@@ -2,7 +2,6 @@
 #ifndef _EVENTRECEIVER_HPP
 #define	_EVENTRECEIVER_HPP
 #include<irrlicht.h>
-#include"ManejadorJuego.hpp"
 
 
 
@@ -22,13 +21,14 @@
  * Clase encargada de Recibir los Eventos del Teclado y del Mouse para que despues sean manejados.
  * hereda de la clase IEventREceiver de irrlicht
  */
+class Aplicacion;
 class EventReceiver  : public irr::IEventReceiver {
 
 public:
     /**
      *Constructor de la clase EventReceiver, inicializa el elstado de todas las teclas en false
      */
-    EventReceiver(ManejadorJuego* juego);
+    EventReceiver(Aplicacion* app);
     /**
      *Constructor copia de la clase EventReceiver
      * @param orig un objeto de la clase EventReceiver
@@ -71,7 +71,7 @@ private:
         /**
          * Un apuntador Nucleo de la aplicacion (la clase Juego)
          */
-        ManejadorJuego* juego;
+        Aplicacion* app;
         /**
          * un entero en donde almacenamos el numero del agente elegido
          */

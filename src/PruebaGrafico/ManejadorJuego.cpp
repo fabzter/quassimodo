@@ -4,12 +4,11 @@
 #include "ManejadorJuego.hpp"
 
 
-ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,bool grafico) {
+ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, Grafico::Skin* skin,bool grafico) {
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
-    this->fsys=fsys;
-   
+    this->skin=skin;
     this->terrain==NULL;
     this->skydome=NULL;
     this->Agentes.resize(2);  
@@ -23,7 +22,7 @@ ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 }
 
 ManejadorJuego::~ManejadorJuego() {
-    delete this->skin;
+   
     delete(this->partida);
     delete(this->mgui);
     if(this->grafico){
@@ -34,7 +33,7 @@ ManejadorJuego::~ManejadorJuego() {
 void ManejadorJuego::init(){
 
     this->clearAgentes();
-     this->skin=new Grafico::Skin(this->smgr,this->env,this->fsys);
+   
     this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
     this->partidainiciada=false;
@@ -51,14 +50,10 @@ char ManejadorJuego::setMenu(){
 
     if(this->partidainiciada)
     {
-        delete this->skin;
         delete(this->partida);
         delete(this->mgui);
         delete(this->aniend);
         this->dropSkinAmbiente();
-        
-        this->smgr->getVideoDriver()->removeAllHardwareBuffers();
-        this->smgr->getVideoDriver()->removeAllTextures();
         this->smgr->clear();
         this->env->clear();
         this->init();
