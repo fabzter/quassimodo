@@ -21,6 +21,8 @@ Reglas::Jugador::Jugador(const Jugador& orig) : Pieza(orig)
 
 Reglas::Jugador::~Jugador()
 {
+    this->terminar();
+    delete( this->agente );
 }
 
 void Reglas::Jugador::mover(const std::vector<int> &nuevaPos)

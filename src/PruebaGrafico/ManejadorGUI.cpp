@@ -31,7 +31,7 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
 
  void ManejadorGUI::AgntVSAgnt(bool ambos){
      
-     this->menu->dropMenuP();
+    // this->menu->dropMenuP();
      if(ambos)
          this->Gui->AgntVSAgnt();
      else

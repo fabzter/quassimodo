@@ -60,7 +60,7 @@ video::E_DRIVER_TYPE Video::getVideoType(){
      if(!fullscreen)
          return irr::createDevice(this->getVideoType(),core::dimension2d<u32>(1024, 768), this->DPixel,fullscreen,true, false);
      else
-         return irr::createDevice(this->getVideoType(),this->DResolution, 16,fullscreen,true, false);
+         return irr::createDevice(this->getVideoType(),this->DResolution, 32,fullscreen,true, false);
  }
 void Video::DetectaEscritorio(){
   IrrlichtDevice* device;
@@ -68,9 +68,7 @@ void Video::DetectaEscritorio(){
   video::IVideoModeList *VL = device->getVideoModeList();
   this->DResolution=VL->getDesktopResolution();
   this->DPixel=VL->getDesktopDepth();
- /* for(int i=0; i<VL->getVideoModeCount();i++){
-      std::cout<<VL->getVideoModeResolution(i).Width<<" "<<VL->getVideoModeResolution(i).Height<<std::endl;
-  }*/
+
   device->drop();
 
   }

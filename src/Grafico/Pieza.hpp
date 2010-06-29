@@ -85,6 +85,11 @@ public:
          * @param shadowMesh un mesh que sera utilizado en la sombra, por default utiliza el mismo de la pieza.
          */
         void setSombra(scene::IMesh* shadowMesh=0);
+        /**
+         * obtiene el nodo sombra de la pieza.
+         * @return  un pauntador al nodo sombra
+         */
+        scene::IShadowVolumeSceneNode* getNodoSombra();
 
 
 protected:

@@ -23,8 +23,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
             if(  this->piniciada && event.KeyInput.Key==irr::KEY_KEY_R)
               this->piniciada=this->juego->SiguienteJugada();
              if(  event.KeyInput.Key==irr::KEY_KEY_Q)
-                 if(!this->piniciada){
-                    this->juego->quick();
+                 if(!this->piniciada && this->juego->quick()){
                      this->piniciada=true;
                  }
              if(  event.KeyInput.Key==irr::KEY_KEY_P){
@@ -89,7 +88,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case BO_CANCELA:
                        this->juego->clearAgentes();
                        this->juego->getManejadorGUI()->dropAvsA();
-                       this->juego->getManejadorGUI()->setMenu();
+                       //this->juego->getManejadorGUI()->setMenu();
                         break;
                     case BP_VISTA1:
                        this->juego->cambiaVistaJuego(1);
@@ -122,7 +121,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 switch(event.GUIEvent.Caller->getID()){
                     case BOK_ERROR:
                         if(this->piniciada){
-                            event.GUIEvent.Caller->remove();
+
                             this->piniciada=false;
                         }
                         this->juego->setMenu();

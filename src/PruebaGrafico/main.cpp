@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
     std::cin>>op;
     Aplicacion *app=new Aplicacion("","",op=='s'?"AUTO":"NULL");
     app->run();
-   
+    delete(app);
     return 0;
 }
 

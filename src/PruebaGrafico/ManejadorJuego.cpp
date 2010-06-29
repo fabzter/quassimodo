@@ -24,12 +24,17 @@ ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 }
 
 ManejadorJuego::~ManejadorJuego() {
+    delete this->skin;
+    delete(this->partida);
+    delete(this->mgui);
+    delete(this->aniend);
+    this->dropSkinAmbiente();
 }
 void ManejadorJuego::init(){
 
     this->clearAgentes();
    
-     this->partida=new Partida(this->smgr,this->skin);
+    this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
     this->partidainiciada=false;
     if(this->grafico){
@@ -42,18 +47,18 @@ void ManejadorJuego::init(){
 }
 char ManejadorJuego::setMenu(){
     
+
     if(this->partidainiciada)
     {
         delete(this->partida);
-
         delete(this->mgui);
         delete(this->aniend);
         this->dropSkinAmbiente();
         this->smgr->clear();
         this->env->clear();
-       // this->partida->NuevaPartida(this->smgr);
         this->init();
     }
+
     if(this->grafico){
         this->setCamMenu();
 
@@ -65,24 +70,36 @@ char ManejadorJuego::setMenu(){
 bool ManejadorJuego::setPartida(){
     if(this->hayagente){
 
-        if(this->grafico){
-            this->mgui->dropMenu();
-            this->setCamJuego();
-            this->mgui->setMenuPartida();
+        try{
+            this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
+        }
+        catch (Scripting::ScriptMalo &e)
+        {
+            std::string msj;
+            msj="Error al cargar el script del Agente: ";msj.push_back(this->partida->getAgenteCError());
+            msj+="\n";
+            msj.append(e.what());
+          this->mgui->MsgBox(msj.c_str(),this->grafico,BOK_ERROR);
+          return this->partidainiciada;
         }
 
         try{
-            this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
+            
             this->partida->iniciarPartida();
             this->partidainiciada=true;
+            if(this->grafico){
+                this->mgui->dropMenu();
+                this->setCamJuego();
+                this->mgui->setMenuPartida();
+            }
             return this->partidainiciada;
         }
 
-      catch (Scripting::ScriptMalo &e)
-      {
-          this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-          return this->partidainiciada;
-      }
+         catch (Scripting::ScriptMalo &e)
+          {
+              this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
+              return this->partidainiciada;
+          }
     }
     else{
          this->mgui->MsgBox("No ha seleccionado agentes",true, BOK_ERROR);
@@ -142,15 +159,15 @@ void ManejadorJuego::setAgente(std::string Agente,int noAgente){
 void ManejadorJuego::clearAgentes(){
     this->Agentes[0]="";
     this->Agentes[1]="";
-    this->Agentes.clear();
+    //this->Agentes.clear();
     this->hayagente=false;
 }
 
-  void  ManejadorJuego::quick(){
-    this->Agentes[0]="../../bin/agenteBarreras2.py";
-    this->Agentes[1]="../../bin/agenteBarreras2.py";
+  bool  ManejadorJuego::quick(){
+    this->Agentes[0]="agenteBarreras2.py";
+    this->Agentes[1]="agenteBarreras2.py";
     this->hayagente=true;
-    this->setPartida();
+    return this->setPartida();
   }
   void ManejadorJuego::printCam(){
 
@@ -297,7 +314,5 @@ void ManejadorJuego::setObjetivoCam(){
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
      cam->setTarget(t+v);
      
-     this->smgr->setActiveCamera(cam);
-
-    
+     this->smgr->setActiveCamera(cam);   
 }

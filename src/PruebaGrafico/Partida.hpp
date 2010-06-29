@@ -9,6 +9,7 @@
 #include<Grafico/Jugador.hpp>
 #include<Reglas/Agente.hpp>
 #include<Scripting/Manejador.hpp>
+#include<Scripting/Excepciones.hpp>
 #include<Reglas/Juez.hpp>
 #include<vector>
 #include<Grafico/Skin.hpp>
@@ -144,6 +145,17 @@ private:
      *Elimina los jugadores de la partida y de la escena actual.
      */
     void dropJugadores();
+    /**
+     * Coloca el tope en las barreras para que las sombran no pasen a travez de la barrera.
+     * @param i indice de la barrera que tendrá el tope
+     * @param  smgr un apuntador al manejador de la escena
+     */
+    void setTopeSombra(int i,scene::ISceneManager* smgr);
+    /**
+     * regresa el agente con el error
+     * @return un caracter que contiene el numero del agente con error
+     */
+    char getAgenteCError();
  
     /**
      * Tablero sobre el que se realizará la partida.
@@ -197,6 +209,11 @@ private:
       * vector en donde se almacena la escala que tendrá el juego.
       */
      core::vector3df escala;
+     /**
+      * variale que indica el agente en el que hubo error al cargarse;
+      */
+     char errorEnAgente;
+     scene::IMetaTriangleSelector* triangle;
 
 
 };

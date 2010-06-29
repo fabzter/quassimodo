@@ -17,7 +17,7 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
 }
 
 Menu::Menu(const Menu& orig) {
-    this->dropMenuP();
+    
 }
 
 Menu::~Menu() {
@@ -50,7 +50,7 @@ Menu::~Menu() {
  void Menu::SetEscala(int x,int y,int z){
       this->escala.X=x ,this->escala.Y=y, this->escala.Z=z;
 
-      if(haymenu){
+      if(this->menuEnEscena()){
 
          for(int i=0;i<this->t->num_jugadores;i++){
              this->jugadores.at(i)->setEscala(x,y,z);
@@ -61,19 +61,21 @@ Menu::~Menu() {
  }
 
  void Menu::setMenuP(){
-
-     haymenu=true;
-     this->SetJugadores();
-     this->setBotones();
-     this->setSkin();
-     this->SetEscala( this->escala.X ,this->escala.Y, this->escala.Z);
+     if(!this->menuEnEscena()){
+         haymenu=true;
+         this->SetJugadores();
+         this->setBotones();
+         this->setSkin();
+         this->SetEscala( this->escala.X ,this->escala.Y, this->escala.Z);
+     }
  }
 void Menu::dropMenuP(){
-    if( haymenu){
+    if( this->menuEnEscena()){
          for (int i=0;i<B_COUNT;i++){
              this->botones.at(i)->remove();
+             this->botones.at(i)=0;
              if(i<2)
-                  this->jugadores.at(i)->drop();
+                  delete this->jugadores.at(i);
         }
          haymenu=false;
          this->botones.clear();
@@ -90,10 +92,12 @@ void Menu::dropMenuP(){
 
  }
  void Menu::setBotones(){
+
       core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();
-      int dis_ancho=100,dis_alto=70;
-      float t_alto=(Scren_Size.Height- (2*dis_alto) )/B_COUNT, t_ancho=Scren_Size.Width-(2*dis_ancho);
-      int p_alto=dis_alto;
+      int dis_ancho=Scren_Size.Width/15 ,dis_alto=70;
+      core::dimension2d<unsigned int> recBotones=core::vector2d<unsigned int>( 2*(Scren_Size.Width/4), (Scren_Size.Height/2)-70 );
+      float t_alto= recBotones.Height/B_COUNT, t_ancho=recBotones.Width;
+      int p_alto=50;//Scren_Size.Height/2;
       for(int i=0;i<B_COUNT;i++){
           
             this->botones.push_back( this->env->addButton(core::rect<s32>( dis_ancho, p_alto, t_ancho+dis_ancho, p_alto+t_alto ),0,
@@ -117,4 +121,6 @@ void Menu::dropMenuP(){
     return op;
   }
   
- 
+ bool Menu::menuEnEscena(){
+     return this->haymenu;
+ }

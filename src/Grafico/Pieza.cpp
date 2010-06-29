@@ -78,7 +78,7 @@ core::vector3df  Grafico::Pieza::getEscala(){
 void Grafico::Pieza::drop(){
     
      if(this->sombra!=NULL){
-       //this->sombra->removeAll();
+         this->sombra->removeAll();
          this->sombra->remove();
          this->sombra=NULL;
      }
@@ -89,4 +89,7 @@ void Grafico::Pieza::drop(){
     this->sombra=this->nodoA->addShadowVolumeSceneNode(shadowMesh,-1,false);
   
   
+ }
+scene::IShadowVolumeSceneNode* Grafico::Pieza::getNodoSombra(){
+     return this->sombra;
  }

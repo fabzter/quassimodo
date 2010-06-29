@@ -26,6 +26,12 @@ Aplicacion::Aplicacion(const Aplicacion& orig) {
 }
 
 Aplicacion::~Aplicacion() {
+    delete (this->juego);
+    this->Vdriver->removeAllHardwareBuffers();
+    this->Vdriver->removeAllTextures();
+    this->smgr->clear();
+    this->env->clear();
+    this->device->drop();
 }
 void Aplicacion::run(){
     if(!this->grafico)
@@ -76,8 +82,7 @@ void Aplicacion::loopGrafico(){
             this->device->yield();
                 }
         }
-
-            this->device->drop();
+   
 
 }
 bool Aplicacion::seleccionaOpcion(char op){

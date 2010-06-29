@@ -24,6 +24,7 @@ Grafico::Celda::Celda(const Celda& orig):Grafico::Pieza(orig) {
 
 
 Grafico::Celda::~Celda() {
+    //delete(this->celdaR);
 
 }
 

@@ -14,13 +14,15 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
       this->dibuja(smgr);
       //this->callback=callback;
       this->setSombra(skin->getSombraJugador());
+      this->getNodo()->getMaterial(0).Shininess=20.0f;
+
 }
 
 Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){
 }
 
 Grafico::Jugador::~Jugador() {
-    this->terminar();
+    
    // delete this->callback;
     //this->nodoA->removeAnimators();
 
@@ -39,7 +41,9 @@ Grafico::Jugador::~Jugador() {
 			anim->drop();
       }*/
       this->setPosicion(npos);
-
+     /*core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->sombra->getAnimators().begin() ;
+     scene::ISceneNodeAnimatorCollisionResponse* anm = (scene::ISceneNodeAnimatorCollisionResponse*) *a;
+    anm->setTargetNode(this->sombra);*/
       //this->posiciong=npos;
      //  this->nodoA->setAnimationEndCallback(this->callback);
       return true;
