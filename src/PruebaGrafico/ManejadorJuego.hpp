@@ -216,6 +216,7 @@ private:
      * bandera que indica si la partida fue iniciada o no.
      */
     bool partidainiciada;
+    io::IFileSystem* fsys;
 
 };
 

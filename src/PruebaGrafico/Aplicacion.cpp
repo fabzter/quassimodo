@@ -7,7 +7,7 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
     
     this->Dvideo=new Video(video);
    // this->Dvideo->getSizeScreen();
-     if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
+    if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
     this->device=this->Dvideo->creaDevice(fullscreen);
     this->Vdriver = this->device->getVideoDriver();
     this->smgr = this->device->getSceneManager();
@@ -41,31 +41,15 @@ void Aplicacion::run(){
 
    
 }
-void Aplicacion::loopConsola(){
-   if( this->seleccionaOpcion(this->juego->setMenu()) )
-   {
-        while(this->juego->enCurso())
-        {
-            this->juego->SiguienteJugada();
-            this->juego->imprimeTableroConsola();
-        }
-   }
-    if(this->juego->hayGanador())
-    {
-        this->juego->getManejadorGUI()->MsgBox( "Hay un ganador! desde menu",false);
-        this->loopConsola();
-    }
-
-}
 void Aplicacion::loopGrafico(){
 
      this->device->setWindowCaption(L"Quassimodo");
     this->smgr->setShadowColor(video::SColor(150,0,0,0));
-    
+
     while(this->device->run()&& !this->juego->getSalir())
             {
         bool dibuja=false;
-        
+
         if(this->device->isFullscreen()){
             dibuja=true;}
         else if (this->device->isWindowActive()){
@@ -82,9 +66,27 @@ void Aplicacion::loopGrafico(){
             this->device->yield();
                 }
         }
-   
+
 
 }
+void Aplicacion::loopConsola(){
+
+   if( this->seleccionaOpcion(this->juego->setMenu()) )
+   {
+        while(this->juego->enCurso())
+        {
+            this->juego->SiguienteJugada();
+            this->juego->imprimeTableroConsola();
+        }
+   }
+    if(this->juego->hayGanador())
+    {
+        this->juego->getManejadorGUI()->MsgBox( "Hay un ganador! desde menu",false);
+        this->loopConsola();
+    }
+
+}
+
 bool Aplicacion::seleccionaOpcion(char op){
 
           switch(op){

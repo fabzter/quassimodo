@@ -79,11 +79,9 @@ bool Partida::siguienteJugada(scene::ISceneManager* smgr)
     }
     catch(Reglas::Excepcion &e ){
         throw;
-        return this->en_curso;
     }
     catch(Scripting::ScriptMalo &e){
         throw;
-        return this->en_curso;
     }
 
     this->actualizarTablero(j, this->jugador_en_turno,smgr);

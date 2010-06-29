@@ -56,6 +56,8 @@ private:
      * @return true si la opcion seleccionada inica partida, false en caso contrario
      */
     bool seleccionaOpcion(char op);
+    /***/
+    void mansignal();
     /**
      * Un objeto de la clase video encargado de Seleccionar el driver de video
      */

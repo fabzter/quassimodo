@@ -8,12 +8,11 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
-     this->skin=new Grafico::Skin(this->smgr,this->env,fsys);
+    this->fsys=fsys;
+   
     this->terrain==NULL;
     this->skydome=NULL;
-    this->cam=0;
-    this->Agentes.resize(2);
-   
+    this->Agentes.resize(2);  
     this->init();
     this->setMenu();
 
@@ -27,20 +26,22 @@ ManejadorJuego::~ManejadorJuego() {
     delete this->skin;
     delete(this->partida);
     delete(this->mgui);
-    delete(this->aniend);
-    this->dropSkinAmbiente();
+    if(this->grafico){
+        delete(this->aniend);
+        this->dropSkinAmbiente();
+    }
 }
 void ManejadorJuego::init(){
 
     this->clearAgentes();
-   
+     this->skin=new Grafico::Skin(this->smgr,this->env,this->fsys);
     this->partida=new Partida(this->smgr,this->skin);
     this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
     this->partidainiciada=false;
     if(this->grafico){
         this->aniend=new AnimacionEnd(this->partida,this->smgr);
         this->setSkinAmbiente();
-        this->cam=NULL;
+        this->cam=0;
         this->setEscala(5,5,5);
     }
 
@@ -50,10 +51,14 @@ char ManejadorJuego::setMenu(){
 
     if(this->partidainiciada)
     {
+        delete this->skin;
         delete(this->partida);
         delete(this->mgui);
         delete(this->aniend);
         this->dropSkinAmbiente();
+        
+        this->smgr->getVideoDriver()->removeAllHardwareBuffers();
+        this->smgr->getVideoDriver()->removeAllTextures();
         this->smgr->clear();
         this->env->clear();
         this->init();
@@ -159,7 +164,6 @@ void ManejadorJuego::setAgente(std::string Agente,int noAgente){
 void ManejadorJuego::clearAgentes(){
     this->Agentes[0]="";
     this->Agentes[1]="";
-    //this->Agentes.clear();
     this->hayagente=false;
 }
 

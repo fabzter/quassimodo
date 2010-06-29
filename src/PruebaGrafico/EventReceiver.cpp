@@ -120,10 +120,6 @@ bool EventReceiver::OnEvent(const SEvent& event)
             if(event.GUIEvent.EventType==gui::EGET_MESSAGEBOX_OK){
                 switch(event.GUIEvent.Caller->getID()){
                     case BOK_ERROR:
-                        if(this->piniciada){
-
-                            this->piniciada=false;
-                        }
                         this->juego->setMenu();
                         break;
                 }
