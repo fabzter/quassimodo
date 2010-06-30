@@ -41,6 +41,15 @@ public:
      *Inicia el Loop principal de la aplicación
      */
     void run();
+    /**
+     * Regresa un apuntador al manejador del juego.
+     * @return  un apuntador al manejador del juego.
+     */
+    ManejadorJuego* getManJuego();
+    /**
+     * Relinicializa el manejador del juego
+     */
+    void nuevoJuego();
 private:
     /**
      * Loop principal de la aplicacion si solo se ejecuta en modo consola
@@ -56,6 +65,7 @@ private:
      * @return true si la opcion seleccionada inica partida, false en caso contrario
      */
     bool seleccionaOpcion(char op);
+
     /**
      * Un objeto de la clase video encargado de Seleccionar el driver de video
      */
@@ -89,6 +99,10 @@ private:
      * indica si la partida sera en modo grafico o no
      */
     bool grafico;
+    /**
+     * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     */
+    Grafico::Skin* skin;
 
 
 };

@@ -6,6 +6,7 @@ using namespace irr;
 
 ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin,bool grafico) {
     this->menu=new Menu(smgr,env,t,skin);
+    this->Gui=NULL;
     if(grafico)
         this->Gui=new GUI(smgr,env,skin);
 }
@@ -14,7 +15,8 @@ ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
 }
 
 ManejadorGUI::~ManejadorGUI() {
-    delete(this->Gui);
+    if(this->Gui!=NULL)
+        delete(this->Gui);
     delete(this->menu);
 }
 void ManejadorGUI::dropMenu(){

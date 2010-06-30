@@ -4,16 +4,14 @@
 #include "ManejadorJuego.hpp"
 
 
-ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,bool grafico) {
+ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, Grafico::Skin* skin,bool grafico) {
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
-     this->skin=new Grafico::Skin(this->smgr,this->env,fsys);
+    this->skin=skin;
     this->terrain==NULL;
     this->skydome=NULL;
-    this->cam=0;
-    this->Agentes.resize(2);
-   
+    this->Agentes.resize(2);  
     this->init();
     this->setMenu();
 
@@ -23,12 +21,13 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
 ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 }
 
-ManejadorJuego::~ManejadorJuego() {
-    delete this->skin;
+ManejadorJuego::~ManejadorJuego() {  
     delete(this->partida);
     delete(this->mgui);
-    delete(this->aniend);
-    this->dropSkinAmbiente();
+    if(this->grafico){
+        delete(this->aniend);
+        this->dropSkinAmbiente();
+    }
 }
 void ManejadorJuego::init(){
 
@@ -40,24 +39,13 @@ void ManejadorJuego::init(){
     if(this->grafico){
         this->aniend=new AnimacionEnd(this->partida,this->smgr);
         this->setSkinAmbiente();
-        this->cam=NULL;
+        this->cam=0;
         this->setEscala(5,5,5);
     }
 
 }
 char ManejadorJuego::setMenu(){
     
-
-    if(this->partidainiciada)
-    {
-        delete(this->partida);
-        delete(this->mgui);
-        delete(this->aniend);
-        this->dropSkinAmbiente();
-        this->smgr->clear();
-        this->env->clear();
-        this->init();
-    }
 
     if(this->grafico){
         this->setCamMenu();
@@ -159,7 +147,6 @@ void ManejadorJuego::setAgente(std::string Agente,int noAgente){
 void ManejadorJuego::clearAgentes(){
     this->Agentes[0]="";
     this->Agentes[1]="";
-    //this->Agentes.clear();
     this->hayagente=false;
 }
 
