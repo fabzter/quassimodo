@@ -24,7 +24,7 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
       this->mesh=skin->getTablero();
       this->dibuja(smgr);
        this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
-       this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+       this->nodoA->getMaterial(0).SpecularColor=20.0f;
 
       //dibujamos las celdas y le damos su posición a cada celda...
     for(std::size_t i = 0; i < this->datos.size(); i++){

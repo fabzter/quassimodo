@@ -15,12 +15,17 @@ Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
     this->jugadores.reserve(2);
     this->init(smgr);
 
-     for(std::size_t i = 0; i < this->antorchas.size(); i++){
+    if(this->skin!=NULL){
+        for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
+        }
     }
-       core::vector3df v= this->t->getSize();
+     
+     core::vector3df v= this->t->getSize();
      this->t->setPosicionTablero(-(v.X) /2,-15,-( (v.Z) /2));
-    this->ColocaAntorchas();
+
+     if(this->skin!=NULL)
+         this->ColocaAntorchas();
 
 }
 void Partida::init(scene::ISceneManager* smgr){
@@ -41,7 +46,7 @@ Partida::~Partida() {
      for(int i=0;i<this->antorchas.size();i++){
         delete this->antorchas.at(i);
      }
-     //this->dropBarreras();
+     this->dropBarreras();
      delete(this->t);
      //this->triangle->drop();
 }

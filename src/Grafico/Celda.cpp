@@ -4,18 +4,19 @@
 using namespace irr;
 
 Grafico::Celda::Celda(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza(){
-        srand ( time(NULL) );
+       
+    if(skin!=NULL){
+           this->mesh=skin->getCelda();
+           this->celdaR=NULL;
+           this->nodoA=NULL;
+           this->dibuja(smgr);
 
-       this->mesh=skin->getCelda();
-       this->celdaR=NULL;
-       this->nodoA=NULL;
-      this->dibuja(smgr);
+           this->nodoA->setMaterialTexture(0,skin->getTCelda() );
+           this->nodoA->getMaterial(0).NormalizeNormals=true;
 
-       this->nodoA->setMaterialTexture(0,skin->getTCelda() );
-       this->nodoA->getMaterial(0).NormalizeNormals=true;
-
-       this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
-       this->setSombra();
+           this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+           this->setSombra();
+    }
 
 }
 
