@@ -30,7 +30,7 @@ float Reglas::Mapa::LeastCostEstimate(void* stateStart, void* stateEnd)
     const std::vector<int>& a = ((Celda*)stateStart)->getPosicion();
     const std::vector<int>& b = ((Celda*)stateEnd)->getPosicion();
 
-    return std::abs( (b.at(0) - a.at(0)) * 1.2 ) + std::abs(b.at(1) - a.at(1));
+    return std::abs( (b.at(0) - a.at(0)) * 1.3 ) + std::abs(b.at(1) - a.at(1));
 }
 
 void Reglas::Mapa::AdjacentCost(void* state,
@@ -43,12 +43,16 @@ void Reglas::Mapa::AdjacentCost(void* state,
 
     tab_copia.moverJugador(idJugador, celda_actual->getPosicion());
 
+    //aqui van los movimientos posibles del jugador sobre la copia del Tablero.
+    std::list<Reglas::Jugada> jugs_mov;
+
+    {//parentesis para destruir al ayudante_copia
     AyudanteDeAgente ayudante_copia(tab_copia);
 
     //sacamos a todos sus vecinos desde state.
-    std::list<Reglas::Jugada> jugs_mov =
-                        ayudante_copia.getMovimientosPosibles(this->idJugador);
-
+    jugs_mov = ayudante_copia.getMovimientosPosibles(this->idJugador);
+    }//parentesis para destruir al ayudante_copia
+    
     std::list<Reglas::Jugada>::iterator it_jugada;
     for(it_jugada = jugs_mov.begin(); it_jugada != jugs_mov.end(); it_jugada++)
     {

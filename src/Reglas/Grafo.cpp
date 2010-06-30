@@ -1,14 +1,6 @@
-/* 
- * File:   Grafo.cpp
- * Author: fabrizio
- * 
- * Created on 31 de enero de 2010, 04:32 PM
- */
-
-#include <vector>
-
 #include "Grafo.hpp"
 #include "Tablero.hpp"
+#include <vector>
 
 /**
  *TODO: componer la madre esa de tener que poner la meta norte en un posición :(

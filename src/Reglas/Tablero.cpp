@@ -28,18 +28,19 @@ Reglas::Tablero::~Tablero()
 void Reglas::Tablero::init_tablero()
 {
     //le damos el tamaño vertical
-    this->datos.reserve(this->size_y);
     this->datos.resize(this->size_y);
 
     //ahora el tamaño horizontal
-    for(std::size_t i = 0; i < this->datos.size(); i++){
-        this->datos.at(i).reserve(this->size_x);
+    for(std::size_t i = 0; i < this->datos.size(); i++)
+    {
         this->datos.at(i).resize(this->size_x);
     }
 
     //ahora le damos su posición a cada celda...
-    for(std::size_t i = 0; i < this->datos.size(); i++){
-        for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
+    for(std::size_t i = 0; i < this->datos.size(); i++)
+    {
+        for(std::size_t j = 0; j < this->datos.at(i).size(); j++)
+        {
             this->datos.at(i).at(j).colocar(j, i);
         }
     }
