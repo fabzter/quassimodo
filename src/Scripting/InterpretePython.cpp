@@ -3,6 +3,7 @@
 
 Scripting::InterpretePython::InterpretePython()
 {
+    this->esta_finalizado = false;
 }
 
 Scripting::InterpretePython::InterpretePython(const InterpretePython& orig)
@@ -11,6 +12,8 @@ Scripting::InterpretePython::InterpretePython(const InterpretePython& orig)
 
 Scripting::InterpretePython::~InterpretePython()
 {
+    if(!this->esta_finalizado)
+        this->finalizar();
 }
 
 void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
@@ -29,6 +32,7 @@ void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
         modulo_main_namespace = modulo_main.attr("__dict__");
 
         exec("import sys, os, os.path\n"
+             "sys.path.append('./lib')\n"
              "sys.path.append('../lib')\n"
              "sys.path.append('../../lib')\n"
              "import Reglas\n", modulo_main_namespace, modulo_main_namespace);
@@ -50,6 +54,7 @@ void Scripting::InterpretePython::finalizar()
         delete it->second;
     }
      //Py_Finalize();
+    this->esta_finalizado = true;
 }
 
 Reglas::Agente *Scripting::InterpretePython::getAgente(std::string ruta)

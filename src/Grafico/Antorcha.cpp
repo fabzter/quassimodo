@@ -140,4 +140,5 @@ void Grafico::Antorcha::dropAntorcha(){
     this->nfuego->removeAnimators();
     this->nfuego->removeAll();
     this->nfuego->remove();
+    
 }

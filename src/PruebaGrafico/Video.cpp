@@ -51,9 +51,6 @@ void Video::setDriver(video::E_DRIVER_TYPE tipo){
 video::E_DRIVER_TYPE Video::getVideoType(){
     return this->type;
 }
- void Video::inicializaInterfazVideo( IrrlichtDevice* device){
-      this->Vdriver = device->getVideoDriver();
- }
  IrrlichtDevice* Video::creaDevice( bool fullscreen){
 
      this->DetectaEscritorio();

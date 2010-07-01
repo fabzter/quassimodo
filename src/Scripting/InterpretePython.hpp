@@ -22,6 +22,7 @@ public:
     virtual bool manejaModulo(std::string ruta);
 private:
     Reglas::Tablero *tablero;
+    bool esta_finalizado;
 protected:
     virtual void agregarModulo(std::string ruta);
 };

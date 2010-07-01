@@ -194,6 +194,7 @@ bool Partida::hayGanador()
      }
      catch(Scripting::Excepcion &e){
          this->errorEnAgente='-1';
+         delete(m);
          throw;
      }
       std::vector<Reglas::Agente*> agentes;
@@ -204,7 +205,7 @@ bool Partida::hayGanador()
           this->errorEnAgente='1';
           delete(m);
           throw;
-          return false;
+         
       }
       try{
           agentes.push_back(m->getAgente(rutaAgente2));
@@ -214,7 +215,7 @@ bool Partida::hayGanador()
               delete(m);
               delete agentes.at(0);
               throw;
-              return false;
+
           }
       
       delete(m);

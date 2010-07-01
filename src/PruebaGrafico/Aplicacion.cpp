@@ -56,7 +56,8 @@ ManejadorJuego* Aplicacion::getManJuego(){
 
 void Aplicacion::nuevoJuego(){
     delete this->juego;
-    this->smgr->clear();
+     this->smgr->getVideoDriver()->deleteAllDynamicLights();
+    //this->smgr->clear();
     
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
 }
@@ -99,8 +100,6 @@ void Aplicacion::loopGrafico(){
             this->device->yield();
                 }
         }
-
-
 }
 void Aplicacion::loopConsola(){
 

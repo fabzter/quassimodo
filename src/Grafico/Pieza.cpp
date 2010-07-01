@@ -82,7 +82,10 @@ void Grafico::Pieza::drop(){
          this->sombra->remove();
          this->sombra=NULL;
      }
+     this->nodoA->removeAll();
       this->nodoA->remove();
+    
+ 
 }
 
  void Grafico::Pieza::setSombra(scene::IMesh* shadowMesh){
