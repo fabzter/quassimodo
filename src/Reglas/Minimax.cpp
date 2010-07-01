@@ -1,6 +1,3 @@
-/*
- */
-
 #include "Minimax.hpp"
 #include "Astar.hpp"
 
@@ -30,8 +27,13 @@ bool Reglas::CompararNodoMinimaxMIN::operator ()(NodoMinimax* a, NodoMinimax* b)
 void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxDepth,
             Reglas::TipoDeJugada tipoJug)
 {
-    AyudanteDeAgente ayudanteCurrent(currentTab->tablero);
     currentTab->idEnemigo = currentTab->idJugador == 1? 0: 1;
+
+    //las jugadas posibles del jugador sobre el currentTab
+    std::list<Jugada> jugadas;
+
+    {//Para deshacernos del ayudante.
+    AyudanteDeAgente ayudanteCurrent(currentTab->tablero);
 
     //si llegamos al final de la recursion o hay un ganador, evaluamos el tab.
     if( (currentDepth >= maxDepth) || (ayudanteCurrent.hayGanador() ) )
@@ -41,7 +43,6 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
     }
 
     //si no, generamos a sus hijos.
-    std::list<Jugada> jugadas;
     if(tipoJug == MOVIMIENTO)
     {
         jugadas =  ayudanteCurrent.getMovimientosPosibles(currentTab->idJugador);
@@ -65,7 +66,7 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
             }
         }
     }
-
+    }//para deshacernos del ayudante
     while(jugadas.size() > 0)
     {
         Jugada jugada = jugadas.front();
@@ -82,7 +83,7 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
             tabHijo->tablero->setBarrera(currentTab->idJugador, Barrera(jugada) );
         }
 
-        //revisamos que el hijo no sea igual al padre
+        //revisamos que el hijo no sea igual al padre o hermanos
         if( (*(tabHijo->tablero) == *(currentTab->tablero)) ||
             tabHijo->estaEn(currentTab->hijos))
         {
@@ -175,7 +176,8 @@ float Reglas::evaluate(NodoMinimax* nodo)
     }
     else if (nodo->tipoDeJugadaInicial == MOVIMIENTO)
     {
-        w1 = 1.5f;
+        w1 = 2.5f;
+        w2 = 0.5f;
     }
     
     return

@@ -114,6 +114,7 @@ class AgenteInteligente (Reglas.Agente):
             return minimax(self.tab, self.id, 0, 4, TipoDeJugada.BARRERA)
         else:
             return Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )            
+            #return minimax(self.tab, self.id, 0, 4, TipoDeJugada.MOVIMIENTO)
         
 
     

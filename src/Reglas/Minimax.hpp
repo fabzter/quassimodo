@@ -1,5 +1,3 @@
-/*
- */
 #ifndef _MINIMAX_HPP
 #define	_MINIMAX_HPP
 
