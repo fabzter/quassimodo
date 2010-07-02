@@ -27,6 +27,7 @@ public:
 
 private:
     Reglas::Tablero *tablero;
+    bool esta_finalizado;
     
     static void PyInicializar();
     

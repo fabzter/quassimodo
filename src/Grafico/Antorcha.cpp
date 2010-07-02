@@ -59,9 +59,10 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
 void Grafico::Antorcha::dibujaAntorcha(scene::ISceneManager* smgr)
    {
                  this->nfuego = smgr->addLightSceneNode(0,this->posicionF,video::SColorf(1.0f, 1.0f, 1.0f,1.0f),this->radioLuz*this->getEscala().X);
+                
                  this->nfuego->setLightType(video::ELT_POINT);
                  this->nfuego->enableCastShadow(true);
-                         //hacemos el fuego
+                 //hacemos el fuego
         	this->ps =	smgr->addParticleSystemSceneNode(false,nfuego);
                 scene::IParticleEmitter* em = ps->createBoxEmitter(
 		core::aabbox3d<f32>(-2,0,-2,2,1,2), // tamaño del emisor
@@ -139,4 +140,5 @@ void Grafico::Antorcha::dropAntorcha(){
     this->nfuego->removeAnimators();
     this->nfuego->removeAll();
     this->nfuego->remove();
+    
 }

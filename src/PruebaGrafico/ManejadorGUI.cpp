@@ -90,11 +90,11 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
   }
 
   void ManejadorGUI::creditos(bool grafico){
-      char* creditos;
+      std::string creditos;
       creditos="\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernandez Hernandez \t\t <faboster@gmail.com>\n"
               "Hugo Cesar Hernandez Pinha \t\t\t <eltokyo@gmail.com>";
 
-      this->MsgBox(creditos,grafico);
+      this->MsgBox(creditos.c_str(),grafico);
 
   }
 

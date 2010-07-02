@@ -51,16 +51,13 @@ void Video::setDriver(video::E_DRIVER_TYPE tipo){
 video::E_DRIVER_TYPE Video::getVideoType(){
     return this->type;
 }
- void Video::inicializaInterfazVideo( IrrlichtDevice* device){
-      this->Vdriver = device->getVideoDriver();
- }
  IrrlichtDevice* Video::creaDevice( bool fullscreen){
 
      this->DetectaEscritorio();
      if(!fullscreen)
-         return irr::createDevice(this->getVideoType(),core::dimension2d<u32>(1024, 768), this->DPixel,fullscreen,true, false);
+         return irr::createDevice(this->getVideoType(),core::dimension2d<u32>(1024, 768), this->DPixel,fullscreen,true, true);
      else
-         return irr::createDevice(this->getVideoType(),this->DResolution, 32,fullscreen,true, false);
+         return irr::createDevice(this->getVideoType(),this->DResolution, 32,fullscreen,true, true);
  }
 void Video::DetectaEscritorio(){
   IrrlichtDevice* device;

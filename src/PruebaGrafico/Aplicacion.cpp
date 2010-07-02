@@ -13,6 +13,7 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
     this->env =this->device->getGUIEnvironment();
     this->device->setResizable(false);
 
+
     if(this->grafico)
         this->skin=new Grafico::Skin(this->smgr,this->env,device->getFileSystem());
      else
@@ -55,7 +56,8 @@ ManejadorJuego* Aplicacion::getManJuego(){
 
 void Aplicacion::nuevoJuego(){
     delete this->juego;
-    this->smgr->clear();
+     this->smgr->getVideoDriver()->deleteAllDynamicLights();
+    //this->smgr->clear();
     
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
 }
@@ -64,7 +66,7 @@ void Aplicacion::loopGrafico(){
 
      this->device->setWindowCaption(L"Quassimodo");
     this->smgr->setShadowColor(video::SColor(150,0,0,0));
-
+    s32 lastFPS = -1;
     while(this->device->run()&& !this->juego->getSalir())
             {
         bool dibuja=false;
@@ -80,13 +82,24 @@ void Aplicacion::loopGrafico(){
             this->smgr->drawAll();
             this->env->drawAll();
             this->Vdriver->endScene();
+
+            const s32 fps = Vdriver->getFPS();
+
+            if (lastFPS != fps)
+		{
+			core::stringw str = L"Quassimodo [";
+			str += Vdriver->getName();
+			str += "] FPS:";
+			str += fps;
+
+			device->setWindowCaption(str.c_str());
+			lastFPS = fps;
+		}
             }
         else{
             this->device->yield();
                 }
         }
-
-
 }
 void Aplicacion::loopConsola(){
 

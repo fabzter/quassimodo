@@ -156,9 +156,7 @@ void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,
     gui::SImageGUISkinConfig guicfg = LoadGUISkinFromFile(fsys, driver, "conf/Texturas/gui/guiskin.cfg");
     this->skin = new gui::CImageGUISkin(driver, env->getSkin());
     this->skin->loadConfig(guicfg);
-
-   /* gui::IGUIFont* font = this->getDefault();
-   this->skin->setFont(font, gui::EGDF_DEFAULT);*/
+    
 
 }
 void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){

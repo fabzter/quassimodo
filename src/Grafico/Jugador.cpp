@@ -7,6 +7,7 @@
 using namespace irr;
 
 Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
+
     if (num==0)
         this->mesh=skin->getJugador1();
     else

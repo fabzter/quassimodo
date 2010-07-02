@@ -33,11 +33,6 @@ public:
      */
     video::E_DRIVER_TYPE getVideoType();
     /**
-     *Inicializa la interfaz de video.
-     * @param device
-     */
-    void inicializaInterfazVideo( IrrlichtDevice* device);
-    /**
      *Crea al device de la aplicación, este metodo se encuentra en la parte de video ya que
      * los parametros necesarios para la creacion son mayoritariamente dependientes del video.
      * @param fullscreen si el juego será presentado en fullscreen, por default no.
@@ -65,10 +60,6 @@ private:
      * El tipo de video que será usado por la aplicacion
      */
     video::E_DRIVER_TYPE type;
-    /**
-     * interfaz al driver de video, el cual permite realizar funciones en 2D y 3D.
-     */
-    video::IVideoDriver* Vdriver;
     /**
      * resolucion Actual del escritorio.
      */
