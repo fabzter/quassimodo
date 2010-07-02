@@ -8,8 +8,6 @@
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Jugador.hpp>
 
-
-
 using namespace irr;
 using namespace Grafico;
 class PartidaGrafica: public Partida {
@@ -68,13 +66,9 @@ private:
      */
     void ColocaAntorchas();
     /**
-     * Llamada por siguienteJugada, si la Jugada es válida. Realiza la parte de
-     * actualización especificada en siguienteJugada.
-     * @sa siguienteJugada.
-     * @param j es la Jugada con la que se a actualizar el Tablero.
-     * @param idJugador es el id del Jugador que realiza la Jugada.
+     *@as Partida::actualizarTablero
      */
-    void actualizarTablero(Reglas::Jugada &j, int idJugador);
+    virtual void actualizarTablero(Reglas::Jugada &j, int idJugador);
     /**
      * Método llamado por Actualizar tablero, este metodo es encargado de calcular la posicion
      * en la que el jugador se movera y colocara a el jugador en dicha posicion

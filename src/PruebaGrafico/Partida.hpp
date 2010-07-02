@@ -85,6 +85,14 @@ protected:
      */
     virtual std::vector<Reglas::Agente*> getAgentes(std::string rutaAgente1,std::string rutaAgente2,Reglas::Tablero* t);
     /**
+     * Llamada por siguienteJugada, si la Jugada es válida. Realiza la parte de
+     * actualización especificada en siguienteJugada.
+     * @sa siguienteJugada.
+     * @param j es la Jugada con la que se a actualizar el Tablero.
+     * @param idJugador es el id del Jugador que realiza la Jugada.
+     */
+    virtual void actualizarTablero(Reglas::Jugada &j, int idJugador)=0;
+    /**
      * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se
      * eliminen hasta el final de la partida.
      */
