@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/ManejadorGUI.o \
 	${OBJECTDIR}/AnimacionEnd.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/PartidaGrafica.o \
 	${OBJECTDIR}/Menu.o \
 	${OBJECTDIR}/tokayoCamera.o \
 	${OBJECTDIR}/ManejadorJuego.o \
@@ -100,6 +101,11 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/PartidaGrafica.o: PartidaGrafica.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaGrafica.o PartidaGrafica.cpp
 
 ${OBJECTDIR}/Menu.o: Menu.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -6,7 +6,7 @@
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
 
     if (num==0)
         this->mesh=skin->getJugador1();
@@ -24,7 +24,6 @@ Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Ju
 
 Grafico::Jugador::~Jugador() {
     
-   // delete this->callback;
     //this->nodoA->removeAnimators();
 
 }

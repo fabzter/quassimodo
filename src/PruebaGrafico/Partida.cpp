@@ -1,148 +1,23 @@
 
 
-#include <irrlicht/vector3d.h>
-
 #include "Partida.hpp"
-using namespace irr;
-using namespace Grafico;
 
-Partida::Partida(scene::ISceneManager* smgr,Grafico::Skin* skin) {
-    this->skin=skin;
-    this->escala.X=1,this->escala.Y=1,this->escala.Z=1;
-    this->antorchas.reserve(4);
-    this->antorchas.resize(4);
-    this->Barreras.reserve(20);
+
+Partida::Partida() {
+    this->juez = NULL;
     this->jugadores.reserve(2);
-    this->init(smgr);
-
-    if(this->skin!=NULL){
-        for(std::size_t i = 0; i < this->antorchas.size(); i++){
-         this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
-        }
-    }
-     
-     core::vector3df v= this->t->getSize();
-     this->t->setPosicionTablero(-(v.X) /2,-15,-( (v.Z) /2));
-
-     if(this->skin!=NULL)
-         this->ColocaAntorchas();
-
-}
-void Partida::init(scene::ISceneManager* smgr){
-    //this->triangle=smgr->createMetaTriangleSelector();
-    this->t=new Tablero(smgr,this->skin);
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
-    this->juez = NULL; //esto es solo para destruirlo bien!
-    this->juez = new Reglas::Juez(*t);
+ 
 }
+
 Partida::Partida(const Partida& orig) {
 }
 
 Partida::~Partida() {
      if(this->juez != NULL)
         delete this->juez;
-     this->dropJugadores();
-     for(int i=0;i<this->antorchas.size();i++){
-        delete this->antorchas.at(i);
-     }
-     this->dropBarreras();
-     delete(this->t);
-     //this->triangle->drop();
 }
-
-void Partida::iniciarPartida()
-{
-    if(this->en_curso)
-        throw Reglas::PartidaNoIniciada();
-
-    for(int id = 0; id < this->t->num_jugadores; id++)
-    {
-        Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(id);
-        this->t->getJugador(id).iniciar(id);
-        Reglas::Jugada j;
-        j.setPosicion( this->t->getJugador(id).getPosicion() );
-        this->MoverJugador(j,id,NULL);
-        ju->Gira(core::vector3df(0,90-(id*180),0));
-         
-    }
-
-    this->en_curso = true;
-}
-
-bool Partida::siguienteJugada(scene::ISceneManager* smgr)
-{
-    if(!this->en_curso)
-        throw Reglas::PartidaTerminada();
-
-    this->en_curso = false; //si todo sale bien, la regresamos a en_curso = true
-    //pedimos la Jugada y enviamos excepciones
-    Reglas::Jugada j;
-    try{
-    j = this->juez->siguienteJugada(this->jugador_en_turno);
-    this->en_curso = true;
-    }
-    catch(Reglas::Excepcion &e ){
-        throw;
-    }
-    catch(Scripting::ScriptMalo &e){
-        throw;
-    }
-
-    this->actualizarTablero(j, this->jugador_en_turno,smgr);
-    //actualizamos el Jugador en turno.
-    this->jugador_en_turno =
-            ++(this->jugador_en_turno) % this->t->num_jugadores;
-
-    //Actualizamos Banderas:
-    int idGanador = this->juez->hayGanador();
-    if(idGanador >= 0)
-    {
-        this->hay_ganador = true;
-        this->jugador_ganador = idGanador;
-        this->en_curso = false;
-    }
-    return this->en_curso;
-}
-
-void Partida::actualizarTablero(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr)
-{
-    if(j.getTipoDeJugada() == Reglas::MOVIMIENTO)
-    {
-        this->MoverJugador(j,idJugador,smgr);
-    }
-    else if(j.getTipoDeJugada() == Reglas::BARRERA)
-    {
-        this->SetBarrera(j,idJugador,smgr);
-    }
-}
-
-bool Partida::MoverJugador(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr){
-    Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(idJugador);
-    core::vector3df p=this->t->getPosicionCelda(  j.getPosicion() )  ;
-    p.Y+=this->t->getsizeCelda().Y*this->escala.Y;
-    p.Z+=( ( this->t->getsizeCelda().Z*this->escala.Z ) /2);
-    p.X+=( ( this->t->getsizeCelda().X*this->escala.X ) /2);
-    bool termino=true;
-    if(smgr!=NULL)
-        termino=ju->Mover(smgr,p);
-    else
-        ju->setPosicion(p);
-    this->t->moverJugador(idJugador, j.getPosicion());
-    return termino;
-}
-
- void Partida::SetBarrera(Reglas::Jugada &j, int idJugador,scene::ISceneManager* smgr){
-
-     this->Barreras.push_back(new Barrera(smgr,this->skin));
-         unsigned int pos=this->Barreras.size();
-        const std::vector<int> p=j.getPosicion();
-        this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
-        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
-        this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
-        this->setTopeSombra(pos-1,smgr);
-        
- }
 
 bool Partida::estaEnCurso()
 {
@@ -154,41 +29,10 @@ bool Partida::hayGanador()
     return this->hay_ganador;
 }
 
- void Partida::ColocaAntorchas(){
-
-      int x,x1,z,z1,y,aumento=5;
-     core::vector3df v=this->t->getPosicionCelda(0,0);
-    x=v.X+(-aumento-this->t->getEscala().X);
-    x1=(aumento+this->t->getsizeLineaCeldas().X);
-    z=v.Z+(-aumento-this->t->getEscala().Z);
-    z1=(aumento+this->t->getsizeLineaCeldas().Z);
-    y=v.Y+(this->t->getEscala().Y);
-     this->antorchas.at(0)->setPosicionAntorcha(x,y,z);
-     this->antorchas.at(1)->setPosicionAntorcha(x1,y,z);
-     this->antorchas.at(2)->setPosicionAntorcha(x1,y,z1);
-     this->antorchas.at(3)->setPosicionAntorcha(x,y,z1);
- }
-
- void Partida::SetEscala(int x, int y, int z){
-      this->escala.X=x,this->escala.Y=y,this->escala.Z=z;
-     this->t->setEscalaTablero(this->escala.X,this->escala.Y,this->escala.Z);
-      for(int i=0;i<this->jugadores.size();i++){
-          Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
-          ju->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
-      }
-
-      for(std::size_t i = 0; i < this->antorchas.size(); i++){
-         this->antorchas.at(i)->setEscalaAntorcha(this->escala.X,this->escala.Y,this->escala.Z);
-    }
-       core::vector3df v= this->t->getSize();
-     this->t->setPosicionTablero(-(v.X*x) /2,-13.3*y,-( (v.Z*z) /2));
-
-      
-     this->ColocaAntorchas();
- }
-
- bool Partida::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,scene::ISceneManager* smgr,scene::IAnimationEndCallBack* callback){
-        Scripting::Manejador *m;
+std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::string rutaAgente2,Reglas::Tablero* t){
+     //TODO: revisar si los agentes son NULL
+     Scripting::Manejador *m;
+     std::vector<Reglas::Agente*> agentes;
      try{
         m= new Scripting::Manejador(*t);
      }
@@ -197,15 +41,15 @@ bool Partida::hayGanador()
          delete(m);
          throw;
      }
-      std::vector<Reglas::Agente*> agentes;
+
       try{
-          agentes.push_back(m->getAgente(rutaAgente1));      
+          agentes.push_back(m->getAgente(rutaAgente1));
       }
       catch(Scripting::Excepcion &e){
           this->errorEnAgente='1';
           delete(m);
           throw;
-         
+
       }
       try{
           agentes.push_back(m->getAgente(rutaAgente2));
@@ -217,82 +61,10 @@ bool Partida::hayGanador()
               throw;
 
           }
-      
+
       delete(m);
-      ///TODO revisar si los agentes son NULL
-      
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],callback,this->skin));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],callback,this->skin));
-       
-      this->t->setJugadores( this->jugadores);
-      this->SetEscala(this->escala.X,this->escala.Y,this->escala.Z);
- }
-
-void Partida::NuevaPartida(scene::ISceneManager* smgr){
-     if(this->juez != NULL)
-        delete this->juez;
-    this->dropJugadores();
-    this->dropBarreras();
-      delete(this->t);
-     
-      this->init(smgr);
-      
+      return agentes;
 }
-
-core::vector3df Partida::getCentro(){
-     core::vector3df pos=this->t->getPosicionTablero();
-     core::vector3df tam=this->t->getSize()*this->escala;
-     core::vector3df cen;
-     cen.X=pos.X+(tam.X/2);
-     cen.Z=pos.Z+(tam.Z/2);
-     cen.Y=pos.Y;
-     return cen;
-}
-void Partida::impimeTablero(){
-    std::cout<<*this->t<<std::endl;
-}
-
- void Partida::dropBarreras(){
-
-     for(int i=0;i<this->Barreras.size();i++){
-         std::cout<<"borrando la barrera : "<<i<<" de "<<this->Barreras.size()<<std::endl;
-         delete( this->Barreras.at(i) );
-     }
-     this->Barreras.clear();
- }
-
- void Partida::dropJugadores() {
-     for(int i=0;i<this->jugadores.size();i++){
-         std::cout<<"borrando el jugador: "<<i<<" de "<<this->jugadores.size()<<std::endl;
-            Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
-            delete(ju);
-      }
-     this->jugadores.clear();
- }
- void Partida::setTopeSombra(int i,scene::ISceneManager* smgr){
-
-
-         /*scene::ITriangleSelector* selector= smgr->createTriangleSelectorFromBoundingBox(this->Barreras.at(i)->getNodo());
-            this->Barreras.at(i)->getNodo()->setTriangleSelector(selector);
-            this->triangle->addTriangleSelector(selector);
-            selector->drop();
-            for(int j=0;j<this->jugadores.size();j++){
-                Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(j);
-                if(ju->getNodoSombra()->getAnimators().size()>0)
-                    ju->getNodoSombra()->removeAnimators();
-                const core::aabbox3d<f32>& box = ju->getNodoSombra()->getBoundingBox();
-                core::vector3df radius = box.MaxEdge - box.getCenter();
-                // create collision response animator and attach it to the camera
-                scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-                        this->triangle,ju->getNodoSombra() ,radius,
-                        core::vector3df(0,0,0),
-                        core::vector3df(70,0,0));
-//
-                ju->getNodoSombra()->addAnimator(anim);
-                anim->drop();
-            }*/
-
- }
- char Partida::getAgenteCError(){
+ char Partida::getAgenteConError(){
      return this->errorEnAgente;
  }

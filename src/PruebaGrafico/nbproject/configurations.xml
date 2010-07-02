@@ -14,6 +14,7 @@
       <itemPath>ManejadorJuego.hpp</itemPath>
       <itemPath>Menu.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
+      <itemPath>PartidaGrafica.hpp</itemPath>
       <itemPath>Video.hpp</itemPath>
       <itemPath>tokayoCamera.hpp</itemPath>
     </logicalFolder>
@@ -32,6 +33,7 @@
       <itemPath>ManejadorJuego.cpp</itemPath>
       <itemPath>Menu.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
+      <itemPath>PartidaGrafica.cpp</itemPath>
       <itemPath>Video.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>tokayoCamera.cpp</itemPath>

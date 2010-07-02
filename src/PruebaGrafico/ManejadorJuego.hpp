@@ -4,6 +4,7 @@
 
 #include "ManejadorGUI.hpp"
 #include "Partida.hpp"
+#include "PartidaGrafica.hpp"
 #include "AnimacionEnd.hpp"
 #include"tokayoCamera.hpp"
 #include"Enums.hpp"

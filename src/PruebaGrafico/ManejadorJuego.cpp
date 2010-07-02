@@ -25,22 +25,24 @@ ManejadorJuego::~ManejadorJuego() {
     delete(this->partida);
     delete(this->mgui);
     if(this->grafico){
-        delete(this->aniend);
+        //delete(this->aniend);
         this->dropSkinAmbiente();
     }
 }
 void ManejadorJuego::init(){
 
     this->clearAgentes();
-   
-    this->partida=new Partida(this->smgr,this->skin);
-    this->mgui=new ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin,this->grafico);
     this->partidainiciada=false;
     if(this->grafico){
-        this->aniend=new AnimacionEnd(this->partida,this->smgr);
+        this->partida=new PartidaGrafica(this->smgr,this->skin);
+        PartidaGrafica *p= (PartidaGrafica*)this->partida;
+        this->mgui=new ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
         this->setSkinAmbiente();
         this->cam=0;
         this->setEscala(5,5,5);
+    }
+    else{
+        this->mgui=new ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
     }
 
 }
@@ -59,12 +61,12 @@ bool ManejadorJuego::setPartida(){
     if(this->hayagente){
 
         try{
-            this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],this->smgr,this->aniend);
+            this->partida->SetJugadores(this->Agentes[0],this->Agentes[1]);
         }
         catch (Scripting::ScriptMalo &e)
         {
             std::string msj;
-            msj="Error al cargar el script del Agente: ";msj.push_back(this->partida->getAgenteCError());
+            msj="Error al cargar el script del Agente: ";msj.push_back(this->partida->getAgenteConError());
             msj+="\n";
             msj.append(e.what());
           this->mgui->MsgBox(msj.c_str(),this->grafico,BOK_ERROR);
@@ -97,14 +99,15 @@ bool ManejadorJuego::setPartida(){
 }
 
  void ManejadorJuego::setEscala(int x,int y,int z){
-     this->partida->SetEscala(x,y,z);
+     PartidaGrafica *p= (PartidaGrafica*)this->partida;
+     p->SetEscala(x,y,z);
      this->mgui->setEscala(x,y,z);
  }
 
 bool ManejadorJuego::SiguienteJugada(){
     bool curso=false;
        try{
-        curso=this->partida->siguienteJugada(this->smgr);
+        curso=this->partida->siguienteJugada();
         }
          catch(Scripting::ScriptMalo &e)
          {
@@ -276,7 +279,7 @@ void ManejadorJuego::SetAgentesConsola(bool ambos){
 
 }
 void ManejadorJuego::imprimeTableroConsola(){
-    this->partida->impimeTablero();
+    //this->partida->impimeTablero();
     std::cin.get();
 }
 void ManejadorJuego::dropCamera(){
@@ -296,8 +299,8 @@ void ManejadorJuego::setObjetivoCam(){
         anm->setZoom(602);
 	this->cam->addAnimator(anm);
 	anm->drop();
-
-     core::vector3df v=this->partida->getCentro();
+    PartidaGrafica *p= (PartidaGrafica*)this->partida;
+    core::vector3df v=p->getCentro();
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
      cam->setTarget(t+v);
      
