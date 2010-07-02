@@ -19,39 +19,50 @@ Scripting::AgentePythonWrapper::~AgentePythonWrapper()
 
 void Scripting::AgentePythonWrapper::iniciar(int id)
 {
+    PyGILState_STATE state = PyGILState_Ensure();
     try
     {
         this->agente->iniciar(id);
     }
     catch(boost::python::error_already_set& e)
     {
+        PyGILState_Release(state);
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
     }
+    PyGILState_Release(state);
 }
 
 Reglas::Jugada Scripting::AgentePythonWrapper::siguienteJugada()
 {
+    PyGILState_STATE state = PyGILState_Ensure();
+    Reglas::Jugada j;
     try
     {
-        return this->agente->siguienteJugada();
+        j = this->agente->siguienteJugada();
     }
     catch(boost::python::error_already_set& e)
     {
+        PyGILState_Release(state);
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
     }
+    PyGILState_Release(state);
+    return j;
 }
 
 void Scripting::AgentePythonWrapper::terminar()
 {
+    PyGILState_STATE state = PyGILState_Ensure();
     try
     {
         this->agente->terminar();
     }
     catch(boost::python::error_already_set& e)
     {
+        PyGILState_Release(state);
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
     }
+    PyGILState_Release(state);
 }

@@ -8,8 +8,10 @@
 #include "ModuloPython.hpp"
 #include "UtilsPython.hpp"
 
-namespace Scripting{
-class InterpretePython: public Interprete {
+namespace Scripting
+{
+class InterpretePython: public Interprete
+{
 public:
     InterpretePython();
     InterpretePython(const InterpretePython& orig);
@@ -20,9 +22,15 @@ public:
 
     virtual Reglas::Agente *getAgente(std::string ruta);
     virtual bool manejaModulo(std::string ruta);
+
+    static bool esta_pyiniciado;
+
 private:
     Reglas::Tablero *tablero;
     bool esta_finalizado;
+    
+    static void PyInicializar();
+    
 protected:
     virtual void agregarModulo(std::string ruta);
 };

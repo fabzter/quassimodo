@@ -1,6 +1,8 @@
 #include "InterpretePython.hpp"
 #include <boost/filesystem.hpp>
 
+bool Scripting::InterpretePython::esta_pyiniciado = false;
+
 Scripting::InterpretePython::InterpretePython()
 {
     this->esta_finalizado = false;
@@ -20,7 +22,7 @@ void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
 {
     using namespace boost::python;
     this->tablero = &t;
-    Py_Initialize();
+    InterpretePython::PyInicializar();
 
     //configuramos inicialmente el interprete e python.
     object modulo_main;
@@ -91,4 +93,13 @@ bool Scripting::InterpretePython::manejaModulo(std::string ruta)
         }
     }
     return false;
+}
+
+void Scripting::InterpretePython::PyInicializar()
+{
+    if(Scripting::InterpretePython::esta_pyiniciado)
+        return;
+    
+    Py_Initialize();
+    Scripting::InterpretePython::esta_pyiniciado = true;
 }

@@ -1,6 +1,3 @@
-/**
- */
-
 #ifndef _AYUDANTEDEAGENTE_HPP
 #define	_AYUDANTEDEAGENTE_HPP
 #include "Tablero.hpp"
@@ -9,13 +6,15 @@
 #include "Astar.hpp"
 #include <list>
 
-namespace Reglas{
+namespace Reglas
+{
 /**
  * Esta clase sirve como un ayudante para el Agente implementado en un Script.
  * Debe ser expuesto, tal como el Tablero lo es, y le da información útil al
  * agente.
  */
-class AyudanteDeAgente {
+class AyudanteDeAgente
+{
 public:
     /**
      * Único constructor de AyudanteDeAgente. Recibe una referencia al Tablero

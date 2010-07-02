@@ -24,8 +24,8 @@ bool Reglas::CompararNodoMinimaxMIN::operator ()(NodoMinimax* a, NodoMinimax* b)
     return a->val < b->val;
 }
 
-void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxDepth,
-            Reglas::TipoDeJugada tipoJug)
+void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, 
+                     int maxDepth, Reglas::TipoDeJugada tipoJug)
 {
     currentTab->idEnemigo = currentTab->idJugador == 1? 0: 1;
 
@@ -67,7 +67,7 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, int maxD
         }
     }
     }//para deshacernos del ayudante
-    while(jugadas.size() > 0)
+    while(!jugadas.empty())
     {
         Jugada jugada = jugadas.front();
         jugadas.pop_front();

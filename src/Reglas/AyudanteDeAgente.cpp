@@ -1,6 +1,3 @@
-/*
- */
-
 #include <stdint.h>
 #include <map>
 #include <vector>
