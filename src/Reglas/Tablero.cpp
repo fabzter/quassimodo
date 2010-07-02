@@ -220,9 +220,12 @@ bool Reglas::Tablero::tieneCelda( const Reglas::Celda& celda) const
 {
     std::vector<int> pos(celda.getPosicion());
     bool tiene = true;
-    try{
+    try
+    {
         this->datos.at(pos.at(1) ).at(pos.at(0) );
-    }catch(std::out_of_range& e){
+    }
+    catch(std::out_of_range& e)
+    {
         tiene = false;
     }
 
