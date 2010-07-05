@@ -2,8 +2,8 @@
 #ifndef PARTIDACONSOLA_HPP
 #define	PARTIDACONSOLA_HPP
 #include"Partida.hpp"
-
-class PartidaConsola:public Partida {
+#include<Reglas/Tablero.hpp>
+class PartidaConsola :public Partida{
 public:
     PartidaConsola();
     PartidaConsola(const PartidaConsola& orig);
@@ -21,7 +21,12 @@ public:
     /**
      *@as Partida::SetJugadores
      */
-    bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2);
+    virtual bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2);
+
+    /**
+     * Imprime el tablero en consola.
+     */
+    void impimeTablero();
 
 private:
     /**
@@ -31,7 +36,7 @@ private:
     /**
      * Tablero sobre el que se realizará la partida.
      */
-    Reglas::Tablero* tablero;
+    Reglas::Tablero* t;
 
 };
 

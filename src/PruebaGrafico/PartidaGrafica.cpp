@@ -61,36 +61,7 @@ void PartidaGrafica::iniciarPartida()
 
 bool PartidaGrafica::siguienteJugada()
 {
-    if(!this->en_curso)
-        throw Reglas::PartidaTerminada();
-    this->en_curso = false; //si todo sale bien, la regresamos a en_curso = true
-    //pedimos la Jugada y enviamos excepciones
-    Reglas::Jugada j;
-    try{
-    j = this->juez->siguienteJugada(this->jugador_en_turno);
-    this->en_curso = true;
-    }
-    catch(Reglas::Excepcion &e ){
-        throw;
-    }
-    catch(Scripting::ScriptMalo &e){
-        throw;
-    }
-
-    this->actualizarTablero(j, this->jugador_en_turno);
-    //actualizamos el Jugador en turno.
-    this->jugador_en_turno =
-            ++(this->jugador_en_turno) % this->t->num_jugadores;
-
-    //Actualizamos Banderas:
-    int idGanador = this->juez->hayGanador();
-    if(idGanador >= 0)
-    {
-        this->hay_ganador = true;
-        this->jugador_ganador = idGanador;
-        this->en_curso = false;
-    }
-    return this->en_curso;
+    return this->Siguiente(this->t);
 }
 
 void PartidaGrafica::actualizarTablero(Reglas::Jugada &j, int idJugador)

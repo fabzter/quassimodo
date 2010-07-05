@@ -13,7 +13,8 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->skydome=NULL;
     this->Agentes.resize(2);  
     this->init();
-    this->setMenu();
+    if(grafico)
+      this->setMenu();
 
     
 }
@@ -42,6 +43,7 @@ void ManejadorJuego::init(){
         this->setEscala(5,5,5);
     }
     else{
+        this->partida=new PartidaConsola();
         this->mgui=new ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
     }
 
@@ -65,12 +67,10 @@ bool ManejadorJuego::setPartida(){
         }
         catch (Scripting::ScriptMalo &e)
         {
-            std::string msj;
-            msj="Error al cargar el script del Agente: ";msj.push_back(this->partida->getAgenteConError());
-            msj+="\n";
-            msj.append(e.what());
-          this->mgui->MsgBox(msj.c_str(),this->grafico,BOK_ERROR);
-          return this->partidainiciada;
+            std::stringstream msj;
+            msj<<"Error al cargar el script del Agente: "<<this->partida->getAgenteConError()<<std::endl<<e.what();
+            this->mgui->MsgBox(msj.str().c_str(),this->grafico,BOK_ERROR);
+            return this->partidainiciada;
         }
 
         try{
@@ -112,20 +112,21 @@ bool ManejadorJuego::SiguienteJugada(){
          catch(Scripting::ScriptMalo &e)
          {
             this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-            
+            if(!this->grafico)
+                throw;
          }
          catch(Reglas::ReglasRotas &e)
          {
              this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-            
+             if(!this->grafico)
+                throw;
          }
 
-     if(this->hayGanador())
+     if(this->hayGanador() && this->grafico )
       {
-        this->mgui->MsgBox("Hay un ganador!",this->grafico );
+        this->mgui->MsgBox(this->getMsjGanador(),this->grafico );
       }
     return curso;
-
 }
 
 bool ManejadorJuego::hayGanador(){
@@ -177,6 +178,7 @@ void ManejadorJuego::clearAgentes(){
      this->mgui->SetTextBtnAngt(bAgente ,nom );
 
  }
+
 std::string ManejadorJuego::SplitNombre (std::string str)
 {
   size_t found;
@@ -186,6 +188,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
   return str.substr(found+1) ;
 
 }
+
  void ManejadorJuego::setCamJuego(){
    
      this->setObjetivoCam();
@@ -206,6 +209,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
      }
 
  }
+
  void ManejadorJuego::setCamMenu(){
      this->dropCamera();
     this->cam= this->smgr->addCameraSceneNode();
@@ -213,6 +217,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
      this->cam->setPosition(core::vector3df(-357.9,173,352.904));
     this->smgr->setActiveCamera(this->cam);
  }
+
  void ManejadorJuego::setSkinAmbiente(){
 
         this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome() );
@@ -232,6 +237,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 
 
  }
+
  void ManejadorJuego::dropSkinAmbiente(){
      this->terrain->removeAll();
      this->terrain->remove();
@@ -240,6 +246,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
      this->terrain=NULL;
      this->skydome=NULL;
  }
+
  void ManejadorJuego::cambiaVistaJuego(int vista){
      this->setCamJuego();
    core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=cam->getAnimators().begin() ;
@@ -263,25 +270,32 @@ std::string ManejadorJuego::SplitNombre (std::string str)
      }
   
  }
+
  bool ManejadorJuego::getSalir(){
     return this->salir;
 }
+
 void ManejadorJuego::setSalir(bool valor){
     this->salir=valor;
 }
-void ManejadorJuego::SetAgentesConsola(bool ambos){
+
+bool ManejadorJuego::SetAgentesConsola(bool ambos){
     this->setAgente(this->getManejadorGUI()->getPath(false,1), 0);
     if(ambos)
         this->setAgente(this->getManejadorGUI()->getPath(false,2), 1);
     else
         this->setAgente("../../bin/agenteBarreras2.py", 1);
-    this->setPartida();
+
+    return this->setPartida();
 
 }
 void ManejadorJuego::imprimeTableroConsola(){
-    //this->partida->impimeTablero();
+     PartidaConsola *p= (PartidaConsola*)this->partida;
+     p->impimeTablero();
+    //std::cout<<std::cout.tellp()<<std::endl;
     std::cin.get();
 }
+
 void ManejadorJuego::dropCamera(){
     if(this->cam!=0){
         this->cam->removeAnimators();
@@ -290,8 +304,12 @@ void ManejadorJuego::dropCamera(){
         this->cam=0;
     }
 }
+const char* ManejadorJuego::getMsjGanador(){
+    std::stringstream msj;
+    msj<<"Gana el Jugador "<<this->partida->getJugadorGanador();
+    return msj.str().c_str();
+}
 void ManejadorJuego::setObjetivoCam(){
-    //-47.5287,32.6925,-63.6243
     this->dropCamera();
      this->cam = smgr->addCameraSceneNode();
 	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
@@ -302,7 +320,7 @@ void ManejadorJuego::setObjetivoCam(){
     PartidaGrafica *p= (PartidaGrafica*)this->partida;
     core::vector3df v=p->getCentro();
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
-     cam->setTarget(t+v);
+    cam->setTarget(t+v);
      
-     this->smgr->setActiveCamera(cam);   
+    this->smgr->setActiveCamera(cam);   
 }

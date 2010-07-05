@@ -67,7 +67,12 @@ public:
      * Nos indica el valor de la bandera hay_ganador
      * @return true si existe un ganador, false de lo contrario.
      */
-    virtual bool hayGanador();
+    bool hayGanador();
+    /**
+     * Regresa el numero del jugador ganador.
+     * @return un entero que indica el jugador que gano la partida.
+     */
+    int getJugadorGanador();
     /**
      * regresa el agente con el error
      * @return un caracter que contiene el numero del agente con error
@@ -93,9 +98,18 @@ protected:
      */
     virtual void actualizarTablero(Reglas::Jugada &j, int idJugador)=0;
     /**
+     * En si este es le método siguente jugada, pues cada clase que hereda de esta manda a llamar a este método
+     * solo que cada una le pasa un apuntador a su tablero.
+     * @param t un apuntador al tablero de la partida
+     * @return true si se realizó la jugada
+     * @return false si la Jugada ha terminado (por ejemplo si ganó un Jugador)
+     */
+    bool Siguiente(Reglas::Tablero *t);
+    /**
      * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se
      * eliminen hasta el final de la partida.
      */
+
     std::vector< Reglas::Jugador* > jugadores;
     /**
      * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se

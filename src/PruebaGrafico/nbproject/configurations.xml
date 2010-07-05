@@ -14,6 +14,7 @@
       <itemPath>ManejadorJuego.hpp</itemPath>
       <itemPath>Menu.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
+      <itemPath>PartidaConsola.hpp</itemPath>
       <itemPath>PartidaGrafica.hpp</itemPath>
       <itemPath>Video.hpp</itemPath>
       <itemPath>tokayoCamera.hpp</itemPath>
