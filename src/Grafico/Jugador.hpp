@@ -19,7 +19,7 @@ public:
      * @param num parametro requerido por Reglas::Jugador
      * @param a parametro requerido por ReglasJugador
      */
-    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,scene::IAnimationEndCallBack* callback,Skin* skin);
+    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin);
     /**
      *Constructor copia de la clase Jugador
      * @param orig una referencia a un objeto de la clase Jugador del namespace Grafico

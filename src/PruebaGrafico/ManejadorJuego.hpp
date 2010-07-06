@@ -3,7 +3,9 @@
 #define	_MANEJADORJUEGO_HPP
 
 #include "ManejadorGUI.hpp"
-#include "Partida.hpp"
+#include "PartidaConsola.hpp"
+#include "PartidaGrafica.hpp"
+#include <sstream>
 #include "AnimacionEnd.hpp"
 #include"tokayoCamera.hpp"
 #include"Enums.hpp"
@@ -121,10 +123,11 @@ public:
      */
     void setSalir(bool valor);
     /**
-     * Pide los agentes desde modo consola y los almacena.
+     * Pide los agentes desde modo consola los almacena e inicia la partida.
      * @param ambos, si se van a pedia ambos agentes o no.
+     * @return true si la partida ha iniciado, false en caso contrario.
      */
-    void SetAgentesConsola(bool ambos);
+    bool SetAgentesConsola(bool ambos);
     /**
      *Imprime el tablero en consola y espera hasta que se presione la tecla INTRO.
      */
@@ -133,6 +136,11 @@ public:
      *Elimina la camara actual del manejador de la escena.
      */
     void dropCamera();
+    /**
+     * Arma el mensaje del ganador para mostrarlo en un msgBox
+     * @return un apuntador a char que contiene el mensaje de que hay ganador.
+     */
+    const char* getMsjGanador();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente

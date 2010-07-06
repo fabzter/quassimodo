@@ -9,7 +9,7 @@
 
 using namespace irr;
 
-AnimacionEnd::AnimacionEnd(Partida* partida,scene::ISceneManager* smgr) {
+AnimacionEnd::AnimacionEnd(PartidaGrafica* partida,scene::ISceneManager* smgr) {
     this->partida=partida;
     this->smgr=smgr;
 }
@@ -21,7 +21,7 @@ AnimacionEnd::~AnimacionEnd(){
 }
 void AnimacionEnd::OnAnimationEnd(scene::IAnimatedMeshSceneNode* node){
     std::cout<<"Llego"<<std::endl;
-    this->partida->siguienteJugada(this->smgr);
+    this->partida->siguienteJugada();
 
 }
 

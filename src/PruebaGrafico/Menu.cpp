@@ -108,8 +108,9 @@ void Menu::dropMenuP(){
       }
     
  }
+
   char Menu::MenuConsola(){
-     char op;
+    char op;
     std::cout<<std::endl<<"\t\t¡¡Bienvenido a Quassimodo!!"<<std::endl<<std::endl;
     std::cout<<"Por favor selecciona la letra indicada según la Opcion que desees: "<<std::endl<<std::endl;
     std::cout<<"a) Agente Vs Agente"<<std::endl;

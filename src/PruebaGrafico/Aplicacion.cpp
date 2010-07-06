@@ -7,17 +7,25 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
     
     this->Dvideo=new Video(video);
     if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
-    this->device=this->Dvideo->creaDevice(fullscreen);
-    this->Vdriver = this->device->getVideoDriver();
-    this->smgr = this->device->getSceneManager();
-    this->env =this->device->getGUIEnvironment();
-    this->device->setResizable(false);
+    
 
 
-    if(this->grafico)
+    if(this->grafico){
+        this->device=this->Dvideo->creaDevice(fullscreen);
+        this->Vdriver = this->device->getVideoDriver();
+        this->smgr = this->device->getSceneManager();
+        this->env =this->device->getGUIEnvironment();
+        this->device->setResizable(false);
         this->skin=new Grafico::Skin(this->smgr,this->env,device->getFileSystem());
-     else
-        this->skin==NULL;
+
+    }
+     else{
+        this->skin=NULL;
+        this->device=NULL;
+        this->Vdriver =NULL;
+        this->smgr =NULL;
+        this->env=NULL;
+     }
 
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
 
@@ -34,11 +42,13 @@ Aplicacion::Aplicacion(const Aplicacion& orig) {
 
 Aplicacion::~Aplicacion() {
     delete (this->juego);
-    this->Vdriver->removeAllHardwareBuffers();
-    this->Vdriver->removeAllTextures();
-    this->smgr->clear();
-    this->env->clear();
-    this->device->drop();
+    if(this->grafico){
+        this->Vdriver->removeAllHardwareBuffers();
+        this->Vdriver->removeAllTextures();
+        this->smgr->clear();
+        this->env->clear();
+        this->device->drop();
+    }
 }
 
 void Aplicacion::run(){
@@ -56,7 +66,8 @@ ManejadorJuego* Aplicacion::getManJuego(){
 
 void Aplicacion::nuevoJuego(){
     delete this->juego;
-     this->smgr->getVideoDriver()->deleteAllDynamicLights();
+    if(this->grafico)
+        this->smgr->getVideoDriver()->deleteAllDynamicLights();
     //this->smgr->clear();
     
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
@@ -67,6 +78,7 @@ void Aplicacion::loopGrafico(){
      this->device->setWindowCaption(L"Quassimodo");
     this->smgr->setShadowColor(video::SColor(150,0,0,0));
     s32 lastFPS = -1;
+   
     while(this->device->run()&& !this->juego->getSalir())
             {
         bool dibuja=false;
@@ -103,19 +115,30 @@ void Aplicacion::loopGrafico(){
 }
 void Aplicacion::loopConsola(){
 
-   if( this->seleccionaOpcion(this->juego->setMenu()) )
+   if( this->seleccionaOpcion( this->juego->setMenu() ) )
    {
         while(this->juego->enCurso())
         {
-            this->juego->SiguienteJugada();
+            try{
+                this->juego->SiguienteJugada();
+            }
+            catch(std::exception &e)
+            {
+                this->loopConsola();
+                break;
+            }
             this->juego->imprimeTableroConsola();
+            
+            
+        }
+        if(this->juego->hayGanador())
+        {
+            this->juego->getManejadorGUI()->MsgBox(this->juego->getMsjGanador(),false);
+            this->juego->getManejadorGUI()->MsgBox(" ¡¡Bye!! ",false);
         }
    }
-    if(this->juego->hayGanador())
-    {
-        this->juego->getManejadorGUI()->MsgBox( "Hay un ganador! desde menu",false);
-        this->loopConsola();
-    }
+
+ 
 
 }
 
@@ -123,12 +146,18 @@ bool Aplicacion::seleccionaOpcion(char op){
 
           switch(op){
             case 'a': case 'A':
-                this->juego->SetAgentesConsola(true);
-                return true;
+                if( this->juego->SetAgentesConsola(true) )
+                    return true;
+                else{
+                    this->loopConsola();
+                    return false;}
                 break;
             case 'b': case 'B':
-               this->juego->SetAgentesConsola(false);
-                return true;
+                if( this->juego->SetAgentesConsola(false) )
+                    return true;
+                else{
+                    this->loopConsola();
+                    return false;}
                 break;
             case 'c':case 'C':
                 this->juego->getManejadorGUI()->creditos(false);
