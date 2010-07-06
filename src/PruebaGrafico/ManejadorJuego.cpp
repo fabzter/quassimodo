@@ -34,6 +34,7 @@ void ManejadorJuego::init(){
 
     this->clearAgentes();
     this->partidainiciada=false;
+
     if(this->grafico){
         this->partida=new PartidaGrafica(this->smgr,this->skin);
         PartidaGrafica *p= (PartidaGrafica*)this->partida;

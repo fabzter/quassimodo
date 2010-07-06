@@ -68,7 +68,7 @@ void Aplicacion::nuevoJuego(){
     delete this->juego;
     if(this->grafico)
         this->smgr->getVideoDriver()->deleteAllDynamicLights();
-    //this->smgr->clear();
+
     
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
 }
