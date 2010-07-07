@@ -27,7 +27,7 @@ void Scripting::InterpretePython::iniciar(Reglas::Tablero &t)
     //configuramos inicialmente el interprete e python.
     object modulo_main;
     object modulo_main_namespace;
-    
+
     try
     {
         modulo_main = import("__main__");
@@ -101,5 +101,6 @@ void Scripting::InterpretePython::PyInicializar()
         return;
     
     Py_Initialize();
+    PyEval_InitThreads();
     Scripting::InterpretePython::esta_pyiniciado = true;
 }

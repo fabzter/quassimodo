@@ -79,7 +79,6 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     {
         this->manejar_excepcion_python(e);
     }
-
     this->esta_cargado = true;
 }
 
@@ -106,7 +105,6 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
     {
         this->manejar_excepcion_python(e);
     }
-    
     return aWrap;
 }
 void Scripting::ModuloPython::finalizar()

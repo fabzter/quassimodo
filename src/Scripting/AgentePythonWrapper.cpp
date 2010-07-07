@@ -19,50 +19,50 @@ Scripting::AgentePythonWrapper::~AgentePythonWrapper()
 
 void Scripting::AgentePythonWrapper::iniciar(int id)
 {
-    PyGILState_STATE state = PyGILState_Ensure();
+    PyGILState_STATE gstate=PyGILState_Ensure();
     try
     {
         this->agente->iniciar(id);
     }
     catch(boost::python::error_already_set& e)
     {
-        PyGILState_Release(state);
+         PyGILState_Release(gstate);
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
     }
-    PyGILState_Release(state);
+     PyGILState_Release(gstate);
 }
 
 Reglas::Jugada Scripting::AgentePythonWrapper::siguienteJugada()
 {
-    PyGILState_STATE state = PyGILState_Ensure();
     Reglas::Jugada j;
+    PyGILState_STATE gstate=PyGILState_Ensure();
     try
     {
         j = this->agente->siguienteJugada();
     }
     catch(boost::python::error_already_set& e)
     {
-        PyGILState_Release(state);
+        PyGILState_Release(gstate);
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
     }
-    PyGILState_Release(state);
+    PyGILState_Release(gstate);
     return j;
 }
 
 void Scripting::AgentePythonWrapper::terminar()
 {
-    PyGILState_STATE state = PyGILState_Ensure();
+    PyGILState_STATE gstate=PyGILState_Ensure();
     try
     {
         this->agente->terminar();
     }
     catch(boost::python::error_already_set& e)
     {
-        PyGILState_Release(state);
+        PyGILState_Release(gstate);
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
     }
-    PyGILState_Release(state);
+    PyGILState_Release(gstate);
 }
