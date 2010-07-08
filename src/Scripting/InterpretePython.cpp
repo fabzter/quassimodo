@@ -101,6 +101,5 @@ void Scripting::InterpretePython::PyInicializar()
         return;
     
     Py_Initialize();
-    PyEval_InitThreads();
     Scripting::InterpretePython::esta_pyiniciado = true;
 }

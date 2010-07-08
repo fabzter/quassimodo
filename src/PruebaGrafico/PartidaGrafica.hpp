@@ -51,19 +51,6 @@ public:
      */
     virtual bool siguienteJugada();
     /**
-     *@as Partida::CreaBarraProgreso
-     */
-    virtual void CreaBarraProgreso();
-    /**
-     *@as Partida::AumentaBarraProgreso
-     */
-    virtual void AumentaBarraProgreso();
-    /**
-     *@as Partida::EliminaBarraProgreso
-     */
-    virtual void EliminaBarraProgreso();
-
-    /**
      *@as Partida::SetJugadores
      */
     bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2);
@@ -142,23 +129,8 @@ private:
       *Un apuntador al creador de GUI que proporciona irrlicht
       */
      gui::IGUIEnvironment* env;
-     /**
-      * barra de progres que aparecerá mientras el jugador
-      * pienza su siguente movimiento.
-      */
-     gui::CGUIProgressBar* bar;
-     /**
-      * bandera que inica si la barra de progreso va aumentar o disminuir
-      */
-     bool incrementabar;
-     /**
-      * tiempo q nos dira cuanto se aumentara la barra.
-      */
-     s32 ulttiempo;
-     /**
-      * timer
-      */
-     boost::timer timer;
+
+
 
      scene::IMetaTriangleSelector* triangle;
 

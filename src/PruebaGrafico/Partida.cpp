@@ -81,22 +81,10 @@ bool Partida::Siguiente(Reglas::Tablero *t){
         throw Reglas::PartidaTerminada();
     this->en_curso = false; //si todo sale bien, la regresamos a en_curso = true
     //pedimos la Jugada y enviamos excepciones
-    ThreadAgente th(this->juez,this->jugador_en_turno);
-    PyGILState_STATE gstate=PyGILState_Ensure();
-    boost::thread thread( boost::ref(th) );
-
-    this->CreaBarraProgreso();
-    while( th.enCurso() ){
-        this->AumentaBarraProgreso();
-    }
-    this->EliminaBarraProgreso();
-    
-    if(!th.isExitoso()){
-         PyGILState_Release(gstate);
-        throw( Reglas::Excepcion( th.getError() ) );
-    }
-     PyGILState_Release(gstate);
-    this->actualizarTablero(th.getJugada(), this->jugador_en_turno);
+    Reglas::Jugada j;
+    j=this->juez->siguienteJugada(this->jugador_en_turno);
+    this->en_curso = true;
+    this->actualizarTablero(j, this->jugador_en_turno);
     //actualizamos el Jugador en turno.
     this->jugador_en_turno =
             ++(this->jugador_en_turno) % t->num_jugadores;
