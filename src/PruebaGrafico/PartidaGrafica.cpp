@@ -6,9 +6,10 @@ using namespace irr;
 using namespace Grafico;
 
 
-PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin): Partida() {
+PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env): Partida() {
     this->skin=skin;
     this->smgr=smgr;
+    this->env=env;
     this->escala.X=1,this->escala.Y=1,this->escala.Z=1;
     this->antorchas.reserve(4);
     this->antorchas.resize(4);
@@ -62,6 +63,41 @@ void PartidaGrafica::iniciarPartida()
 bool PartidaGrafica::siguienteJugada()
 {
     return this->Siguiente(this->t);
+}
+void PartidaGrafica::CreaBarraProgreso(){
+
+    this->bar=new gui::CGUIProgressBar(env->getRootGUIElement(), env, core::rect<s32>(10,150,210,180));
+    this->bar->setProgress(0.35f);
+    //this->bar->drop();
+    timer.restart();
+
+}
+
+void PartidaGrafica::AumentaBarraProgreso(){
+        float progress=this->bar->getProgress();
+
+        s32 deltaTime = this->timer.elapsed()*100;
+        this->timer.restart();
+        if (incrementabar)
+            progress += deltaTime * 0.0002f;
+        else
+            progress -= deltaTime * 0.0002f;
+        if (progress > 1.0f)
+        {
+            progress = 1.0f;
+            incrementabar = false;
+        }
+        else
+        if (progress < 0.0f)
+        {
+            progress = 0.0f;
+            incrementabar = true;
+        }
+        this->bar->setProgress(progress);
+}
+
+void PartidaGrafica::EliminaBarraProgreso(){
+    this->bar->remove();
 }
 
 void PartidaGrafica::actualizarTablero(Reglas::Jugada &j, int idJugador)

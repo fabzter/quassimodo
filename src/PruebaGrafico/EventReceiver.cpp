@@ -21,7 +21,9 @@ bool EventReceiver::OnEvent(const SEvent& event)
         case irr::EET_KEY_INPUT_EVENT:
             KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
             if(  this->piniciada && event.KeyInput.Key==irr::KEY_KEY_R)
+
               this->piniciada=this->app->getManJuego()->SiguienteJugada();
+
              if(  event.KeyInput.Key==irr::KEY_KEY_Q)
                  if(!this->piniciada && this->app->getManJuego()->quick()){
                      this->piniciada=true;
@@ -29,6 +31,17 @@ bool EventReceiver::OnEvent(const SEvent& event)
              if(  event.KeyInput.Key==irr::KEY_KEY_P){
                 this->app->getManJuego()->printCam();
              }
+            if(  event.KeyInput.Key==irr::KEY_KEY_C){
+                this->app->getManJuego()->crea();
+            }
+            if(  event.KeyInput.Key==irr::KEY_KEY_A){
+                this->app->getManJuego()->aumenta();
+            }
+
+            
+            if(  event.KeyInput.Key==irr::KEY_KEY_D){
+                this->app->getManJuego()->destruye();
+            }
             
                 
             break;

@@ -35,7 +35,7 @@ void ManejadorJuego::init(){
     this->clearAgentes();
     this->partidainiciada=false;
     if(this->grafico){
-        this->partida=new PartidaGrafica(this->smgr,this->skin);
+        this->partida=new PartidaGrafica(this->smgr,this->skin,this->env);
         PartidaGrafica *p= (PartidaGrafica*)this->partida;
         this->mgui=new ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
         this->setSkinAmbiente();
@@ -109,16 +109,10 @@ bool ManejadorJuego::SiguienteJugada(){
        try{
         curso=this->partida->siguienteJugada();
         }
-         catch(Scripting::ScriptMalo &e)
+         catch(Reglas::Excepcion &e)
          {
             this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
             if(!this->grafico)
-                throw;
-         }
-         catch(Reglas::ReglasRotas &e)
-         {
-             this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-             if(!this->grafico)
                 throw;
          }
 
@@ -155,8 +149,8 @@ void ManejadorJuego::clearAgentes(){
 }
 
   bool  ManejadorJuego::quick(){
-    this->Agentes[0]="agenteBarreras2.py";
-    this->Agentes[1]="agenteBarreras2.py";
+    this->Agentes[0]="./bin/agente_astar.py";
+    this->Agentes[1]="./bin/agente_astar.py";
     this->hayagente=true;
     return this->setPartida();
   }
@@ -324,3 +318,12 @@ void ManejadorJuego::setObjetivoCam(){
      
     this->smgr->setActiveCamera(cam);   
 }
+   void ManejadorJuego::crea(){
+       this->partida->CreaBarraProgreso();
+   }
+    void ManejadorJuego::aumenta(){
+        this->partida->AumentaBarraProgreso();
+    }
+    void ManejadorJuego::destruye(){
+        this->partida->EliminaBarraProgreso();
+    }

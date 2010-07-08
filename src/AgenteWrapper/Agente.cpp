@@ -7,7 +7,6 @@ using namespace Reglas;
 
 struct AgenteWrapper: Agente, wrapper<Agente>
 {
-    public:
     Jugada siguienteJugada()
     {
         return this->get_override("siguienteJugada")();

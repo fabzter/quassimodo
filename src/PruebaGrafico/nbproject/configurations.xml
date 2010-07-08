@@ -108,6 +108,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
+            <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
           </linkerLibItems>
@@ -194,6 +195,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
+            <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
           </linkerLibItems>

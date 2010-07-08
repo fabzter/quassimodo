@@ -7,6 +7,8 @@
 #include<Grafico/Tablero.hpp>
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Jugador.hpp>
+#include<Grafico/CGUIProgressBar.h>
+#include<boost/timer.hpp>
 
 using namespace irr;
 using namespace Grafico;
@@ -18,8 +20,9 @@ public:
      * los jugadores,
      * @param smgr Un apuntador al  manejador de la escena
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param env un apuntador al creador de GUI que proporciona irrlicht
      */
-    PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin);
+    PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env);
 
     /**
      * Constructor copia de la clase PartidaGrafica
@@ -47,6 +50,18 @@ public:
      *@as Partida::siguienteJugada
      */
     virtual bool siguienteJugada();
+    /**
+     *@as Partida::CreaBarraProgreso
+     */
+    virtual void CreaBarraProgreso();
+    /**
+     *@as Partida::AumentaBarraProgreso
+     */
+    virtual void AumentaBarraProgreso();
+    /**
+     *@as Partida::EliminaBarraProgreso
+     */
+    virtual void EliminaBarraProgreso();
 
     /**
      *@as Partida::SetJugadores
@@ -123,7 +138,28 @@ private:
       *Un apuntador al  manejador de la escena
       */
      scene::ISceneManager* smgr;
-     
+     /**
+      *Un apuntador al creador de GUI que proporciona irrlicht
+      */
+     gui::IGUIEnvironment* env;
+     /**
+      * barra de progres que aparecerá mientras el jugador
+      * pienza su siguente movimiento.
+      */
+     gui::CGUIProgressBar* bar;
+     /**
+      * bandera que inica si la barra de progreso va aumentar o disminuir
+      */
+     bool incrementabar;
+     /**
+      * tiempo q nos dira cuanto se aumentara la barra.
+      */
+     s32 ulttiempo;
+     /**
+      * timer
+      */
+     boost::timer timer;
+
      scene::IMetaTriangleSelector* triangle;
 
 };

@@ -22,6 +22,18 @@ public:
      *@as Partida::SetJugadores
      */
     virtual bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2);
+    /**
+     *@as Partida::CreaBarraProgreso
+     */
+    virtual void CreaBarraProgreso();
+    /**
+     *@as Partida::AumentaBarraProgreso
+     */
+    virtual void AumentaBarraProgreso();
+    /**
+     *@as Partida::EliminaBarraProgreso
+     */
+    virtual void EliminaBarraProgreso();
 
     /**
      * Imprime el tablero en consola.
