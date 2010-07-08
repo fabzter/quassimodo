@@ -27,6 +27,9 @@ public:
      * Imprime el tablero en consola.
      */
     void impimeTablero();
+    virtual void creaBarra();
+    virtual void AumentaBarra();
+    virtual void dropBarra();
 
 private:
     /**

@@ -6,6 +6,8 @@
 #include<vector>
 #include<Scripting/Manejador.hpp>
 #include<Scripting/Excepciones.hpp>
+#include"ThreadGrafico.hpp"
+#include<boost/thread.hpp>
 
 
 class Partida {
@@ -80,6 +82,9 @@ public:
      * @return un caracter que contiene el numero del agente con error
      */
     char getAgenteConError();
+    virtual void creaBarra()=0;
+    virtual void AumentaBarra()=0;
+    virtual void dropBarra()=0;
 
 
 protected:

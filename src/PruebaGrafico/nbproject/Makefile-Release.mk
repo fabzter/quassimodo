@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Menu.o \
 	${OBJECTDIR}/tokayoCamera.o \
 	${OBJECTDIR}/PartidaConsola.o \
+	${OBJECTDIR}/ThreadGrafico.o \
 	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/GUI.o \
 	${OBJECTDIR}/EventReceiver.o \
@@ -62,7 +63,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -lIrrlicht -lboost_filesystem-mt -lboost_system-mt
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -122,6 +123,11 @@ ${OBJECTDIR}/PartidaConsola.o: PartidaConsola.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaConsola.o PartidaConsola.cpp
+
+${OBJECTDIR}/ThreadGrafico.o: ThreadGrafico.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ThreadGrafico.o ThreadGrafico.cpp
 
 ${OBJECTDIR}/ManejadorJuego.o: ManejadorJuego.cpp 
 	${MKDIR} -p ${OBJECTDIR}

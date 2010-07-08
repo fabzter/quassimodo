@@ -57,3 +57,12 @@ void PartidaConsola::impimeTablero(){
 
     std::cout<<*this->t<<std::endl;
 }
+void PartidaConsola::creaBarra(){
+
+}
+void PartidaConsola::AumentaBarra(){
+
+}
+void PartidaConsola::dropBarra(){
+
+}

@@ -60,6 +60,9 @@ public:
      * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
     core::vector3df getCentro();
+    virtual void creaBarra();
+    virtual void AumentaBarra();
+    virtual void dropBarra();
 
 
 private:
@@ -130,7 +133,9 @@ private:
       */
      gui::IGUIEnvironment* env;
 
-
+    irr::gui::CGUIProgressBar* bar;
+    boost::timer timer;
+    bool incrementabar;
 
      scene::IMetaTriangleSelector* triangle;
 

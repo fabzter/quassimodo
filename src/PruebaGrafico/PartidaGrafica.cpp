@@ -201,5 +201,41 @@ void PartidaGrafica::dropJugadores() {
  }
  
 
+void PartidaGrafica::creaBarra(){
+    this->bar=new gui::CGUIProgressBar(env->getRootGUIElement(), env, core::rect<s32>(10,150,210,180));
+    this->bar->setProgress(0.35f);
+    //this->bar->drop();
+    timer.restart();
+
+}
+void PartidaGrafica::AumentaBarra(){
+
+        float progress=this->bar->getProgress();
+
+        s32 deltaTime = this->timer.elapsed()*100;
+        this->timer.restart();
+        if (incrementabar)
+            progress += deltaTime * 0.0002f;
+        else
+            progress -= deltaTime * 0.0002f;
+        if (progress > 1.0f)
+        {
+            progress = 1.0f;
+            incrementabar = false;
+        }
+        else
+        if (progress < 0.0f)
+        {
+            progress = 0.0f;
+            incrementabar = true;
+        }
+        this->bar->setProgress(progress);
+
+        this->env->drawAll();
+
+}
+void PartidaGrafica::dropBarra(){
+        this->bar->remove();
+}
 
 
