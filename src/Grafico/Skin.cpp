@@ -26,7 +26,6 @@ Grafico::Skin::~Skin() {
 }
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
-     
     this->Tablero=smgr->getMesh("conf/Texturas/Tablero.3ds");
     this->TTAblero=smgr->getVideoDriver()->getTexture( "conf/Texturas/Moss0138_10_S.jpg" );
     if( this->Tablero== NULL || this->TTAblero==0 )
