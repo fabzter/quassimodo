@@ -36,18 +36,18 @@ void Scripting::AgentePythonWrapper::iniciar(int id)
 Reglas::Jugada Scripting::AgentePythonWrapper::siguienteJugada()
 {
     Reglas::Jugada j;
-    PyGILState_STATE gstate=PyGILState_Ensure();
+    //PyGILState_STATE gstate=PyGILState_Ensure();
     try
     {
-        j = this->agente->siguienteJugada();
+         j = this->agente->siguienteJugada();
     }
     catch(boost::python::error_already_set& e)
     {
-        PyGILState_Release(gstate);
+     //   PyGILState_Release(gstate);
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
     }
-    PyGILState_Release(gstate);
+    //PyGILState_Release(gstate);
     return j;
 }
 
