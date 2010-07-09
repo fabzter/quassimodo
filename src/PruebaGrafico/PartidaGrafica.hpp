@@ -51,19 +51,6 @@ public:
      */
     virtual bool siguienteJugada();
     /**
-     *@as Partida::CreaBarraProgreso
-     */
-    virtual void CreaBarraProgreso();
-    /**
-     *@as Partida::AumentaBarraProgreso
-     */
-    virtual void AumentaBarraProgreso();
-    /**
-     *@as Partida::EliminaBarraProgreso
-     */
-    virtual void EliminaBarraProgreso();
-
-    /**
      *@as Partida::SetJugadores
      */
     bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2);

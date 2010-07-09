@@ -141,9 +141,6 @@ public:
      * @return un apuntador a char que contiene el mensaje de que hay ganador.
      */
     const char* getMsjGanador();
-    void crea();
-    void aumenta();
-    void destruye();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente

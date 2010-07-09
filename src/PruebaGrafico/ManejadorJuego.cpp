@@ -318,12 +318,3 @@ void ManejadorJuego::setObjetivoCam(){
      
     this->smgr->setActiveCamera(cam);   
 }
-   void ManejadorJuego::crea(){
-       this->partida->CreaBarraProgreso();
-   }
-    void ManejadorJuego::aumenta(){
-        this->partida->AumentaBarraProgreso();
-    }
-    void ManejadorJuego::destruye(){
-        this->partida->EliminaBarraProgreso();
-    }

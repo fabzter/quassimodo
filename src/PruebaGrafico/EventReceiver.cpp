@@ -30,20 +30,8 @@ bool EventReceiver::OnEvent(const SEvent& event)
                  }
              if(  event.KeyInput.Key==irr::KEY_KEY_P){
                 this->app->getManJuego()->printCam();
-             }
-            if(  event.KeyInput.Key==irr::KEY_KEY_C){
-                this->app->getManJuego()->crea();
-            }
-            if(  event.KeyInput.Key==irr::KEY_KEY_A){
-                this->app->getManJuego()->aumenta();
-            }
-
-            
-            if(  event.KeyInput.Key==irr::KEY_KEY_D){
-                this->app->getManJuego()->destruye();
-            }
-            
-                
+             }           
+               
             break;
             // si el elento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.
        case irr::EET_MOUSE_INPUT_EVENT:

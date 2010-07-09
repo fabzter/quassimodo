@@ -6,8 +6,7 @@
 #include<vector>
 #include<Scripting/Manejador.hpp>
 #include<Scripting/Excepciones.hpp>
-#include"ThreadAgente.hpp"
-#include<boost/thread.hpp>
+
 
 class Partida {
 public:
@@ -81,19 +80,6 @@ public:
      * @return un caracter que contiene el numero del agente con error
      */
     char getAgenteConError();
-    /**
-     *Crea la barra de progreso que estará mientras el jugador realiza
-     * su jugada
-     */
-    virtual void CreaBarraProgreso()=0;
-    /**
-     * Aumenta al rango de la barra de progreso
-     */
-    virtual void AumentaBarraProgreso()=0;
-    /**
-     * Elimina la barra de progreso
-     */
-    virtual void EliminaBarraProgreso()=0;
 
 
 protected:
