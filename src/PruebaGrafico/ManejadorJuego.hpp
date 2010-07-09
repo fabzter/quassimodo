@@ -6,7 +6,6 @@
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
 #include <sstream>
-#include "AnimacionEnd.hpp"
 #include"tokayoCamera.hpp"
 #include"Enums.hpp"
 #include <Grafico/Skin.hpp>
@@ -198,8 +197,7 @@ private:
      * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
     Grafico::Skin* skin;
-    /***/
-    AnimacionEnd *aniend;
+
     /**
      * un apuntador a un nodo de terreno que es donde se carga y amacena nuestro piso del juego
      */

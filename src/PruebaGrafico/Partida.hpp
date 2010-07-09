@@ -1,6 +1,6 @@
 
-#ifndef _PARTIDA_HPP
-#define	_PARTIDA_HPP
+#ifndef _PARTIDA_HPP_
+#define	_PARTIDA_HPP_
 #include<Reglas/Juez.hpp>
 #include<Reglas/Jugador.hpp>
 #include<vector>
@@ -146,5 +146,5 @@ protected:
 
 };
 
-#endif	/* _PARTIDA_HPP */
+#endif	/* _PARTIDA_HPP_ */
 

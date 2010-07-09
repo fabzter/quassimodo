@@ -7,8 +7,7 @@
 #include<Grafico/Tablero.hpp>
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Jugador.hpp>
-#include<Grafico/CGUIProgressBar.h>
-#include<boost/timer.hpp>
+
 
 using namespace irr;
 using namespace Grafico;
@@ -60,9 +59,6 @@ public:
      * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
     core::vector3df getCentro();
-    virtual void creaBarra();
-    virtual void AumentaBarra();
-    virtual void dropBarra();
 
 
 private:
@@ -132,10 +128,6 @@ private:
       *Un apuntador al creador de GUI que proporciona irrlicht
       */
      gui::IGUIEnvironment* env;
-
-    irr::gui::CGUIProgressBar* bar;
-    boost::timer timer;
-    bool incrementabar;
 
      scene::IMetaTriangleSelector* triangle;
 
