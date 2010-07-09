@@ -60,6 +60,9 @@ public:
      * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
     core::vector3df getCentro();
+    virtual void creaBarra();
+    virtual void AumentaBarra();
+    virtual void dropBarra();
 
 
 private:
@@ -129,23 +132,10 @@ private:
       *Un apuntador al creador de GUI que proporciona irrlicht
       */
      gui::IGUIEnvironment* env;
-     /**
-      * barra de progres que aparecerá mientras el jugador
-      * pienza su siguente movimiento.
-      */
-     gui::CGUIProgressBar* bar;
-     /**
-      * bandera que inica si la barra de progreso va aumentar o disminuir
-      */
-     bool incrementabar;
-     /**
-      * tiempo q nos dira cuanto se aumentara la barra.
-      */
-     s32 ulttiempo;
-     /**
-      * timer
-      */
-     boost::timer timer;
+
+    irr::gui::CGUIProgressBar* bar;
+    boost::timer timer;
+    bool incrementabar;
 
      scene::IMetaTriangleSelector* triangle;
 
