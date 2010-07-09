@@ -3,14 +3,15 @@
 #ifndef _MANEJADORGUI_HPP
 #define	_MANEJADORGUI_HPP
 #include<irrlicht/irrlicht.h>
-#include<Grafico/Skin.hpp>
-#include<Grafico/Tablero.hpp>
+#include"Skin.hpp"
+#include"Tablero.hpp"
 #include"Menu.hpp"
 #include"GUI.hpp"
 #include<string>
 #include<iostream>
 #include"Enums.hpp"
 using namespace irr;
+namespace Grafico{
 /**
  * clase que se encarga de todos los objetos de la GUI
  */
@@ -127,6 +128,6 @@ private:
 
 
 };
-
+}
 #endif	/* _MANEJADORGUI_HPP */
 

@@ -37,14 +37,14 @@ void ManejadorJuego::init(){
     if(this->grafico){
         this->partida=new PartidaGrafica(this->smgr,this->skin,this->env);
         PartidaGrafica *p= (PartidaGrafica*)this->partida;
-        this->mgui=new ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
         this->setSkinAmbiente();
         this->cam=0;
         this->setEscala(5,5,5);
     }
     else{
         this->partida=new PartidaConsola();
-        this->mgui=new ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
     }
 
 }
@@ -131,7 +131,7 @@ bool ManejadorJuego::enCurso(){
     return this->partida->estaEnCurso();
 }
 
-ManejadorGUI* ManejadorJuego::getManejadorGUI(){
+Grafico::ManejadorGUI* ManejadorJuego::getManejadorGUI(){
     return this->mgui;
 }
 

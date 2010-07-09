@@ -13,6 +13,7 @@
 #include"IAnimatorCameraTokayo.hpp"
 #include<iostream>
 using namespace irr;
+namespace Grafico{
         /**
          *Clase que implementa la interfaz de de animacion de la camara
          * @sa IAnimatorCameraTokayo
@@ -205,7 +206,7 @@ using namespace irr;
 
 	};
 
-
+}
 
 #endif
 

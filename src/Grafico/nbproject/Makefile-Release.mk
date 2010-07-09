@@ -33,6 +33,8 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Video.o \
+	${OBJECTDIR}/ManejadorGUI.o \
 	${OBJECTDIR}/Skin.o \
 	${OBJECTDIR}/Exepciones.o \
 	${OBJECTDIR}/SkinLoader.o \
@@ -41,10 +43,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/CConfigMap.o \
 	${OBJECTDIR}/CConfigReader.o \
 	${OBJECTDIR}/Jugador.o \
-	${OBJECTDIR}/CGUIProgressBar.o \
+	${OBJECTDIR}/Menu.o \
+	${OBJECTDIR}/tokayoCamera.o \
 	${OBJECTDIR}/Celda.o \
+	${OBJECTDIR}/CGUIProgressBar.o \
 	${OBJECTDIR}/Antorcha.o \
 	${OBJECTDIR}/CImageGUISkin.o \
+	${OBJECTDIR}/GUI.o \
 	${OBJECTDIR}/Barrera.o
 
 
@@ -77,6 +82,16 @@ dist/Release/GNU-Linux-x86/grafico: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas
 dist/Release/GNU-Linux-x86/grafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/grafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/Video.o: Video.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
+
+${OBJECTDIR}/ManejadorGUI.o: ManejadorGUI.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
 
 ${OBJECTDIR}/Skin.o: Skin.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -118,15 +133,25 @@ ${OBJECTDIR}/Jugador.o: Jugador.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
 
-${OBJECTDIR}/CGUIProgressBar.o: CGUIProgressBar.cpp 
+${OBJECTDIR}/Menu.o: Menu.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
+
+${OBJECTDIR}/tokayoCamera.o: tokayoCamera.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/tokayoCamera.o tokayoCamera.cpp
 
 ${OBJECTDIR}/Celda.o: Celda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
+
+${OBJECTDIR}/CGUIProgressBar.o: CGUIProgressBar.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
 
 ${OBJECTDIR}/Antorcha.o: Antorcha.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -137,6 +162,11 @@ ${OBJECTDIR}/CImageGUISkin.o: CImageGUISkin.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CImageGUISkin.o CImageGUISkin.cpp
+
+${OBJECTDIR}/GUI.o: GUI.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
 ${OBJECTDIR}/Barrera.o: Barrera.cpp 
 	${MKDIR} -p ${OBJECTDIR}

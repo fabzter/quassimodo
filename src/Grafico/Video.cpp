@@ -2,7 +2,7 @@
 #include "Video.hpp"
 using namespace irr;
 
-Video::Video(std::string video) {
+Grafico::Video::Video(std::string video) {
         if (video=="AUTO")
             this->SeleccionaDriverType();
         else if(video=="OPENGL")
@@ -18,12 +18,12 @@ Video::Video(std::string video) {
 
 }
 
-Video::Video(const Video& orig) {
+Grafico::Video::Video(const Video& orig) {
 }
 
-Video::~Video() {
+Grafico::Video::~Video() {
 }
-void Video::SeleccionaDriverType(){
+void Grafico::Video::SeleccionaDriverType(){
 
 #ifdef _IRR_COMPILE_WITH_SOFTWARE_
     this->setDriver(video::EDT_SOFTWARE);
@@ -45,13 +45,13 @@ this->setDriver(video::EDT_OPENGL);
 
 }
 
-void Video::setDriver(video::E_DRIVER_TYPE tipo){
+void Grafico::Video::setDriver(video::E_DRIVER_TYPE tipo){
     this->type=tipo;
 }
-video::E_DRIVER_TYPE Video::getVideoType(){
+video::E_DRIVER_TYPE Grafico::Video::getVideoType(){
     return this->type;
 }
- IrrlichtDevice* Video::creaDevice( bool fullscreen){
+ IrrlichtDevice* Grafico::Video::creaDevice( bool fullscreen){
 
      this->DetectaEscritorio();
      if(!fullscreen)
@@ -59,7 +59,7 @@ video::E_DRIVER_TYPE Video::getVideoType(){
      else
          return irr::createDevice(this->getVideoType(),this->DResolution, 32,fullscreen,true, true);
  }
-void Video::DetectaEscritorio(){
+void Grafico::Video::DetectaEscritorio(){
   IrrlichtDevice* device;
   device=irr::createDevice(video::EDT_SOFTWARE);
   video::IVideoModeList *VL = device->getVideoModeList();

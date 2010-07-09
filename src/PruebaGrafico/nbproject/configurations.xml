@@ -36,8 +36,6 @@
       <itemPath>Partida.cpp</itemPath>
       <itemPath>PartidaConsola.cpp</itemPath>
       <itemPath>PartidaGrafica.cpp</itemPath>
-      <itemPath>ThreadGrafico.cpp</itemPath>
-      <itemPath>ThreadGrafico.hpp</itemPath>
       <itemPath>Video.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>tokayoCamera.cpp</itemPath>

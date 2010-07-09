@@ -2,13 +2,13 @@
 #ifndef _MANEJADORJUEGO_HPP
 #define	_MANEJADORJUEGO_HPP
 
-#include "ManejadorGUI.hpp"
+#include <Grafico/ManejadorGUI.hpp>
+#include<Grafico/tokayoCamera.hpp>
+#include<Grafico/Enums.hpp>
+#include <Grafico/Skin.hpp>
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
 #include <sstream>
-#include"tokayoCamera.hpp"
-#include"Enums.hpp"
-#include <Grafico/Skin.hpp>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
 #include<string.h>
@@ -79,7 +79,7 @@ public:
      *Obtiene el objeto Manejador de la GUI
      * @return un apuntador a un objeto de la clase ManejadorGUI
      */
-    ManejadorGUI* getManejadorGUI();
+    Grafico::ManejadorGUI* getManejadorGUI();
     /**
      *Coloca el path del agente para ser cargado posteriormente
      * @param Agente path en donde se encuaentra el Agente
@@ -188,7 +188,7 @@ private:
     /**
      * Un apuntador a un objeto de la clase ManejadorGUI el cual maneja la interaccion con el usuario
      */
-    ManejadorGUI *mgui;
+    Grafico::ManejadorGUI *mgui;
     /**
      * Un apuntador de la clase Partida que es la que se encarga de mantener la partida
      */

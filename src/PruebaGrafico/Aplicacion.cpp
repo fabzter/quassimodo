@@ -5,11 +5,9 @@ using namespace irr;
 
 Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,bool fullscreen, int Vel){
     
-    this->Dvideo=new Video(video);
+    this->Dvideo=new Grafico::Video(video);
     if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
     
-
-
     if(this->grafico){
         this->device=this->Dvideo->creaDevice(fullscreen);
         this->Vdriver = this->device->getVideoDriver();

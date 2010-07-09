@@ -3,7 +3,7 @@
 
 using namespace irr;
 
-TokayoCamera::TokayoCamera(f32 rotate, f32 zoom,f32 translation)
+Grafico::TokayoCamera::TokayoCamera(f32 rotate, f32 zoom,f32 translation)
 	: Zooming(false), Rotating(false),Translating(false),ZoomSpeed(zoom), RotateSpeed(rotate),TranslateSpeed(translation),
 	CurrentZoom(400.0f), RotX(0.0f), RotY(0.0f), MousePos(0.5f, 0.5f)
 {
@@ -14,11 +14,11 @@ TokayoCamera::TokayoCamera(f32 rotate, f32 zoom,f32 translation)
 	allKeysUp();
 }
 
-TokayoCamera::~TokayoCamera()
+Grafico::TokayoCamera::~TokayoCamera()
 {}
 
 
-bool TokayoCamera::OnEvent(const SEvent& event)
+bool Grafico::TokayoCamera::OnEvent(const SEvent& event)
 {
 	if (event.EventType != EET_MOUSE_INPUT_EVENT)
 		return false;
@@ -61,7 +61,7 @@ bool TokayoCamera::OnEvent(const SEvent& event)
 //! OnAnimate() is called just before rendering the whole scene.
 //! nodes may calculate or store animations here, and may do other useful things,
 //! dependent on what they are.
-void TokayoCamera::animateNode(scene::ISceneNode *node, u32 timeMs)
+void Grafico::TokayoCamera::animateNode(scene::ISceneNode *node, u32 timeMs)
 {
 
    if (!node || node->getType() != scene::ESNT_CAMERA)
@@ -204,13 +204,13 @@ void TokayoCamera::animateNode(scene::ISceneNode *node, u32 timeMs)
 	camera->setUpVector(upVector);
 
 }
-bool TokayoCamera::isMouseKeyDown(s32 key)
+bool Grafico::TokayoCamera::isMouseKeyDown(s32 key)
 {
 	return MouseKeys[key];
 }
 
 
-void TokayoCamera::allKeysUp()
+void Grafico::TokayoCamera::allKeysUp()
 {
 	for (s32 i=0; i<3; ++i)
 		MouseKeys[i] = false;
@@ -218,58 +218,58 @@ void TokayoCamera::allKeysUp()
 
 
 //! Sets the rotation speed
-void TokayoCamera::setRotateSpeed(f32 speed)
+void Grafico::TokayoCamera::setRotateSpeed(f32 speed)
 {
 	RotateSpeed = speed;
 }
 
 
-void TokayoCamera::setZoomSpeed(f32 speed)
+void Grafico::TokayoCamera::setZoomSpeed(f32 speed)
 {
 	ZoomSpeed = speed;
 }
 
 
-f32 TokayoCamera::getRotateSpeed() const
+f32 Grafico::TokayoCamera::getRotateSpeed() const
 {
 	return RotateSpeed;
 }
 
-f32 TokayoCamera::getZoomSpeed() const
+f32 Grafico::TokayoCamera::getZoomSpeed() const
 {
 	return ZoomSpeed;
 }
 
-f32 TokayoCamera::getMoveSpeed() const {
+f32 Grafico::TokayoCamera::getMoveSpeed() const {
     return TranslateSpeed;
 }
 
-void TokayoCamera::setMoveSpeed(f32 moveSpeed){
+void Grafico::TokayoCamera::setMoveSpeed(f32 moveSpeed){
     TranslateSpeed=moveSpeed;
 }
 
-void TokayoCamera::setRotationNumbers(f32 RotX, f32 RotY) {
+void Grafico::TokayoCamera::setRotationNumbers(f32 RotX, f32 RotY) {
     this->RotX=RotX;
     this->RotY=RotY;
 }
 
-f32 TokayoCamera::getRotationNumX()const {
+f32 Grafico::TokayoCamera::getRotationNumX()const {
 
     return RotX;
 }
 
-f32 TokayoCamera::getRotationNumY() const{
+f32 Grafico::TokayoCamera::getRotationNumY() const{
 
     return RotY;
 }
-void TokayoCamera::setZoom(f32 Zoom){
+void Grafico::TokayoCamera::setZoom(f32 Zoom){
 
     CurrentZoom=Zoom;
 }
-f32  TokayoCamera::getZoom() const{
+f32  Grafico::TokayoCamera::getZoom() const{
     return CurrentZoom;
 }
-scene::ISceneNodeAnimator* TokayoCamera::createClone(scene::ISceneNode* node, scene::ISceneManager* newManager)
+scene::ISceneNodeAnimator* Grafico::TokayoCamera::createClone(scene::ISceneNode* node, scene::ISceneManager* newManager)
 {
 	TokayoCamera * newAnimator =
 		new TokayoCamera(RotateSpeed, ZoomSpeed,TranslateSpeed);

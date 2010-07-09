@@ -4,7 +4,7 @@
 using namespace irr;
 using namespace Grafico;
 
-Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin) {
+Grafico::Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin) {
     this->env=env;
     this->smgr=smgr;
     this->skin=skin;
@@ -16,15 +16,15 @@ Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero
 
 }
 
-Menu::Menu(const Menu& orig) {
+Grafico::Menu::Menu(const Menu& orig) {
     
 }
 
-Menu::~Menu() {
+Grafico::Menu::~Menu() {
     this->dropMenuP();
 }
 
- void Menu::SetJugadores(){
+ void Grafico::Menu::SetJugadores(){
 
     for(int i=0;i<this->t->num_jugadores;i++){
          this->jugadores.push_back(new Grafico::Pieza());
@@ -39,7 +39,7 @@ Menu::~Menu() {
     this->setPosicionJugadores();
 
 }
- void Menu::setPosicionJugadores(){
+ void Grafico::Menu::setPosicionJugadores(){
      
      for(int i=0;i<this->t->num_jugadores;i++){
         core::vector3df p=this->t->getPosicionCelda(4,(i*8));
@@ -47,7 +47,7 @@ Menu::~Menu() {
         this->jugadores.at(i)->setPosicion( p );
      }
  }
- void Menu::SetEscala(int x,int y,int z){
+ void Grafico::Menu::SetEscala(int x,int y,int z){
       this->escala.X=x ,this->escala.Y=y, this->escala.Z=z;
 
       if(this->menuEnEscena()){
@@ -60,7 +60,7 @@ Menu::~Menu() {
       }
  }
 
- void Menu::setMenuP(){
+ void Grafico::Menu::setMenuP(){
      if(!this->menuEnEscena()){
          haymenu=true;
          this->SetJugadores();
@@ -69,7 +69,7 @@ Menu::~Menu() {
          this->SetEscala( this->escala.X ,this->escala.Y, this->escala.Z);
      }
  }
-void Menu::dropMenuP(){
+void Grafico::Menu::dropMenuP(){
     if( this->menuEnEscena()){
          for (int i=0;i<B_COUNT;i++){
              this->botones.at(i)->remove();
@@ -83,7 +83,7 @@ void Menu::dropMenuP(){
     }
   
 }
- void Menu::setSkin(){
+ void Grafico::Menu::setSkin(){
 
      for(int i=0;i<B_COUNT;i++){
             this->botones.at(i)->setOverrideFont(this->skin->getMenuBoton());
@@ -91,7 +91,7 @@ void Menu::dropMenuP(){
       }
 
  }
- void Menu::setBotones(){
+ void Grafico::Menu::setBotones(){
 
       core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();
       int dis_ancho=Scren_Size.Width/15 ,dis_alto=70;
@@ -109,7 +109,7 @@ void Menu::dropMenuP(){
     
  }
 
-  char Menu::MenuConsola(){
+  char Grafico::Menu::MenuConsola(){
     char op;
     std::cout<<std::endl<<"\t\t¡¡Bienvenido a Quassimodo!!"<<std::endl<<std::endl;
     std::cout<<"Por favor selecciona la letra indicada según la Opcion que desees: "<<std::endl<<std::endl;
@@ -122,6 +122,6 @@ void Menu::dropMenuP(){
     return op;
   }
   
- bool Menu::menuEnEscena(){
+ bool Grafico::Menu::menuEnEscena(){
      return this->haymenu;
  }

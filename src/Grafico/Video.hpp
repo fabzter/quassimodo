@@ -6,6 +6,7 @@
 #include<irrlicht/irrlicht.h>
 #include<iostream>
 using namespace irr;
+namespace Grafico{
 /**
  * Clase encargada de encontrar un  driver de video para la computadora en que se inicie
  * la aplicacion
@@ -71,6 +72,6 @@ private:
 
 
 };
-
+}
 #endif	/* _VIDEO_HPP */
 

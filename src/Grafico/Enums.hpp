@@ -1,6 +1,7 @@
 
 #ifndef __ENUMS_HPP_
 #define	__ENUMS_HPP_
+namespace Grafico{
 /**
  * Enum que contiene los identificadores para cada boton en em Menú de la aplicación
  */
@@ -96,7 +97,7 @@ L"Ayuda de como usar la Aplicación",
 L"Sale de la Aplicación",
 0
 };
-
+}
 
 #endif	/* _ENUMS_HPP */
 
