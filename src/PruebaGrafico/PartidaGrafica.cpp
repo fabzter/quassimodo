@@ -6,7 +6,7 @@ using namespace irr;
 using namespace Grafico;
 
 
-PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env): Partida() {
+PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env,int VelAnim): Partida() {
     this->skin=skin;
     this->smgr=smgr;
     this->env=env;
@@ -16,7 +16,7 @@ PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gu
     this->Barreras.reserve(20);
     this->t=new Tablero(smgr,this->skin);
     this->juez = new Reglas::Juez(*t);
-
+    this->velAnim=VelAnim;
     for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
     }
@@ -94,7 +94,7 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
  void PartidaGrafica::SetBarrera(Reglas::Jugada &j, int idJugador){
 
-     this->Barreras.push_back(new Barrera(smgr,this->skin));
+     this->Barreras.push_back(new Barrera(smgr,this->skin,this->velAnim));
         unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
         this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
@@ -142,8 +142,8 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
       std::vector<Reglas::Agente*> agentes=this->getAgentes(rutaAgente1,rutaAgente2,this->t);
 
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],this->skin));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],this->skin,this->velAnim));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin,this->velAnim));
 
       this->t->setJugadores( this->jugadores);
       this->SetEscala(this->escala.X,this->escala.Y,this->escala.Z);

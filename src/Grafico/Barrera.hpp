@@ -23,8 +23,10 @@ public:
      *Constructor de Barrera carga los objetos del tablero que se van a dibujar, llama al constructor de la
      * clase Reglas::Barrera
      * @param smgr Un apuntador al  manejador de la escena
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param VelAnim velocidad de animacion que tendrá la barrera
      */
-    Barrera(scene::ISceneManager* smgr,Skin* skin);
+    Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim);
     /**
      *Constructor copia de la clase Barrera
      * @param orig una referencia a un objeto de la clase Barera del namespace Grafico
@@ -54,6 +56,10 @@ public:
 
     bool endAnimacion();
 private:
+    /**
+     * velocidad de animacion que tendrá la barrera
+     */
+    int velAnim;
 
 };
 }

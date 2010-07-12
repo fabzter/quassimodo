@@ -6,12 +6,12 @@
 #include<Grafico/tokayoCamera.hpp>
 #include<Grafico/Enums.hpp>
 #include <Grafico/Skin.hpp>
+#include<Reglas/Excepciones.hpp>
+#include<Scripting/Excepciones.hpp>
+#include <irrlicht/irrList.h>
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
 #include <sstream>
-#include<Reglas/Excepciones.hpp>
-#include<Scripting/Excepciones.hpp>
-#include<string.h>
 #include <string>
 
 using namespace irr;
@@ -25,10 +25,11 @@ public:
      *Constructor de la clase, se encarga de inicializar los atributos y colocar el menu princpal
      * @param smgr un apuntador al manejador de escena del juego
      * @param env un apuntador al creador de GUI que proporciona irrlicht
-     * @skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      * @param grafico bandera que indica si la aplicacion correra en modo grafico o solo en consola
      */
-    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,bool grafico=true);
+    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,int VelAnim,bool grafico=true);
     /**
      * Constructor copia de la clase
      *@param orig un objeto de la clase ManejadorJuego
@@ -223,6 +224,10 @@ private:
      * bandera que indica si la partida fue iniciada o no.
      */
     bool partidainiciada;
+    /**
+     * velocidad de animacion que tendrá la barrera y el jugador
+     */
+    int velAnim;
 };
 
 #endif	/* _MANEJADORJUEGO_HPP */

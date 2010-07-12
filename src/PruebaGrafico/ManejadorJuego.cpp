@@ -1,17 +1,15 @@
-
-#include <irrlicht/irrList.h>
-
 #include "ManejadorJuego.hpp"
 
 
-ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, Grafico::Skin* skin,bool grafico) {
+ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, Grafico::Skin* skin,int VelAnim,bool grafico) {
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
     this->skin=skin;
     this->terrain==NULL;
     this->skydome=NULL;
-    this->Agentes.resize(2);  
+    this->Agentes.resize(2);
+    this->velAnim=VelAnim;
     this->init();
     if(grafico)
       this->setMenu();
@@ -35,7 +33,7 @@ void ManejadorJuego::init(){
     this->clearAgentes();
     this->partidainiciada=false;
     if(this->grafico){
-        this->partida=new PartidaGrafica(this->smgr,this->skin,this->env);
+        this->partida=new PartidaGrafica(this->smgr,this->skin,this->env,this->velAnim);
         PartidaGrafica *p= (PartidaGrafica*)this->partida;
         this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
         this->setSkinAmbiente();

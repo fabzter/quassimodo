@@ -20,8 +20,9 @@ public:
      * @param smgr Un apuntador al  manejador de la escena
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param env un apuntador al creador de GUI que proporciona irrlicht
+     * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      */
-    PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env);
+    PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env,int VelAnim);
 
     /**
      * Constructor copia de la clase PartidaGrafica
@@ -129,6 +130,10 @@ private:
       *Un apuntador al creador de GUI que proporciona irrlicht
       */
      gui::IGUIEnvironment* env;
+    /**
+     * velocidad de animacion que tendrá la barrera y el jugador
+     */
+    int velAnim;
 
      scene::IMetaTriangleSelector* triangle;
 

@@ -4,12 +4,13 @@
 
 using namespace irr;
 
-Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza(),Reglas::Barrera() {
+Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim):Grafico::Pieza(),Reglas::Barrera() {
 
       this->mesh=skin->getBarrera();
      this->dibuja(smgr);
      this->nodoA->setMaterialTexture( 0, skin->getTBarrera() );
      this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+     this->velAnim=VelAnim;
      //  this->setSombra();
 }
 
@@ -48,7 +49,7 @@ void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vecto
     pos_ini.Y-=( ( this->getSize().Y*this->getEscala().Y ) +5 );
     
     this->nodoA->removeAnimators();
-    scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(pos_ini ,pos_final,300,false,false);
+    scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(pos_ini ,pos_final,this->velAnim,false,false);
     if (anim)
     {
         this->nodoA->addAnimator(anim);

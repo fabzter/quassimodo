@@ -25,7 +25,7 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
         this->env=NULL;
      }
 
-    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
+    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,Vel,this->grafico);
 
     if(this->grafico){
         this->skin=new Grafico::Skin(this->smgr,this->env,device->getFileSystem());

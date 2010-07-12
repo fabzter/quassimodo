@@ -6,7 +6,7 @@
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim):Grafico::Pieza() ,Reglas::Jugador(num,a) {
 
     if (num==0)
         this->mesh=skin->getJugador1();
@@ -16,6 +16,7 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
       //this->callback=callback;
       this->setSombra(skin->getSombraJugador());
       this->getNodo()->getMaterial(0).Shininess=20.0f;
+      this->velAnim=VelAnim;
 
 }
 
@@ -34,7 +35,7 @@ Grafico::Jugador::~Jugador() {
  bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos){
 
       this->nodoA->removeAnimators();
-      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,300,false,false);
+      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,this->velAnim,false,false);
       if (anim)
 		{
 			this->nodoA->addAnimator(anim);
