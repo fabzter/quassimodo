@@ -34,7 +34,6 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Aplicacion.o \
-	${OBJECTDIR}/AnimacionEnd.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/PartidaGrafica.o \
 	${OBJECTDIR}/PartidaConsola.o \
@@ -77,11 +76,6 @@ ${OBJECTDIR}/Aplicacion.o: Aplicacion.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
-
-${OBJECTDIR}/AnimacionEnd.o: AnimacionEnd.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/AnimacionEnd.o AnimacionEnd.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

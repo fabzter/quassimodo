@@ -95,10 +95,10 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
  void PartidaGrafica::SetBarrera(Reglas::Jugada &j, int idJugador){
 
      this->Barreras.push_back(new Barrera(smgr,this->skin));
-         unsigned int pos=this->Barreras.size();
+        unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
         this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
-        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
+        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
         this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
         this->setTopeSombra(pos-1);
 
@@ -166,7 +166,13 @@ bool PartidaGrafica::animacionesEnd(){
     else{
         Grafico::Jugador *ju0=(Grafico::Jugador*)this->jugadores.at(0);
         Grafico::Jugador *ju1=(Grafico::Jugador*)this->jugadores.at(1);
-        return ju0->endAnimacion() & ju1->endAnimacion() ;
+        bool end=ju0->endAnimacion() & ju1->endAnimacion() ;
+        if(this->Barreras.size()<=0){
+            return end;
+        }
+        else{
+            return end & this->Barreras.at(this->Barreras.size()-1)->endAnimacion();
+        }
     }
 }
 void PartidaGrafica::dropBarreras(){

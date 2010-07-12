@@ -37,17 +37,22 @@ public:
      */
     void giraNorte();
     /**
-     *Coloca la barrera para que tenga dirección Este
+     * Coloca la barrera para que tenga dirección Este
+     * @param pos posicion en la que estara la barrera
+     * @return  u vector que contiene la nueva posicion ya con el giro en la barrera
      */
-    void giraEste();
+    core::vector3df giraEste(core::vector3df pos);
     /**
      *Coloca la barrera en la escena y actualiza en el namespace Reglas
      * @param posg posicion que tendra la barrera en la escena
      * @param pos posicion que tendrá en el namespace grafico, esta es la posicion de la celda
      * en la que se quiere que se coloque la barrera
      * @param dir dirección en la que la barrera estará ( ya sea ESTE o NORTE )
+     * @param smgr Un apuntador al  manejador de la escena
      */
-    void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir);
+    void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir,scene::ISceneManager* smgr);
+
+    bool endAnimacion();
 private:
 
 };

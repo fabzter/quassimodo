@@ -40,12 +40,7 @@ Grafico::Jugador::~Jugador() {
 			this->nodoA->addAnimator(anim);
 			anim->drop();
       }
-      //this->setPosicion(npos);
-     /*core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->sombra->getAnimators().begin() ;
-     scene::ISceneNodeAnimatorCollisionResponse* anm = (scene::ISceneNodeAnimatorCollisionResponse*) *a;
-    anm->setTargetNode(this->sombra);*/
       this->posiciong=npos;
-       //this->nodoA->setAnimationEndCallback(this->callback);
       return true;
      
   }

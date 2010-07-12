@@ -41,7 +41,6 @@ void ManejadorJuego::init(){
         this->setSkinAmbiente();
         this->cam=0;
         this->setEscala(5,5,5);
-        this->end=new AnimacionEnd();
     }
     else{
         this->partida=new PartidaConsola();

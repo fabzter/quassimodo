@@ -8,7 +8,6 @@
 #include <Grafico/Skin.hpp>
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
-#include"AnimacionEnd.hpp"
 #include <sstream>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
@@ -224,7 +223,6 @@ private:
      * bandera que indica si la partida fue iniciada o no.
      */
     bool partidainiciada;
-    AnimacionEnd *end;
 };
 
 #endif	/* _MANEJADORJUEGO_HPP */
