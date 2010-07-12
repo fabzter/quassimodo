@@ -33,20 +33,31 @@ Grafico::Jugador::~Jugador() {
 
  bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos){
 
-      // this->nodoA->removeAnimators();
-    /*  scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,250,false,false);
+      this->nodoA->removeAnimators();
+      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,300,false,false);
       if (anim)
 		{
 			this->nodoA->addAnimator(anim);
 			anim->drop();
-      }*/
-      this->setPosicion(npos);
+      }
+      //this->setPosicion(npos);
      /*core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->sombra->getAnimators().begin() ;
      scene::ISceneNodeAnimatorCollisionResponse* anm = (scene::ISceneNodeAnimatorCollisionResponse*) *a;
     anm->setTargetNode(this->sombra);*/
-      //this->posiciong=npos;
-     //  this->nodoA->setAnimationEndCallback(this->callback);
+      this->posiciong=npos;
+       //this->nodoA->setAnimationEndCallback(this->callback);
       return true;
      
   }
+ bool Grafico::Jugador::endAnimacion(){
+
+     core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
+     scene::ISceneNodeAnimator* anim=*a;
+     if(anim==NULL||anim==0){
+         return true;
+     }
+     else{
+        return anim->hasFinished();
+     }
+ }
 

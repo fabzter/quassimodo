@@ -88,6 +88,7 @@ void Aplicacion::loopGrafico(){
 
         if(dibuja)
             {
+            this->juego->despachaJugada();
             this->Vdriver->beginScene(true, true, video::SColor(0,0,0,0));
             this->smgr->drawAll();
             this->env->drawAll();

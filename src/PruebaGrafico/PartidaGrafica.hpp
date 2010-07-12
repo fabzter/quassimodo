@@ -59,6 +59,7 @@ public:
      * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
     core::vector3df getCentro();
+    bool animacionesEnd();
 
 
 private:

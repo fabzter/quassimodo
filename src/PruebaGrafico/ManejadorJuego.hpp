@@ -8,6 +8,7 @@
 #include <Grafico/Skin.hpp>
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
+#include"AnimacionEnd.hpp"
 #include <sstream>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
@@ -140,6 +141,7 @@ public:
      * @return un apuntador a char que contiene el mensaje de que hay ganador.
      */
     const char* getMsjGanador();
+    void despachaJugada();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente
@@ -222,6 +224,7 @@ private:
      * bandera que indica si la partida fue iniciada o no.
      */
     bool partidainiciada;
+    AnimacionEnd *end;
 };
 
 #endif	/* _MANEJADORJUEGO_HPP */

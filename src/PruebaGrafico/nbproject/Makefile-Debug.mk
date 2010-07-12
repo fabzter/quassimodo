@@ -73,7 +73,6 @@ dist/Debug/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -Wl,-R../lib -Wl,-R./lib -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebagrafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-
 ${OBJECTDIR}/Aplicacion.o: Aplicacion.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d

@@ -6,18 +6,11 @@
                    projectFiles="true">
       <itemPath>AnimacionEnd.hpp</itemPath>
       <itemPath>Aplicacion.hpp</itemPath>
-      <itemPath>Enums.hpp</itemPath>
       <itemPath>EventReceiver.hpp</itemPath>
-      <itemPath>GUI.hpp</itemPath>
-      <itemPath>IAnimatorCameraTokayo.hpp</itemPath>
-      <itemPath>ManejadorGUI.hpp</itemPath>
       <itemPath>ManejadorJuego.hpp</itemPath>
-      <itemPath>Menu.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
       <itemPath>PartidaConsola.hpp</itemPath>
       <itemPath>PartidaGrafica.hpp</itemPath>
-      <itemPath>Video.hpp</itemPath>
-      <itemPath>tokayoCamera.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -29,16 +22,11 @@
       <itemPath>AnimacionEnd.cpp</itemPath>
       <itemPath>Aplicacion.cpp</itemPath>
       <itemPath>EventReceiver.cpp</itemPath>
-      <itemPath>GUI.cpp</itemPath>
-      <itemPath>ManejadorGUI.cpp</itemPath>
       <itemPath>ManejadorJuego.cpp</itemPath>
-      <itemPath>Menu.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>PartidaConsola.cpp</itemPath>
       <itemPath>PartidaGrafica.cpp</itemPath>
-      <itemPath>Video.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>tokayoCamera.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

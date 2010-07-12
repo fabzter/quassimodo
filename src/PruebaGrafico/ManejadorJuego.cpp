@@ -41,6 +41,7 @@ void ManejadorJuego::init(){
         this->setSkinAmbiente();
         this->cam=0;
         this->setEscala(5,5,5);
+        this->end=new AnimacionEnd();
     }
     else{
         this->partida=new PartidaConsola();
@@ -303,6 +304,17 @@ const char* ManejadorJuego::getMsjGanador(){
     msj<<"Gana el Jugador "<<this->partida->getJugadorGanador();
     return msj.str().c_str();
 }
+
+void ManejadorJuego::despachaJugada(){
+
+    if(this->partida->estaEnCurso()){
+        PartidaGrafica *p= (PartidaGrafica*)this->partida;
+        if( p->animacionesEnd() ){
+            this->SiguienteJugada();
+        }
+    }
+}
+
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
      this->cam = smgr->addCameraSceneNode();

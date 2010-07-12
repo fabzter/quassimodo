@@ -158,7 +158,17 @@ core::vector3df PartidaGrafica::getCentro(){
      cen.Y=pos.Y;
      return cen;
 }
+bool PartidaGrafica::animacionesEnd(){
 
+    if(this->jugadores.size()<=0){
+        return true;
+    }
+    else{
+        Grafico::Jugador *ju0=(Grafico::Jugador*)this->jugadores.at(0);
+        Grafico::Jugador *ju1=(Grafico::Jugador*)this->jugadores.at(1);
+        return ju0->endAnimacion() & ju1->endAnimacion() ;
+    }
+}
 void PartidaGrafica::dropBarreras(){
 
      for(int i=0;i<this->Barreras.size();i++){

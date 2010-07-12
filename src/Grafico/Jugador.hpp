@@ -5,7 +5,7 @@
 #include"Pieza.hpp"
 #include<Reglas/Jugador.hpp>
 #include "Skin.hpp"
-
+//TODO: terminar de documentar
 namespace Grafico{
     using namespace irr;
  /**
@@ -34,6 +34,8 @@ public:
     void Gira(core::vector3df giro);
 
     bool Mover(scene::ISceneManager* smgr,core::vector3df npos);
+
+    bool endAnimacion();
 
 private:
     scene::IAnimationEndCallBack* callback;
