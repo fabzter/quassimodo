@@ -11,7 +11,7 @@ void Scripting::manejar_excepcion_python_libre(
     using namespace std;
     using namespace boost::python;
 
-    string mensaje;
+    string mensaje("");
     PyObject *type, *value, *traceback;
 
     PyErr_Fetch(&type, &value, &traceback);
