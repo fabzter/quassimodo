@@ -21,7 +21,7 @@ class AgenteAStar (Reglas.Agente):
         #    j = random.choice(ayudante.getBarrerasPosibles(self.id))
         #else:
         #    j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
-        try : j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
+        try: j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
         except IndexError: j = random.choice(ayudante.getMovimientosPosibles(self.id) )
         
         print self.id, ": Hice mi Jugada"
