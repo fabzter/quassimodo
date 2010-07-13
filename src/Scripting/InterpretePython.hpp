@@ -1,6 +1,3 @@
-/**
- */
-
 #ifndef _INTERPRETEPYTHON_HPP
 #define	_INTERPRETEPYTHON_HPP
 #include<boost/python.hpp>

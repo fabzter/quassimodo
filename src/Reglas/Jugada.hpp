@@ -1,8 +1,6 @@
-/**
- */
-
 #ifndef _JUGADA_HPP
 #define	_JUGADA_HPP
+
 #include<vector>
 #include <algorithm>
 #include <functional>
