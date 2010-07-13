@@ -9,16 +9,16 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=ejecutable
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/ejecutable
+CND_ARTIFACT_NAME_Debug=aplicacion
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/aplicacion
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=ejecutable.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/ejecutable.tar
+CND_PACKAGE_NAME_Debug=aplicacion.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/aplicacion.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=ejecutable
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/ejecutable
+CND_ARTIFACT_NAME_Release=aplicacion
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/aplicacion
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=ejecutable.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/ejecutable.tar
+CND_PACKAGE_NAME_Release=aplicacion.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/aplicacion.tar
