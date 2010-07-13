@@ -65,6 +65,13 @@ private:
      * @return true si la opcion seleccionada inica partida, false en caso contrario
      */
     bool seleccionaOpcion(char op);
+    /**
+     * Prepara, la palicacion para iinciar una partida de inmediato, con los argumentos dados al 
+     * ejecutable.
+     * @pathJ1 el path del agente del jugador 1
+     * @param pathj2 el path del agente del jugador 2
+     */
+    void quick(std::string pathJ1,std::string pathj2);
 
     /**
      * Un objeto de la clase video encargado de Seleccionar el driver de video
@@ -103,6 +110,11 @@ private:
      * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
     Grafico::Skin* skin;
+    /**
+     * Indica si se iniciará de inmediato la partida con los agentes pasados como argumentos
+     * al ejecutable.
+     */
+    bool p_rapida;
 
 
 };

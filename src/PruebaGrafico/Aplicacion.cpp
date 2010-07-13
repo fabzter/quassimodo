@@ -32,7 +32,7 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
         this->eventos=new EventReceiver(this);
         this->device->setEventReceiver(this->eventos);
     }
-    
+    this->quick(pathJ1,pathj2);
 }
 
 Aplicacion::Aplicacion(const Aplicacion& orig) {
@@ -73,7 +73,7 @@ void Aplicacion::nuevoJuego(){
 
 void Aplicacion::loopGrafico(){
 
-     this->device->setWindowCaption(L"Quassimodo");
+    this->device->setWindowCaption(L"Quassimodo");
     this->smgr->setShadowColor(video::SColor(150,0,0,0));
     s32 lastFPS = -1;
    
@@ -106,6 +106,10 @@ void Aplicacion::loopGrafico(){
 			device->setWindowCaption(str.c_str());
 			lastFPS = fps;
 		}
+            if(this->p_rapida){
+                this->juego->setPartida();
+                this->p_rapida=false;
+            }
             }
         else{
             this->device->yield();
@@ -114,8 +118,13 @@ void Aplicacion::loopGrafico(){
 }
 void Aplicacion::loopConsola(){
 
-   if( this->seleccionaOpcion( this->juego->setMenu() ) )
+   
+   if( this->p_rapida || this->seleccionaOpcion( this->juego->setMenu() ) )
    {
+       if(this->p_rapida){
+            this->juego->setPartida();
+            this->p_rapida=false;
+       }
         while(this->juego->enCurso())
         {
             try{
@@ -130,12 +139,12 @@ void Aplicacion::loopConsola(){
             
             
         }
-        if(this->juego->hayGanador())
+   }
+   if(this->juego->hayGanador())
         {
             this->juego->getManejadorGUI()->MsgBox(this->juego->getMsjGanador(),false);
             this->juego->getManejadorGUI()->MsgBox(" ¡¡Bye!! ",false);
         }
-   }
 
  
 
@@ -180,3 +189,13 @@ bool Aplicacion::seleccionaOpcion(char op){
     }
           
   }
+void Aplicacion::quick(std::string pathJ1,std::string pathj2){
+
+    if(pathJ1!=""&& pathj2!=""){
+        this->juego->setAgente(pathJ1,0);
+        this->juego->setAgente(pathj2,1);
+        this->p_rapida=true;
+    }
+    else{
+    this->p_rapida=false;}
+}
