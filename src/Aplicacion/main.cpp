@@ -1,12 +1,12 @@
+#include "Aplicacion.hpp"
+#include "ManejadorOpciones.hpp"
 
-#include"Aplicacion.hpp"
-
-
-int main(int argc, char** argv) {
-    char op;
-    std::cout<<"modo grafico? s/n"<<std::endl;
-    std::cin>>op;
-    Aplicacion *app=new Aplicacion("","",op=='s'?"AUTO":"NULL",false,250);
+int main(int argc, char* argv[])
+{
+    ManejadorOpciones mo(argc, argv);
+    Aplicacion *app=new Aplicacion(mo.getAgente(0), mo.getAgente(1),
+                                   mo.getVideoMode().c_str(), mo.isFullScreen(),
+                                   250);
     app->run();
     delete(app);
     return 0;

@@ -7,6 +7,7 @@
       <itemPath>Aplicacion.hpp</itemPath>
       <itemPath>EventReceiver.hpp</itemPath>
       <itemPath>ManejadorJuego.hpp</itemPath>
+      <itemPath>ManejadorOpciones.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
       <itemPath>PartidaConsola.hpp</itemPath>
       <itemPath>PartidaGrafica.hpp</itemPath>
@@ -21,6 +22,7 @@
       <itemPath>Aplicacion.cpp</itemPath>
       <itemPath>EventReceiver.cpp</itemPath>
       <itemPath>ManejadorJuego.cpp</itemPath>
+      <itemPath>ManejadorOpciones.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>PartidaConsola.cpp</itemPath>
       <itemPath>PartidaGrafica.cpp</itemPath>
@@ -97,6 +99,7 @@
             <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
+            <linkerLibLibItem>boost_program_options-mt</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
         </linkerTool>
@@ -184,6 +187,7 @@
             <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
+            <linkerLibLibItem>boost_program_options-mt</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
         </linkerTool>
