@@ -73,6 +73,13 @@ public:
      *Elimina nos botones de la partida  (botones de las vistas, pausa y salir al menu)
      */
     void dropBotonesPartida();
+         /**
+      * Cambia el boton de pausa, por el de continua o viceversa, y muestra o quita
+      * un mensaje de PAUSA en la interfaz.
+      * @param pausa bandera que indica que se hará si poner la pausa o quitarla.
+      */
+     void Pausar(bool pausa);
+
 private:
     /**
      * Coloca el skin de la GUI
@@ -92,6 +99,14 @@ private:
      * @param msg cadena de char de la que queremos extraer el mensaje
      */
     void charTowchar(wchar_t m[],const char* msg);
+    /**
+     * Coloca el texto de PAUSA en el centro de la escena
+     */
+    void setTextPausa();
+    /**
+     * Elimina el el texto de PAUSA del centro de la escena
+     */
+    void dropTextPausa();
     
     /**
      * Un apuntador al manejador de la escena del juego
@@ -126,6 +141,10 @@ private:
      * bandera que indica si se colocaron los botones de la partida
      */
     bool botonesPartida;
+    /**
+     * nodo texto que se coloca en la escena al presionarse el botón de pausa
+     */
+    scene::ITextSceneNode* T_Pausa;
 
 };
 }

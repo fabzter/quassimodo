@@ -167,6 +167,7 @@ void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_2-2_vuelta.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton1_2_pausa.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_2_menu.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton2_2_pausa.png" ) );
     for(int i=0;i<this->botonesPartida.size();i++){
          if( this->botonesPartida.at(i)== NULL  )
             {

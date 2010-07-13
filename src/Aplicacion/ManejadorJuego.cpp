@@ -316,7 +316,7 @@ void ManejadorJuego::despachaJugada(){
 void ManejadorJuego::Pausar(){
     if( this->partida->estaEnCurso() ){
         this->pausa=!this->pausa;
-        
+        this->mgui->Pausar(this->pausa);
     }
 }
 

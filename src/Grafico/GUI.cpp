@@ -10,6 +10,7 @@ Grafico::GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Skin* Ski
     this->botonAgente.resize(2);
     this->botonPartida.resize(BP_COUNT);
     this->AvsA=0;
+    this->T_Pausa=NULL;
     botonesPartida=false;
    this->setSkin();
 }
@@ -20,6 +21,7 @@ Grafico::GUI::GUI(const GUI& orig) {
 Grafico::GUI::~GUI() {
     this->dropBotonesPartida();
     this->dropAvsA();
+    this->dropTextPausa();
     this->op=NULL;
 }
 void Grafico::GUI::setSkin(){
@@ -30,24 +32,27 @@ void Grafico::GUI::setSkin(){
 
          skin->setFont(this->skin->getGUIBoton() ,gui::EGDF_BUTTON);
          skin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
-         skin->setFont(this->skin->getMenuToolTip(),gui::EGDF_TOOLTIP);
+         
         
          
       skin->setColor(gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255));
-
-      //ponemos mas opaco los colores de la GUI
-     for (u32 i=0; i<gui::EGDC_COUNT ; ++i)
-     {
-         video::SColor  col = skin->getColor((gui::EGUI_DEFAULT_COLOR)i);
-         col.setAlpha(250);
-         skin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
-     }
-      skin->drop();*/
-
+*/
     gui::IGUISkin* sskin = this->skin->getSkinGui();
     sskin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
+    sskin->setFont(this->skin->getMenuToolTip(),gui::EGDF_TOOLTIP);
+    //ponemos mas opaco los colores de la GUI
+     for (u32 i=0; i<gui::EGDC_COUNT ; ++i)
+     {
+         video::SColor  col = sskin->getColor((gui::EGUI_DEFAULT_COLOR)i);
+         col.setAlpha(150);
+         sskin->setColor((gui::EGUI_DEFAULT_COLOR)i, col);
+     }
+
     sskin->setColor( gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255) );
+    
     this->env->setSkin( sskin );
+
+
  }
 void Grafico::GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
 {
@@ -150,5 +155,31 @@ void Grafico::GUI::dropBotonesPartida(){
            botonesPartida=false;
     }
 
+}
+
+void Grafico::GUI::Pausar(bool pausa){
+    int ultpos=this->botonPartida.size();
+    if(pausa){
+        this->botonPartida.at( ultpos-2 )->setImage( this->skin->getBotonPartida( ultpos) ) ;
+        this->setTextPausa();
+    }
+    else{
+        this->botonPartida.at( ultpos-2 )->setImage( this->skin->getBotonPartida( ultpos-2 ) );
+        this->dropTextPausa();
+    }
+    this->botonPartida.at(ultpos-2 )->setUseAlphaChannel(true);
+    this->botonPartida.at(ultpos-2 )->setDrawBorder(true);
+}
+
+void Grafico::GUI::setTextPausa(){
+    core::dimension2d<unsigned int> SS=this->smgr->getVideoDriver()->getScreenSize();
+    this->T_Pausa=this->smgr->addTextSceneNode(this->skin->getMenuBoton(),L"PAUSA",video::SColor(255,255,255,255) );
+}
+
+void Grafico::GUI::dropTextPausa(){
+    if(this->T_Pausa!=NULL||this->T_Pausa!=0){
+        this->T_Pausa->remove();
+        this->T_Pausa=NULL;
+    }
 
 }
