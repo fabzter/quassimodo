@@ -35,7 +35,6 @@ bool PartidaConsola::SetJugadores(std::string rutaAgente1,std::string rutaAgente
 
       this->t->setJugadores( this->jugadores);
 }
-
 bool PartidaConsola::siguienteJugada()
 {
     return this->Siguiente(this->t);

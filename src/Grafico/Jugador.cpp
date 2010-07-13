@@ -6,7 +6,7 @@
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin):Grafico::Pieza() ,Reglas::Jugador(num,a) {
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim):Grafico::Pieza() ,Reglas::Jugador(num,a) {
 
     if (num==0)
         this->mesh=skin->getJugador1();
@@ -16,6 +16,7 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
       //this->callback=callback;
       this->setSombra(skin->getSombraJugador());
       this->getNodo()->getMaterial(0).Shininess=20.0f;
+      this->velAnim=VelAnim;
 
 }
 
@@ -33,20 +34,26 @@ Grafico::Jugador::~Jugador() {
 
  bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos){
 
-      // this->nodoA->removeAnimators();
-    /*  scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,250,false,false);
+      this->nodoA->removeAnimators();
+      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,this->velAnim,false,false);
       if (anim)
 		{
 			this->nodoA->addAnimator(anim);
 			anim->drop();
-      }*/
-      this->setPosicion(npos);
-     /*core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->sombra->getAnimators().begin() ;
-     scene::ISceneNodeAnimatorCollisionResponse* anm = (scene::ISceneNodeAnimatorCollisionResponse*) *a;
-    anm->setTargetNode(this->sombra);*/
-      //this->posiciong=npos;
-     //  this->nodoA->setAnimationEndCallback(this->callback);
+      }
+      this->posiciong=npos;
       return true;
      
   }
+ bool Grafico::Jugador::endAnimacion(){
+
+     core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
+     scene::ISceneNodeAnimator* anim=*a;
+     if(anim==NULL||anim==0){
+         return true;
+     }
+     else{
+        return anim->hasFinished();
+     }
+ }
 

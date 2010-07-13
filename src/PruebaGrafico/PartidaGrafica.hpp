@@ -8,6 +8,7 @@
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Jugador.hpp>
 
+
 using namespace irr;
 using namespace Grafico;
 class PartidaGrafica: public Partida {
@@ -18,8 +19,10 @@ public:
      * los jugadores,
      * @param smgr Un apuntador al  manejador de la escena
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param env un apuntador al creador de GUI que proporciona irrlicht
+     * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      */
-    PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin);
+    PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env,int VelAnim);
 
     /**
      * Constructor copia de la clase PartidaGrafica
@@ -47,7 +50,6 @@ public:
      *@as Partida::siguienteJugada
      */
     virtual bool siguienteJugada();
-
     /**
      *@as Partida::SetJugadores
      */
@@ -58,6 +60,7 @@ public:
      * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
     core::vector3df getCentro();
+    bool animacionesEnd();
 
 
 private:
@@ -123,7 +126,15 @@ private:
       *Un apuntador al  manejador de la escena
       */
      scene::ISceneManager* smgr;
-     
+     /**
+      *Un apuntador al creador de GUI que proporciona irrlicht
+      */
+     gui::IGUIEnvironment* env;
+    /**
+     * velocidad de animacion que tendrá la barrera y el jugador
+     */
+    int velAnim;
+
      scene::IMetaTriangleSelector* triangle;
 
 };

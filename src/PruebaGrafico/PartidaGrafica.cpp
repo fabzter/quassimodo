@@ -6,16 +6,17 @@ using namespace irr;
 using namespace Grafico;
 
 
-PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin): Partida() {
+PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env,int VelAnim): Partida() {
     this->skin=skin;
     this->smgr=smgr;
+    this->env=env;
     this->escala.X=1,this->escala.Y=1,this->escala.Z=1;
     this->antorchas.reserve(4);
     this->antorchas.resize(4);
     this->Barreras.reserve(20);
     this->t=new Tablero(smgr,this->skin);
     this->juez = new Reglas::Juez(*t);
-
+    this->velAnim=VelAnim;
     for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
     }
@@ -93,11 +94,11 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
  void PartidaGrafica::SetBarrera(Reglas::Jugada &j, int idJugador){
 
-     this->Barreras.push_back(new Barrera(smgr,this->skin));
-         unsigned int pos=this->Barreras.size();
+     this->Barreras.push_back(new Barrera(smgr,this->skin,this->velAnim));
+        unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
         this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
-        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion()  );
+        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
         this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
         this->setTopeSombra(pos-1);
 
@@ -141,8 +142,8 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
       std::vector<Reglas::Agente*> agentes=this->getAgentes(rutaAgente1,rutaAgente2,this->t);
 
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],this->skin));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],this->skin,this->velAnim));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin,this->velAnim));
 
       this->t->setJugadores( this->jugadores);
       this->SetEscala(this->escala.X,this->escala.Y,this->escala.Z);
@@ -157,7 +158,23 @@ core::vector3df PartidaGrafica::getCentro(){
      cen.Y=pos.Y;
      return cen;
 }
+bool PartidaGrafica::animacionesEnd(){
 
+    if(this->jugadores.size()<=0){
+        return true;
+    }
+    else{
+        Grafico::Jugador *ju0=(Grafico::Jugador*)this->jugadores.at(0);
+        Grafico::Jugador *ju1=(Grafico::Jugador*)this->jugadores.at(1);
+        bool end=ju0->endAnimacion() & ju1->endAnimacion() ;
+        if(this->Barreras.size()<=0){
+            return end;
+        }
+        else{
+            return end & this->Barreras.at(this->Barreras.size()-1)->endAnimacion();
+        }
+    }
+}
 void PartidaGrafica::dropBarreras(){
 
      for(int i=0;i<this->Barreras.size();i++){

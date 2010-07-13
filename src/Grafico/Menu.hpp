@@ -6,15 +6,16 @@
 #include<irrlicht.h>
 #include <irrlicht/ICameraSceneNode.h>
 #include <irrlicht/vector3d.h>
-#include<Grafico/Antorcha.hpp>
-#include<Grafico/Tablero.hpp>
-#include<Grafico/Skin.hpp>
+#include"Antorcha.hpp"
+#include"Tablero.hpp"
+#include"Skin.hpp"
 #include<string>
 #include<vector>
 #include<wchar.h>
 #include"Enums.hpp"
 //TODO: acabar de documentar
 using namespace irr;
+namespace Grafico{
 /**
  * Clase que se encarga del menú principal, poner las piezas de los jugadores (solo para el menú estas no son las mismas que se uilizan en la partida)
  */
@@ -27,7 +28,7 @@ public:
      * @param t un apuntador a un objeto de la case Grafico::Tablero
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
-    Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin);
+    Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin);
     /**
      *Constructor copia de la clase menu
      * @param orig un objeto de la calse Menu
@@ -103,7 +104,7 @@ private:
     /**
      * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
-    Grafico::Skin* skin;
+    Skin* skin;
     /**
      * un apuntador al manejador de escena del juego
      */
@@ -118,6 +119,6 @@ private:
     core::vector3df escala;
 
 };
-
+}
 #endif	/* _MenuHPP */
 

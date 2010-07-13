@@ -4,7 +4,7 @@
 #define	_APLICACION_HPP
 #include<irrlicht/irrlicht.h>
 #include<string>
-#include"Video.hpp"
+#include<Grafico/Video.hpp>
 #include"ManejadorJuego.hpp"
 #include"EventReceiver.hpp"
 #include<iostream>
@@ -69,7 +69,7 @@ private:
     /**
      * Un objeto de la clase video encargado de Seleccionar el driver de video
      */
-    Video *Dvideo;
+    Grafico::Video *Dvideo;
     /**
      * Un objeto de la clase Juego que es el nucleo de la aplicación
      */

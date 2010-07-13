@@ -28,6 +28,7 @@ public:
      */
     void impimeTablero();
 
+
 private:
     /**
      *@as Partida::actualizarTablero

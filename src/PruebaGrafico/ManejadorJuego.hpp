@@ -2,17 +2,16 @@
 #ifndef _MANEJADORJUEGO_HPP
 #define	_MANEJADORJUEGO_HPP
 
-#include "ManejadorGUI.hpp"
-#include "PartidaConsola.hpp"
-#include "PartidaGrafica.hpp"
-#include <sstream>
-#include "AnimacionEnd.hpp"
-#include"tokayoCamera.hpp"
-#include"Enums.hpp"
+#include <Grafico/ManejadorGUI.hpp>
+#include<Grafico/tokayoCamera.hpp>
+#include<Grafico/Enums.hpp>
 #include <Grafico/Skin.hpp>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
-#include<string.h>
+#include <irrlicht/irrList.h>
+#include "PartidaConsola.hpp"
+#include "PartidaGrafica.hpp"
+#include <sstream>
 #include <string>
 
 using namespace irr;
@@ -26,10 +25,11 @@ public:
      *Constructor de la clase, se encarga de inicializar los atributos y colocar el menu princpal
      * @param smgr un apuntador al manejador de escena del juego
      * @param env un apuntador al creador de GUI que proporciona irrlicht
-     * @skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      * @param grafico bandera que indica si la aplicacion correra en modo grafico o solo en consola
      */
-    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,bool grafico=true);
+    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,int VelAnim,bool grafico=true);
     /**
      * Constructor copia de la clase
      *@param orig un objeto de la clase ManejadorJuego
@@ -80,7 +80,7 @@ public:
      *Obtiene el objeto Manejador de la GUI
      * @return un apuntador a un objeto de la clase ManejadorGUI
      */
-    ManejadorGUI* getManejadorGUI();
+    Grafico::ManejadorGUI* getManejadorGUI();
     /**
      *Coloca el path del agente para ser cargado posteriormente
      * @param Agente path en donde se encuaentra el Agente
@@ -141,6 +141,7 @@ public:
      * @return un apuntador a char que contiene el mensaje de que hay ganador.
      */
     const char* getMsjGanador();
+    void despachaJugada();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente
@@ -189,7 +190,7 @@ private:
     /**
      * Un apuntador a un objeto de la clase ManejadorGUI el cual maneja la interaccion con el usuario
      */
-    ManejadorGUI *mgui;
+    Grafico::ManejadorGUI *mgui;
     /**
      * Un apuntador de la clase Partida que es la que se encarga de mantener la partida
      */
@@ -198,8 +199,7 @@ private:
      * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
     Grafico::Skin* skin;
-    /***/
-    AnimacionEnd *aniend;
+
     /**
      * un apuntador a un nodo de terreno que es donde se carga y amacena nuestro piso del juego
      */
@@ -224,6 +224,10 @@ private:
      * bandera que indica si la partida fue iniciada o no.
      */
     bool partidainiciada;
+    /**
+     * velocidad de animacion que tendrá la barrera y el jugador
+     */
+    int velAnim;
 };
 
 #endif	/* _MANEJADORJUEGO_HPP */

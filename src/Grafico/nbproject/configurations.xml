@@ -1,47 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="62">
+<configurationDescriptor version="69">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="SkinGUI" projectFiles="true">
+        <itemPath>CConfigMap.h</itemPath>
+        <itemPath>CConfigReader.h</itemPath>
+        <itemPath>CGUIProgressBar.h</itemPath>
+        <itemPath>CImageGUISkin.h</itemPath>
+        <itemPath>SkinLoader.h</itemPath>
+        <itemPath>clipRects.h</itemPath>
+      </logicalFolder>
       <itemPath>Antorcha.hpp</itemPath>
       <itemPath>Barrera.hpp</itemPath>
       <itemPath>Celda.hpp</itemPath>
       <itemPath>Constantes.hpp</itemPath>
+      <itemPath>Enums.hpp</itemPath>
       <itemPath>Exepciones.hpp</itemPath>
+      <itemPath>GUI.hpp</itemPath>
+      <itemPath>IAnimatorCameraTokayo.hpp</itemPath>
       <itemPath>Jugador.hpp</itemPath>
+      <itemPath>ManejadorGUI.hpp</itemPath>
+      <itemPath>Menu.hpp</itemPath>
       <itemPath>Pieza.hpp</itemPath>
       <itemPath>Skin.hpp</itemPath>
       <itemPath>Tablero.hpp</itemPath>
+      <itemPath>Video.hpp</itemPath>
+      <itemPath>tokayoCamera.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
     </logicalFolder>
-    <logicalFolder name="f1" displayName="SkinGUI" projectFiles="true">
-      <itemPath>CConfigMap.cpp</itemPath>
-      <itemPath>CConfigMap.h</itemPath>
-      <itemPath>CConfigReader.cpp</itemPath>
-      <itemPath>CConfigReader.h</itemPath>
-      <itemPath>CGUIProgressBar.cpp</itemPath>
-      <itemPath>CGUIProgressBar.h</itemPath>
-      <itemPath>CImageGUISkin.cpp</itemPath>
-      <itemPath>CImageGUISkin.h</itemPath>
-      <itemPath>SkinLoader.cpp</itemPath>
-      <itemPath>SkinLoader.h</itemPath>
-      <itemPath>clipRects.h</itemPath>
-    </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="SkinGUI" projectFiles="true">
+        <itemPath>CConfigMap.cpp</itemPath>
+        <itemPath>CConfigReader.cpp</itemPath>
+        <itemPath>CGUIProgressBar.cpp</itemPath>
+        <itemPath>CImageGUISkin.cpp</itemPath>
+        <itemPath>SkinLoader.cpp</itemPath>
+      </logicalFolder>
       <itemPath>Antorcha.cpp</itemPath>
       <itemPath>Barrera.cpp</itemPath>
       <itemPath>Celda.cpp</itemPath>
       <itemPath>Exepciones.cpp</itemPath>
+      <itemPath>GUI.cpp</itemPath>
       <itemPath>Jugador.cpp</itemPath>
+      <itemPath>ManejadorGUI.cpp</itemPath>
+      <itemPath>Menu.cpp</itemPath>
       <itemPath>Pieza.cpp</itemPath>
       <itemPath>Skin.cpp</itemPath>
       <itemPath>Tablero.cpp</itemPath>
+      <itemPath>Video.cpp</itemPath>
+      <itemPath>tokayoCamera.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

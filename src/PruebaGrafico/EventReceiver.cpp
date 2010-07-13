@@ -20,17 +20,12 @@ bool EventReceiver::OnEvent(const SEvent& event)
     switch(event.EventType){
         case irr::EET_KEY_INPUT_EVENT:
             KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
-            if(  this->piniciada && event.KeyInput.Key==irr::KEY_KEY_R)
-              this->piniciada=this->app->getManJuego()->SiguienteJugada();
+           
              if(  event.KeyInput.Key==irr::KEY_KEY_Q)
                  if(!this->piniciada && this->app->getManJuego()->quick()){
                      this->piniciada=true;
-                 }
-             if(  event.KeyInput.Key==irr::KEY_KEY_P){
-                this->app->getManJuego()->printCam();
-             }
-            
-                
+                 }           
+               
             break;
             // si el elento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.
        case irr::EET_MOUSE_INPUT_EVENT:

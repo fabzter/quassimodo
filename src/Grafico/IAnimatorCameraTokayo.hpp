@@ -3,6 +3,7 @@
 #include <irrlicht/ISceneNodeAnimator.h>
 
 using namespace irr;
+namespace Grafico{
 /**
  * Interfaz del animador de la camara que se ocupa en la partida, deriva de la clase
  * Animador nodo scena de irrlicht, casi es lo mismo que la interfaz de camara maya que trae integrado
@@ -73,5 +74,5 @@ public:
         virtual f32 getZoom() const =0;
 };
 
-
+}
 #endif

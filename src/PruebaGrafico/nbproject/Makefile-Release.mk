@@ -33,17 +33,11 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Video.o \
 	${OBJECTDIR}/Aplicacion.o \
-	${OBJECTDIR}/ManejadorGUI.o \
-	${OBJECTDIR}/AnimacionEnd.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/PartidaGrafica.o \
-	${OBJECTDIR}/Menu.o \
-	${OBJECTDIR}/tokayoCamera.o \
 	${OBJECTDIR}/PartidaConsola.o \
 	${OBJECTDIR}/ManejadorJuego.o \
-	${OBJECTDIR}/GUI.o \
 	${OBJECTDIR}/EventReceiver.o \
 	${OBJECTDIR}/Partida.o
 
@@ -62,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -lIrrlicht -lboost_filesystem -lboost_system
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -78,25 +72,10 @@ dist/Release/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -Wl,-R../lib -Wl,-R./lib -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebagrafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Video.o: Video.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
-
 ${OBJECTDIR}/Aplicacion.o: Aplicacion.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
-
-${OBJECTDIR}/ManejadorGUI.o: ManejadorGUI.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
-
-${OBJECTDIR}/AnimacionEnd.o: AnimacionEnd.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/AnimacionEnd.o AnimacionEnd.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -108,16 +87,6 @@ ${OBJECTDIR}/PartidaGrafica.o: PartidaGrafica.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaGrafica.o PartidaGrafica.cpp
 
-${OBJECTDIR}/Menu.o: Menu.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
-
-${OBJECTDIR}/tokayoCamera.o: tokayoCamera.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/tokayoCamera.o tokayoCamera.cpp
-
 ${OBJECTDIR}/PartidaConsola.o: PartidaConsola.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -127,11 +96,6 @@ ${OBJECTDIR}/ManejadorJuego.o: ManejadorJuego.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorJuego.o ManejadorJuego.cpp
-
-${OBJECTDIR}/GUI.o: GUI.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
 ${OBJECTDIR}/EventReceiver.o: EventReceiver.cpp 
 	${MKDIR} -p ${OBJECTDIR}

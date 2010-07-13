@@ -23,8 +23,10 @@ public:
      *Constructor de Barrera carga los objetos del tablero que se van a dibujar, llama al constructor de la
      * clase Reglas::Barrera
      * @param smgr Un apuntador al  manejador de la escena
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param VelAnim velocidad de animacion que tendrá la barrera
      */
-    Barrera(scene::ISceneManager* smgr,Skin* skin);
+    Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim);
     /**
      *Constructor copia de la clase Barrera
      * @param orig una referencia a un objeto de la clase Barera del namespace Grafico
@@ -37,18 +39,27 @@ public:
      */
     void giraNorte();
     /**
-     *Coloca la barrera para que tenga dirección Este
+     * Coloca la barrera para que tenga dirección Este
+     * @param pos posicion en la que estara la barrera
+     * @return  u vector que contiene la nueva posicion ya con el giro en la barrera
      */
-    void giraEste();
+    core::vector3df giraEste(core::vector3df pos);
     /**
      *Coloca la barrera en la escena y actualiza en el namespace Reglas
      * @param posg posicion que tendra la barrera en la escena
      * @param pos posicion que tendrá en el namespace grafico, esta es la posicion de la celda
      * en la que se quiere que se coloque la barrera
      * @param dir dirección en la que la barrera estará ( ya sea ESTE o NORTE )
+     * @param smgr Un apuntador al  manejador de la escena
      */
-    void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir);
+    void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir,scene::ISceneManager* smgr);
+
+    bool endAnimacion();
 private:
+    /**
+     * velocidad de animacion que tendrá la barrera
+     */
+    int velAnim;
 
 };
 }

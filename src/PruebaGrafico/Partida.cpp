@@ -76,15 +76,14 @@ std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::st
  }
 
 bool Partida::Siguiente(Reglas::Tablero *t){
+
      if(!this->en_curso)
         throw Reglas::PartidaTerminada();
     this->en_curso = false; //si todo sale bien, la regresamos a en_curso = true
     //pedimos la Jugada y enviamos excepciones
-    Reglas::Jugada j;
-
-    j = this->juez->siguienteJugada(this->jugador_en_turno);
-    this->en_curso = true;
-
+    Reglas::Jugada j= this->juez->siguienteJugada(this->jugador_en_turno);
+   this->en_curso = true;
+    
     this->actualizarTablero(j, this->jugador_en_turno);
     //actualizamos el Jugador en turno.
     this->jugador_en_turno =

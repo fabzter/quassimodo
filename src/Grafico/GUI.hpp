@@ -3,11 +3,12 @@
 #ifndef _GUI_HPP
 #define	_GUI_HPP
 #include<irrlicht/irrlicht.h>
-#include<Grafico/Skin.hpp>
+#include"Skin.hpp"
 #include"Enums.hpp"
 #include<iostream>
 #include<vector>
 using namespace irr;
+namespace Grafico{
 /**
  * La clase GUI se encarga de ver todo lo relacionado con la interaccion con el usuario, excepto los botones del menú principal.
  * de las cosas que se encarga son de cuadros de dialogo, de open file dialogs etc.
@@ -20,7 +21,7 @@ public:
      * @param env Un apuntador al manejador de GUI del juego
      * @param Skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
-    GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Skin);
+    GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Skin* Skin);
     /**
      *Constructor copia de la clase GUI
      * @param orig
@@ -112,7 +113,7 @@ private:
     /**
      * Un apuntador a un objeto de la clase Grafico::Skin del cual extraemos las tipografias
      */
-    Grafico::Skin* skin;
+    Skin* skin;
     /**
      * Vector de botones en los que seleccionamos los agentes
      */
@@ -127,6 +128,6 @@ private:
     bool botonesPartida;
 
 };
-
+}
 #endif	/* _GUI_HPP */
 

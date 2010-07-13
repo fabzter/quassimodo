@@ -82,7 +82,7 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Celda=smgr->getMesh("conf/Texturas/Celda.3ds");//Moss0138_2_S.jpg RockMossy0018_S.jpg
+    this->Celda=smgr->getMesh("conf/Texturas/Celda.3ds");
     this->TCelda=smgr->getVideoDriver()->getTexture( "conf/Texturas/Moss0138_2_S.jpg" );
     if( this->Celda== NULL || this->TCelda== 0 )
         {
@@ -161,14 +161,8 @@ void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,
 }
 void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    /*this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_1lateral1.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton3_1lateral2.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_1frente1.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_1frente2.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton2_1_pausa.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton_1_menu.png" ) );*/
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton4_2-1_vuelta.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton4_2-1_vuelta.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton4_2-2_vuelta.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_2-1_frente.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton5_2-2_vuelta.png" ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/Texturas/gui/boton1_2_pausa.png" ) );

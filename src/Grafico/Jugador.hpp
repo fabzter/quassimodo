@@ -5,7 +5,7 @@
 #include"Pieza.hpp"
 #include<Reglas/Jugador.hpp>
 #include "Skin.hpp"
-
+//TODO: terminar de documentar
 namespace Grafico{
     using namespace irr;
  /**
@@ -18,8 +18,10 @@ public:
      * @param smgr Un apuntador al  manejador de la escena
      * @param num parametro requerido por Reglas::Jugador
      * @param a parametro requerido por ReglasJugador
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      */
-    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin);
+    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim);
     /**
      *Constructor copia de la clase Jugador
      * @param orig una referencia a un objeto de la clase Jugador del namespace Grafico
@@ -35,8 +37,13 @@ public:
 
     bool Mover(scene::ISceneManager* smgr,core::vector3df npos);
 
+    bool endAnimacion();
+
 private:
-    scene::IAnimationEndCallBack* callback;
+    /**
+     * velocidad de animacion que tendrá el jugador
+     */
+    int velAnim;
 
 };
 }

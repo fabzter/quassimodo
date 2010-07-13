@@ -3,7 +3,7 @@
 
 using namespace irr;
 
-GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Skin) {
+Grafico::GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Skin* Skin) {
     this->smgr=smgr;
     this->env=env;
     this->skin=Skin;
@@ -14,15 +14,15 @@ GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* Ski
    this->setSkin();
 }
 
-GUI::GUI(const GUI& orig) {
+Grafico::GUI::GUI(const GUI& orig) {
 }
 
-GUI::~GUI() {
+Grafico::GUI::~GUI() {
     this->dropBotonesPartida();
     this->dropAvsA();
     this->op=NULL;
 }
-void GUI::setSkin(){
+void Grafico::GUI::setSkin(){
      //gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
     	/*gui::IGUISkin* skin =this->env->getSkin();
 
@@ -49,7 +49,7 @@ void GUI::setSkin(){
     sskin->setColor( gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255) );
     this->env->setSkin( sskin );
  }
-void GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
+void Grafico::GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
 {
     std::wstringstream wsstring;
     wsstring << msg;
@@ -57,13 +57,13 @@ void GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
             this->env->addMessageBox(L"Quassimodo dice:", wsstring.str().c_str(),
                                     true, gui::EMBF_OK,0, idMsg);
 }
- void GUI::AgntVSAgnt(){
+ void Grafico::GUI::AgntVSAgnt(){
      this->dibujaSelector(true);
  }
- void GUI::AgntVSMkn(){
+ void Grafico::GUI::AgntVSMkn(){
      this->dibujaSelector(false);
  }
-std::string GUI::getPath()
+std::string Grafico::GUI::getPath()
 {
     wchar_t* m = (wchar_t*)op->getFileName();
     boost::filesystem::wpath w_path(m);
@@ -71,12 +71,12 @@ std::string GUI::getPath()
     return std::string(w_path.string().begin(), w_path.string().end());
 }
 
- void  GUI::OpenFileDialog()
+ void  Grafico::GUI::OpenFileDialog()
  {
       op = this->env->addFileOpenDialog(L"Selecciona el Agente",true,0,5);
  }
  
-void GUI::dropAvsA(){
+void Grafico::GUI::dropAvsA(){
     if(this->AvsA!=0){
         this->botonAgente[0]->remove();
         this->botonAgente[1]->remove();
@@ -87,7 +87,7 @@ void GUI::dropAvsA(){
         
 }
 
-void GUI::dibujaSelector(bool ambos){
+void Grafico::GUI::dibujaSelector(bool ambos){
       core::dimension2d<unsigned int> S_S=core::dimension2d<unsigned int>(600,310);
       int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2,d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
       core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a ,S_S.Height+d_al);
@@ -116,7 +116,7 @@ void GUI::dibujaSelector(bool ambos){
 
 }
 
-void GUI::setTextAgnt(int num, const char* text)
+void Grafico::GUI::setTextAgnt(int num, const char* text)
 {
     if(this->AvsA!=NULL)
     {
@@ -125,7 +125,7 @@ void GUI::setTextAgnt(int num, const char* text)
         this->botonAgente.at(num)->setText(wsstream.str().c_str());
     }
 }
-void GUI::setBotonesPartida(){
+void Grafico::GUI::setBotonesPartida(){
     
     core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();
       int dis_ancho=20,dis_alto=20;
@@ -141,7 +141,7 @@ void GUI::setBotonesPartida(){
       botonesPartida=true;
     
 }
-void GUI::dropBotonesPartida(){
+void Grafico::GUI::dropBotonesPartida(){
     if(botonesPartida){
           for(int i=0;i<BP_COUNT;i++){
             this->botonPartida.at(i)->remove();

@@ -4,25 +4,25 @@
 
 using namespace irr;
 
-ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin,bool grafico) {
+Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin,bool grafico) {
     this->menu=new Menu(smgr,env,t,skin);
     this->Gui=NULL;
     if(grafico)
         this->Gui=new GUI(smgr,env,skin);
 }
 
-ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
+Grafico::ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
 }
 
-ManejadorGUI::~ManejadorGUI() {
+Grafico::ManejadorGUI::~ManejadorGUI() {
     if(this->Gui!=NULL)
         delete(this->Gui);
     delete(this->menu);
 }
-void ManejadorGUI::dropMenu(){
+void Grafico::ManejadorGUI::dropMenu(){
     this->menu->dropMenuP();
 }
-void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
+void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
 
     if (grafico)
         this->Gui->MsgBox(msg,idMsg);
@@ -31,7 +31,7 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
 
 }
 
- void ManejadorGUI::AgntVSAgnt(bool ambos){
+ void Grafico::ManejadorGUI::AgntVSAgnt(bool ambos){
      
     // this->menu->dropMenuP();
      if(ambos)
@@ -40,7 +40,7 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
          this->Gui->AgntVSMkn();
  }
 
- std::string ManejadorGUI::getPath(bool grafico,int noA){
+ std::string Grafico::ManejadorGUI::getPath(bool grafico,int noA){
      if(grafico){
          return this->Gui->getPath();
      }
@@ -51,11 +51,11 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
      
  }
 
- void  ManejadorGUI::OpenFileDialog(){
+ void  Grafico::ManejadorGUI::OpenFileDialog(){
      this->Gui->OpenFileDialog();
  }
 
- char ManejadorGUI::setMenu(bool grafico){
+ char Grafico::ManejadorGUI::setMenu(bool grafico){
 
      if(grafico){
         this->menu->setMenuP();
@@ -66,30 +66,30 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
      
  }
 
- void ManejadorGUI::SetTextBtnAngt(int num, std::string text){
+ void Grafico::ManejadorGUI::SetTextBtnAngt(int num, std::string text){
      this->Gui->setTextAgnt(num,text.c_str() );
  }
 
- void ManejadorGUI::setEscala(int x,int y,int z){
+ void Grafico::ManejadorGUI::setEscala(int x,int y,int z){
      this->menu->SetEscala(x,y,z);
  }
 
- void ManejadorGUI::setMenuPartida(){
+ void Grafico::ManejadorGUI::setMenuPartida(){
      this->Gui->setBotonesPartida();
  }
- void ManejadorGUI::MsgBoxConsola(const char* msg){
+ void Grafico::ManejadorGUI::MsgBoxConsola(const char* msg){
     std::cout<<std::endl<<"###############################################################################";
     std::cout<<std::endl<<msg<<std::endl;
     std::cout<<std::endl<<"###############################################################################"<<std::endl<<std::endl;
  }
-  std::string ManejadorGUI::pideAgente(int noA){
+  std::string Grafico::ManejadorGUI::pideAgente(int noA){
     std::string agente;
     std::cout<<std::endl<<"Escribe la ruta del Agente :"<<noA<<std::endl;
     std::cin>>agente;
     return agente;
   }
 
-  void ManejadorGUI::creditos(bool grafico){
+  void Grafico::ManejadorGUI::creditos(bool grafico){
       std::string creditos;
       creditos="\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernandez Hernandez \t\t <faboster@gmail.com>\n"
               "Hugo Cesar Hernandez Pinha \t\t\t <eltokyo@gmail.com>";
@@ -98,11 +98,11 @@ void ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK idMsg){
 
   }
 
-  void ManejadorGUI::dropAvsA(){
+  void Grafico::ManejadorGUI::dropAvsA(){
 
       this->Gui->dropAvsA();
 
   }
-  void ManejadorGUI::dropBotonesPartida(){
+  void Grafico::ManejadorGUI::dropBotonesPartida(){
       this->Gui->dropBotonesPartida();
   }

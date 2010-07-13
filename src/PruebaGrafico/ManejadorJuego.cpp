@@ -1,17 +1,15 @@
-
-#include <irrlicht/irrList.h>
-
 #include "ManejadorJuego.hpp"
 
 
-ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, Grafico::Skin* skin,bool grafico) {
+ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, Grafico::Skin* skin,int VelAnim,bool grafico) {
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
     this->skin=skin;
     this->terrain==NULL;
     this->skydome=NULL;
-    this->Agentes.resize(2);  
+    this->Agentes.resize(2);
+    this->velAnim=VelAnim;
     this->init();
     if(grafico)
       this->setMenu();
@@ -35,16 +33,16 @@ void ManejadorJuego::init(){
     this->clearAgentes();
     this->partidainiciada=false;
     if(this->grafico){
-        this->partida=new PartidaGrafica(this->smgr,this->skin);
+        this->partida=new PartidaGrafica(this->smgr,this->skin,this->env,this->velAnim);
         PartidaGrafica *p= (PartidaGrafica*)this->partida;
-        this->mgui=new ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
         this->setSkinAmbiente();
         this->cam=0;
         this->setEscala(5,5,5);
     }
     else{
         this->partida=new PartidaConsola();
-        this->mgui=new ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
     }
 
 }
@@ -109,16 +107,10 @@ bool ManejadorJuego::SiguienteJugada(){
        try{
         curso=this->partida->siguienteJugada();
         }
-         catch(Scripting::ScriptMalo &e)
+         catch(Reglas::Excepcion &e)
          {
             this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
             if(!this->grafico)
-                throw;
-         }
-         catch(Reglas::ReglasRotas &e)
-         {
-             this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-             if(!this->grafico)
                 throw;
          }
 
@@ -137,7 +129,7 @@ bool ManejadorJuego::enCurso(){
     return this->partida->estaEnCurso();
 }
 
-ManejadorGUI* ManejadorJuego::getManejadorGUI(){
+Grafico::ManejadorGUI* ManejadorJuego::getManejadorGUI(){
     return this->mgui;
 }
 
@@ -155,8 +147,8 @@ void ManejadorJuego::clearAgentes(){
 }
 
   bool  ManejadorJuego::quick(){
-    this->Agentes[0]="agenteBarreras2.py";
-    this->Agentes[1]="agenteBarreras2.py";
+    this->Agentes[0]="./bin/agente_astar.py";
+    this->Agentes[1]="./bin/agente_astar.py";
     this->hayagente=true;
     return this->setPartida();
   }
@@ -309,6 +301,17 @@ const char* ManejadorJuego::getMsjGanador(){
     msj<<"Gana el Jugador "<<this->partida->getJugadorGanador();
     return msj.str().c_str();
 }
+
+void ManejadorJuego::despachaJugada(){
+
+    if(this->partida->estaEnCurso()){
+        PartidaGrafica *p= (PartidaGrafica*)this->partida;
+        if( p->animacionesEnd() ){
+            this->SiguienteJugada();
+        }
+    }
+}
+
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
      this->cam = smgr->addCameraSceneNode();
