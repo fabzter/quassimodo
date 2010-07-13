@@ -22,7 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
-CND_CONF=Debug
+CND_CONF=Release
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -60,52 +60,52 @@ LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Gr
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/pruebagrafico
+	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/aplicacion
 
-dist/Debug/GNU-Linux-x86/pruebagrafico: ../Grafico/dist/Debug/GNU-Linux-x86/libGrafico.so
+dist/Release/GNU-Linux-x86/aplicacion: ../Grafico/dist/Debug/GNU-Linux-x86/libGrafico.so
 
-dist/Debug/GNU-Linux-x86/pruebagrafico: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
+dist/Release/GNU-Linux-x86/aplicacion: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
-dist/Debug/GNU-Linux-x86/pruebagrafico: ../Scripting/dist/Debug/GNU-Linux-x86/libScripting.so
+dist/Release/GNU-Linux-x86/aplicacion: ../Scripting/dist/Debug/GNU-Linux-x86/libScripting.so
 
-dist/Debug/GNU-Linux-x86/pruebagrafico: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${LINK.cc} -Wl,-R../lib -Wl,-R./lib -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pruebagrafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
+dist/Release/GNU-Linux-x86/aplicacion: ${OBJECTFILES}
+	${MKDIR} -p dist/Release/GNU-Linux-x86
+	${LINK.cc} -Wl,-R../lib -Wl,-R./lib -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/aplicacion ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Aplicacion.o: Aplicacion.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Aplicacion.o Aplicacion.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/PartidaGrafica.o: PartidaGrafica.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaGrafica.o PartidaGrafica.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaGrafica.o PartidaGrafica.cpp
 
 ${OBJECTDIR}/PartidaConsola.o: PartidaConsola.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaConsola.o PartidaConsola.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaConsola.o PartidaConsola.cpp
 
 ${OBJECTDIR}/ManejadorJuego.o: ManejadorJuego.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorJuego.o ManejadorJuego.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorJuego.o ManejadorJuego.cpp
 
 ${OBJECTDIR}/EventReceiver.o: EventReceiver.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
 
 ${OBJECTDIR}/Partida.o: Partida.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
 
 # Subprojects
 .build-subprojects:
@@ -115,8 +115,8 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-Linux-x86/pruebagrafico
+	${RM} -r build/Release
+	${RM} dist/Release/GNU-Linux-x86/aplicacion
 
 # Subprojects
 .clean-subprojects:
