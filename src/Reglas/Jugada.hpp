@@ -7,7 +7,8 @@
 #include "Enums.hpp"
 #include "Excepciones.hpp"
 
-namespace Reglas{
+namespace Reglas
+{
 class Barrera;
 class Celda;
 
