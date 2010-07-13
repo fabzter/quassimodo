@@ -107,7 +107,7 @@ bool ManejadorJuego::SiguienteJugada(){
        try{
         curso=this->partida->siguienteJugada();
         }
-         catch(Reglas::Excepcion &e)
+         catch(std::exception &e)
          {
             this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
             if(!this->grafico)

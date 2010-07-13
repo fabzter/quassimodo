@@ -57,7 +57,7 @@ video::E_DRIVER_TYPE Grafico::Video::getVideoType(){
      if(!fullscreen)
          return irr::createDevice(this->getVideoType(),core::dimension2d<u32>(1024, 768), this->DPixel,fullscreen,true, true);
      else
-         return irr::createDevice(this->getVideoType(),this->DResolution, 32,fullscreen,true, true);
+         return irr::createDevice(this->getVideoType(),this->DResolution, 16,fullscreen,true, true);
  }
 void Grafico::Video::DetectaEscritorio(){
   IrrlichtDevice* device;
