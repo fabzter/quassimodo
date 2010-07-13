@@ -97,6 +97,9 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case BP_VISTA4:
                        this->app->getManJuego()->cambiaVistaJuego(4);
                         break;
+                    case BP_PAUSA:
+                        this->app->getManJuego()->Pausar();
+                        break;
                     case BP_MENU:
                         this->piniciada=false;
                         this->app->nuevoJuego();

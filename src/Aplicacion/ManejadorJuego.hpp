@@ -141,7 +141,15 @@ public:
      * @return un apuntador a char que contiene el mensaje de que hay ganador.
      */
     const char* getMsjGanador();
+    /**
+     * manda a la siguente jugada, al acabar la animación
+     */
     void despachaJugada();
+    /**
+     * Pausa la partida si es que está en curso, O pone la partida a correr., manda a llamar al manejador de
+     * GUI para que haga los cambios correspondientes en la interfaz gráfica.
+     */
+    void Pausar();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente
@@ -228,6 +236,10 @@ private:
      * velocidad de animacion que tendrá la barrera y el jugador
      */
     int velAnim;
+    /**
+     * BAndera que indica si la partida esta en pausa o no.
+     */
+    bool pausa;
 };
 
 #endif	/* _MANEJADORJUEGO_HPP */

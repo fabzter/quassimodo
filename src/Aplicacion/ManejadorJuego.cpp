@@ -31,6 +31,7 @@ ManejadorJuego::~ManejadorJuego() {
 void ManejadorJuego::init(){
 
     this->clearAgentes();
+    this->pausa=false;
     this->partidainiciada=false;
     if(this->grafico){
         this->partida=new PartidaGrafica(this->smgr,this->skin,this->env,this->velAnim);
@@ -304,11 +305,18 @@ const char* ManejadorJuego::getMsjGanador(){
 
 void ManejadorJuego::despachaJugada(){
 
-    if(this->partida->estaEnCurso()){
+    if(this->partida->estaEnCurso()&& !this->pausa){
         PartidaGrafica *p= (PartidaGrafica*)this->partida;
         if( p->animacionesEnd() ){
             this->SiguienteJugada();
         }
+    }
+}
+
+void ManejadorJuego::Pausar(){
+    if( this->partida->estaEnCurso() ){
+        this->pausa=!this->pausa;
+        
     }
 }
 

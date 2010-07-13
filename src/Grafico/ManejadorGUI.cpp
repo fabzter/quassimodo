@@ -106,3 +106,6 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
   void Grafico::ManejadorGUI::dropBotonesPartida(){
       this->Gui->dropBotonesPartida();
   }
+void Grafico::ManejadorGUI::Pausar(bool pausa){
+    
+}

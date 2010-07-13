@@ -102,6 +102,12 @@ public:
       *Elimina los botones de la partida en curso.
       */
      void dropBotonesPartida();
+     /**
+      * Cambia el boton de pausa, por el de continua o viceversa, y muestra o quita
+      * un mensaje de PAUSA en la interfaz. 
+      * @param pausa bandera que indica que se hará si poner la pausa o quitarla.
+      */
+     void Pausar(bool pausa);
 
 private:
 
