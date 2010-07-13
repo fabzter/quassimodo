@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
-import Reglas
+import sys
+sys.path.append("../lib")
+import Regla
+import random
 
-class AgenteBarreras (Reglas.Agente):
+class AgenteBarreras (Regla.Agente):
 
     def __init__(self):
         Reglas.Agente.__init__(self)
@@ -10,52 +13,16 @@ class AgenteBarreras (Reglas.Agente):
     def iniciar(self, id):
         self.tab = tablero
         self.id = id
-        self.idEnemigo = 1 if self.id == 0 else 0
-        
-        print tablero.getMetas(id)[0]
-        
-        if(self.tab.getMetas(self.id)[0].getPosicion()[1] == 8):
-            self.direccion = Reglas.Direccion.NORTE
-        elif self.tab.getMetas(self.id)[0].getPosicion()[1] == 0:
-            self.direccion = Reglas.Direccion.SUR
-        else:
-            print "WTF"
-            self.direccion = Reglas.Direccion.SUR
-            
-        self.direccionEnemigo = Reglas.Direccion.NORTE \
-        if self.direccion == Reglas.Direccion.SUR else Reglas.Direccion.SUR
-        
-        print "Soy jugador ", self.id
-        
-        self.num_jugada = 0
-        
-        print "Barreras Colocadas:\n", tablero.getBarrerasColocadas()
+        self.ayudante = ayudante
         
         print "Estoy iniciado"
         
         
     def siguienteJugada(self):
-        print self.id, ": Preparo mi jugada"
-        
-        j = Reglas.Jugada()
-        j.setTipoDeJugada(Reglas.TipoDeJugada.BARRERA)
-        
-        celdaActual = self.tab.getCelda(self.id)
-        celdaEnemigo = self.tab.getCelda(self.idEnemigo)
-        
-        #j.setPosicion( celdaEnemigo.getPosicion()[0], celdaEnemigo.getHijo(self.direccionEnemigo).getPosicion()[1] )
-        if self.num_jugada == 0: 
-            #j.setPosicion( (7, 2) )
-            j.setPosicion( (1, 3) )
-            j.setDireccion( Reglas.Direccion.NORTE )
-        elif self.num_jugada == 1: 
-            j.setPosicion( (0, 5) )
-            j.setDireccion( Reglas.Direccion.ESTE )
-        elif self.num_jugada == 2: 
-            j.setPosicion( (8, 3) )
-            j.setDireccion( Reglas.Direccion.NORTE )
-        
-        self.num_jugada += 1
+        if len(ayudante.getBarrerasPosibles(self.id)) != 0:
+            j = random.choice(ayudante.getBarrerasPosibles(self.id))
+        else:
+            j = random.choice(ayudante.getMovimientosPosibles(self.id))
         
         print self.id, ": Hice mi Jugada"
         return j

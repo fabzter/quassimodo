@@ -1,15 +1,14 @@
-/**
- */
-
 #ifndef _JUGADA_HPP
 #define	_JUGADA_HPP
+
 #include<vector>
 #include <algorithm>
 #include <functional>
 #include "Enums.hpp"
 #include "Excepciones.hpp"
 
-namespace Reglas{
+namespace Reglas
+{
 class Barrera;
 class Celda;
 

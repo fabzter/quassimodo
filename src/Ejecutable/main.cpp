@@ -22,13 +22,13 @@ int main(int argc, char** argv)
 
     try
     {
-        agentes.push_back(m->getAgente("../../bin/agenteBusca.py"));
-        agentes.push_back(m->getAgente("../../bin/agente_astar.py"));
+        agentes.push_back(m->getAgente("../../bin/agenteMiniMax2.py"));
+        agentes.push_back(m->getAgente("../../bin/agenteMiniMax2.py"));
     }
     catch(Scripting::ScriptMalo &e)
     {
-        agentes.push_back(m->getAgente("../bin/agenteBusca.py"));
-        agentes.push_back(m->getAgente("../bin/agente_astar.py"));
+        agentes.push_back(m->getAgente("../bin/agenteMiniMax2.py"));
+        agentes.push_back(m->getAgente("../bin/agenteMiniMax2.py"));
     }
 
     std::vector< Jugador* > jugadores;
