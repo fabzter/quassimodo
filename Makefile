@@ -7,8 +7,7 @@ doc: Doxyfile
 	doxygen
 
 test: 
-	cd $(SRC_DIR)/Ejecutable && make
-	cd $(SRC_DIR)/PruebaGrafico && make
+	cd $(SRC_DIR)/Aplicacion && make
 
 bin: 
 	cd $(SRC_DIR)/Grafico && make
@@ -17,8 +16,7 @@ bin:
 
 clean:
 	cd $(SRC_DIR)/AgenteWrapper && make clean
-	cd $(SRC_DIR)/Ejecutable && make clean
-	cd $(SRC_DIR)/PruebaGrafico && make clean
+	cd $(SRC_DIR)/Aplicacion && make clean
 	cd $(SRC_DIR)/Grafico && make clean
 	cd $(SRC_DIR)/Reglas && make clean
 	cd $(SRC_DIR)/Scripting && make clean
