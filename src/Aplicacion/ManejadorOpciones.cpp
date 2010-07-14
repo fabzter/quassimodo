@@ -1,4 +1,5 @@
 #include "ManejadorOpciones.hpp"
+#include <iostream>
 
 ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
 {
@@ -14,6 +15,9 @@ ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("agentes,a", po::value< vector<string> >()->multitoken(),
                                 "Especifica el path de los dos agentes a usar.\n"
                                 "-a /path/a/agente1.py /path/a/agente2.py")
+            ("velocidad,v", po::value<int>(&(this->velocidad))->default_value(250),
+                            "Especifica la velocidad de la animación de los "
+                            "agentes. Default = 250")
             ;
     
     po::store(po::parse_command_line
@@ -21,6 +25,13 @@ ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
     po::notify(vm);
     
     this->video_mode = this->vm.count("texto")? "NULL": "AUTO";
+
+    //Si se puso "-h" mostramos la ayuda y nos salimos! :D
+    if(this->vm.count("help") > 0)
+    {
+        cout << '\n' << *this->description << endl;
+        exit(0);
+    }
 }
 
 ManejadorOpciones::ManejadorOpciones(const ManejadorOpciones& orig)
@@ -37,7 +48,7 @@ const std::string & ManejadorOpciones::getVideoMode()
     return this->video_mode;
 }
 
-std::string ManejadorOpciones::getAgente(int num)
+std::string ManejadorOpciones::getAgentePath(int num)
 {
     using namespace std;
     string path = "";
@@ -49,7 +60,6 @@ std::string ManejadorOpciones::getAgente(int num)
     }
 
     path_vect = vm["agentes"].as<vector<string> >();
-
     if(path_vect.empty())
     {
         return path;
@@ -60,5 +70,10 @@ std::string ManejadorOpciones::getAgente(int num)
 
 bool ManejadorOpciones::isFullScreen()
 {
-    return this->vm.count("fullscreen")? true: false;
+    return this->vm.count("fullscreen") > 0;
+}
+
+int ManejadorOpciones::getVelocidad()
+{
+    return this->vm["velocidad"].as<int>();
 }

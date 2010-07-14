@@ -7,6 +7,11 @@
 class ManejadorOpciones
 {
 public:
+    /**
+     * El único constructor de esta clase que debe ser usado.
+     * @param argc el número de argumentos pasados a la aplicación.
+     * @param argv el array de parámetros pasados a la aplicación.
+     */
     ManejadorOpciones(int argc, char *argv[]);
     ManejadorOpciones(const ManejadorOpciones& orig);
     virtual ~ManejadorOpciones();
@@ -25,7 +30,7 @@ public:
      * @param num el número del agente del que se quiere el path.
      * @return Una string que contiene el path del agente, o una string vacía.
      */
-    std::string getAgente(int num);
+    std::string getAgentePath(int num);
 
     /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la
@@ -33,10 +38,17 @@ public:
      * @return true de haberse especificado, false de lo contrario.
      */
     bool isFullScreen();
+
+    /**
+     * Nos indica la velocidad que se específico en la línea de comandos.
+     * @return la velocidad especificada con la opción "-v".
+     */
+    int getVelocidad();
 private:
     boost::program_options::options_description* description;
     boost::program_options::variables_map vm;
     std::string video_mode;
+    int velocidad;
 };
 
 #endif	/* MANEJADOROPCIONES_HPP */
