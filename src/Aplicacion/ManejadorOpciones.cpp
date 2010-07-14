@@ -20,19 +20,22 @@ ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
                             "agentes. Default = 250")
             ;
 
-    po::store(
+    po::parsed_options parsed =
             po::command_line_parser(argc, argv).options(*(this->description))
-                                    .allow_unregistered().run(), this->vm);
-    po::notify(vm);
-    
-    this->video_mode = this->vm.count("texto")? "NULL": "AUTO";
+                                    .allow_unregistered().run();
 
-    //Si se puso "-h" mostramos la ayuda y nos salimos! :D
-    if(this->vm.count("help") > 0)
+    po::store(parsed, this->vm);
+    po::notify(vm);
+
+    //Si se puso "-h" u opciones inválidas mostramos la ayuda y nos salimos! :D
+    if(this->vm.count("help") > 0 || 
+            !po::collect_unrecognized(parsed.options, po::include_positional).empty())
     {
         cout << '\n' << *this->description << endl;
         exit(0);
     }
+
+    this->video_mode = this->vm.count("texto")? "NULL": "AUTO";
 }
 
 ManejadorOpciones::ManejadorOpciones(const ManejadorOpciones& orig)
