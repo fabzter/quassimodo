@@ -19,9 +19,10 @@ ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
                             "Especifica la velocidad de la animación de los "
                             "agentes. Default = 250")
             ;
-    
-    po::store(po::parse_command_line
-                                (argc, argv, *(this->description)), this->vm);
+
+    po::store(
+            po::command_line_parser(argc, argv).options(*(this->description)).run()
+                                        ,this->vm);
     po::notify(vm);
     
     this->video_mode = this->vm.count("texto")? "NULL": "AUTO";
