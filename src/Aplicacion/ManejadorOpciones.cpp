@@ -21,8 +21,8 @@ ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ;
 
     po::store(
-            po::command_line_parser(argc, argv).options(*(this->description)).run()
-                                        ,this->vm);
+            po::command_line_parser(argc, argv).options(*(this->description))
+                                    .allow_unregistered().run(), this->vm);
     po::notify(vm);
     
     this->video_mode = this->vm.count("texto")? "NULL": "AUTO";
