@@ -51,6 +51,7 @@ void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
                 this->mesh->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
                 this->nodoA->setPosition( this->posiciong );
                  this->size =this->nodoA->getBoundingBox().getExtent();
+                // this->nodoA->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
 }
 
 void Grafico::Pieza::setEscala(int x, int y ,int z){

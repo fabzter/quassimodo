@@ -14,7 +14,7 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
         this->mesh=skin->getJugador2();
       this->dibuja(smgr);
       //this->callback=callback;
-      this->setSombra(skin->getSombraJugador());
+     // this->setSombra(skin->getSombraJugador());
       this->getNodo()->getMaterial(0).Shininess=20.0f;
       this->velAnim=VelAnim;
 

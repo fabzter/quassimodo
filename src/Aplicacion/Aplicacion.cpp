@@ -15,7 +15,6 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
         this->env =this->device->getGUIEnvironment();
         this->device->setResizable(false);
         this->skin=new Grafico::Skin(this->smgr,this->env,device->getFileSystem());
-
     }
      else{
         this->skin=NULL;

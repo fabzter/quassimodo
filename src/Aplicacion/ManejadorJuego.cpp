@@ -227,6 +227,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
         this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
        this->terrain->scaleTexture(1.0f, 20.0f);
+       //this->terrain->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
 
 
  }
@@ -327,6 +328,7 @@ void ManejadorJuego::setObjetivoCam(){
         anm->setRotationNumbers(270,57) ;
         anm->setZoom(602);
 	this->cam->addAnimator(anm);
+        this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
 	anm->drop();
     PartidaGrafica *p= (PartidaGrafica*)this->partida;
     core::vector3df v=p->getCentro();
