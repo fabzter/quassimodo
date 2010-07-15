@@ -3,7 +3,7 @@
 #include <boost/program_options.hpp>
 #include <string>
 #include <vector>
-
+namespace Opciones{
 class ManejadorOpciones
 {
 public:
@@ -50,6 +50,7 @@ private:
     std::string video_mode;
     int velocidad;
 };
+}
 
 #endif	/* MANEJADOROPCIONES_HPP */
 

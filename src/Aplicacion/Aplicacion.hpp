@@ -7,6 +7,7 @@
 #include<Grafico/Video.hpp>
 #include"ManejadorJuego.hpp"
 #include"EventReceiver.hpp"
+#include<Opciones/ManejadorOpciones.hpp>
 #include<iostream>
 using namespace irr;
 /**
@@ -18,16 +19,9 @@ class Aplicacion {
 public:
    /**
     *Constructor de la clase aplicacion, inicializa todo segun los argumentos dados
-    * @param pathJ1 el path del agente del jugador 1 (se tienen que dar ambos paths para que el juego inicie
-    * directamente a la partida, sin mostrar el menú)
-    * @param pathj2 el path del agente del jugador 2
-    * @param video Driver de video a Seleccionar, si se quiere ocupar un driver especifico OPENGL, DIRECT9, DIRECT8, AUTO o NULL.
-    * La opcion de NULL indica que no se mostraran graficos en 3D y que solo la partida se mostrara en consola
-    * La opcion AUTO, escoje automaticamente el driver.
-    * @param fullscreen si se quiere que la apicacion se muestre en fullscreen o no.
-    * @param Vel velocidad de la animacion de la partidaen entre mayor sea el numero mas tiempo se tarda.
+    * @param opciones Un objeto que sirve para manejar las opciones de creacion de la aplicacion
     */
-    Aplicacion(std::string pathJ1,std::string pathj2,std::string video="AUTO",bool fullscreen=false, int Vel=5);
+    Aplicacion(Opciones::ManejadorOpciones &opciones);
     /**
      *Constructor copia de la clase Aplicación
      * @param orig un objeto de la clase aplicacion
@@ -116,6 +110,7 @@ private:
      * al ejecutable.
      */
     bool p_rapida;
+    int velAnimacion;
 
 
 };

@@ -7,7 +7,6 @@
       <itemPath>Aplicacion.hpp</itemPath>
       <itemPath>EventReceiver.hpp</itemPath>
       <itemPath>ManejadorJuego.hpp</itemPath>
-      <itemPath>ManejadorOpciones.hpp</itemPath>
       <itemPath>Partida.hpp</itemPath>
       <itemPath>PartidaConsola.hpp</itemPath>
       <itemPath>PartidaGrafica.hpp</itemPath>
@@ -22,7 +21,6 @@
       <itemPath>Aplicacion.cpp</itemPath>
       <itemPath>EventReceiver.cpp</itemPath>
       <itemPath>ManejadorJuego.cpp</itemPath>
-      <itemPath>ManejadorOpciones.cpp</itemPath>
       <itemPath>Partida.cpp</itemPath>
       <itemPath>PartidaConsola.cpp</itemPath>
       <itemPath>PartidaGrafica.cpp</itemPath>
@@ -95,11 +93,22 @@
                             OP="dist/Debug/GNU-Linux-x86/libScripting.so">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Opciones"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Opciones"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libOpciones.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
             <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
-            <linkerLibLibItem>boost_program_options-mt</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
         </linkerTool>
@@ -113,6 +122,16 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="dist/Debug/GNU-Linux-x86/libGrafico.so">
+          </makeArtifact>
+          <makeArtifact PL="../Opciones"
+                        CT="2"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../Opciones"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/libOpciones.so">
           </makeArtifact>
         </requiredProjects>
       </compileType>
@@ -183,14 +202,47 @@
                             OP="dist/Debug/GNU-Linux-x86/libScripting.so">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Opciones"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Opciones"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libOpciones.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
             <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
-            <linkerLibLibItem>boost_program_options-mt</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../Grafico"
+                        CT="1"
+                        CN="Release"
+                        AC="false"
+                        BL="false"
+                        WD="../Grafico"
+                        BC="${MAKE}  -f Makefile CONF=Release"
+                        CC="${MAKE}  -f Makefile CONF=Release clean"
+                        OP="dist/Release/GNU-Linux-x86/grafico">
+          </makeArtifact>
+          <makeArtifact PL="../Opciones"
+                        CT="2"
+                        CN="Release"
+                        AC="false"
+                        BL="false"
+                        WD="../Opciones"
+                        BC="${MAKE}  -f Makefile CONF=Release"
+                        CC="${MAKE}  -f Makefile CONF=Release clean"
+                        OP="dist/Release/GNU-Linux-x86/libOpciones.so">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
   </confs>
