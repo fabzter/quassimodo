@@ -1,7 +1,7 @@
 #include "ManejadorOpciones.hpp"
 #include <iostream>
 
-ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
+Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
 {
     namespace po = boost::program_options;
     using namespace std;
@@ -38,21 +38,21 @@ ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
     this->video_mode = this->vm.count("texto")? "NULL": "AUTO";
 }
 
-ManejadorOpciones::ManejadorOpciones(const ManejadorOpciones& orig)
+Opciones::ManejadorOpciones::ManejadorOpciones(const ManejadorOpciones& orig)
 {
 }
 
-ManejadorOpciones::~ManejadorOpciones()
+Opciones::ManejadorOpciones::~ManejadorOpciones()
 {
     delete this->description;
 }
 
-const std::string & ManejadorOpciones::getVideoMode()
+const std::string & Opciones::ManejadorOpciones::getVideoMode()
 {
     return this->video_mode;
 }
 
-std::string ManejadorOpciones::getAgentePath(int num)
+std::string Opciones::ManejadorOpciones::getAgentePath(int num)
 {
     using namespace std;
     string path = "";
@@ -72,12 +72,12 @@ std::string ManejadorOpciones::getAgentePath(int num)
     return path_vect.at(num);
 }
 
-bool ManejadorOpciones::isFullScreen()
+bool Opciones::ManejadorOpciones::isFullScreen()
 {
     return this->vm.count("fullscreen") > 0;
 }
 
-int ManejadorOpciones::getVelocidad()
+int Opciones::ManejadorOpciones::getVelocidad()
 {
     return this->vm["velocidad"].as<int>();
 }

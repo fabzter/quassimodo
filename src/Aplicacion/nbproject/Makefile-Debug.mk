@@ -35,7 +35,6 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Aplicacion.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/ManejadorOpciones.o \
 	${OBJECTDIR}/PartidaGrafica.o \
 	${OBJECTDIR}/PartidaConsola.o \
 	${OBJECTDIR}/ManejadorJuego.o \
@@ -57,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt -lboost_program_options-mt
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -68,6 +67,8 @@ dist/Debug/GNU-Linux-x86/aplicacion: ../Grafico/dist/Debug/GNU-Linux-x86/libGraf
 dist/Debug/GNU-Linux-x86/aplicacion: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
 dist/Debug/GNU-Linux-x86/aplicacion: ../Scripting/dist/Debug/GNU-Linux-x86/libScripting.so
+
+dist/Debug/GNU-Linux-x86/aplicacion: ../Opciones/dist/Debug/GNU-Linux-x86/libOpciones.so
 
 dist/Debug/GNU-Linux-x86/aplicacion: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
@@ -82,11 +83,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/ManejadorOpciones.o: ManejadorOpciones.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorOpciones.o ManejadorOpciones.cpp
 
 ${OBJECTDIR}/PartidaGrafica.o: PartidaGrafica.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -118,6 +114,7 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -129,6 +126,7 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

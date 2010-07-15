@@ -3,7 +3,7 @@
 
 #include "Skin.hpp"
 
-Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys) {
+Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones) {
     this->setAntorcha(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);

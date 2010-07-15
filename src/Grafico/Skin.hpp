@@ -2,8 +2,10 @@
 #define	_SKIN_HPP
 #include"Exepciones.hpp"
 #include<irrlicht/irrlicht.h>
+#include<Opciones/ManejadorOpciones.hpp>
 #include "CImageGUISkin.h"
 #include "SkinLoader.h"
+
 #include<vector>
 using namespace irr;
 namespace Grafico{
@@ -18,8 +20,9 @@ public:
      * @param smgr un apuntador al manejador de la escena del juego
      * @param env un puntador al manejador de la GUI del juego
      * @param fsys proporciona un apuntador al sistema de archivos
+     * @param opciones Un objeto que sirve para manejar las opciones de creacion de la aplicacion
      */
-    Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys);
+    Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones);
     /**
      *Constructor copia de la clase skin
      * @param orig un objeto de la clase skin

@@ -13,6 +13,7 @@ bin:
 	cd $(SRC_DIR)/Grafico && make
 	cd $(SRC_DIR)/Reglas && make
 	cd $(SRC_DIR)/Scripting && make
+	cd $(SRC_DIR)/Opciones && make
 
 clean:
 	cd $(SRC_DIR)/AgenteWrapper && make clean
@@ -20,6 +21,7 @@ clean:
 	cd $(SRC_DIR)/Grafico && make clean
 	cd $(SRC_DIR)/Reglas && make clean
 	cd $(SRC_DIR)/Scripting && make clean
+	cd $(SRC_DIR)/Opciones && make clean
 	cd $(BIN_DIR) && ${RM} ./*.pyc
 
 .PHONY: doc bin test all clean

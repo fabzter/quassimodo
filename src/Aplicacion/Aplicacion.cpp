@@ -3,18 +3,22 @@
 using namespace irr;
 
 
-Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,bool fullscreen, int Vel){
+Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones){
     
-    this->Dvideo=new Grafico::Video(video);
+    this->Dvideo=new Grafico::Video( opciones.getVideoMode().c_str() );
     if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
-    
+
+    this->velAnimacion=opciones.getVelocidad();
+
     if(this->grafico){
-        this->device=this->Dvideo->creaDevice(fullscreen);
+        this->device=this->Dvideo->creaDevice (opciones.isFullScreen() );
         this->Vdriver = this->device->getVideoDriver();
         this->smgr = this->device->getSceneManager();
         this->env =this->device->getGUIEnvironment();
         this->device->setResizable(false);
-        this->skin=new Grafico::Skin(this->smgr,this->env,device->getFileSystem());
+        this->skin=new Grafico::Skin(this->smgr,this->env,device->getFileSystem(),opciones);
+        this->eventos=new EventReceiver(this);
+        this->device->setEventReceiver(this->eventos);
     }
      else{
         this->skin=NULL;
@@ -24,14 +28,9 @@ Aplicacion::Aplicacion(std::string pathJ1,std::string pathj2,std::string video,b
         this->env=NULL;
      }
 
-    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,Vel,this->grafico);
+    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion,this->grafico);
 
-    if(this->grafico){
-        this->skin=new Grafico::Skin(this->smgr,this->env,device->getFileSystem());
-        this->eventos=new EventReceiver(this);
-        this->device->setEventReceiver(this->eventos);
-    }
-    this->quick(pathJ1,pathj2);
+    this->quick(opciones.getAgentePath(0),opciones.getAgentePath(1));
 }
 
 Aplicacion::Aplicacion(const Aplicacion& orig) {
@@ -67,7 +66,7 @@ void Aplicacion::nuevoJuego(){
         this->smgr->getVideoDriver()->deleteAllDynamicLights();
     //this->smgr->clear();
     
-    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->grafico);
+    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion,this->grafico);
 }
 
 void Aplicacion::loopGrafico(){
