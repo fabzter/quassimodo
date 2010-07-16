@@ -312,7 +312,10 @@ private:
       * Imagenes de los  iconos de los botones de la partida
       */
      std::vector<video::ITexture*> botonesPartida;
-
+     /**
+     * Contiene los metodos para recuperar los paths de la skin.
+     */
+    Opciones::ManejadorOpciones *opciones;
 };
 }
 #endif	/* _SKIN_HPP */

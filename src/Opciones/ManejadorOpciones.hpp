@@ -3,7 +3,8 @@
 #include <boost/program_options.hpp>
 #include <string>
 #include <vector>
-namespace Opciones{
+namespace Opciones
+{
 class ManejadorOpciones
 {
 public:
@@ -33,6 +34,14 @@ public:
     std::string getAgentePath(int num);
 
     /**
+     * Nos indica el Path al modelo del Tablero especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de modelo del
+     * Tablero.
+     */
+    std::string getTableroModeloPath();
+
+    /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la
      * línea de comandos.
      * @return true de haberse especificado, false de lo contrario.
@@ -45,7 +54,8 @@ public:
      */
     int getVelocidad();
 private:
-    boost::program_options::options_description* description;
+    boost::program_options::options_description* descriptionCommandLine;
+    boost::program_options::options_description* descriptionConfigFile;
     boost::program_options::variables_map vm;
     std::string video_mode;
     int velocidad;

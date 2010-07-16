@@ -1,7 +1,9 @@
 #include "Skin.hpp"
 #include <vector>
 
-Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones) {
+Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,
+        Opciones::ManejadorOpciones &opciones) {
+    this->opciones = &opciones;
     this->setAntorcha(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
@@ -24,7 +26,7 @@ Grafico::Skin::~Skin() {
 }
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
-    this->Tablero=smgr->getMesh("conf/skin_default/Tablero.3ds");
+    this->Tablero=smgr->getMesh(this->opciones->getTableroModeloPath().c_str());
     this->TTAblero=smgr->getVideoDriver()->getTexture( "conf/skin_default/Moss0138_10_S.jpg" );
     if( this->Tablero== NULL || this->TTAblero==0 )
         {
