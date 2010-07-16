@@ -76,6 +76,7 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("skin.texturas.skydome",
             po::value<string>()->default_value(string("conf/skin_default/3.tree.skydome.png")),
                                     "Path relativo a la textura del skydome.")
+            
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
