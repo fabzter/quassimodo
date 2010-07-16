@@ -27,7 +27,7 @@ Grafico::Skin::~Skin() {
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
     this->Tablero=smgr->getMesh(this->opciones->getTableroModeloPath().c_str());
-    this->TTAblero=smgr->getVideoDriver()->getTexture( "conf/skin_default/Moss0138_10_S.jpg" );
+    this->TTAblero=smgr->getVideoDriver()->getTexture(this->opciones->getTableroTexturaPath().c_str());
     if( this->Tablero== NULL || this->TTAblero==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte del Tablero ";
@@ -63,7 +63,7 @@ void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
 void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->Antorcha=smgr->getMesh(this->opciones->getAntorchaModeloPath().c_str());
-    this->TAntorcha=smgr->getVideoDriver()->getTexture("conf/skin_default/fire.bmp");
+    this->TAntorcha=smgr->getVideoDriver()->getTexture(this->opciones->getAntorchaTexturaPath().c_str());
       if( this->Antorcha== NULL || this->TAntorcha== 0  )
         {
             strs << "No pudo ser cargado el Skin en la parte de la antorcha ";
@@ -73,7 +73,7 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->Barrera=smgr->getMesh(this->opciones->getBarreraModeloPath().c_str());
-    this->TBarrera=smgr->getVideoDriver()->getTexture( "conf/skin_default/BrickOldDirty0078_S.jpg" );
+    this->TBarrera=smgr->getVideoDriver()->getTexture(this->opciones->getBarreraTexturaPath().c_str());
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Barrera ";
@@ -83,7 +83,7 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->Celda=smgr->getMesh(this->opciones->getCeldaModeloPath().c_str());
-    this->TCelda=smgr->getVideoDriver()->getTexture( "conf/skin_default/Moss0138_2_S.jpg" );
+    this->TCelda=smgr->getVideoDriver()->getTexture(this->opciones->getCeldaTexturaPath().c_str());
     if( this->Celda== NULL || this->TCelda== 0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Celda ";
@@ -132,8 +132,8 @@ void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys){
      std::ostringstream strs;
-    this->TTerrain =smgr->getVideoDriver()->getTexture( "conf/skin_default/piso3_TX.jpg" );
-   this->heightMapFile=fsys->createAndOpenFile("conf/skin_default/piso3_HM.bmp");
+    this->TTerrain =smgr->getVideoDriver()->getTexture(this->opciones->getTerrenoTexturaPath().c_str());
+   this->heightMapFile=fsys->createAndOpenFile(this->opciones->getTerrenoHeightTexturaPath().c_str());
      if( this->TTerrain== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del Terreno ";
@@ -143,7 +143,7 @@ void Grafico::Skin::setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys
 }
 void Grafico::Skin::setSkyDome(scene::ISceneManager* smgr){
      std::ostringstream strs;
-    this->Tskydome =smgr->getVideoDriver()->getTexture( "conf/skin_default/3.tree.skydome.png" );
+    this->Tskydome =smgr->getVideoDriver()->getTexture(this->opciones->getSkydomeTexturaPath().c_str());
      if( this->Tskydome== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del skydome";

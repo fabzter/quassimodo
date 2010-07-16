@@ -33,6 +33,8 @@ public:
      */
     std::string getAgentePath(int num);
 
+    /* GETTERS PARA LOS MODELOS*/
+    
     /**
      * Nos indica el Path al modelo del Tablero especificado en el archivo de
      * configuración.
@@ -88,6 +90,64 @@ public:
      * las celdas.
      */
     std::string getCeldaModeloPath();
+
+    /*GETTERS PARA LAS TEXTURAS*/
+    
+    /**
+     * Nos indica el Path a la textura del Tablero, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de textura del
+     * Tablero.
+     */
+    std::string getTableroTexturaPath();
+
+    /**
+     * Nos indica el Path a la textura de la antorcha, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de textura de
+     * la antorcha.
+     */
+    std::string getAntorchaTexturaPath();
+
+    /**
+     * Nos indica el Path a la textura de las barreras, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de textura de
+     * las barreras.
+     */
+    std::string getBarreraTexturaPath();
+
+    /**
+     * Nos indica el Path a la textura de las celdas, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de textura de
+     * las celdas.
+     */
+    std::string getCeldaTexturaPath();
+
+    /**
+     * Nos indica el Path a la textura del terreno, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de textura del
+     * terreno.
+     */
+    std::string getTerrenoTexturaPath();
+
+    /**
+     * Nos indica el Path a la textura de alturas del terreno, especificado en
+     * el archivo de configuración.
+     * @return una string que contiene el path relativo al archivo de textura
+     * de alturas del terreno.
+     */
+    std::string getTerrenoHeightTexturaPath();
+
+    /**
+     * Nos indica el Path a la textura del skydome, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de textura del
+     * skydome.
+     */
+    std::string getSkydomeTexturaPath();
 
     /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la
