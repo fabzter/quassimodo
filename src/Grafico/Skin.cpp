@@ -1,7 +1,5 @@
-
-#include <vector>
-
 #include "Skin.hpp"
+#include <vector>
 
 Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones) {
     this->setAntorcha(smgr);
