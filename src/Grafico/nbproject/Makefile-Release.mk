@@ -67,124 +67,124 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath . -lIrrlicht /usr/lib/libGL.so /usr/lib/libXxf86vm.so -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas
+LDLIBSOPTIONS=-Wl,-rpath . -lIrrlicht /usr/lib/libGL.so /usr/lib/libXxf86vm.so -Wl,-rpath ../Reglas/dist/Release/GNU-Linux-x86 -L../Reglas/dist/Release/GNU-Linux-x86 -lReglas
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/grafico
+	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/libGrafico.so
 
-dist/Release/GNU-Linux-x86/grafico: /usr/lib/libGL.so
+dist/Release/GNU-Linux-x86/libGrafico.so: /usr/lib/libGL.so
 
-dist/Release/GNU-Linux-x86/grafico: /usr/lib/libXxf86vm.so
+dist/Release/GNU-Linux-x86/libGrafico.so: /usr/lib/libXxf86vm.so
 
-dist/Release/GNU-Linux-x86/grafico: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
+dist/Release/GNU-Linux-x86/libGrafico.so: ../Reglas/dist/Release/GNU-Linux-x86/libReglas.so
 
-dist/Release/GNU-Linux-x86/grafico: ${OBJECTFILES}
+dist/Release/GNU-Linux-x86/libGrafico.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/grafico ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libGrafico.so -s -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Video.o: Video.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
 
 ${OBJECTDIR}/ManejadorGUI.o: ManejadorGUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
 
 ${OBJECTDIR}/Skin.o: Skin.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Skin.o Skin.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Skin.o Skin.cpp
 
 ${OBJECTDIR}/Exepciones.o: Exepciones.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exepciones.o Exepciones.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exepciones.o Exepciones.cpp
 
 ${OBJECTDIR}/SkinLoader.o: SkinLoader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/SkinLoader.o SkinLoader.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/SkinLoader.o SkinLoader.cpp
 
 ${OBJECTDIR}/Pieza.o: Pieza.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
 
 ${OBJECTDIR}/Tablero.o: Tablero.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
 
 ${OBJECTDIR}/CConfigMap.o: CConfigMap.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigMap.o CConfigMap.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigMap.o CConfigMap.cpp
 
 ${OBJECTDIR}/CConfigReader.o: CConfigReader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigReader.o CConfigReader.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigReader.o CConfigReader.cpp
 
 ${OBJECTDIR}/Jugador.o: Jugador.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
 
 ${OBJECTDIR}/Menu.o: Menu.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
 
 ${OBJECTDIR}/tokayoCamera.o: tokayoCamera.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/tokayoCamera.o tokayoCamera.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/tokayoCamera.o tokayoCamera.cpp
 
 ${OBJECTDIR}/Celda.o: Celda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
 
 ${OBJECTDIR}/CGUIProgressBar.o: CGUIProgressBar.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
 
 ${OBJECTDIR}/Antorcha.o: Antorcha.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
 
 ${OBJECTDIR}/CImageGUISkin.o: CImageGUISkin.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/CImageGUISkin.o CImageGUISkin.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CImageGUISkin.o CImageGUISkin.cpp
 
 ${OBJECTDIR}/GUI.o: GUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
 ${OBJECTDIR}/Barrera.o: Barrera.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I/usr/include/irrlicht -I../ -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
-	${RM} dist/Release/GNU-Linux-x86/grafico
+	${RM} dist/Release/GNU-Linux-x86/libGrafico.so
 
 # Subprojects
 .clean-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

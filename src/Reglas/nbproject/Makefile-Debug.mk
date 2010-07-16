@@ -10,6 +10,8 @@
 # Environment
 MKDIR=mkdir
 CP=cp
+GREP=grep
+NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
@@ -31,19 +33,20 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Tablero.o \
-	${OBJECTDIR}/Celda.o \
-	${OBJECTDIR}/Minimax.o \
-	${OBJECTDIR}/Juez.o \
-	${OBJECTDIR}/Jugador.o \
-	${OBJECTDIR}/micropather.o \
-	${OBJECTDIR}/Pieza.o \
 	${OBJECTDIR}/AyudanteDeAgente.o \
-	${OBJECTDIR}/Grafo.o \
-	${OBJECTDIR}/Barrera.o \
-	${OBJECTDIR}/Excepciones.o \
+	${OBJECTDIR}/Minimax.o \
 	${OBJECTDIR}/Jugada.o \
-	${OBJECTDIR}/Astar.o
+	${OBJECTDIR}/Pieza.o \
+	${OBJECTDIR}/Tablero.o \
+	${OBJECTDIR}/Jugador.o \
+	${OBJECTDIR}/Juez.o \
+	${OBJECTDIR}/Celda.o \
+	${OBJECTDIR}/Excepciones.o \
+	${OBJECTDIR}/micropather.o \
+	${OBJECTDIR}/Astar.o \
+	${OBJECTDIR}/Grafo.o \
+	${OBJECTDIR}/Barrera.o
+
 
 # C Compiler Flags
 CFLAGS=
@@ -63,76 +66,76 @@ LDLIBSOPTIONS=-Wl,-rpath .
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libReglas.so
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libReglas.so
 
 dist/Debug/GNU-Linux-x86/libReglas.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libReglas.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Tablero.o: nbproject/Makefile-${CND_CONF}.mk Tablero.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
-
-${OBJECTDIR}/Celda.o: nbproject/Makefile-${CND_CONF}.mk Celda.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
-
-${OBJECTDIR}/Minimax.o: nbproject/Makefile-${CND_CONF}.mk Minimax.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Minimax.o Minimax.cpp
-
-${OBJECTDIR}/Juez.o: nbproject/Makefile-${CND_CONF}.mk Juez.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Juez.o Juez.cpp
-
-${OBJECTDIR}/Jugador.o: nbproject/Makefile-${CND_CONF}.mk Jugador.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
-
-${OBJECTDIR}/micropather.o: nbproject/Makefile-${CND_CONF}.mk micropather.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/micropather.o micropather.cpp
-
-${OBJECTDIR}/Pieza.o: nbproject/Makefile-${CND_CONF}.mk Pieza.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
-
-${OBJECTDIR}/AyudanteDeAgente.o: nbproject/Makefile-${CND_CONF}.mk AyudanteDeAgente.cpp 
+${OBJECTDIR}/AyudanteDeAgente.o: AyudanteDeAgente.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AyudanteDeAgente.o AyudanteDeAgente.cpp
 
-${OBJECTDIR}/Grafo.o: nbproject/Makefile-${CND_CONF}.mk Grafo.cpp 
+${OBJECTDIR}/Minimax.o: Minimax.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Grafo.o Grafo.cpp
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Minimax.o Minimax.cpp
 
-${OBJECTDIR}/Barrera.o: nbproject/Makefile-${CND_CONF}.mk Barrera.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
-
-${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
-
-${OBJECTDIR}/Jugada.o: nbproject/Makefile-${CND_CONF}.mk Jugada.cpp 
+${OBJECTDIR}/Jugada.o: Jugada.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugada.o Jugada.cpp
 
-${OBJECTDIR}/Astar.o: nbproject/Makefile-${CND_CONF}.mk Astar.cpp 
+${OBJECTDIR}/Pieza.o: Pieza.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
+
+${OBJECTDIR}/Tablero.o: Tablero.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
+
+${OBJECTDIR}/Jugador.o: Jugador.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
+
+${OBJECTDIR}/Juez.o: Juez.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Juez.o Juez.cpp
+
+${OBJECTDIR}/Celda.o: Celda.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
+
+${OBJECTDIR}/Excepciones.o: Excepciones.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
+
+${OBJECTDIR}/micropather.o: micropather.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/micropather.o micropather.cpp
+
+${OBJECTDIR}/Astar.o: Astar.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Astar.o Astar.cpp
+
+${OBJECTDIR}/Grafo.o: Grafo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Grafo.o Grafo.cpp
+
+${OBJECTDIR}/Barrera.o: Barrera.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -DDEBUG -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
 
 # Subprojects
 .build-subprojects:

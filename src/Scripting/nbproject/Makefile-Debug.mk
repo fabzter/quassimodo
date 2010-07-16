@@ -65,32 +65,32 @@ dist/Debug/GNU-Linux-x86/libScripting.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libScripting.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/UtilsPython.o: UtilsPython.cpp 
+${OBJECTDIR}/UtilsPython.o: nbproject/Makefile-${CND_CONF}.mk UtilsPython.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/UtilsPython.o UtilsPython.cpp
 
-${OBJECTDIR}/ModuloPython.o: ModuloPython.cpp 
+${OBJECTDIR}/ModuloPython.o: nbproject/Makefile-${CND_CONF}.mk ModuloPython.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ModuloPython.o ModuloPython.cpp
 
-${OBJECTDIR}/Excepciones.o: Excepciones.cpp 
+${OBJECTDIR}/Excepciones.o: nbproject/Makefile-${CND_CONF}.mk Excepciones.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Excepciones.o Excepciones.cpp
 
-${OBJECTDIR}/AgentePythonWrapper.o: AgentePythonWrapper.cpp 
+${OBJECTDIR}/AgentePythonWrapper.o: nbproject/Makefile-${CND_CONF}.mk AgentePythonWrapper.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgentePythonWrapper.o AgentePythonWrapper.cpp
 
-${OBJECTDIR}/Manejador.o: Manejador.cpp 
+${OBJECTDIR}/Manejador.o: nbproject/Makefile-${CND_CONF}.mk Manejador.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Manejador.o Manejador.cpp
 
-${OBJECTDIR}/InterpretePython.o: InterpretePython.cpp 
+${OBJECTDIR}/InterpretePython.o: nbproject/Makefile-${CND_CONF}.mk InterpretePython.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I/usr/lib/python2.6/config -I/usr/include/python2.6 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/InterpretePython.o InterpretePython.cpp

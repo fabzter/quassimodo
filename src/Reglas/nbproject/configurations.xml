@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="62">
+<configurationDescriptor version="69">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <logicalFolder name="f1" displayName="Astar" projectFiles="true">
       <itemPath>Astar.cpp</itemPath>
@@ -73,8 +73,6 @@
           <linkerDynSerch>
             <pElem>.</pElem>
           </linkerDynSerch>
-          <linkerLibItems>
-          </linkerLibItems>
         </linkerTool>
       </compileType>
     </conf>
@@ -90,6 +88,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <stripSymbols>true</stripSymbols>
           <incDir>
             <pElem>..</pElem>
           </incDir>
@@ -102,8 +101,6 @@
           <linkerDynSerch>
             <pElem>.</pElem>
           </linkerDynSerch>
-          <linkerLibItems>
-          </linkerLibItems>
         </linkerTool>
       </compileType>
     </conf>

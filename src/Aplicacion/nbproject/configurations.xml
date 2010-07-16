@@ -123,6 +123,16 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="dist/Debug/GNU-Linux-x86/libGrafico.so">
           </makeArtifact>
+          <makeArtifact PL="../Opciones"
+                        CT="2"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../Opciones"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/libOpciones.so">
+          </makeArtifact>
         </requiredProjects>
       </compileType>
     </conf>
@@ -158,50 +168,50 @@
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../Grafico"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
+                            CT="1"
+                            CN="Release"
+                            AC="false"
                             BL="true"
                             WD="../Grafico"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/libGrafico.so">
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/grafico">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../Reglas"
                             CT="2"
-                            CN="Debug"
-                            AC="true"
+                            CN="Release"
+                            AC="false"
                             BL="true"
                             WD="../Reglas"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/libReglas.so">
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/libReglas.so">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../Scripting"
                             CT="2"
-                            CN="Debug"
-                            AC="true"
+                            CN="Release"
+                            AC="false"
                             BL="true"
                             WD="../Scripting"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/libScripting.so">
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/libScripting.so">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../Opciones"
                             CT="2"
-                            CN="Debug"
-                            AC="true"
+                            CN="Release"
+                            AC="false"
                             BL="true"
                             WD="../Opciones"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/libOpciones.so">
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/libOpciones.so">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
@@ -211,6 +221,28 @@
           </linkerLibItems>
           <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../Grafico"
+                        CT="1"
+                        CN="Release"
+                        AC="false"
+                        BL="false"
+                        WD="../Grafico"
+                        BC="${MAKE}  -f Makefile CONF=Release"
+                        CC="${MAKE}  -f Makefile CONF=Release clean"
+                        OP="dist/Release/GNU-Linux-x86/grafico">
+          </makeArtifact>
+          <makeArtifact PL="../Opciones"
+                        CT="2"
+                        CN="Release"
+                        AC="false"
+                        BL="false"
+                        WD="../Opciones"
+                        BC="${MAKE}  -f Makefile CONF=Release"
+                        CC="${MAKE}  -f Makefile CONF=Release clean"
+                        OP="dist/Release/GNU-Linux-x86/libOpciones.so">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
   </confs>

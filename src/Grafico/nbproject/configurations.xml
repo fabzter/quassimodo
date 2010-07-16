@@ -114,7 +114,7 @@
         </requiredProjects>
       </compileType>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Release" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
@@ -126,6 +126,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <stripSymbols>true</stripSymbols>
           <incDir>
             <pElem>/usr/include/irrlicht</pElem>
             <pElem>../</pElem>
@@ -138,6 +139,7 @@
           <linkerDynSerch>
             <pElem>.</pElem>
           </linkerDynSerch>
+          <stripSymbols>true</stripSymbols>
           <linkerLibItems>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
             <linkerLibFileItem>/usr/lib/libGL.so</linkerLibFileItem>
@@ -145,13 +147,13 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../Reglas"
                             CT="2"
-                            CN="Debug"
-                            AC="true"
+                            CN="Release"
+                            AC="false"
                             BL="true"
                             WD="../Reglas"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/libReglas.so">
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/libReglas.so">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
