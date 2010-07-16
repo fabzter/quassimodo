@@ -42,6 +42,54 @@ public:
     std::string getTableroModeloPath();
 
     /**
+     * Nos indica el Path al modelo del Jugador 1, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de modelo del
+     * Jugador 1.return this->vm["skin.modelos.jugador_2"].as<std::string>();
+     */
+    std::string getJugador1ModeloPath();
+
+    /**
+     * Nos indica el Path al modelo del Jugador 2, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de modelo del
+     * Jugador 2.
+     */
+    std::string getJugador2ModeloPath();
+
+    /**
+     * Nos indica el Path al modelo de la sombra de los jugadores, especificado
+     *  en el archivo de configuración.
+     * @return una string que contiene el path relativo al archivo de modelo de
+     * la sombra de los Jugadores.
+     */
+    std::string getJugadorSombraModeloPath();
+
+    /**
+     * Nos indica el Path al modelo de la antorcha, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de modelo de
+     * la antorcha.
+     */
+    std::string getAntorchaModeloPath();
+
+    /**
+     * Nos indica el Path al modelo de las barreras, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de modelo de
+     * las barreras.
+     */
+    std::string getBarreraModeloPath();
+
+    /**
+     * Nos indica el Path al modelo de las celdas, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de modelo de
+     * las celdas.
+     */
+    std::string getCeldaModeloPath();
+
+    /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la
      * línea de comandos.
      * @return true de haberse especificado, false de lo contrario.

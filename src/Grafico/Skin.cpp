@@ -37,21 +37,21 @@ void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
 void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
      std::ostringstream strs;
 
-     this->Jugador2=smgr->getMesh("conf/skin_default/MonoBlanco.3ds");
+     this->Jugador2=smgr->getMesh(this->opciones->getJugador2ModeloPath().c_str());
       if( this->Jugador2== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 2 ";
             throw SkinNoCargado(strs.str().c_str());
         }
 
-     this->Jugador1=smgr->getMesh("conf/skin_default/Mono.3ds");
+     this->Jugador1=smgr->getMesh(this->opciones->getJugador1ModeloPath().c_str());
     
      if( this->Jugador1== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 1 ";
             throw SkinNoCargado(strs.str().c_str());
         }
-     this->SombraJugador=smgr->getMesh("conf/skin_default/MonoSombra.3ds");
+     this->SombraJugador=smgr->getMesh(this->opciones->getJugadorSombraModeloPath().c_str());
 
      if( this->SombraJugador== NULL  )
          {
@@ -62,7 +62,7 @@ void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
 }
 void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Antorcha=smgr->getMesh("conf/skin_default/Lumbrera.3ds");
+    this->Antorcha=smgr->getMesh(this->opciones->getAntorchaModeloPath().c_str());
     this->TAntorcha=smgr->getVideoDriver()->getTexture("conf/skin_default/fire.bmp");
       if( this->Antorcha== NULL || this->TAntorcha== 0  )
         {
@@ -72,7 +72,7 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Barrera=smgr->getMesh("conf/skin_default/Barrera.3ds");
+    this->Barrera=smgr->getMesh(this->opciones->getBarreraModeloPath().c_str());
     this->TBarrera=smgr->getVideoDriver()->getTexture( "conf/skin_default/BrickOldDirty0078_S.jpg" );
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
@@ -82,7 +82,7 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Celda=smgr->getMesh("conf/skin_default/Celda.3ds");
+    this->Celda=smgr->getMesh(this->opciones->getCeldaModeloPath().c_str());
     this->TCelda=smgr->getVideoDriver()->getTexture( "conf/skin_default/Moss0138_2_S.jpg" );
     if( this->Celda== NULL || this->TCelda== 0 )
         {

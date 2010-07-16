@@ -22,7 +22,8 @@ public:
      * @param fsys proporciona un apuntador al sistema de archivos
      * @param opciones Un objeto que sirve para manejar las opciones de creacion de la aplicacion
      */
-    Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones);
+    Skin(scene::ISceneManager* smgr, gui::IGUIEnvironment* env,
+                io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones);
     /**
      *Constructor copia de la clase skin
      * @param orig un objeto de la clase skin

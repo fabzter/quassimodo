@@ -34,6 +34,25 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("skin.modelos.tablero", 
             po::value<string>()->default_value(string("conf/skin_default/Tablero.3ds")),
                                         "Path relativo al modelo del tablero.")
+            ("skin.modelos.jugador_1",
+            po::value<string>()->default_value(string("conf/skin_default/Mono.3ds")),
+                                        "Path relativo al modelo del Jugador 1.")
+            ("skin.modelos.jugador_2",
+            po::value<string>()->default_value(string("conf/skin_default/MonoBlanco.3ds")),
+                                        "Path relativo al modelo del Jugador 2.")
+            ("skin.modelos.jugador_sombra",
+            po::value<string>()->default_value(string("conf/skin_default/MonoSombra.3ds")),
+                                        "Path relativo al modelo de la sombra de"
+                                        " los Jugadores.")
+            ("skin.modelos.antorcha",
+            po::value<string>()->default_value(string("conf/skin_default/Lumbrera.3ds")),
+                                        "Path relativo al modelo de la antorcha.")
+            ("skin.modelos.barrera",
+            po::value<string>()->default_value(string("conf/skin_default/Barrera.3ds")),
+                                        "Path relativo al modelo de las barreras.")
+            ("skin.modelos.celda",
+            po::value<string>()->default_value(string("conf/skin_default/Celda.3ds")),
+                                        "Path relativo al modelo del celda.")
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
@@ -99,6 +118,36 @@ std::string Opciones::ManejadorOpciones::getAgentePath(int num)
 std::string Opciones::ManejadorOpciones::getTableroModeloPath()
 {
     return this->vm["skin.modelos.tablero"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getJugador1ModeloPath()
+{
+    return this->vm["skin.modelos.jugador_1"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getJugador2ModeloPath()
+{
+    return this->vm["skin.modelos.jugador_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getJugadorSombraModeloPath()
+{
+    return this->vm["skin.modelos.jugador_sombra"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getAntorchaModeloPath()
+{
+    return this->vm["skin.modelos.antorcha"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getBarreraModeloPath()
+{
+    return this->vm["skin.modelos.barrera"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getCeldaModeloPath()
+{
+    return this->vm["skin.modelos.celda"].as<std::string>();
 }
 
 bool Opciones::ManejadorOpciones::isFullScreen()
