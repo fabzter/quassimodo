@@ -149,6 +149,45 @@ public:
      */
     std::string getSkydomeTexturaPath();
 
+    /*GETTERS PARA LAS FONTS*/
+
+    /**
+     * Nos indica el path a la font default, especificada en el archivo de
+     * configuración.
+     * @return una string con el Path relativo al archivo de font default.
+     */
+    std::string getDefaultFontPath();
+
+    /**
+     * Nos indica el path a la font del menú, especificada en el archivo de
+     * configuración.
+     * @return una string con el Path relativo al archivo de font del menú.
+     */
+    std::string getMenuFontPath();
+
+    /**
+     * Nos indica el path a la font default, especificada en el archivo de
+     * configuración.
+     * @return una string con el Path relativo al archivo de font default.
+     */
+    std::string getTooltipFontPath();
+
+    /**
+     * Nos indica el path a la font de los botones, especificada en el archivo de
+     * configuración.
+     * @return una string con el Path relativo al archivo de la font de los
+     * botones.
+     */
+    std::string getButtonFontPath();
+
+    /**
+     * Nos indica el path a la font de la ventana, especificada en el archivo de
+     * configuración.
+     * @return una string con el Path relativo al archivo de la font de la
+     * ventana.
+     */
+    std::string getWindowFontPath();
+
     /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la
      * línea de comandos.

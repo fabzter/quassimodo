@@ -92,7 +92,7 @@ void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setMenuBoton(gui::IGUIEnvironment* env){
      std::ostringstream strs;
-     this->MenuBoton=env->getFont("conf/gui_default/bigfont.png");
+     this->MenuBoton=env->getFont(this->opciones->getMenuFontPath().c_str());
      if(this->MenuBoton==0){
           strs << "No pudo ser cargada la Fuente de los Botones del Menú ";
             throw SkinNoCargado(strs.str().c_str());
@@ -100,7 +100,7 @@ void Grafico::Skin::setMenuBoton(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setDefault(gui::IGUIEnvironment* env){
     std::ostringstream strs;
-     this->Default=env->getFont("conf/gui_default/defaultfont2.png");
+     this->Default=env->getFont(this->opciones->getDefaultFontPath().c_str());
      if(this->Default==0){
           strs << "No pudo ser cargada la Fuente Default ";
             throw SkinNoCargado(strs.str().c_str());
@@ -108,7 +108,7 @@ void Grafico::Skin::setDefault(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setMenuToolTip(gui::IGUIEnvironment* env){
     std::ostringstream strs;
-     this->MenuToolTip=env->getFont("conf/gui_default/tooltipfont.png");
+     this->MenuToolTip=env->getFont(this->opciones->getMenuFontPath().c_str());
      if(this->MenuToolTip==0){
           strs << "No pudo ser cargada la Fuente del Tooltip del Menú ";
             throw SkinNoCargado(strs.str().c_str());
@@ -116,7 +116,7 @@ void Grafico::Skin::setMenuToolTip(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setGUIBoton(gui::IGUIEnvironment* env){
      std::ostringstream strs;
-     this->GUIBoton=env->getFont("conf/gui_default/botonFont.png");
+     this->GUIBoton=env->getFont(this->opciones->getButtonFontPath().c_str());
      if(this->GUIBoton==0){
           strs << "No pudo ser cargada la Fuente de los Botones de la GUI ";
             throw SkinNoCargado(strs.str().c_str());
@@ -124,7 +124,7 @@ void Grafico::Skin::setGUIBoton(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
       std::ostringstream strs;
-     this->GUIWindow=env->getFont("conf/gui_default/windowfont.png");
+     this->GUIWindow=env->getFont(this->opciones->getWindowFontPath().c_str());
      if(this->GUIWindow==0){
           strs << "No pudo ser cargada la Fuente de la ventana de la GUI ";
             throw SkinNoCargado(strs.str().c_str());
