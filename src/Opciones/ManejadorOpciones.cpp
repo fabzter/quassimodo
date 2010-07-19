@@ -77,21 +77,23 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             po::value<string>()->default_value(string("conf/skin_default/3.tree.skydome.png")),
                                     "Path relativo a la textura del skydome.")
             //fonts
-            ("skin.fonts.default",
+            ("gui.fonts.default",
             po::value<string>()->default_value(string("conf/gui_default/defaultfont2.png")),
                                             "Path relativo a la font default.")
-            ("skin.fonts.menu_button",
+            ("gui.fonts.menu_button",
             po::value<string>()->default_value(string("conf/gui_default/bigfont.png")),
                                             "Path relativo a la font del menú.")
-            ("skin.fonts.tooltip",
+            ("gui.fonts.tooltip",
             po::value<string>()->default_value(string("conf/gui_default/tooltipfont.png")),
                                             "Path relativo a la font del tooltip.")
-            ("skin.fonts.buttons",
+            ("gui.fonts.buttons",
             po::value<string>()->default_value(string("conf/gui_default/botonFont.png")),
                                             "Path relativo a la font de los botones.")
-            ("skin.fonts.window",
+            ("gui.fonts.window",
             po::value<string>()->default_value(string("conf/gui_default/windowfont.png")),
                                             "Path relativo a la font de la ventana.")
+            //botones
+            ("")
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
@@ -228,29 +230,31 @@ std::string Opciones::ManejadorOpciones::getSkydomeTexturaPath()
     return this->vm["skin.texturas.skydome"].as<std::string>();
 }
 
+/*GETTERS DE LAS FONTS*/
+
 std::string Opciones::ManejadorOpciones::getDefaultFontPath()
 {
-    return this->vm["skin.fonts.default"].as<std::string>();
+    return this->vm["gui.fonts.default"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getMenuFontPath()
 {
-    return this->vm["skin.fonts.menu_button"].as<std::string>();
+    return this->vm["gui.fonts.menu_button"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getTooltipFontPath()
 {
-    return this->vm["skin.fonts.tooltip"].as<std::string>();
+    return this->vm["gui.fonts.tooltip"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getButtonFontPath()
 {
-    return this->vm["skin.fonts.buttons"].as<std::string>();
+    return this->vm["gui.fonts.buttons"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getWindowFontPath()
 {
-    return this->vm["skin.fonts.window"].as<std::string>();
+    return this->vm["gui.fonts.window"].as<std::string>();
 }
 
 bool Opciones::ManejadorOpciones::isFullScreen()
