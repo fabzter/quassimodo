@@ -188,6 +188,70 @@ public:
      */
     std::string getWindowFontPath();
 
+    /*GETTERS DE LOS BOTONES*/
+
+    /**
+     * Nos indica el Path a la imagen del primer botón de vuelta, especificado
+     * en el archivo de configuración.
+     * @return una string con el path relativo al archivo del primero botón de
+     * vuelta.
+     */
+    std::string getBotonVuelta1Path();
+
+    /**
+     * Nos indica el Path a la imagen del segundo botón de vuelta, especificado
+     * en el archivo de configuración.
+     * @return una string con el path relativo al archivo del segundo botón de
+     * vuelta.
+     */
+    std::string getBotonVuelta2Path();
+
+    /**
+     * Nos indica el Path a la imagen del tercer botón de vuelta, especificado
+     * en el archivo de configuración.
+     * @return una string con el path relativo al archivo del tercer botón de
+     * vuelta.
+     */
+    std::string getBotonVuelta3Path();
+
+    /**
+     * Nos indica el Path a la imagen del botón de vuelta al frente,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón de vuelta al
+     * frente.
+     */
+    std::string getBotonFrentePath();
+
+    /**
+     * Nos indica el Path a la imagen del primer botón de pausa, especificado
+     * en el archivo de configuración.
+     * @return una string con el path relativo al archivo del primer botón de
+     * pausa.
+     */
+    std::string getBotonPausa1Path();
+
+    /**
+     * Nos indica el Path a la imagen del segundo botón de pausa, especificado
+     * en el archivo de configuración.
+     * @return una string con el path relativo al archivo del segundo botón de
+     * pausa.
+     */
+    std::string getBotonPausa2Path();
+
+    /**
+     * Nos indica el Path a la imagen del botón de regreso al menú, especificado
+     * en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón de vuelta al
+     * menú..
+     */
+    std::string getBotonMenuPath();
+
+    /**
+     * Nos indica el path al archivo cfg de la skin de irrlicht.
+     * @return una string con el path relativo al archivo de cfg del irrlicht.
+     */
+    std::string getGUIConfig();
+
     /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la
      * línea de comandos.

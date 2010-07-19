@@ -93,7 +93,31 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             po::value<string>()->default_value(string("conf/gui_default/windowfont.png")),
                                             "Path relativo a la font de la ventana.")
             //botones
-            //("")
+            ("gui.botones.vuelta_1",
+            po::value<string>()->default_value(string("conf/gui_default/boton4_2-1_vuelta.png")),
+                            "Path relativo a la imagen del botón de vuelta 1.")
+            ("gui.botones.vuelta_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton4_2-2_vuelta.png")),
+                            "Path relativo a la imagen del botón de vuelta 2.")
+            ("gui.botones.vuelta_3",
+            po::value<string>()->default_value(string("conf/gui_default/boton5_2-2_vuelta.png")),
+                            "Path relativo a la imagen del botón de vuelta 3.")
+            ("gui.botones.frente",
+            po::value<string>()->default_value(string("conf/gui_default/boton5_2-1_frente.png")),
+                            "Path relativo a la imagen del botón de vuelta al frente.")
+            ("gui.botones.pausa_1",
+            po::value<string>()->default_value(string("conf/gui_default/boton1_2_pausa.png")),
+                            "Path relativo a la imagen del botón de pausa 1.")
+            ("gui.botones.pausa_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton2_2_pausa.png")),
+                            "Path relativo a la imagen del botón de pausa 2.")
+            ("gui.botones.menu",
+            po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu.png")),
+                            "Path relativo a la imagen del botón de volver a menú.")
+            //cfg
+            ("gui.gui_cfg",
+            po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu.png")),
+            "Path relativo al archivo de configuración de la gui de irrlicht.")
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
@@ -104,7 +128,7 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
     //Parseamos el archivo de configuracion según las opciones del archivo de conf
     std::ifstream ifs("conf/opciones.conf");
     po::parsed_options parsedConfigFile =
-            po::parse_config_file(ifs, *(this->descriptionConfigFile), true);
+            po::parse_config_file(ifs, *(this->descriptionConfigFile), false);
 
     po::store(parsedCommandLine, this->vm);
     po::store(parsedConfigFile, this->vm);
@@ -255,6 +279,48 @@ std::string Opciones::ManejadorOpciones::getButtonFontPath()
 std::string Opciones::ManejadorOpciones::getWindowFontPath()
 {
     return this->vm["gui.fonts.window"].as<std::string>();
+}
+
+/*GETTERS DE LOS BOTONES*/
+
+std::string Opciones::ManejadorOpciones::getBotonVuelta1Path()
+{
+    return this->vm["gui.botones.vuelta_1"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getBotonVuelta2Path()
+{
+    return this->vm["gui.botones.vuelta_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getBotonVuelta3Path()
+{
+    return this->vm["gui.botones.vuelta_3"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getBotonFrentePath()
+{
+    return this->vm["gui.botones.frente"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getBotonPausa1Path()
+{
+    return this->vm["gui.botones.pausa_1"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getBotonPausa2Path()
+{
+    return this->vm["gui.botones.pausa_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getBotonMenuPath()
+{
+    return this->vm["gui.botones.menu"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGUIConfig()
+{
+    return this->vm["gui.gui_cfg"].as<std::string>();
 }
 
 bool Opciones::ManejadorOpciones::isFullScreen()

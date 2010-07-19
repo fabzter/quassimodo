@@ -153,7 +153,7 @@ void Grafico::Skin::setSkyDome(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,video::IVideoDriver* driver){
 
-    gui::SImageGUISkinConfig guicfg = LoadGUISkinFromFile(fsys, driver, "conf/gui_default/guiskin.cfg");
+    gui::SImageGUISkinConfig guicfg = LoadGUISkinFromFile(fsys, driver, this->opciones->getGUIConfig().c_str());
     this->skin = new gui::CImageGUISkin(driver, env->getSkin());
     this->skin->loadConfig(guicfg);
     
@@ -161,13 +161,13 @@ void Grafico::Skin::setSkinGui(gui::IGUIEnvironment* env, io::IFileSystem* fsys,
 }
 void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/gui_default/boton4_2-1_vuelta.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/gui_default/boton4_2-2_vuelta.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/gui_default/boton5_2-1_frente.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/gui_default/boton5_2-2_vuelta.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/gui_default/boton1_2_pausa.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/gui_default/boton3_2_menu.png" ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( "conf/gui_default/boton2_2_pausa.png" ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta1Path().c_str()));
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta2Path().c_str()));
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonFrentePath().c_str() ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( this->opciones->getBotonVuelta3Path().c_str()));
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonPausa1Path().c_str() ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonMenuPath().c_str() ) );
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonPausa2Path().c_str() ) );
     for(int i=0;i<this->botonesPartida.size();i++){
          if( this->botonesPartida.at(i)== NULL  )
             {
