@@ -93,7 +93,7 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             po::value<string>()->default_value(string("conf/gui_default/windowfont.png")),
                                             "Path relativo a la font de la ventana.")
             //botones
-            ("")
+            //("")
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
