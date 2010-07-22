@@ -63,10 +63,10 @@
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
-            <linkerLibLibItem>boost_python-mt-py26</linkerLibLibItem>
             <linkerLibLibItem>python2.6</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
+            <linkerLibLibItem>boost_python-mt</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -102,10 +102,10 @@
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
-            <linkerLibLibItem>boost_python-mt-py26</linkerLibLibItem>
             <linkerLibLibItem>python2.6</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
+            <linkerLibLibItem>boost_python-mt</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

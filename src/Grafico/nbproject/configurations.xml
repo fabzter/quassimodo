@@ -21,6 +21,7 @@
       <itemPath>GUI.hpp</itemPath>
       <itemPath>IAnimatorCameraTokayo.hpp</itemPath>
       <itemPath>Jugador.hpp</itemPath>
+      <itemPath>JumpAnimator.hpp</itemPath>
       <itemPath>ManejadorGUI.hpp</itemPath>
       <itemPath>Menu.hpp</itemPath>
       <itemPath>Pieza.hpp</itemPath>
@@ -49,6 +50,7 @@
       <itemPath>Exepciones.cpp</itemPath>
       <itemPath>GUI.cpp</itemPath>
       <itemPath>Jugador.cpp</itemPath>
+      <itemPath>JumpAnimator.cpp</itemPath>
       <itemPath>ManejadorGUI.cpp</itemPath>
       <itemPath>Menu.cpp</itemPath>
       <itemPath>Pieza.cpp</itemPath>

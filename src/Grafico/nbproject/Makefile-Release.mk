@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/tokayoCamera.o \
 	${OBJECTDIR}/Celda.o \
 	${OBJECTDIR}/CGUIProgressBar.o \
+	${OBJECTDIR}/JumpAnimator.o \
 	${OBJECTDIR}/Antorcha.o \
 	${OBJECTDIR}/CImageGUISkin.o \
 	${OBJECTDIR}/GUI.o \
@@ -152,6 +153,11 @@ ${OBJECTDIR}/CGUIProgressBar.o: CGUIProgressBar.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
+
+${OBJECTDIR}/JumpAnimator.o: JumpAnimator.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -s -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/JumpAnimator.o JumpAnimator.cpp
 
 ${OBJECTDIR}/Antorcha.o: Antorcha.cpp 
 	${MKDIR} -p ${OBJECTDIR}

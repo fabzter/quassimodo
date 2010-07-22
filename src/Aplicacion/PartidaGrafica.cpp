@@ -84,7 +84,7 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
     p.Z+=( ( this->t->getsizeCelda().Z*this->escala.Z ) /2);
     p.X+=( ( this->t->getsizeCelda().X*this->escala.X ) /2);
     bool termino=true;
-    if(smgr!=NULL)
+    if(this->en_curso)
         termino=ju->Mover(smgr,p);
     else
         ju->setPosicion(p);

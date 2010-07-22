@@ -5,6 +5,7 @@
 #include"Pieza.hpp"
 #include<Reglas/Jugador.hpp>
 #include "Skin.hpp"
+#include"JumpAnimator.hpp"
 //TODO: terminar de documentar
 namespace Grafico{
     using namespace irr;

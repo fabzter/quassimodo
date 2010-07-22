@@ -45,6 +45,7 @@
           <incDir>
             <pElem>..</pElem>
             <pElem>/usr/include/irrlicht</pElem>
+            <pElem>/usr/include/python2.6</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -110,7 +111,7 @@
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
+          <commandLine>-Wl,-R../lib -Wl,-R./lib -lutil</commandLine>
         </linkerTool>
         <requiredProjects>
           <makeArtifact PL="/home/tokayo/Proyecto/pt/Grafico"
@@ -151,6 +152,7 @@
           <incDir>
             <pElem>..</pElem>
             <pElem>/usr/include/irrlicht</pElem>
+            <pElem>/usr/include/python2.6</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -219,7 +221,7 @@
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>-Wl,-R../lib -Wl,-R./lib</commandLine>
+          <commandLine>-Wl,-R../lib -Wl,-R./lib -lutil</commandLine>
         </linkerTool>
         <requiredProjects>
           <makeArtifact PL="../Grafico"

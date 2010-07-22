@@ -35,10 +35,12 @@ Grafico::Jugador::~Jugador() {
  bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos){
 
       this->nodoA->removeAnimators();
-      scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(this->getPosicionEscena() ,npos,this->velAnim,false,false);
+      //new JumpAnimator(node->getPosition(),node1->getPosition(),300.0f,0.0f);
+      scene::ISceneNodeAnimator* anim = new JumpAnimator(this->getPosicionEscena() ,npos,this->velAnim,0.f);
       if (anim)
 		{
 			this->nodoA->addAnimator(anim);
+
 			anim->drop();
       }
       this->posiciong=npos;
@@ -47,12 +49,12 @@ Grafico::Jugador::~Jugador() {
   }
  bool Grafico::Jugador::endAnimacion(){
 
-     core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
-     scene::ISceneNodeAnimator* anim=*a;
-     if(anim==NULL||anim==0){
+     if(this->nodoA->getAnimators().empty()){
          return true;
      }
      else{
+        core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
+        scene::ISceneNodeAnimator* anim=*a;
         return anim->hasFinished();
      }
  }

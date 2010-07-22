@@ -108,7 +108,7 @@ void Grafico::Skin::setDefault(gui::IGUIEnvironment* env){
 }
 void Grafico::Skin::setMenuToolTip(gui::IGUIEnvironment* env){
     std::ostringstream strs;
-     this->MenuToolTip=env->getFont(this->opciones->getMenuFontPath().c_str());
+     this->MenuToolTip=env->getFont(this->opciones->getTooltipFontPath().c_str() );
      if(this->MenuToolTip==0){
           strs << "No pudo ser cargada la Fuente del Tooltip del Menú ";
             throw SkinNoCargado(strs.str().c_str());
