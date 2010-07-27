@@ -35,40 +35,26 @@ int Partida::getJugadorGanador(){
 
 std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::string rutaAgente2,Reglas::Tablero* t){
      //TODO: revisar si los agentes son NULL
-     Scripting::Manejador *m;
+     Scripting::Manejador m(*t);
      std::vector<Reglas::Agente*> agentes;
-     try{
-        m= new Scripting::Manejador(*t);
-     }
-     catch(Scripting::Excepcion &e){
-         this->errorEnAgente='0';
-         delete(m);
-         throw;
-     }
 
       try{
-          agentes.push_back(m->getAgente(rutaAgente1));
-          
-          
+          agentes.push_back(m.getAgente(rutaAgente1));     
       }
       catch(Scripting::Excepcion &e){
           this->errorEnAgente='1';
-          delete(m);
           throw;
 
       }
       try{
-          agentes.push_back(m->getAgente(rutaAgente2));
+          agentes.push_back(m.getAgente(rutaAgente2));
           }
          catch(Scripting::Excepcion &e){
               this->errorEnAgente='2';
-              delete(m);
               delete agentes.at(0);
               throw;
 
           }
-
-      delete(m);
       return agentes;
 }
  char Partida::getAgenteConError(){
