@@ -209,6 +209,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
      this->cam->setTarget(core::vector3df(-344.395,170.816,333.796));
      this->cam->setPosition(core::vector3df(-357.9,173,352.904));
     this->smgr->setActiveCamera(this->cam);
+    this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
  }
 
  void ManejadorJuego::setSkinAmbiente(){
@@ -220,13 +221,13 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
 		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
 		5,					// maxLOD
-		scene::ETPS_17,				// patchSize
-		4					// smoothFactor
+		scene::ETPS_33,				// patchSize
+		2					// smoothFactor
 		);
 	
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
         this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
-       this->terrain->scaleTexture(1.0f, 20.0f);
+       this->terrain->scaleTexture(1.0f, 1.0f);
        //this->terrain->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
 
 
@@ -334,6 +335,6 @@ void ManejadorJuego::setObjetivoCam(){
     core::vector3df v=p->getCentro();
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
     cam->setTarget(t+v);
-     
+     this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
     this->smgr->setActiveCamera(cam);   
 }

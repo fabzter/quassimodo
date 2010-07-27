@@ -62,12 +62,12 @@ void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vecto
 
 bool Grafico::Barrera::endAnimacion(){
 
-     core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
-     scene::ISceneNodeAnimator* anim=*a;
-     if(anim==NULL||anim==0){
+     if(this->nodoA->getAnimators().empty()){
          return true;
      }
      else{
+        core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
+        scene::ISceneNodeAnimator* anim=*a;
         return anim->hasFinished();
      }
  }
