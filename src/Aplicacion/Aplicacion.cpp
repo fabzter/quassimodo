@@ -61,7 +61,7 @@ ManejadorJuego* Aplicacion::getManJuego(){
 }
 
 void Aplicacion::nuevoJuego(){
-    std::string err;
+    std::string err="";
     try{
         delete this->juego;
     }
@@ -76,8 +76,8 @@ void Aplicacion::nuevoJuego(){
         this->smgr->getVideoDriver()->deleteAllDynamicLights();
     
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion,this->grafico);
-    
-    this->juego->getManejadorGUI()->MsgBox(err.c_str(),true,Grafico::BOK_ADVERTENCIA);
+    if(err!="")
+        this->juego->getManejadorGUI()->MsgBox(err.c_str(),true,Grafico::BOK_ADVERTENCIA);
 }
 
 void Aplicacion::loopGrafico(){
