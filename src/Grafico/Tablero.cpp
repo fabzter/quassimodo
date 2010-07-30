@@ -96,3 +96,15 @@ void Grafico::Tablero::setEscalaTablero(int x,int y,int z){
   irr::core::vector3df Grafico::Tablero::getsizeCelda(){
       return this->datos.at(0).at(0)->getSize();
   }
+
+  int Grafico::Tablero::getCeldasAMover(const std::vector<int> & actual,const std::vector<int> & nueva){
+      int x=std::abs( nueva.at(0)-actual.at(0) ),y=std::abs( nueva.at(1)-actual.at(1) );
+
+      if(x!=0&&y!=0)
+          return 2;
+      if(x!=0)
+          return x;
+      else
+          return y;
+
+  }

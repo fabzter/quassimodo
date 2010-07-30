@@ -36,7 +36,7 @@ public:
      */
     void Gira(core::vector3df giro);
 
-    bool Mover(scene::ISceneManager* smgr,core::vector3df npos);
+    bool Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas);
 
     bool endAnimacion();
 

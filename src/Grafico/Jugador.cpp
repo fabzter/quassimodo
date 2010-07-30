@@ -32,11 +32,11 @@ Grafico::Jugador::~Jugador() {
      this->nodoA->setRotation(giro);
  }
 
- bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos){
+ bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas){
 
       this->nodoA->removeAnimators();
       //new JumpAnimator(node->getPosition(),node1->getPosition(),300.0f,0.0f);
-      scene::ISceneNodeAnimator* anim = new JumpAnimator(this->getPosicionEscena() ,npos,this->velAnim,0.f);
+      scene::ISceneNodeAnimator* anim = new JumpAnimator(this->getPosicionEscena() ,npos,this->velAnim,numceldas);
       if (anim)
 		{
 			this->nodoA->addAnimator(anim);
@@ -47,6 +47,7 @@ Grafico::Jugador::~Jugador() {
       return true;
      
   }
+
  bool Grafico::Jugador::endAnimacion(){
 
      if(this->nodoA->getAnimators().empty()){

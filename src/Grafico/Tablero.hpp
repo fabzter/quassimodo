@@ -6,6 +6,7 @@
 #include<irrlicht.h>
 #include<vector>
 #include"Celda.hpp"
+#include<cstdlib>
 
 namespace Grafico{
     using namespace irr;
@@ -76,6 +77,13 @@ public:
           * @return Un vector3df que indica el tamaño de la celda
           */
          irr::core::vector3df getsizeCelda();
+         /**
+          * Regresa cunatas celdas va a saltar el jugador
+          * @param actual posicion actual del jugador
+          * @param nueva posicion nueva del jugador
+          * @return un entero que indica el número de celdas a moverse.
+          */
+         int getCeldasAMover(const std::vector<int> & actual,const std::vector<int> & nueva);
 
 
 private:

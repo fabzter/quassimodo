@@ -23,6 +23,10 @@ void JumpAnimator::init()
 	this->Radius=aux.getLength();
         HasFinished = false;
 	Direction.normalize();
+        if(this->RadiusEllipsoid==2)
+            this->RadiusEllipsoid=140.f;
+        else
+            this->RadiusEllipsoid=0.f;
 
 	VecV =core::vector3df(0,1,0);
 	VecU = Direction*-1;
@@ -30,7 +34,8 @@ void JumpAnimator::init()
 
 }
 bool JumpAnimator::llego_fin(scene::ISceneNode* node){
-	int error=5.0;
+
+	int error=RadiusEllipsoid == 0.f ? 5.0 : 22.0;
         core::vector3di end( (int)this->End.X,(int)this->End.Y,(int)this->End.Z );
         core::vector3di ahora( (int)node->getPosition().X,(int)node->getPosition().Y,(int)node->getPosition().Z );
         return end.equals(ahora,error);

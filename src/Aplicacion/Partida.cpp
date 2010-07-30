@@ -56,6 +56,7 @@ std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::st
 
           }
       return agentes;
+ 
 }
  char Partida::getAgenteConError(){
      return this->errorEnAgente;
