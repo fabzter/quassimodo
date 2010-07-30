@@ -81,7 +81,6 @@ bool Scripting::InterpretePython::manejaModulo(std::string ruta)
 {
     std::vector<std::string> subfixes;
     subfixes.push_back("py");
-    subfixes.push_back("pyc");
 
     boost::filesystem::path ruta_path(ruta);
 
