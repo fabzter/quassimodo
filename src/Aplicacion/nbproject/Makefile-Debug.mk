@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Debug/GNU-Linux-x86 -L../Scripting/dist/Debug/GNU-Linux-x86 -lScripting -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -65,8 +65,6 @@ LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Gr
 dist/Debug/GNU-Linux-x86/aplicacion: ../Grafico/dist/Debug/GNU-Linux-x86/libGrafico.so
 
 dist/Debug/GNU-Linux-x86/aplicacion: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
-
-dist/Debug/GNU-Linux-x86/aplicacion: ../Scripting/dist/Debug/GNU-Linux-x86/libScripting.so
 
 dist/Debug/GNU-Linux-x86/aplicacion: ../Opciones/dist/Debug/GNU-Linux-x86/libOpciones.so
 
@@ -113,7 +111,6 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 .build-subprojects:
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
-	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
@@ -125,7 +122,6 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 .clean-subprojects:
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../Scripting && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking

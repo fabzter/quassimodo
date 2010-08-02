@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . ../Grafico/dist/Release/GNU-Linux-x86/grafico -Wl,-rpath ../Reglas/dist/Release/GNU-Linux-x86 -L../Reglas/dist/Release/GNU-Linux-x86 -lReglas -Wl,-rpath ../Scripting/dist/Release/GNU-Linux-x86 -L../Scripting/dist/Release/GNU-Linux-x86 -lScripting -Wl,-rpath ../Opciones/dist/Release/GNU-Linux-x86 -L../Opciones/dist/Release/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . ../Grafico/dist/Release/GNU-Linux-x86/grafico -Wl,-rpath ../Reglas/dist/Release/GNU-Linux-x86 -L../Reglas/dist/Release/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Release/GNU-Linux-x86 -L../Opciones/dist/Release/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -65,8 +65,6 @@ LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . ../Grafico/dist/
 dist/Release/GNU-Linux-x86/aplicacion: ../Grafico/dist/Release/GNU-Linux-x86/grafico
 
 dist/Release/GNU-Linux-x86/aplicacion: ../Reglas/dist/Release/GNU-Linux-x86/libReglas.so
-
-dist/Release/GNU-Linux-x86/aplicacion: ../Scripting/dist/Release/GNU-Linux-x86/libScripting.so
 
 dist/Release/GNU-Linux-x86/aplicacion: ../Opciones/dist/Release/GNU-Linux-x86/libOpciones.so
 
@@ -113,7 +111,6 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 .build-subprojects:
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release
-	cd ../Scripting && ${MAKE}  -f Makefile CONF=Release
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
@@ -125,7 +122,6 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 .clean-subprojects:
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release clean
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release clean
-	cd ../Scripting && ${MAKE}  -f Makefile CONF=Release clean
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking

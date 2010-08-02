@@ -1,7 +1,8 @@
 #include "ManejadorJuego.hpp"
 
-
-ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, Grafico::Skin* skin,int VelAnim,bool grafico) {
+ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,
+        gui::IGUIEnvironment* env, Grafico::Skin* skin,int VelAnim,bool grafico)
+{
     this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
@@ -61,34 +62,16 @@ char ManejadorJuego::setMenu(){
 bool ManejadorJuego::setPartida(){
     if(this->hayagente){
 
-        try{
-            this->partida->SetJugadores(this->Agentes[0],this->Agentes[1]);
-        }
-        catch (Scripting::ScriptMalo &e)
-        {
-            std::stringstream msj;
-            msj<<"Error al cargar el script del Agente: "<<this->partida->getAgenteConError()<<std::endl<<e.what();
-            this->mgui->MsgBox(msj.str().c_str(),this->grafico,BOK_ERROR);
-            return this->partidainiciada;
-        }
+        this->partida->SetJugadores(this->Agentes[0],this->Agentes[1]);
 
-        try{
-            
-            this->partida->iniciarPartida();
-            this->partidainiciada=true;
-            if(this->grafico){
-                this->mgui->dropMenu();
-                this->setCamJuego();
-                this->mgui->setMenuPartida();
-            }
-            return this->partidainiciada;
+        this->partida->iniciarPartida();
+        this->partidainiciada=true;
+        if(this->grafico){
+            this->mgui->dropMenu();
+            this->setCamJuego();
+            this->mgui->setMenuPartida();
         }
-
-         catch (Scripting::ScriptMalo &e)
-          {
-              this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-              return this->partidainiciada;
-          }
+        return this->partidainiciada;
     }
     else{
          this->mgui->MsgBox("No ha seleccionado agentes",true, BOK_ERROR);

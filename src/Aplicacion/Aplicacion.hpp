@@ -1,5 +1,3 @@
-
-
 #ifndef _APLICACION_HPP
 #define	_APLICACION_HPP
 #include<irrlicht/irrlicht.h>

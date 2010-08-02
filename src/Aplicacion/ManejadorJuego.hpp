@@ -1,4 +1,3 @@
-
 #ifndef _MANEJADORJUEGO_HPP
 #define	_MANEJADORJUEGO_HPP
 
@@ -7,7 +6,6 @@
 #include<Grafico/Enums.hpp>
 #include <Grafico/Skin.hpp>
 #include<Reglas/Excepciones.hpp>
-#include<Scripting/Excepciones.hpp>
 #include <irrlicht/irrList.h>
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"

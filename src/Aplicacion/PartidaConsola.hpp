@@ -1,4 +1,3 @@
-
 #ifndef PARTIDACONSOLA_HPP
 #define	PARTIDACONSOLA_HPP
 #include"Partida.hpp"

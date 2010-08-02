@@ -1,5 +1,3 @@
-
-
 #include "Partida.hpp"
 
 
@@ -8,7 +6,6 @@ Partida::Partida() {
     this->jugadores.reserve(2);
     this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
- 
 }
 
 Partida::Partida(const Partida& orig) {
@@ -34,28 +31,10 @@ int Partida::getJugadorGanador(){
 }
 
 std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::string rutaAgente2,Reglas::Tablero* t){
-     //TODO: revisar si los agentes son NULL
-     Scripting::Manejador m(*t);
-     std::vector<Reglas::Agente*> agentes;
-
-      try{
-          agentes.push_back(m.getAgente(rutaAgente1));     
-      }
-      catch(Scripting::Excepcion &e){
-          this->errorEnAgente='1';
-          throw;
-
-      }
-      try{
-          agentes.push_back(m.getAgente(rutaAgente2));
-          }
-         catch(Scripting::Excepcion &e){
-              this->errorEnAgente='2';
-              delete agentes.at(0);
-              throw;
-
-          }
-      return agentes;
+     //TODO: Pedir en verdad a los agentes!
+    std::vector<Reglas::Agente*> agentes;
+    
+    return agentes;
  
 }
  char Partida::getAgenteConError(){

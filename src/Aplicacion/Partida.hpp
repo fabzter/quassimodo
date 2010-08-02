@@ -1,12 +1,8 @@
-
 #ifndef _PARTIDA_HPP_
 #define	_PARTIDA_HPP_
 #include<Reglas/Juez.hpp>
 #include<Reglas/Jugador.hpp>
 #include<vector>
-#include<Scripting/Manejador.hpp>
-#include<Scripting/Excepciones.hpp>
-
 
 class Partida {
 public:

@@ -1,4 +1,3 @@
-
 #include "Aplicacion.hpp"
 using namespace irr;
 
