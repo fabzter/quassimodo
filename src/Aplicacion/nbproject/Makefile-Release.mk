@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . ../Grafico/dist/Release/GNU-Linux-x86/grafico -Wl,-rpath ../Reglas/dist/Release/GNU-Linux-x86 -L../Reglas/dist/Release/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Release/GNU-Linux-x86 -L../Opciones/dist/Release/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . ../Grafico/dist/Release/GNU-Linux-x86/grafico -Wl,-rpath ../Reglas/dist/Release/GNU-Linux-x86 -L../Reglas/dist/Release/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Release/GNU-Linux-x86 -L../Opciones/dist/Release/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Release/GNU-Linux-x86 -L../Agentes/dist/Release/GNU-Linux-x86 -lAgentes
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -67,6 +67,8 @@ dist/Release/GNU-Linux-x86/aplicacion: ../Grafico/dist/Release/GNU-Linux-x86/gra
 dist/Release/GNU-Linux-x86/aplicacion: ../Reglas/dist/Release/GNU-Linux-x86/libReglas.so
 
 dist/Release/GNU-Linux-x86/aplicacion: ../Opciones/dist/Release/GNU-Linux-x86/libOpciones.so
+
+dist/Release/GNU-Linux-x86/aplicacion: ../Agentes/dist/Release/GNU-Linux-x86/libAgentes.so
 
 dist/Release/GNU-Linux-x86/aplicacion: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
@@ -112,6 +114,7 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -123,6 +126,7 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release clean
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release clean
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

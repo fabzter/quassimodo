@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Debug/GNU-Linux-x86 -L../Agentes/dist/Debug/GNU-Linux-x86 -lAgentes
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -67,6 +67,8 @@ dist/Debug/GNU-Linux-x86/aplicacion: ../Grafico/dist/Debug/GNU-Linux-x86/libGraf
 dist/Debug/GNU-Linux-x86/aplicacion: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
 dist/Debug/GNU-Linux-x86/aplicacion: ../Opciones/dist/Debug/GNU-Linux-x86/libOpciones.so
+
+dist/Debug/GNU-Linux-x86/aplicacion: ../Agentes/dist/Debug/GNU-Linux-x86/libAgentes.so
 
 dist/Debug/GNU-Linux-x86/aplicacion: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
@@ -112,6 +114,7 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -123,6 +126,7 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
