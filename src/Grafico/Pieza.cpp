@@ -5,12 +5,14 @@
 using namespace irr;
 using namespace std;
 
-Grafico::Pieza::Pieza() {
+Grafico::Pieza::Pieza(scene::ISceneNode* parent) {
     this->mesh=NULL;
     this->posiciong=core::vector3df(0,0,0);
     this->nodoA=NULL;
     this->size.X=0, this->size.Y=0, this->size.Z=0;
     this->sombra=NULL;
+    this->par=parent;
+   
 }
 
 Grafico::Pieza::Pieza(const Pieza& orig) {
@@ -40,10 +42,12 @@ scene::IAnimatedMeshSceneNode* Grafico::Pieza::getNodo(){
 }
 
 core::vector3df Grafico::Pieza::getPosicionEscena(){
+    this->nodoA->updateAbsolutePosition();
         return this->nodoA->getPosition();
 }
 
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
+
     this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
     this->nodoA->setMaterialType(video::EMT_DETAIL_MAP);
     this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
@@ -54,15 +58,15 @@ void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
     this->nodoA->getMesh()->setHardwareMappingHint(scene::EHM_STATIC);
 
     this->nodoA->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
+     this->nodoA->setParent(par);
+
 }
 
 void Grafico::Pieza::setEscala(int x, int y ,int z){
 
-     this->nodoA->setScale(core::vector3df(x,y,z));
      this->nodoA->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
      if(this->sombra!=NULL){
-     this->sombra->setScale( core::vector3df(x,y,z) );
-     this->sombra->setMaterialFlag(video::EMF_LIGHTING, false);
+         this->sombra->setMaterialFlag(video::EMF_LIGHTING, false);
      }
 }
 
@@ -71,24 +75,21 @@ void Grafico::Pieza::setMesh(scene::IAnimatedMesh* mesh){
 }
 
 core::vector3df Grafico::Pieza::getSize(){
-    return this->size;
+
+    return this->nodoA->getMesh()->getBoundingBox().getExtent();
 }
 
 core::vector3df  Grafico::Pieza::getEscala(){
-    return this->nodoA->getScale();
+    this->nodoA->updateAbsolutePosition();
+    return this->nodoA->getAbsoluteTransformation().getScale();
 }
 
 void Grafico::Pieza::drop(){
     
      if(this->sombra!=NULL){
-         this->sombra->removeAll();
-         this->sombra->remove();
-         this->sombra=NULL;
+         this->nodoA->removeChild(this->sombra);
      }
-     this->nodoA->removeAll();
-      this->nodoA->remove();
-    
- 
+    this->par->removeChild(this->nodoA);
 }
 
  void Grafico::Pieza::setSombra(scene::IMesh* shadowMesh){

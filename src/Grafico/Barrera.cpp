@@ -4,7 +4,7 @@
 
 using namespace irr;
 
-Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim):Grafico::Pieza(),Reglas::Barrera() {
+Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent),Reglas::Barrera() {
 
       this->mesh=skin->getBarrera();
      this->dibuja(smgr);

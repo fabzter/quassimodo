@@ -14,15 +14,16 @@ PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gu
     this->antorchas.reserve(4);
     this->antorchas.resize(4);
     this->Barreras.reserve(20);
-    this->t=new Tablero(smgr,this->skin);
+    this->parent=smgr->addEmptySceneNode();
+    this->parent->setPosition(core::vector3df(0,0,0));
+    this->t=new Tablero(smgr,this->skin,this->parent);
     this->juez = new Reglas::Juez(*t);
     this->velAnim=VelAnim;
     for(std::size_t i = 0; i < this->antorchas.size(); i++){
-         this->antorchas.at(i)=new Antorcha(smgr,0,0,this->skin);
+         this->antorchas.at(i)=new Antorcha(smgr,this->skin,this->parent);
     }
     
      core::vector3df v= this->t->getSize();
-     this->t->setPosicionTablero(-(v.X) /2,-15,-( (v.Z) /2));
      this->ColocaAntorchas();
 
 }
@@ -38,7 +39,7 @@ PartidaGrafica::~PartidaGrafica() {
      }
      this->dropBarreras();
      delete(this->t);
-     //this->triangle->drop();
+     this->parent->removeAll();
 }
 
 void PartidaGrafica::iniciarPartida()
@@ -54,7 +55,6 @@ void PartidaGrafica::iniciarPartida()
         j.setPosicion( this->t->getJugador(id).getPosicion() );
         this->MoverJugador(j,id);
         ju->Gira(core::vector3df(0,90-(id*180),0));
-
     }
 
     this->en_curso = true;
@@ -94,19 +94,18 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
  void PartidaGrafica::SetBarrera(Reglas::Jugada &j, int idJugador){
 
-     this->Barreras.push_back(new Barrera(smgr,this->skin,this->velAnim));
+     this->Barreras.push_back(new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo()));
         unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
-        this->Barreras.at(pos-1)->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
         this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
         this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
-        this->setTopeSombra(pos-1);
 
  }
 
  void PartidaGrafica::ColocaAntorchas(){
 
-      int x,x1,z,z1,y,aumento=5;
+
+     int x,x1,z,z1,y,aumento=5;
      core::vector3df v=this->t->getPosicionCelda(0,0);
     x=v.X+(-aumento-this->t->getEscala().X);
     x1=(aumento+this->t->getsizeLineaCeldas().X);
@@ -121,19 +120,16 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
  void PartidaGrafica::SetEscala(int x, int y, int z){
       this->escala.X=x,this->escala.Y=y,this->escala.Z=z;
+      this->parent->setScale(this->escala);
      this->t->setEscalaTablero(this->escala.X,this->escala.Y,this->escala.Z);
       for(int i=0;i<this->jugadores.size();i++){
           Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
           ju->setEscala(this->escala.X,this->escala.Y,this->escala.Z);
       }
-
       for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)->setEscalaAntorcha(this->escala.X,this->escala.Y,this->escala.Z);
     }
-       core::vector3df v= this->t->getSize();
-     this->t->setPosicionTablero(-(v.X*x) /2,-13.3*y,-( (v.Z*z) /2));
 
-     this->ColocaAntorchas();
  }
 
  bool PartidaGrafica::SetJugadores(std::string rutaAgente1,std::string rutaAgente2){
@@ -142,11 +138,10 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
       std::vector<Reglas::Agente*> agentes=this->getAgentes(rutaAgente1,rutaAgente2,this->t);
 
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],this->skin,this->velAnim));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin,this->velAnim));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],this->skin,this->velAnim,this->parent));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin,this->velAnim,this->parent));
 
       this->t->setJugadores( this->jugadores);
-      this->SetEscala(this->escala.X,this->escala.Y,this->escala.Z);
  }
 
 core::vector3df PartidaGrafica::getCentro(){
@@ -192,31 +187,3 @@ void PartidaGrafica::dropJugadores() {
       }
      this->jugadores.clear();
  }
- void PartidaGrafica::setTopeSombra(int i){
-
-
-         /*scene::ITriangleSelector* selector= smgr->createTriangleSelectorFromBoundingBox(this->Barreras.at(i)->getNodo());
-            this->Barreras.at(i)->getNodo()->setTriangleSelector(selector);
-            this->triangle->addTriangleSelector(selector);
-            selector->drop();
-            for(int j=0;j<this->jugadores.size();j++){
-                Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(j);
-                if(ju->getNodoSombra()->getAnimators().size()>0)
-                    ju->getNodoSombra()->removeAnimators();
-                const core::aabbox3d<f32>& box = ju->getNodoSombra()->getBoundingBox();
-                core::vector3df radius = box.MaxEdge - box.getCenter();
-                // create collision response animator and attach it to the camera
-                scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-                        this->triangle,ju->getNodoSombra() ,radius,
-                        core::vector3df(0,0,0),
-                        core::vector3df(70,0,0));
-//
-                ju->getNodoSombra()->addAnimator(anim);
-                anim->drop();
-            }*/
-
- }
- 
-
-
-

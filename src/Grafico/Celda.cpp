@@ -3,19 +3,18 @@
 
 using namespace irr;
 
-Grafico::Celda::Celda(scene::ISceneManager* smgr,Skin* skin):Grafico::Pieza(){
+Grafico::Celda::Celda(scene::ISceneManager* smgr,Skin* skin,scene::ISceneNode* parent):Grafico::Pieza(parent){
        
     if(skin!=NULL){
            this->mesh=skin->getCelda();
            this->celdaR=NULL;
            this->nodoA=NULL;
            this->dibuja(smgr);
-
            this->nodoA->setMaterialTexture(0,skin->getTCelda() );
            this->nodoA->getMaterial(0).NormalizeNormals=true;
 
-           this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
-           this->setSombra();
+           //this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+         //  this->setSombra();
     }
 
 }
@@ -40,13 +39,16 @@ Grafico::Celda::~Celda() {
            v.X=1,v.Y=1,v.Z=1;
       x+=this->celdaR->getPosicion().at(0)* ( (this->size.X+this->size.Y)*v.X ) ;
       z+=this->celdaR->getPosicion().at(1)*( (this->size.X+this->size.Y)*v.Z );
-      y-=12;//( this->size.Y*v.Y );
+      //y-=12;//( this->size.Y*v.Y );
+
+
       this->setPosicion(x,y,z);
   }
   void Grafico::Celda::SetEscalaCelda(int x, int y, int z){
-
       this->setEscala(x,y,z);
-        this->size=this->nodoA->getBoundingBox().getExtent();
+      std::cout<<"Escala celda "<<this->getEscala().X<<" , "<<this->getEscala().Y<<" , "<<this->getEscala().Z<<std::endl;
 
-
+  }
+  void Grafico::Celda::setParent(scene::ISceneNode* parent){
+      this->nodoA->setParent(parent);
   }
