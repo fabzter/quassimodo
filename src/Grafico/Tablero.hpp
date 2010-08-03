@@ -19,8 +19,9 @@ public:
      *Constructor de Tablero carga los objetos del tablero que se van a dibujar, llama al constructor de la
      * clase Reglas::Tablero
      * @param smgr Un apuntador al  manejador de la escena
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
-    Tablero(scene::ISceneManager* smgr,Skin* skin);
+    Tablero(scene::ISceneManager* smgr,Skin* skin,scene::ISceneNode* parent);
     /**
      *Constructor copia de la clase Tablero
      * @param orig una referencia a un objeto de la clase Tablero del namespace Grafico
@@ -91,6 +92,7 @@ private:
      * Vector de vectores en que contiene las celdas que se van a dibujar en la escena
      */
     std::vector <std::vector<Grafico::Celda*> > datos;
+
 };
 }
 

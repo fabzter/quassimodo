@@ -40,7 +40,7 @@ void ManejadorJuego::init(){
         this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
         this->setSkinAmbiente();
         this->cam=0;
-        this->setEscala(5,5,5);
+        //this->setEscala(5,5,5);
     }
     else{
         this->partida=new PartidaConsola();
@@ -189,8 +189,8 @@ std::string ManejadorJuego::SplitNombre (std::string str)
  void ManejadorJuego::setCamMenu(){
      this->dropCamera();
     this->cam= this->smgr->addCameraSceneNode();
-     this->cam->setTarget(core::vector3df(-344.395,170.816,333.796));
-     this->cam->setPosition(core::vector3df(-357.9,173,352.904));
+     this->cam->setTarget(core::vector3df(282.469,116.59,275.255));
+     this->cam->setPosition(core::vector3df(-43.4172,258.423,692.37));
     this->smgr->setActiveCamera(this->cam);
     this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
  }
@@ -211,7 +211,6 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
         this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
        this->terrain->scaleTexture(1.0f, 1.0f);
-       //this->terrain->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
 
 
  }
@@ -242,8 +241,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
              break;
          case 4:
              anm->setRotationNumbers(1170,45);
-             break;
-    
+             break;   
 
      }
   

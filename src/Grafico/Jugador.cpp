@@ -6,7 +6,7 @@
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim):Grafico::Pieza() ,Reglas::Jugador(num,a) {
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent) ,Reglas::Jugador(num,a) {
 
     if (num==0)
         this->mesh=skin->getJugador1();
