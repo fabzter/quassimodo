@@ -93,12 +93,6 @@ private:
      *Elimina los jugadores de la PartidaGrafica y de la escena actual.
      */
     void dropJugadores();
-    /**
-     * Coloca el tope en las barreras para que las sombran no pasen a travez de la barrera.
-     * @param i indice de la barrera que tendrá el tope
-     * @param  smgr un apuntador al manejador de la escena
-     */
-    void setTopeSombra(int i);
 
     /**
      * Tablero sobre el que se realizará la PartidaGrafica.
@@ -134,8 +128,7 @@ private:
      * velocidad de animacion que tendrá la barrera y el jugador
      */
     int velAnim;
-
-     scene::IMetaTriangleSelector* triangle;
+     scene::ISceneNode *parent;
 
 };
 

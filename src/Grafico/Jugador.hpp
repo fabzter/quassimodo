@@ -22,7 +22,7 @@ public:
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      */
-    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim);
+    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent);
     /**
      *Constructor copia de la clase Jugador
      * @param orig una referencia a un objeto de la clase Jugador del namespace Grafico

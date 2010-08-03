@@ -19,8 +19,10 @@ public:
      *Constructor de la clas celda inicia la celda del namespace Reglas
      * y dibuja la celda en la escena en la posicion (0,0,0).
      * @param smgr Un apuntador al  manejador de la escena
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param parent Nodo escena del que la celda será hijo, en este caso el tablero.
      */
-    Celda(scene::ISceneManager* smgr,Skin* skin);
+    Celda(scene::ISceneManager* smgr,Skin* skin,scene::ISceneNode* parent);
     /**
      *Constructor copia de la clase Celda
      * @param orig una referencia a un objeto de la clase Celda del namespace Grafico
@@ -50,6 +52,7 @@ public:
          * @param z Un entero que representa la escala que tendrá en el eje de las Z
          */
     void SetEscalaCelda(int x, int y, int z);
+    void setParent(scene::ISceneNode* parent);
 private:
     /**
      * Un apuntador a  una clase de Reglas::Celda esta apunta a una celda en el tablero
