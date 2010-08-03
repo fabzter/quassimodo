@@ -8,6 +8,7 @@
 
 namespace Reglas
 {
+class Juez;
 /**
  * Esta clase sirve como un ayudante para el Agente implementado en un Script.
  * Debe ser expuesto, tal como el Tablero lo es, y le da información útil al

@@ -264,16 +264,6 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="dist/Debug/GNU-Linux-x86/libAgentes.so">
           </makeArtifact>
-          <makeArtifact PL="../Grafico"
-                        CT="2"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../Grafico"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="dist/Debug/GNU-Linux-x86/libGrafico.so">
-          </makeArtifact>
         </requiredProjects>
       </compileType>
     </conf>

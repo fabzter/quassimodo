@@ -4,11 +4,13 @@
 #ifndef _JUGADOR_HPP
 #define	_JUGADOR_HPP
 #include "Agente.hpp"
+#include "AyudanteDeAgente.hpp"
 #include "Jugada.hpp"
 #include "Excepciones.hpp"
 #include "Pieza.hpp"
 
-namespace Reglas{
+namespace Reglas
+{
 class Tablero;
 class Agente;
 
@@ -16,7 +18,8 @@ class Agente;
  * Esta clase representa a un peón del Juego. Cada Jugador posee un Agente, que
  * controlará las acciones del Jugador.
  */
-class Jugador: public Pieza {
+class Jugador: public Pieza
+{
 public:
      /**
      *El constructor más básico de Jugador. Le proporciona un número de jugador
@@ -78,10 +81,14 @@ public:
     /**
      * Delegado de Agente::siguienteJugada. Manda a llamar al método
      * siguienteJugada de Agente y regresa su resultado.
+     * @param tablero es una copia del Tablero actual del juego.
+     * @param ayudante es una referencia al ayudante correspondiente al Tablero
+     * actual.
      * @return un objeto Jugada con la Jugada que piensa realizar el Agente
      * asignado al Jugador.
      */
-    virtual Jugada siguienteJugada() const;
+    virtual Jugada siguienteJugada(const Tablero &tablero,
+                                        const AyudanteDeAgente &ayudante) const;
 
     /**
      * Delegado de Agente::terminar. Manda a llamar a dicho método del

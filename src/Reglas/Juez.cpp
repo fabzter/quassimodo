@@ -22,10 +22,9 @@ Reglas::Juez::~Juez()
 
 Reglas::Jugada Reglas::Juez::siguienteJugada(int idJugador)
 {
-  Jugada j(this->tablero->getJugador(idJugador).siguienteJugada());
-  
+  Jugada j(this->tablero->getJugador(idJugador).siguienteJugada(*this->tablero,
+                                                                AyudanteDeAgente(this->tablero)));
   this->revisar_reglas(j, idJugador);
-
   return j;
 }
 

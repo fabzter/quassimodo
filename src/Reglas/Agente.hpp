@@ -1,13 +1,16 @@
-/**
- */
-
 #ifndef _AGENTE_HPP
 #define	_AGENTE_HPP
 #include "Tablero.hpp"
 #include "Jugada.hpp"
-namespace Reglas{
+#include "AyudanteDeAgente.hpp"
+
+namespace Reglas
+{
 class Tablero;
-class Agente {
+class AyudanteDeAgente;
+
+class Agente
+{
 public:
     /**
      *Este método es un aviso al Agente de que los dos Jugadores ya han sido
@@ -21,9 +24,13 @@ public:
     /**
      *Este método se usa para pedirle al Jugador la siguiente Jugada que piense
      * realizar. La Jugada podría no ser válida, asi que hay que revisarla.
+     * @param tablero es una copia del Tablero actual del juego.
+     * @param ayudante es una referencia al ayudante correspondiente al Tablero
+     * actual.
      * @return un objeto Jugada con la Jugada que piensa realizar el Jugador.
      */
-    virtual Jugada siguienteJugada() = 0 ;
+    virtual Jugada siguienteJugada(const Tablero tablero,
+                                        const AyudanteDeAgente &ayudante) = 0 ;
 
     /**
      * Este método le avisa al Jugador que la Partida ha terminado. Ya sea por

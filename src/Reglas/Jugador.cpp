@@ -1,6 +1,3 @@
-/**
- */
-
 #include "Jugador.hpp"
 #include "Juez.hpp"
 #include "Agente.hpp"
@@ -64,9 +61,10 @@ void Reglas::Jugador::iniciar(int id) const
     this->agente->iniciar(this->num);
 }
 
-Reglas::Jugada Reglas::Jugador::siguienteJugada() const
+Reglas::Jugada Reglas::Jugador::siguienteJugada(const Tablero &tablero,
+                                        const AyudanteDeAgente &ayudante) const
 {
-    return this->agente->siguienteJugada();
+    return this->agente->siguienteJugada(tablero, ayudante);
 }
 
 void Reglas::Jugador::terminar() const

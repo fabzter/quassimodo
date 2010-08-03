@@ -12,6 +12,8 @@
 
 namespace Reglas
 {
+class Tablero;
+
 class Mapa : micropather::Graph
 {
 public:

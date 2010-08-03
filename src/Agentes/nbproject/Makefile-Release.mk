@@ -33,7 +33,8 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ManejadorAgentes.o
+	${OBJECTDIR}/ManejadorAgentes.o \
+	${OBJECTDIR}/AgenteAstar.o
 
 
 # C Compiler Flags
@@ -50,11 +51,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-Wl,-rpath ../Reglas/dist/Release/GNU-Linux-x86 -L../Reglas/dist/Release/GNU-Linux-x86 -lReglas
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/libAgentes.so
+
+dist/Release/GNU-Linux-x86/libAgentes.so: ../Reglas/dist/Release/GNU-Linux-x86/libReglas.so
 
 dist/Release/GNU-Linux-x86/libAgentes.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
@@ -65,8 +68,14 @@ ${OBJECTDIR}/ManejadorAgentes.o: ManejadorAgentes.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorAgentes.o ManejadorAgentes.cpp
 
+${OBJECTDIR}/AgenteAstar.o: AgenteAstar.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteAstar.o AgenteAstar.cpp
+
 # Subprojects
 .build-subprojects:
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -75,6 +84,7 @@ ${OBJECTDIR}/ManejadorAgentes.o: ManejadorAgentes.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

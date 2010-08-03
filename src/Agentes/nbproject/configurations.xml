@@ -29,6 +29,8 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>AgenteAstar.cpp</itemPath>
+    <itemPath>AgenteAstar.hpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -44,6 +46,34 @@
             <pElem>..</pElem>
           </incDir>
         </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Reglas"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Reglas"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libReglas.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../Reglas"
+                        CT="2"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../Reglas"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/libReglas.so">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
     <conf name="Release" type="2">
@@ -68,6 +98,34 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Reglas"
+                            CT="2"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Reglas"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/libReglas.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../Reglas"
+                        CT="2"
+                        CN="Release"
+                        AC="false"
+                        BL="false"
+                        WD="../Reglas"
+                        BC="${MAKE}  -f Makefile CONF=Release"
+                        CC="${MAKE}  -f Makefile CONF=Release clean"
+                        OP="dist/Release/GNU-Linux-x86/libReglas.so">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
   </confs>
