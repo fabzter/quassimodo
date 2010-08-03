@@ -30,7 +30,7 @@ public:
      * @return un objeto Jugada con la Jugada que piensa realizar el Jugador.
      */
     virtual Jugada siguienteJugada(const Tablero tablero,
-                                        const AyudanteDeAgente &ayudante) = 0 ;
+                                            AyudanteDeAgente &ayudante) = 0 ;
 
     /**
      * Este método le avisa al Jugador que la Partida ha terminado. Ya sea por

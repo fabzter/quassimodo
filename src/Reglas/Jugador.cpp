@@ -62,7 +62,7 @@ void Reglas::Jugador::iniciar(int id) const
 }
 
 Reglas::Jugada Reglas::Jugador::siguienteJugada(const Tablero &tablero,
-                                        const AyudanteDeAgente &ayudante) const
+                                            AyudanteDeAgente &ayudante) const
 {
     return this->agente->siguienteJugada(tablero, ayudante);
 }

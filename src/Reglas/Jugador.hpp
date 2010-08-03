@@ -88,7 +88,7 @@ public:
      * asignado al Jugador.
      */
     virtual Jugada siguienteJugada(const Tablero &tablero,
-                                        const AyudanteDeAgente &ayudante) const;
+                                            AyudanteDeAgente &ayudante) const;
 
     /**
      * Delegado de Agente::terminar. Manda a llamar a dicho método del
