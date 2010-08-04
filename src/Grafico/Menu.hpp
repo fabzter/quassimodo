@@ -117,6 +117,7 @@ private:
      * La escala que tendrá en el juego;
      */
     core::vector3df escala;
+    scene::ISceneNode *parent;
 
 };
 }

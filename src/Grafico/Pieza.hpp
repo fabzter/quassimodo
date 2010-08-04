@@ -15,9 +15,10 @@ class Pieza {
 public:
     /**
      *Constructor de la calse Pieza.
+     * @param parent Nodo escena del que la celda será hijo, en este caso el tablero.
      */
 
-    Pieza();
+    Pieza(scene::ISceneNode* parent);
     /**
      *Constructor copia de la  clase pieza
      * @param orig una referencia hacia un objeto de la clase Pieza del namespace Grafico
@@ -113,6 +114,7 @@ protected:
          * El nodo sombra de la pieza.
          */
         scene::IShadowVolumeSceneNode *sombra;
+        scene::ISceneNode* par;
 
 };
 }

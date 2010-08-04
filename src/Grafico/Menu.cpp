@@ -13,6 +13,8 @@ Grafico::Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico
     this->jugadores.reserve(2);
     this->botones.reserve(B_COUNT);
     this->haymenu=false;
+    this->parent=smgr->addEmptySceneNode();
+    this->parent->setPosition(core::vector3df(0,0,0));
 
 }
 
@@ -22,19 +24,19 @@ Grafico::Menu::Menu(const Menu& orig) {
 
 Grafico::Menu::~Menu() {
     this->dropMenuP();
+    this->parent->removeAll();
 }
 
  void Grafico::Menu::SetJugadores(){
 
     for(int i=0;i<this->t->num_jugadores;i++){
-         this->jugadores.push_back(new Grafico::Pieza());
+         this->jugadores.push_back(new Grafico::Pieza(this->parent));
          if(i==0)
              this->jugadores.at(i)->setMesh( this->skin->getJugador1() );
          else
              this->jugadores.at(i)->setMesh( this->skin->getJugador2() );
 
         this->jugadores.at(i)->dibuja( this->smgr );
-        this->jugadores.at(i)->setEscala( this->escala.X,this->escala.Y, this->escala.Z);
     }
     this->setPosicionJugadores();
 
@@ -51,11 +53,11 @@ Grafico::Menu::~Menu() {
       this->escala.X=x ,this->escala.Y=y, this->escala.Z=z;
 
       if(this->menuEnEscena()){
-
+        this->parent->setScale(this->escala);
          for(int i=0;i<this->t->num_jugadores;i++){
              this->jugadores.at(i)->setEscala(x,y,z);
          }
-          this->setPosicionJugadores();
+          
 
       }
  }
@@ -75,7 +77,7 @@ void Grafico::Menu::dropMenuP(){
              this->botones.at(i)->remove();
              this->botones.at(i)=0;
              if(i<2)
-                  delete this->jugadores.at(i);
+                  this->parent->removeChild(this->jugadores.at(i)->getNodo());
         }
          haymenu=false;
          this->botones.clear();

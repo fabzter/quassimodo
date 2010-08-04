@@ -26,7 +26,7 @@ public:
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param VelAnim velocidad de animacion que tendrá la barrera
      */
-    Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim);
+    Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,scene::ISceneNode* parent);
     /**
      *Constructor copia de la clase Barrera
      * @param orig una referencia a un objeto de la clase Barera del namespace Grafico

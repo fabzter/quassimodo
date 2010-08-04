@@ -25,7 +25,6 @@ bool EventReceiver::OnEvent(const SEvent& event)
                  if(!this->piniciada && this->app->getManJuego()->quick()){
                      this->piniciada=true;
                  }           
-               
             break;
             // si el elento fue un evento del mouse almecanamos la posicion de éste, y si presiono el botón zquierdo o no.
        case irr::EET_MOUSE_INPUT_EVENT:

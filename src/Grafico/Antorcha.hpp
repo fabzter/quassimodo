@@ -22,13 +22,9 @@ using namespace irr;
         /**
          *Constructor de la clase Antorcha  se crea pegada al piso por lo que solo se podra mover en dirección X o Z.
          * @param smgr Un apuntador al  manejador de la escena que nos servira para crear la antorcha y el fuego
-         * @param x Un entero que representa la posicion que tendrá en el eje de las X
-         * @param z Un entero que representa la posicion que tendrá en el eje de las z
          * @param skin  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
-         * @param sombra Un booleano que indica si la antorcha llevara sombra o no por default no lleva.
-         * @return
          */
-        Antorcha(scene::ISceneManager* smgr,int x, int z,Skin* skin,bool sombra=false);
+        Antorcha(scene::ISceneManager* smgr,Skin* skin,scene::ISceneNode* parent);
         /**
          *Constructor copia de la clase Antorcha
          * @param orig una referecnia a un objeto Antorcha
