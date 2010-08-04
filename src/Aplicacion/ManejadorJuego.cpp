@@ -211,7 +211,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
         this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
        this->terrain->scaleTexture(1.0f, 1.0f);
-
+    //   this->smgr->setAmbientLight(video::SColorf(1.0,1.0,1.0,1.0));
 
  }
 

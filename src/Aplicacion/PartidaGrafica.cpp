@@ -22,8 +22,6 @@ PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gu
     for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,this->skin,this->parent);
     }
-    
-     core::vector3df v= this->t->getSize();
      this->ColocaAntorchas();
 
 }

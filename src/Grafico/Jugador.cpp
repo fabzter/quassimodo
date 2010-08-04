@@ -7,17 +7,22 @@
 using namespace irr;
 
 Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent) ,Reglas::Jugador(num,a) {
+    
+    this->init(smgr,num,skin,VelAnim);
+}
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent),Reglas::Jugador(num,NULL){
 
+    this->init(smgr,num,skin,VelAnim);
+}
+
+void Grafico::Jugador::init(scene::ISceneManager* smgr,int num,Skin* skin,int VelAnim){
     if (num==0)
         this->mesh=skin->getJugador1();
     else
         this->mesh=skin->getJugador2();
       this->dibuja(smgr);
-      //this->callback=callback;
-      //this->setSombra(skin->getSombraJugador());
       this->getNodo()->getMaterial(0).Shininess=20.0f;
       this->velAnim=VelAnim;
-
 }
 
 Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){

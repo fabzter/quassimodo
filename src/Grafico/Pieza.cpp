@@ -49,7 +49,7 @@ core::vector3df Grafico::Pieza::getPosicionEscena(){
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
 
     this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
-    this->nodoA->setMaterialType(video::EMT_DETAIL_MAP);
+    this->nodoA->setMaterialType(video::EMT_SOLID);
     this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
     this->mesh->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
     this->nodoA->setPosition( this->posiciong );
