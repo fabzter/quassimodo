@@ -15,9 +15,11 @@ Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,sce
 }
 
 Grafico::Barrera::Barrera(const Barrera& orig):Grafico::Pieza(orig),Reglas::Barrera(orig) {
+    this->velAnim=orig.velAnim;
 }
 
 Grafico::Barrera::~Barrera() {
+    
 }
 
 core::vector3df Grafico::Barrera::giraEste(core::vector3df pos){

@@ -38,6 +38,7 @@ PartidaGrafica::~PartidaGrafica() {
      this->dropBarreras();
      delete(this->t);
      this->parent->removeAll();
+     this->parent->remove();
 }
 
 void PartidaGrafica::iniciarPartida()
@@ -136,8 +137,8 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
       std::vector<Reglas::Agente*> agentes=this->getAgentes(rutaAgente1,rutaAgente2,this->t);
 
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0, agentes[0],this->skin,this->velAnim,this->parent));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin,this->velAnim,this->parent));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0,agentes[0],this->skin,this->velAnim,this->parent));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,1,agentes[1],this->skin,this->velAnim,this->parent));
 
       this->t->setJugadores( this->jugadores);
  }

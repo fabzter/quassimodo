@@ -38,6 +38,12 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
 }
 Grafico::Tablero::Tablero(const Tablero& orig): Pieza(orig), Reglas::Tablero(orig) {
 
+    for(std::size_t i = 0; i < orig.datos.size(); i++){
+        for(std::size_t j = 0; j < orig.datos.at(i).size(); j++){
+             this->datos.at(i).at(j) =orig.datos.at(i).at(j);
+        }
+    }
+
 }
 Grafico::Tablero::~Tablero(){
 

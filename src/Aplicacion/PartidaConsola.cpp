@@ -30,8 +30,8 @@ bool PartidaConsola::SetJugadores(std::string rutaAgente1,std::string rutaAgente
 
      std::vector<Reglas::Agente*> agentes=this->getAgentes(rutaAgente1,rutaAgente2,this->t);
 
-      this->jugadores.push_back( new Reglas::Jugador(0, agentes[0]) );
-      this->jugadores.push_back( new Reglas::Jugador(1, agentes[1]) );
+      this->jugadores.push_back( new Reglas::Jugador(0,agentes[0]) );
+      this->jugadores.push_back( new Reglas::Jugador(1,agentes[1]) );
 
       this->t->setJugadores( this->jugadores);
 }

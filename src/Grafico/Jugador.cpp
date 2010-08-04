@@ -26,10 +26,11 @@ void Grafico::Jugador::init(scene::ISceneManager* smgr,int num,Skin* skin,int Ve
 }
 
 Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){
+    this->velAnim=orig.velAnim;
 }
 
 Grafico::Jugador::~Jugador() {
-    
+
     //this->nodoA->removeAnimators();
 
 }

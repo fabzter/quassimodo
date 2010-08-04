@@ -2,6 +2,7 @@
 #define	PARTIDACONSOLA_HPP
 #include"Partida.hpp"
 #include<Reglas/Tablero.hpp>
+
 class PartidaConsola :public Partida{
 public:
     PartidaConsola();

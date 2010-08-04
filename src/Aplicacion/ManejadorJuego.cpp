@@ -220,6 +220,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
      this->terrain->remove();
      this->skydome->removeAll();
      this->skydome->remove();
+     this->dropCamera();
      this->terrain=NULL;
      this->skydome=NULL;
  }
@@ -256,11 +257,11 @@ void ManejadorJuego::setSalir(bool valor){
 }
 
 bool ManejadorJuego::SetAgentesConsola(bool ambos){
-    this->setAgente(this->getManejadorGUI()->getPath(false,1), 0);
+    //this->setAgente(this->getManejadorGUI()->getPath(false,1), 0);
     if(ambos)
         this->setAgente(this->getManejadorGUI()->getPath(false,2), 1);
     else
-        this->setAgente("../../bin/agenteBarreras2.py", 1);
+        this->hayagente=true;//this->setAgente("../../bin/agenteBarreras2.py", 1);
 
     return this->setPartida();
 

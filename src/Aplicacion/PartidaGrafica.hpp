@@ -9,6 +9,7 @@
 #include<Grafico/Jugador.hpp>
 
 
+
 using namespace irr;
 using namespace Grafico;
 class PartidaGrafica: public Partida {

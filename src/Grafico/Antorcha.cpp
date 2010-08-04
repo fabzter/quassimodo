@@ -24,16 +24,10 @@ Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,Skin *skin,scene::ISceneN
     }
 
 Grafico::Antorcha::Antorcha(const Antorcha& orig) : Pieza(orig){
-
- /*   this->mesh->drop();
-    this->fuego->drop();
-    this->nfuego->drop();
-    this->nodoA->drop();
-    this->mesh=orig.mesh;
     this->nfuego=orig.nfuego;
-    this->fuego=orig.fuego;
-    this->nodoA=orig.nodoA;
-    this->setVectPosicion(orig.posicion.X,orig.posicion.Y,orig.posicion.Z);*/
+    this->radioLuz=orig.radioLuz;
+    this->posicionF=orig.posicionF;
+    this->ps=orig.ps;
 }
 
 Grafico::Antorcha::~Antorcha() {
@@ -123,6 +117,10 @@ void Grafico::Antorcha::setEscalaAntorcha(int x,int y, int z){
 
 }
 void Grafico::Antorcha::dropAntorcha(){
+    this->ps->removeAllAffectors();
+    this->ps->removeAnimators();
+    this->ps->removeAll();
+    this->ps->remove();
     this->nfuego->removeAnimators();
     this->nfuego->removeAll();
     this->nfuego->remove();

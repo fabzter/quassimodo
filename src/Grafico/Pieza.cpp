@@ -19,6 +19,8 @@ Grafico::Pieza::Pieza(const Pieza& orig) {
     this->nodoA=orig.nodoA;
     this->posiciong=orig.posiciong;
     this->mesh=orig.mesh;
+    this->size=orig.size;
+    this->sombra=orig.sombra;
 }
 
 Grafico::Pieza::~Pieza() {
@@ -85,11 +87,10 @@ core::vector3df  Grafico::Pieza::getEscala(){
 }
 
 void Grafico::Pieza::drop(){
-    
-     if(this->sombra!=NULL){
-         this->nodoA->removeChild(this->sombra);
-     }
-    this->par->removeChild(this->nodoA);
+         this->nodoA->removeAnimators();
+         this->nodoA->removeAll();
+         this->nodoA->remove();
+     
 }
 
  void Grafico::Pieza::setSombra(scene::IMesh* shadowMesh){
