@@ -34,7 +34,8 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/ManejadorAgentes.o \
-	${OBJECTDIR}/AgenteAstar.o
+	${OBJECTDIR}/AgenteAstar.o \
+	${OBJECTDIR}/AgenteCaminaAdelante.o
 
 
 # C Compiler Flags
@@ -72,6 +73,11 @@ ${OBJECTDIR}/AgenteAstar.o: AgenteAstar.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteAstar.o AgenteAstar.cpp
+
+${OBJECTDIR}/AgenteCaminaAdelante.o: AgenteCaminaAdelante.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteCaminaAdelante.o AgenteCaminaAdelante.cpp
 
 # Subprojects
 .build-subprojects:

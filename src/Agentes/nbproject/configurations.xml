@@ -5,6 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>AgenteAstar.hpp</itemPath>
+      <itemPath>AgenteCaminaAdelante.hpp</itemPath>
       <itemPath>ManejadorAgentes.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -16,6 +18,8 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>AgenteAstar.cpp</itemPath>
+      <itemPath>AgenteCaminaAdelante.cpp</itemPath>
       <itemPath>ManejadorAgentes.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -29,8 +33,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>AgenteAstar.cpp</itemPath>
-    <itemPath>AgenteAstar.hpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
