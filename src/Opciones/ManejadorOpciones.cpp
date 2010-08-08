@@ -145,6 +145,10 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("gui.gui_cfg",
             po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu.png")),
             "Path relativo al archivo de configuración de la gui de irrlicht.")
+
+            ("gui.creditos",
+            po::value<string>()->default_value(string("conf/gui_default/creditos1.jpg")),
+            "Path relativo al archivo de la pantalla de créditos.")
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
