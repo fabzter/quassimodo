@@ -295,6 +295,8 @@ public:
      */
     std::string getBotonMenuPresPath();
 
+    /*Otros*/
+
     /**
      * Nos indica el path al archivo cfg de la skin de irrlicht.
      * @return una string con el path relativo al archivo de cfg del irrlicht.
