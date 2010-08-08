@@ -197,6 +197,13 @@ public:
      * vuelta.
      */
     std::string getBotonVuelta1Path();
+    /**
+     * Nos indica el Path a la imagen del primer botón de vuelta presionado,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del primero botón de
+     * vuelta presionado.
+     */
+    std::string getBotonVuelta1PresPath();
 
     /**
      * Nos indica el Path a la imagen del segundo botón de vuelta, especificado
@@ -205,6 +212,13 @@ public:
      * vuelta.
      */
     std::string getBotonVuelta2Path();
+    /**
+     * Nos indica el Path a la imagen del segundo botón de vuelta presionado,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del segundo botón de
+     * vuelta presionado.
+     */
+    std::string getBotonVuelta2PresPath();
 
     /**
      * Nos indica el Path a la imagen del tercer botón de vuelta, especificado
@@ -213,6 +227,13 @@ public:
      * vuelta.
      */
     std::string getBotonVuelta3Path();
+    /**
+     * Nos indica el Path a la imagen del tercer botón de vuelta presionado,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del tercer botón de
+     * vuelta presionado.
+     */
+    std::string getBotonVuelta3PresPath();
 
     /**
      * Nos indica el Path a la imagen del botón de vuelta al frente,
@@ -221,6 +242,13 @@ public:
      * frente.
      */
     std::string getBotonFrentePath();
+    /**
+     * Nos indica el Path a la imagen del botón de vuelta al frente presionado,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón de vuelta al
+     * frente presionado.
+     */
+    std::string getBotonFrentePresPath();
 
     /**
      * Nos indica el Path a la imagen del primer botón de pausa, especificado
@@ -229,6 +257,13 @@ public:
      * pausa.
      */
     std::string getBotonPausa1Path();
+    /**
+     * Nos indica el Path a la imagen del primer botón de pausa presionado,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del primer botón de
+     * pausa presionado.
+     */
+    std::string getBotonPausa1PresPath();
 
     /**
      * Nos indica el Path a la imagen del segundo botón de pausa, especificado
@@ -237,6 +272,13 @@ public:
      * pausa.
      */
     std::string getBotonPausa2Path();
+    /**
+     * Nos indica el Path a la imagen del segundo botón de pausa presionado,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del segundo botón de
+     * pausa presionado.
+     */
+    std::string getBotonPausa2PresPath();
 
     /**
      * Nos indica el Path a la imagen del botón de regreso al menú, especificado
@@ -245,6 +287,13 @@ public:
      * menú..
      */
     std::string getBotonMenuPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de regreso al menú,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón presionado 
+     * de vuelta al menú..
+     */
+    std::string getBotonMenuPresPath();
 
     /**
      * Nos indica el path al archivo cfg de la skin de irrlicht.

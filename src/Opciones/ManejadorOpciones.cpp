@@ -314,35 +314,64 @@ std::string Opciones::ManejadorOpciones::getBotonVuelta1Path()
 {
     return this->vm["gui.botones.vuelta_1"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonVuelta1PresPath()
+{
+    return this->vm["gui.botones.vuelta_1_2"].as<std::string>();
+}
 
 std::string Opciones::ManejadorOpciones::getBotonVuelta2Path()
 {
     return this->vm["gui.botones.vuelta_2"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBotonVuelta2PresPath()
+{
+    return this->vm["gui.botones.vuelta_2_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getBotonVuelta3Path()
 {
     return this->vm["gui.botones.vuelta_3"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonVuelta3PresPath()
+{
+    return this->vm["gui.botones.vuelta_3_2"].as<std::string>();
+}
 
 std::string Opciones::ManejadorOpciones::getBotonFrentePath()
 {
     return this->vm["gui.botones.frente"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBotonFrentePresPath()
+{
+    return this->vm["gui.botones.frente_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getBotonPausa1Path()
 {
     return this->vm["gui.botones.pausa_1"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonPausa1PresPath()
+{
+    return this->vm["gui.botones.pausa_1_2"].as<std::string>();
+}
 
 std::string Opciones::ManejadorOpciones::getBotonPausa2Path()
 {
     return this->vm["gui.botones.pausa_2"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonPausa2PresPath()
+{
+    return this->vm["gui.botones.pausa_2_2"].as<std::string>();
+}
+
 
 std::string Opciones::ManejadorOpciones::getBotonMenuPath()
 {
     return this->vm["gui.botones.menu"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBotonMenuPresPath()
+{
+    return this->vm["gui.botones.menu_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getGUIConfig()
