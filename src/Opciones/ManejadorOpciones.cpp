@@ -96,28 +96,59 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("gui.botones.vuelta_1",
             po::value<string>()->default_value(string("conf/gui_default/boton4_2-1_vuelta.png")),
                             "Path relativo a la imagen del botón de vuelta 1.")
+            ("gui.botones.vuelta_1_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton4_2-1_vuelta-2.png")),
+                            "Path relativo a la imagen del botón de vuelta 1, presionado.")
+
             ("gui.botones.vuelta_2",
             po::value<string>()->default_value(string("conf/gui_default/boton4_2-2_vuelta.png")),
                             "Path relativo a la imagen del botón de vuelta 2.")
+            ("gui.botones.vuelta_2_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton4_2-2_vuelta-2.png")),
+                            "Path relativo a la imagen del botón de vuelta 2, presionado.")
+
             ("gui.botones.vuelta_3",
             po::value<string>()->default_value(string("conf/gui_default/boton5_2-2_vuelta.png")),
                             "Path relativo a la imagen del botón de vuelta 3.")
+            ("gui.botones.vuelta_3_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton5_2-2_vuelta-2.png")),
+                            "Path relativo a la imagen del botón de vuelta 3, presionado.")
+
             ("gui.botones.frente",
             po::value<string>()->default_value(string("conf/gui_default/boton5_2-1_frente.png")),
                             "Path relativo a la imagen del botón de vuelta al frente.")
+            ("gui.botones.frente_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton5_2-1_frente-2.png")),
+                            "Path relativo a la imagen del botón de vuelta al frente, presionado.")
+
             ("gui.botones.pausa_1",
             po::value<string>()->default_value(string("conf/gui_default/boton1_2_pausa.png")),
                             "Path relativo a la imagen del botón de pausa 1.")
+            ("gui.botones.pausa_1_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton1_2_pausa-2.png")),
+                            "Path relativo a la imagen del botón de pausa 1, presionado.")
+
             ("gui.botones.pausa_2",
             po::value<string>()->default_value(string("conf/gui_default/boton2_2_pausa.png")),
                             "Path relativo a la imagen del botón de pausa 2.")
+            ("gui.botones.pausa_2_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton2_2_pausa-2.png")),
+                            "Path relativo a la imagen del botón de pausa 2, presionado.")
+
             ("gui.botones.menu",
             po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu.png")),
+                            "Path relativo a la imagen del botón de volver a menú.")
+            ("gui.botones.menu_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu-2.png")),
                             "Path relativo a la imagen del botón de volver a menú.")
             //cfg
             ("gui.gui_cfg",
             po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu.png")),
             "Path relativo al archivo de configuración de la gui de irrlicht.")
+
+            ("gui.creditos",
+            po::value<string>()->default_value(string("conf/gui_default/creditos1.jpg")),
+            "Path relativo al archivo de la pantalla de créditos.")
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
@@ -287,35 +318,64 @@ std::string Opciones::ManejadorOpciones::getBotonVuelta1Path()
 {
     return this->vm["gui.botones.vuelta_1"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonVuelta1PresPath()
+{
+    return this->vm["gui.botones.vuelta_1_2"].as<std::string>();
+}
 
 std::string Opciones::ManejadorOpciones::getBotonVuelta2Path()
 {
     return this->vm["gui.botones.vuelta_2"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBotonVuelta2PresPath()
+{
+    return this->vm["gui.botones.vuelta_2_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getBotonVuelta3Path()
 {
     return this->vm["gui.botones.vuelta_3"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonVuelta3PresPath()
+{
+    return this->vm["gui.botones.vuelta_3_2"].as<std::string>();
+}
 
 std::string Opciones::ManejadorOpciones::getBotonFrentePath()
 {
     return this->vm["gui.botones.frente"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBotonFrentePresPath()
+{
+    return this->vm["gui.botones.frente_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getBotonPausa1Path()
 {
     return this->vm["gui.botones.pausa_1"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonPausa1PresPath()
+{
+    return this->vm["gui.botones.pausa_1_2"].as<std::string>();
+}
 
 std::string Opciones::ManejadorOpciones::getBotonPausa2Path()
 {
     return this->vm["gui.botones.pausa_2"].as<std::string>();
 }
+std::string Opciones::ManejadorOpciones::getBotonPausa2PresPath()
+{
+    return this->vm["gui.botones.pausa_2_2"].as<std::string>();
+}
+
 
 std::string Opciones::ManejadorOpciones::getBotonMenuPath()
 {
     return this->vm["gui.botones.menu"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBotonMenuPresPath()
+{
+    return this->vm["gui.botones.menu_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getGUIConfig()
