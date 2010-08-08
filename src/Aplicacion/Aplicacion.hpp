@@ -67,6 +67,15 @@ private:
      * @param pathj2 el path del agente del jugador 2
      */
     void quick(std::string pathJ1,std::string pathj2);
+    /**
+     * Pone las variables en NULL
+     */
+    void setNull();
+    /**
+     * Limpia las variables de irrlicht (libera la memoria del GPU) y elimina los objetos
+     * que se esten utilizando por el engine.
+     */
+    void dropIrrlicht();
 
     /**
      * Un objeto de la clase video encargado de Seleccionar el driver de video
@@ -110,6 +119,9 @@ private:
      * al ejecutable.
      */
     bool p_rapida;
+    /**
+     * velocidad de la animacion en modo gráfico
+     */
     int velAnimacion;
 
 

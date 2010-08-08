@@ -13,8 +13,10 @@ Grafico::Menu::Menu(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico
     this->jugadores.reserve(2);
     this->botones.reserve(B_COUNT);
     this->haymenu=false;
-    this->parent=smgr->addEmptySceneNode();
-    this->parent->setPosition(core::vector3df(0,0,0));
+    if(this->skin!=NULL){
+        this->parent=smgr->addEmptySceneNode();
+        this->parent->setPosition(core::vector3df(0,0,0));
+    }
 
 }
 
@@ -24,7 +26,10 @@ Grafico::Menu::Menu(const Menu& orig) {
 
 Grafico::Menu::~Menu() {
     this->dropMenuP();
-    this->parent->removeAll();
+    if(this->skin!=NULL){
+        this->parent->removeAll();
+        this->parent->remove();
+    }
 }
 
  void Grafico::Menu::SetJugadores(){
