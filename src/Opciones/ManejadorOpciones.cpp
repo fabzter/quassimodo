@@ -96,23 +96,50 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("gui.botones.vuelta_1",
             po::value<string>()->default_value(string("conf/gui_default/boton4_2-1_vuelta.png")),
                             "Path relativo a la imagen del botón de vuelta 1.")
+            ("gui.botones.vuelta_1_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton4_2-1_vuelta-2.png")),
+                            "Path relativo a la imagen del botón de vuelta 1, presionado.")
+
             ("gui.botones.vuelta_2",
             po::value<string>()->default_value(string("conf/gui_default/boton4_2-2_vuelta.png")),
                             "Path relativo a la imagen del botón de vuelta 2.")
+            ("gui.botones.vuelta_2_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton4_2-2_vuelta-2.png")),
+                            "Path relativo a la imagen del botón de vuelta 2, presionado.")
+
             ("gui.botones.vuelta_3",
             po::value<string>()->default_value(string("conf/gui_default/boton5_2-2_vuelta.png")),
                             "Path relativo a la imagen del botón de vuelta 3.")
+            ("gui.botones.vuelta_3_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton5_2-2_vuelta-2.png")),
+                            "Path relativo a la imagen del botón de vuelta 3, presionado.")
+
             ("gui.botones.frente",
             po::value<string>()->default_value(string("conf/gui_default/boton5_2-1_frente.png")),
                             "Path relativo a la imagen del botón de vuelta al frente.")
+            ("gui.botones.frente_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton5_2-1_frente-2.png")),
+                            "Path relativo a la imagen del botón de vuelta al frente, presionado.")
+
             ("gui.botones.pausa_1",
             po::value<string>()->default_value(string("conf/gui_default/boton1_2_pausa.png")),
                             "Path relativo a la imagen del botón de pausa 1.")
+            ("gui.botones.pausa_1_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton1_2_pausa-2.png")),
+                            "Path relativo a la imagen del botón de pausa 1, presionado.")
+
             ("gui.botones.pausa_2",
             po::value<string>()->default_value(string("conf/gui_default/boton2_2_pausa.png")),
                             "Path relativo a la imagen del botón de pausa 2.")
+            ("gui.botones.pausa_2_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton2_2_pausa-2.png")),
+                            "Path relativo a la imagen del botón de pausa 2, presionado.")
+
             ("gui.botones.menu",
             po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu.png")),
+                            "Path relativo a la imagen del botón de volver a menú.")
+            ("gui.botones.menu_2",
+            po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu-2.png")),
                             "Path relativo a la imagen del botón de volver a menú.")
             //cfg
             ("gui.gui_cfg",
