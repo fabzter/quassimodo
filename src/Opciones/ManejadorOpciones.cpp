@@ -383,6 +383,10 @@ std::string Opciones::ManejadorOpciones::getGUIConfig()
     return this->vm["gui.gui_cfg"].as<std::string>();
 }
 
+std::string Opciones::ManejadorOpciones::getCreditos()
+{
+    return this->vm["gui.creditos"].as<std::string>();
+}
 bool Opciones::ManejadorOpciones::isFullScreen()
 {
     return this->vm.count("fullscreen") > 0;
