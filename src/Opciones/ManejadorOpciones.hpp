@@ -304,6 +304,13 @@ public:
     std::string getGUIConfig();
 
     /**
+     * Nos indica el path al archivo de la pantalla de créditos.
+     * @return una string con el path relativo al archivo de la pantalla de
+     * créditos.
+     */
+    std::string getCreditos();
+
+    /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la
      * línea de comandos.
      * @return true de haberse especificado, false de lo contrario.
