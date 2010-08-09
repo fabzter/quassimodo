@@ -1,5 +1,3 @@
-
-
 #ifndef _MANEJADORGUI_HPP
 #define	_MANEJADORGUI_HPP
 #include<irrlicht/irrlicht.h>

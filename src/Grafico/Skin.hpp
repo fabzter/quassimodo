@@ -139,6 +139,17 @@ public:
      * @return un apuntador a un objeto de la clase ITexture
      */
     video::ITexture* getBotonPartida(int i);
+    /**
+     * regresa la textura del boton de la partida cuando esta presionado
+     * @param i indice del boton que se desea obtener si textura
+     * @return un apuntador a un objeto de la clase ITexture
+     */
+    video::ITexture* getBotonPartidaPres(int i);
+    /**
+     * Regresa la imagen de los crditos del juego
+     * @return un apuntador a un objeto de la clase ITexture
+     */
+    video::ITexture* getImagenCreditos();
 
 
 private:
@@ -230,6 +241,12 @@ private:
      */
     void setBotonesPartida(scene::ISceneManager* smgr);
     /**
+     * Carga la Imagen de los Creditos.
+     * @param smgr un apuntador al manejador de escena del juego
+     * @throws SkinNoCargado si algun elemento no pudo ser cargado
+     */
+    void setImagenCreditos(scene::ISceneManager* smgr);
+    /**
      * Malla con la que se dibujará el tablero
      */
      scene::IAnimatedMesh* Tablero;
@@ -313,6 +330,14 @@ private:
       * Imagenes de los  iconos de los botones de la partida
       */
      std::vector<video::ITexture*> botonesPartida;
+     /**
+      * Imagenes de los  iconos de los botones de la partida cuando estan presionados
+      */
+     std::vector<video::ITexture*> botonesPartidaPresionado;
+     /**
+      * Imagen de los creditos.
+      */
+     video::ITexture* creditos;
      /**
      * Contiene los metodos para recuperar los paths de la skin.
      */

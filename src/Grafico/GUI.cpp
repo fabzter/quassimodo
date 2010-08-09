@@ -141,6 +141,7 @@ void Grafico::GUI::setBotonesPartida(){
             dan+=size+10;
       this->botonPartida.at(i)->setDrawBorder(true);
       this->botonPartida.at(i)->setImage( this->skin->getBotonPartida(i) );
+      this->botonPartida.at(i)->setPressedImage( this->skin->getBotonPartidaPres(i) );
       this->botonPartida.at(i)->setUseAlphaChannel(true);
       }
       botonesPartida=true;
@@ -161,10 +162,12 @@ void Grafico::GUI::Pausar(bool pausa){
     int ultpos=this->botonPartida.size();
     if(pausa){
         this->botonPartida.at( ultpos-2 )->setImage( this->skin->getBotonPartida( ultpos) ) ;
+        this->botonPartida.at( ultpos-2 )->setPressedImage( this->skin->getBotonPartidaPres( ultpos ) );
         this->setTextPausa();
     }
     else{
         this->botonPartida.at( ultpos-2 )->setImage( this->skin->getBotonPartida( ultpos-2 ) );
+        this->botonPartida.at( ultpos-2 )->setPressedImage( this->skin->getBotonPartidaPres( ultpos-2 ) );
         this->dropTextPausa();
     }
     this->botonPartida.at(ultpos-2 )->setUseAlphaChannel(true);
@@ -183,3 +186,13 @@ void Grafico::GUI::dropTextPausa(){
     }
 
 }
+
+void Grafico::GUI::setCreditos(){
+    this->env->addImage();
+
+}
+
+void Grafico::GUI::dropCreditos(){
+
+}
+

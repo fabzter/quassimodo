@@ -164,17 +164,28 @@ void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta1Path().c_str()));
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta2Path().c_str()));
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonFrentePath().c_str() ) );
-    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture( this->opciones->getBotonVuelta3Path().c_str()));
+    this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta3Path().c_str()));
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonPausa1Path().c_str() ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonMenuPath().c_str() ) );
     this->botonesPartida.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonPausa2Path().c_str() ) );
+    this->botonesPartidaPresionado.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta1PresPath().c_str() ));
+    this->botonesPartidaPresionado.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta2PresPath().c_str()));
+    this->botonesPartidaPresionado.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonFrentePresPath().c_str() ) );
+    this->botonesPartidaPresionado.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonVuelta3PresPath().c_str()));
+    this->botonesPartidaPresionado.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonPausa1PresPath().c_str() ) );
+    this->botonesPartidaPresionado.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonMenuPresPath().c_str() ) );
+    this->botonesPartidaPresionado.push_back( smgr->getVideoDriver()->getTexture(this->opciones->getBotonPausa2PresPath().c_str() ) );
     for(int i=0;i<this->botonesPartida.size();i++){
-         if( this->botonesPartida.at(i)== NULL  )
+         if( this->botonesPartida.at(i)== NULL || this->botonesPartidaPresionado.at(i)== NULL )
             {
                 strs << "No pudo ser cargado el Skin en la parte de los botones de la partida ( el boton "<<i<<" )";
                 throw SkinNoCargado(strs.str().c_str());
             }
     }
+}
+void Grafico::Skin::setImagenCreditos(scene::ISceneManager* smgr){
+
+    this->creditos=smgr->getVideoDriver()->getTexture(this->opciones->get)
 }
 
 scene::IAnimatedMesh* Grafico::Skin::getCelda(){
@@ -239,4 +250,10 @@ gui::IGUISkin*  Grafico::Skin::getSkinGui(){
 }
 video::ITexture*  Grafico::Skin::getBotonPartida(int i){
     return this->botonesPartida.at(i);
+}
+video::ITexture*  Grafico::Skin::getBotonPartidaPres(int i){
+    return this->botonesPartidaPresionado.at(i);
+}
+video::ITexture* Grafico::Skin::getImagenCreditos(){
+    return this->creditos;
 }

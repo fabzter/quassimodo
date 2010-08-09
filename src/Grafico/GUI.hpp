@@ -79,6 +79,14 @@ public:
       * @param pausa bandera que indica que se hará si poner la pausa o quitarla.
       */
      void Pausar(bool pausa);
+     /**
+      * Coloca la imagen de los creditos en la escena.
+      */
+     void setCreditos();
+     /**
+      * Elimina la imagen de los creditos de la escena.
+      */
+     void dropCreditos();
 
 private:
     /**
