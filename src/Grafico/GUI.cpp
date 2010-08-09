@@ -193,12 +193,13 @@ void Grafico::GUI::setCreditos(){
     core::dimension2d<u32> S_S= this->skin->getImagenCreditos()->getSize();
 
     int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
-    core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a+10 ,S_S.Height+d_al+40);
+    //core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a+10 ,S_S.Height+d_al+40);
 
-    this->creditos=this->env->addWindow(recW, true,L"Creditos ",0,1234 );
-    this->env->addImage(this->skin->getImagenCreditos(),core::position2d<s32>(5,35),true,this->creditos);
-    this->env->addButton(core::rect<s32>( 820,530,900, 560 ),this->creditos,BO_CREDITOS,L"OK") ;
+   // this->creditos=this->env->addWindow(recW, true,L"Creditos ",0,1234 );
+    this->creditos=this->env->addImage(this->skin->getImagenCreditos(),core::position2d<s32>(d_a,d_al),true,0);
+    this->env->addButton(core::rect<s32>( 815,495,895, 525 ),this->creditos,BO_CREDITOS,L"OK") ;
     //im->setAlignment(gui::EGUIA_CENTER,gui::EGUIA_CENTER,gui::EGUIA_CENTER,gui::EGUIA_CENTER);
+
 }
 
 void Grafico::GUI::dropCreditos(){
