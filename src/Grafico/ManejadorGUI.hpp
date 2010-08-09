@@ -104,6 +104,10 @@ public:
       * @as GUI::Pausar
       */
      void Pausar(bool pausa);
+     /**
+      * @as GUI::dropCreditos
+      */
+     void dropCreditos();
 
 private:
 

@@ -94,7 +94,7 @@ void Grafico::GUI::dropAvsA(){
 
 void Grafico::GUI::dibujaSelector(bool ambos){
       core::dimension2d<unsigned int> S_S=core::dimension2d<unsigned int>(600,310);
-      int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2,d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
+      int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
       core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a ,S_S.Height+d_al);
 
       AvsA= this->env->addWindow(recW,true,L"Agentes:");
@@ -180,6 +180,7 @@ void Grafico::GUI::setTextPausa(){
 }
 
 void Grafico::GUI::dropTextPausa(){
+
     if(this->T_Pausa!=NULL||this->T_Pausa!=0){
         this->T_Pausa->remove();
         this->T_Pausa=NULL;
@@ -188,11 +189,20 @@ void Grafico::GUI::dropTextPausa(){
 }
 
 void Grafico::GUI::setCreditos(){
-    this->env->addImage();
+    //core::position2d<s32> pos;
+    core::dimension2d<u32> S_S= this->skin->getImagenCreditos()->getSize();
 
+    int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
+    core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a+10 ,S_S.Height+d_al+40);
+
+    this->creditos=this->env->addWindow(recW, true,L"Creditos ",0,1234 );
+    this->env->addImage(this->skin->getImagenCreditos(),core::position2d<s32>(5,35),true,this->creditos);
+    this->env->addButton(core::rect<s32>( 820,530,900, 560 ),this->creditos,BO_CREDITOS,L"OK") ;
+    //im->setAlignment(gui::EGUIA_CENTER,gui::EGUIA_CENTER,gui::EGUIA_CENTER,gui::EGUIA_CENTER);
 }
 
 void Grafico::GUI::dropCreditos(){
 
+    this->creditos->remove();
 }
 

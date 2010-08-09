@@ -153,6 +153,7 @@ private:
      * nodo texto que se coloca en la escena al presionarse el botón de pausa
      */
     scene::ITextSceneNode* T_Pausa;
+    gui::IGUIWindow* creditos;
 };
 }
 #endif	/* _GUI_HPP */

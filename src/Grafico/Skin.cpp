@@ -17,6 +17,7 @@ Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IF
     this->setSkyDome(smgr);
     this->setSkinGui(env,fsys,smgr->getVideoDriver());
     this->setBotonesPartida(smgr);
+    this->setImagenCreditos(smgr);
 }
 
 Grafico::Skin::Skin(const Skin& orig) {
@@ -184,8 +185,14 @@ void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
     }
 }
 void Grafico::Skin::setImagenCreditos(scene::ISceneManager* smgr){
+    std::ostringstream strs;
+    this->creditos=smgr->getVideoDriver()->getTexture(this->opciones->getCreditos().c_str() );
+    if( this->creditos == NULL)
+    {
+        strs << "No pudo ser cargado el Skin en la parte de la imagen de los Creditos ";
+        throw SkinNoCargado(strs.str ().c_str());
+    }
 
-    this->creditos=smgr->getVideoDriver()->getTexture(this->opciones->get)
 }
 
 scene::IAnimatedMesh* Grafico::Skin::getCelda(){

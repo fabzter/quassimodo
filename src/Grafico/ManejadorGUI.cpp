@@ -100,7 +100,7 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
           this->MsgBox(creditos.c_str(),grafico);
       }
       else{
-
+          this->Gui->setCreditos();
       }
 
   }
@@ -115,4 +115,7 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
   }
 void Grafico::ManejadorGUI::Pausar(bool pausa){
     this->Gui->Pausar(pausa);
+}
+void Grafico::ManejadorGUI::dropCreditos(){
+    this->Gui->dropCreditos();
 }

@@ -103,6 +103,9 @@ bool EventReceiver::OnEvent(const SEvent& event)
                         this->piniciada=false;
                         this->app->nuevoJuego();
                          break;
+                    case BO_CREDITOS:
+                        this->app->getManJuego()->getManejadorGUI()->dropCreditos();
+                        break;
 
                 } 
             }
