@@ -64,7 +64,7 @@ bool ManejadorJuego::setPartida(){
         try{
             this->partida->SetJugadores(this->Agentes[0],this->Agentes[1]);
         }
-        catch (Scripting::ScriptMalo &e)
+        catch (std::exception &e)
         {
             std::stringstream msj;
             msj<<"Error al cargar el script del Agente: "<<this->partida->getAgenteConError()<<std::endl<<e.what();
@@ -84,7 +84,7 @@ bool ManejadorJuego::setPartida(){
             return this->partidainiciada;
         }
 
-         catch (Scripting::ScriptMalo &e)
+         catch (std::exception &e)
           {
               this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
               return this->partidainiciada;

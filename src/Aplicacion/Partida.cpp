@@ -41,7 +41,7 @@ std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::st
       try{
           agentes.push_back(m.getAgente(rutaAgente1));     
       }
-      catch(Scripting::Excepcion &e){
+      catch(std::exception &e){
           this->errorEnAgente='1';
           throw;
 
@@ -49,7 +49,7 @@ std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::st
       try{
           agentes.push_back(m.getAgente(rutaAgente2));
           }
-         catch(Scripting::Excepcion &e){
+         catch(std::exception &e){
               this->errorEnAgente='2';
               delete agentes.at(0);
               throw;
