@@ -178,7 +178,7 @@ void Grafico::TokayoCamera::animateNode(scene::ISceneNode *node, u32 timeMs)
 		RotY += (RotateStart.Y - MousePos.Y) * RotateSpeed;
 		nRotX = RotX;
 		nRotY = RotY;
-                std::cout<<"RotX: "<<RotX<<" RotY "<<RotY<<" nZoom: "<<nZoom<<std::endl;
+               // std::cout<<"RotX: "<<RotX<<" RotY "<<RotY<<" nZoom: "<<nZoom<<std::endl;
 		Rotating = false;
 	}
 

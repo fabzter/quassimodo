@@ -183,7 +183,7 @@ void Grafico::GUI::setTextPausa(){
     core::dimension2d<unsigned int> SS=this->smgr->getVideoDriver()->getScreenSize();
     this->T_Pausa=this->env->addStaticText(L"PAUSA",rec);
     this->T_Pausa->setOverrideFont(this->skin->getMenuBoton());
-    this->T_Pausa->setOverrideColor(video::SColor(255,0,0,0)); //this->smgr->addTextSceneNode(this->skin->getMenuBoton(),,video::SColor(255,255,255,255) );
+    this->T_Pausa->setOverrideColor(video::SColor(255,130,0,0)); //this->smgr->addTextSceneNode(this->skin->getMenuBoton(),,video::SColor(255,255,255,255) );
 }
 
 void Grafico::GUI::dropTextPausa(){
