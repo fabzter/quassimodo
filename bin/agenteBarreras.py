@@ -2,10 +2,10 @@
 #-*- coding:utf-8 -*-
 import sys
 sys.path.append("../lib")
-import Regla
+import Reglas
 import random
 
-class AgenteBarreras (Regla.Agente):
+class AgenteBarreras (Reglas.Agente):
 
     def __init__(self):
         Reglas.Agente.__init__(self)
