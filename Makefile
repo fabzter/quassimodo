@@ -12,7 +12,7 @@ test:
 	cd $(SRC_DIR)/Aplicacion && make
 
 bin: 
-	cd $(SRC_DIR)/Aplicacion &&
+	cd $(SRC_DIR)/Aplicacion && make
 	cd $(SRC_DIR)/Grafico && make
 	cd $(SRC_DIR)/Reglas && make
 	cd $(SRC_DIR)/Scripting && make
