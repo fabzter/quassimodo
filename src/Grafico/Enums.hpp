@@ -11,11 +11,10 @@ enum GUI_BOTONES{
     B_AGENTE_VS_AGENTE,
     B_OPCIONES,
     B_CREDITOS,
-    B_AYUDA,
     B_SALIR,
     /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
      se agregan antes de COUNT*/
-    B_COUNT=6
+    B_COUNT=5
 
 };
 /**
@@ -37,6 +36,7 @@ enum GUI_BOTONES_OPCION{
 
     BO_INICIA=100,
     BO_CANCELA,
+    BO_CREDITOS,
     /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
      se agregan antes de COUNT*/
     BO_COUNT=2
@@ -76,11 +76,10 @@ enum GUI_BOTONES_OK{
  */
 const wchar_t* const GUI_BOTONES_TEXTO[B_COUNT+1]=
 {
-L"Humano VS Maquina",
-L"Humano VS Humano",
+L"Agente VS Máquina",
+L"Agente VS Agente",
 L"Opciones",
-L"Creditos",
-L"Ayuda",
+L"Créditos",
 L"Salir",
 0
 };
@@ -90,11 +89,15 @@ L"Salir",
 const wchar_t* const GUI_BOTONES_TOLTIP[B_COUNT+1]=
 {
 L"Partida rápida en el que el segundo competidor es el Agente Integrado en la aplicación",
-L"Partida rápida de dos usuarios",
+L"Partida rápida de dos Agentes Inteligentes creados por algún usuario",
 L"Cambia algunas propiedades de la Aplicación",
-L"Creditos",
-L"Ayuda de como usar la Aplicación",
+L"Créditos",
 L"Sale de la Aplicación",
+0
+};
+const wchar_t* const GUI_BOTONES_TOLTIP_PARTIDA[2]=
+{
+L"Regresa al menú principal",
 0
 };
 }

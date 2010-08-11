@@ -51,7 +51,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 s32 id = event.GUIEvent.Caller->getID();
                 switch(id){
                     case B_AGENTE_VS_MAKINA:
-                        this->app->getManJuego()->setAgente("../bin/agenteBarreras2.py", 1);
+                        this->app->getManJuego()->setAgente("../bin/agenteMiniMax2.py", 1);
                        this->app->getManJuego()->getManejadorGUI()->AgntVSAgnt(false);
                         break;
                     case B_AGENTE_VS_AGENTE:
@@ -103,6 +103,9 @@ bool EventReceiver::OnEvent(const SEvent& event)
                         this->piniciada=false;
                         this->app->nuevoJuego();
                          break;
+                    case BO_CREDITOS:
+                        this->app->getManJuego()->getManejadorGUI()->dropCreditos();
+                        break;
 
                 } 
             }

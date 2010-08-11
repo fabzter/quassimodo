@@ -1,5 +1,3 @@
-
-
 #ifndef _MANEJADORGUI_HPP
 #define	_MANEJADORGUI_HPP
 #include<irrlicht/irrlicht.h>
@@ -106,6 +104,10 @@ public:
       * @as GUI::Pausar
       */
      void Pausar(bool pausa);
+     /**
+      * @as GUI::dropCreditos
+      */
+     void dropCreditos();
 
 private:
 

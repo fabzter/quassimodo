@@ -58,9 +58,8 @@ public:
      * @return la opcion seleccionada del menu
      */
     char MenuConsola();
-    std::string pideAgente(int noA=1);
-    std::string AgntvsAgnt();
-    std::string AgntvsMkn();
+
+
     
 
 private:

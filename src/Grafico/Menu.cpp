@@ -31,8 +31,9 @@ Grafico::Menu::Menu(const Menu& orig) {
 Grafico::Menu::~Menu() {
     this->dropMenuP();
     if(this->skin!=NULL){
-    this->parent->removeAll();
-    this->parent->remove();}
+        this->parent->removeAll();
+        this->parent->remove();
+    }
 }
 
  void Grafico::Menu::SetJugadores(){
@@ -85,7 +86,7 @@ void Grafico::Menu::dropMenuP(){
              this->botones.at(i)->remove();
              this->botones.at(i)=0;
              if(i<2)
-                  delete this->jugadores.at(i);
+                  this->parent->removeChild(this->jugadores.at(i)->getNodo());
         }
          haymenu=false;
          this->botones.clear();

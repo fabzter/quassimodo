@@ -79,6 +79,14 @@ public:
       * @param pausa bandera que indica que se hará si poner la pausa o quitarla.
       */
      void Pausar(bool pausa);
+     /**
+      * Coloca la imagen de los creditos en la escena.
+      */
+     void setCreditos();
+     /**
+      * Elimina la imagen de los creditos de la escena.
+      */
+     void dropCreditos();
 
 private:
     /**
@@ -144,7 +152,8 @@ private:
     /**
      * nodo texto que se coloca en la escena al presionarse el botón de pausa
      */
-    scene::ITextSceneNode* T_Pausa;
+    gui::IGUIStaticText* T_Pausa;
+    gui::IGUIImage* creditos;
 };
 }
 #endif	/* _GUI_HPP */

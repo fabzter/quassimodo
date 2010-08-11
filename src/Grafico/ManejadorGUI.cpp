@@ -9,6 +9,7 @@ Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironm
     this->Gui=NULL;
     if(grafico)
         this->Gui=new GUI(smgr,env,skin);
+
 }
 
 Grafico::ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
@@ -90,11 +91,17 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
   }
 
   void Grafico::ManejadorGUI::creditos(bool grafico){
-      std::string creditos;
-      creditos="\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernandez Hernandez \t\t <faboster@gmail.com>\n"
-              "Hugo Cesar Hernandez Pinha \t\t\t <eltokyo@gmail.com>";
 
-      this->MsgBox(creditos.c_str(),grafico);
+      if(!grafico){
+          std::string creditos;
+          creditos="\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernandez Hernandez \t\t <faboster@gmail.com>\n"
+                  "Hugo Cesar Hernandez Pinha \t\t\t <eltokyo@gmail.com>";
+
+          this->MsgBox(creditos.c_str(),grafico);
+      }
+      else{
+          this->Gui->setCreditos();
+      }
 
   }
 
@@ -108,4 +115,7 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
   }
 void Grafico::ManejadorGUI::Pausar(bool pausa){
     this->Gui->Pausar(pausa);
+}
+void Grafico::ManejadorGUI::dropCreditos(){
+    this->Gui->dropCreditos();
 }
