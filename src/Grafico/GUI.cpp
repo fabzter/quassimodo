@@ -1,13 +1,11 @@
 #include "GUI.hpp"
 #include <boost/filesystem.hpp>
-
 using namespace irr;
 
 Grafico::GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Skin* Skin) {
     this->smgr=smgr;
     this->env=env;
     this->skin=Skin;
-    this->botonAgente.resize(2);
     this->botonPartida.resize(BP_COUNT);
     this->AvsA=0;
     this->T_Pausa=NULL;
@@ -16,6 +14,14 @@ Grafico::GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Skin* Ski
 }
 
 Grafico::GUI::GUI(const GUI& orig) {
+
+    this->smgr=orig.smgr;
+    this->skin=orig.skin;
+    this->env=orig.env;
+    this->T_Pausa=orig.T_Pausa;
+    this->AvsA=orig.AvsA;
+    this->botonesPartida=orig.botonesPartida;
+    this->setSkin();
 }
 
 Grafico::GUI::~GUI() {
@@ -25,18 +31,7 @@ Grafico::GUI::~GUI() {
     this->op=NULL;
 }
 void Grafico::GUI::setSkin(){
-     //gui::IGUISkin* skin = this->env->createSkin(gui::EGST_WINDOWS_METALLIC);
-    	/*gui::IGUISkin* skin =this->env->getSkin();
 
-         //skin->setFont(this->skin->getGUIWindow(),gui::EGDF_WINDOW);
-
-         skin->setFont(this->skin->getGUIBoton() ,gui::EGDF_BUTTON);
-         skin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
-         
-        
-         
-      skin->setColor(gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255));
-*/
     gui::IGUISkin* sskin = this->skin->getSkinGui();
     sskin->setFont(this->skin->getDefault(),gui::EGDF_DEFAULT);
     sskin->setFont(this->skin->getMenuToolTip(),gui::EGDF_TOOLTIP);
@@ -63,10 +58,10 @@ void Grafico::GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
                                     true, gui::EMBF_OK,0, idMsg);
 }
  void Grafico::GUI::AgntVSAgnt(){
-     this->dibujaSelector(true);
+
  }
  void Grafico::GUI::AgntVSMkn(){
-     this->dibujaSelector(false);
+     this->dibujaSelector();
  }
 std::string Grafico::GUI::getPath()
 {
@@ -83,38 +78,27 @@ std::string Grafico::GUI::getPath()
  
 void Grafico::GUI::dropAvsA(){
     if(this->AvsA!=0){
-        this->botonAgente[0]->remove();
-        this->botonAgente[1]->remove();
-        this->botonAgente[0]= this->botonAgente[1]=0;
         this->AvsA->remove();
         this->AvsA=0;
     }
         
 }
 
-void Grafico::GUI::dibujaSelector(bool ambos){
-      core::dimension2d<unsigned int> S_S=core::dimension2d<unsigned int>(600,310);
+void Grafico::GUI::dibujaSelector(){
+
+      core::dimension2d<unsigned int> S_S=core::dimension2d<unsigned int>(500,240);
       int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
       core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a ,S_S.Height+d_al);
 
-      AvsA= this->env->addWindow(recW,true,L"Agentes:");
+      AvsA= this->env->addWindow(recW,true,L"Agente:");
 
-       this->env->addStaticText(L"Vs",core::rect<s32>((recW.getWidth()/2)-15,(recW.getHeight()/2)-30,(recW.getWidth()/2)+15,(recW.getHeight()/2)+40),\
-               false,false,AvsA);
+      this->env->addStaticText( L"Selecciona el Agente con el que competirás", core::rect<s32>(35,35,500,60), false, false, AvsA );
 
-       this->env->addStaticText( L"Selecciona los Agentes", core::rect<s32>(35,35,300,60), false, false, AvsA );
-       //botones de los agentes
-      this->botonAgente[0]= this->env->addButton( core::rect<s32>( (recW.getWidth()/2)-185,(recW.getHeight()/2)-50 ,(recW.getWidth()/2)-35,(recW.getHeight()/2) ),\
-               AvsA, BA_AGENTE_1, L"Agente?");
-       this->botonAgente[1]= this->env->addButton( core::rect<s32>( (recW.getWidth()/2)+40,(recW.getHeight()/2)-50 ,(recW.getWidth()/2)+190,(recW.getHeight()/2) ),\
-               AvsA, BA_AGENTE_2, L"Agente?");
-      if(!ambos){
-          this->botonAgente[1]->setText(L"Agente MinMax");
-          this->botonAgente[1]->setEnabled(ambos);
-          this->botonAgente[1]-> setPressed(!ambos);
-      }
+      this->env->addComboBox( core::rect<s32>((recW.getWidth()/2)-85,(recW.getHeight()/2)-20,(recW.getWidth()/2)+85,(recW.getHeight()/2)+20) ,\
+               AvsA);
+
        //botones de Opcion
-       this->env->addButton( core::rect<s32>( recW.getWidth()-360,recW.getHeight()-60 ,recW.getWidth()-190,recW.getHeight()-20) ,\
+       this->env->addButton( core::rect<s32>( recW.getWidth()-350,recW.getHeight()-60 ,recW.getWidth()-190,recW.getHeight()-20) ,\
                AvsA, BO_CANCELA, L"Cancelar");
        this->env->addButton( core::rect<s32>( recW.getWidth()-160,recW.getHeight()-60 ,recW.getWidth()-20,recW.getHeight()-20 ),\
                AvsA, BO_INICIA, L"Inicia");
@@ -127,12 +111,11 @@ void Grafico::GUI::setTextAgnt(int num, const char* text)
     {
         std::wstringstream wsstream;
         wsstream << text;
-        this->botonAgente.at(num)->setText(wsstream.str().c_str());
+       // this->botonAgente.at(num)->setText(wsstream.str().c_str());
     }
 }
 void Grafico::GUI::setBotonesPartida(){
     
-    core::dimension2d<unsigned int> Scren_Size=this->smgr->getVideoDriver()->getScreenSize();
       int dis_ancho=20,dis_alto=20;
       float size=50,dan=dis_ancho;
       for(int i=0;i<BP_COUNT;i++){
@@ -183,7 +166,7 @@ void Grafico::GUI::setTextPausa(){
     core::dimension2d<unsigned int> SS=this->smgr->getVideoDriver()->getScreenSize();
     this->T_Pausa=this->env->addStaticText(L"PAUSA",rec);
     this->T_Pausa->setOverrideFont(this->skin->getMenuBoton());
-    this->T_Pausa->setOverrideColor(video::SColor(255,130,0,0)); //this->smgr->addTextSceneNode(this->skin->getMenuBoton(),,video::SColor(255,255,255,255) );
+    this->T_Pausa->setOverrideColor(video::SColor(255,130,0,0)); 
 }
 
 void Grafico::GUI::dropTextPausa(){

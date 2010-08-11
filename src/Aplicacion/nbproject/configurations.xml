@@ -95,7 +95,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
-            <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
             <linkerLibProjectItem>
@@ -180,54 +179,53 @@
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../Grafico"
-                            CT="1"
-                            CN="Release"
-                            AC="false"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
                             BL="true"
                             WD="../Grafico"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="dist/Release/GNU-Linux-x86/grafico">
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libGrafico.so">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../Reglas"
                             CT="2"
-                            CN="Release"
-                            AC="false"
+                            CN="Debug"
+                            AC="true"
                             BL="true"
                             WD="../Reglas"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="dist/Release/GNU-Linux-x86/libReglas.so">
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libReglas.so">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../Opciones"
                             CT="2"
-                            CN="Release"
-                            AC="false"
+                            CN="Debug"
+                            AC="true"
                             BL="true"
                             WD="../Opciones"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="dist/Release/GNU-Linux-x86/libOpciones.so">
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libOpciones.so">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>Irrlicht</linkerLibLibItem>
-            <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_filesystem-mt</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mt</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../Agentes"
                             CT="2"
-                            CN="Release"
-                            AC="false"
+                            CN="Debug"
+                            AC="true"
                             BL="true"
                             WD="../Agentes"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="dist/Release/GNU-Linux-x86/libAgentes.so">
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="dist/Debug/GNU-Linux-x86/libAgentes.so">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>

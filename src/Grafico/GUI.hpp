@@ -98,9 +98,8 @@ private:
      * este metodo es llamado por los dos descritos antes
      * @as AgntVSAgnt
      * @as AgntVSMkn
-     * @param ambos bandera que indica si se quiere que se dibujen normal los 2 botones o solo 1
      */
-    void dibujaSelector(bool ambos);
+    void dibujaSelector();
     /**
      *Método en el cual pasamos de  una cadena de char a wchar_t
      * @param m cadena de wchar_t en donde se almacenara el mensaje
@@ -137,10 +136,6 @@ private:
      * Un apuntador a un objeto de la clase Grafico::Skin del cual extraemos las tipografias
      */
     Skin* skin;
-    /**
-     * Vector de botones en los que seleccionamos los agentes
-     */
-    std::vector<gui::IGUIButton *> botonAgente;
     /**
      * Vector de botones que son mostrados en la partida en curso
      */

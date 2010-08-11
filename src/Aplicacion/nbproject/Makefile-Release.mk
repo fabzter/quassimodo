@@ -56,19 +56,19 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . ../Grafico/dist/Release/GNU-Linux-x86/grafico -Wl,-rpath ../Reglas/dist/Release/GNU-Linux-x86 -L../Reglas/dist/Release/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Release/GNU-Linux-x86 -L../Opciones/dist/Release/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_thread-mt -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Release/GNU-Linux-x86 -L../Agentes/dist/Release/GNU-Linux-x86 -lAgentes
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Debug/GNU-Linux-x86 -L../Agentes/dist/Debug/GNU-Linux-x86 -lAgentes
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/aplicacion
 
-dist/Release/GNU-Linux-x86/aplicacion: ../Grafico/dist/Release/GNU-Linux-x86/grafico
+dist/Release/GNU-Linux-x86/aplicacion: ../Grafico/dist/Debug/GNU-Linux-x86/libGrafico.so
 
-dist/Release/GNU-Linux-x86/aplicacion: ../Reglas/dist/Release/GNU-Linux-x86/libReglas.so
+dist/Release/GNU-Linux-x86/aplicacion: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
-dist/Release/GNU-Linux-x86/aplicacion: ../Opciones/dist/Release/GNU-Linux-x86/libOpciones.so
+dist/Release/GNU-Linux-x86/aplicacion: ../Opciones/dist/Debug/GNU-Linux-x86/libOpciones.so
 
-dist/Release/GNU-Linux-x86/aplicacion: ../Agentes/dist/Release/GNU-Linux-x86/libAgentes.so
+dist/Release/GNU-Linux-x86/aplicacion: ../Agentes/dist/Debug/GNU-Linux-x86/libAgentes.so
 
 dist/Release/GNU-Linux-x86/aplicacion: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
@@ -111,10 +111,10 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release
-	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release
-	cd ../Agentes && ${MAKE}  -f Makefile CONF=Release
+	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -123,10 +123,10 @@ ${OBJECTDIR}/Partida.o: Partida.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release clean
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Release clean
-	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release clean
-	cd ../Agentes && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../Grafico && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Opciones && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -7,15 +7,13 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,
     this->smgr=smgr;
     this->env=env;
     this->skin=skin;
-    this->terrain==NULL;
+    this->terrain==NULL; 
     this->skydome=NULL;
     this->Agentes.resize(2);
     this->velAnim=VelAnim;
     this->init();
     if(grafico)
-      this->setMenu();
-
-    
+      this->setMenu();    
 }
 
 ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {

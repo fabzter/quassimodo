@@ -76,8 +76,8 @@ enum GUI_BOTONES_OK{
  */
 const wchar_t* const GUI_BOTONES_TEXTO[B_COUNT+1]=
 {
-L"Agente VS Máquina",
-L"Agente VS Agente",
+L"Humano VS Máquina",
+L"Humano VS Humano",
 L"Opciones",
 L"Créditos",
 L"Salir",
@@ -89,7 +89,7 @@ L"Salir",
 const wchar_t* const GUI_BOTONES_TOLTIP[B_COUNT+1]=
 {
 L"Partida rápida en el que el segundo competidor es el Agente Integrado en la aplicación",
-L"Partida rápida de dos Agentes Inteligentes creados por algún usuario",
+L"Partida rápida de dos usuarios",
 L"Cambia algunas propiedades de la Aplicación",
 L"Créditos",
 L"Sale de la Aplicación",
