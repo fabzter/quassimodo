@@ -7,6 +7,7 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>AgenteAstar.hpp</itemPath>
       <itemPath>AgenteCaminaAdelante.hpp</itemPath>
+      <itemPath>FabricaAgente.hpp</itemPath>
       <itemPath>ManejadorAgentes.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"

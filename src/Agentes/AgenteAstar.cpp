@@ -40,3 +40,8 @@ void Agentes::AgenteAstar::terminar()
 {
     
 }
+
+Reglas::Agente* Agentes::FabricaAstar::operator ()()
+{
+    return new AgenteAstar();
+}

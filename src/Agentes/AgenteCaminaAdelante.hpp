@@ -2,6 +2,7 @@
 #define	AGENTECAMINAADELANTE_HPP
 #include <Reglas/Agente.hpp>
 #include <Reglas/Jugada.hpp>
+#include "FabricaAgente.hpp"
 
 namespace Agentes
 {
@@ -22,6 +23,12 @@ private:
     int id;
     Reglas::Direccion direccion;
     bool esta_iniciado;
+};
+
+class FabricaCaminaAdelante: public FabricaAgente
+{
+public:
+    Reglas::Agente* operator()();
 };
 
 }

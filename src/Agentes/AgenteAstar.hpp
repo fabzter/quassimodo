@@ -5,6 +5,8 @@
 #include <Reglas/Jugada.hpp>
 #include <Reglas/AyudanteDeAgente.hpp>
 
+#include "FabricaAgente.hpp"
+
 namespace Agentes
 {
 
@@ -22,6 +24,12 @@ public:
     void terminar();
 private:
     int id;
+};
+
+class FabricaAstar: public FabricaAgente
+{
+public:
+    Reglas::Agente* operator()();
 };
 
 }

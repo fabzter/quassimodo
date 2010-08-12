@@ -63,3 +63,8 @@ void Agentes::AgenteCaminaAdelante::terminar()
 {
 
 }
+
+Reglas::Agente* Agentes::FabricaCaminaAdelante::operator ()()
+{
+    return new AgenteCaminaAdelante();
+}
