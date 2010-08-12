@@ -44,8 +44,9 @@ public:
      void AgntVSAgnt();
      /**
       *Lanza el cuadro selector del agente, en este caso solo se elige uno y el otro ya esta fijo
+      * @param lista liste de Agentes a seleccionar
       */
-     void AgntVSMkn();
+     void AgntVSMkn(std::vector<std::string> lista);
      /**
       *Obtenemos el path del agente seleccionado
       * @return un string el cual contiene el path deseado
@@ -96,10 +97,10 @@ private:
     /**
      *Metodo el cual dibuja el cuadro de seleccionar agentes.
      * este metodo es llamado por los dos descritos antes
-     * @as AgntVSAgnt
      * @as AgntVSMkn
+     * @param lista liste de Agentes a seleccionar
      */
-    void dibujaSelector();
+    void dibujaSelector(std::vector<std::string> lista);
     /**
      *Método en el cual pasamos de  una cadena de char a wchar_t
      * @param m cadena de wchar_t en donde se almacenara el mensaje
@@ -114,6 +115,11 @@ private:
      * Elimina el el texto de PAUSA del centro de la escena
      */
     void dropTextPausa();
+    /**
+     * Coloca las opciones a elegir en el combo Box.
+     * @param lista liste de Agentes a seleccionar
+     */
+    void setOpcionesCombo(std::vector<std::string> lista);
     
     /**
      * Un apuntador al manejador de la escena del juego
@@ -144,6 +150,10 @@ private:
      * bandera que indica si se colocaron los botones de la partida
      */
     bool botonesPartida;
+    /**
+     * combo box en donde se mostrará la lista de Agentes disponibles.
+     */
+    gui::IGUIComboBox* combo;
     /**
      * nodo texto que se coloca en la escena al presionarse el botón de pausa
      */

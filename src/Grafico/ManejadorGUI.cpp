@@ -32,13 +32,13 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
 
 }
 
- void Grafico::ManejadorGUI::AgntVSAgnt(bool ambos){
+ void Grafico::ManejadorGUI::AgntVSAgnt(bool ambos,std::vector<std::string> lista){
      
     // this->menu->dropMenuP();
      if(ambos)
          this->Gui->AgntVSAgnt();
      else
-         this->Gui->AgntVSMkn();
+         this->Gui->AgntVSMkn(lista);
  }
 
  std::string Grafico::ManejadorGUI::getPath(bool grafico,int noA){

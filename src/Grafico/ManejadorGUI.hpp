@@ -48,8 +48,9 @@ public:
      * @as GUI::AgntVSAgnt
      * @as GUI::AgntVSMkn
      * @param ambos si se van a seleccionar ambos agentes o no.
+     * @param lista liste de Agentes a seleccionar
      */
-    void AgntVSAgnt(bool ambos);
+    void AgntVSAgnt(bool ambos,std::vector<std::string> lista);
     /**
      *manda a llamar al metodo de la clase GUI
      * @as GUI::getPath()

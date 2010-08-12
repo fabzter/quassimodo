@@ -24,6 +24,7 @@ ManejadorJuego::~ManejadorJuego() {
     delete(this->mgui);
     if(this->grafico){
         //delete(this->aniend);
+        delete(this->ManAgentes);
         this->dropSkinAmbiente();
     }
 }
@@ -38,6 +39,7 @@ void ManejadorJuego::init(){
         this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
         this->setSkinAmbiente();
         this->cam=0;
+        this->ManAgentes=new Agentes::ManejadorAgentes();
         //this->setEscala(5,5,5);
     }
     else{
@@ -300,6 +302,10 @@ void ManejadorJuego::Pausar(){
         this->pausa=!this->pausa;
         this->mgui->Pausar(this->pausa);
     }
+}
+void ManejadorJuego::AgntVsMkn(){
+
+    this->mgui->AgntVSAgnt( false, this->ManAgentes->getNombresAgentes() );
 }
 
 void ManejadorJuego::setObjetivoCam(){

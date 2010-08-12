@@ -2,11 +2,12 @@
 #define	_MANEJADORJUEGO_HPP
 
 #include <Grafico/ManejadorGUI.hpp>
-#include<Grafico/tokayoCamera.hpp>
-#include<Grafico/Enums.hpp>
+#include <Grafico/tokayoCamera.hpp>
+#include <Grafico/Enums.hpp>
 #include <Grafico/Skin.hpp>
-#include<Reglas/Excepciones.hpp>
+#include <Reglas/Excepciones.hpp>
 #include <irrlicht/irrList.h>
+#include <Agentes/ManejadorAgentes.hpp>
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
 #include <sstream>
@@ -148,6 +149,11 @@ public:
      * GUI para que haga los cambios correspondientes en la interfaz gráfica.
      */
     void Pausar();
+    /**
+     * Se encarga de crear la ventana de agente Vs maquina y de crear e manejador de agentes
+     * que se utiizara para poder escoger al agente con el que se desea jugar!.
+     */
+    void AgntVsMkn();
 private:
     /**
      *Metodo que separa el nombre del archivo del path del agente
@@ -218,6 +224,10 @@ private:
      * Un nodo camara que es la camara que se maneja durante el juego y el menú
      */
     scene::ICameraSceneNode* cam;
+    /**
+     *Este objeto es el encargado de administrar los agentes disponibles en el sistema.
+     */
+    Agentes::ManejadorAgentes* ManAgentes;
     /**
      * Bandera que indica si el usuario desea salir de la aplicacion
      */

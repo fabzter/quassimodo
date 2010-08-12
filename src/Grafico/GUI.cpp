@@ -60,8 +60,8 @@ void Grafico::GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
  void Grafico::GUI::AgntVSAgnt(){
 
  }
- void Grafico::GUI::AgntVSMkn(){
-     this->dibujaSelector();
+ void Grafico::GUI::AgntVSMkn(std::vector<std::string> lista){
+     this->dibujaSelector(lista);
  }
 std::string Grafico::GUI::getPath()
 {
@@ -84,7 +84,7 @@ void Grafico::GUI::dropAvsA(){
         
 }
 
-void Grafico::GUI::dibujaSelector(){
+void Grafico::GUI::dibujaSelector(std::vector<std::string> lista){
 
       core::dimension2d<unsigned int> S_S=core::dimension2d<unsigned int>(500,240);
       int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
@@ -94,9 +94,9 @@ void Grafico::GUI::dibujaSelector(){
 
       this->env->addStaticText( L"Selecciona el Agente con el que competirás", core::rect<s32>(35,35,500,60), false, false, AvsA );
 
-      this->env->addComboBox( core::rect<s32>((recW.getWidth()/2)-85,(recW.getHeight()/2)-20,(recW.getWidth()/2)+85,(recW.getHeight()/2)+20) ,\
+      this->combo=this->env->addComboBox( core::rect<s32>((recW.getWidth()/2)-85,(recW.getHeight()/2)-20,(recW.getWidth()/2)+85,(recW.getHeight()/2)+20) ,\
                AvsA);
-
+      this->setOpcionesCombo(lista);
        //botones de Opcion
        this->env->addButton( core::rect<s32>( recW.getWidth()-350,recW.getHeight()-60 ,recW.getWidth()-190,recW.getHeight()-20) ,\
                AvsA, BO_CANCELA, L"Cancelar");
@@ -174,6 +174,16 @@ void Grafico::GUI::dropTextPausa(){
     if(this->T_Pausa!=NULL||this->T_Pausa!=0){
         this->T_Pausa->remove();
         this->T_Pausa=NULL;
+    }
+
+}
+
+void Grafico::GUI::setOpcionesCombo(std::vector<std::string> lista){
+
+    for(int i=0;i<lista.size();i++){
+        std::wstringstream wsstream;
+        wsstream << lista.at(i).c_str();
+        this->combo->addItem(wsstream.str().c_str(),i+1);
     }
 
 }

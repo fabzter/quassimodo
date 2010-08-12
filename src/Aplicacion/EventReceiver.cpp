@@ -51,11 +51,11 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 s32 id = event.GUIEvent.Caller->getID();
                 switch(id){
                     case B_AGENTE_VS_MAKINA:
-                        this->app->getManJuego()->setAgente("../bin/agenteMiniMax2.py", 1);
-                       this->app->getManJuego()->getManejadorGUI()->AgntVSAgnt(false);
+                       //this->app->getManJuego()->setAgente("../bin/agenteMiniMax2.py", 1);
+                       this->app->getManJuego()->AgntVsMkn();
                         break;
                     case B_AGENTE_VS_AGENTE:
-                        this->app->getManJuego()->getManejadorGUI()->AgntVSAgnt(true);
+                        //this->app->getManJuego()->getManejadorGUI()->AgntVSAgnt(true);
                          break;
                     case B_OPCIONES:
                        this->app->getManJuego()->getManejadorGUI()->MsgBox("Proximamente!!");
