@@ -48,10 +48,10 @@ public:
       */
      void AgntVSMkn(std::vector<std::string> lista);
      /**
-      *Obtenemos el path del agente seleccionado
-      * @return un string el cual contiene el path deseado
+      *Obtenemos el nombre del agente seleccionado
+      * @return un string el cual contiene el nombre deseado
       */
-     std::string getPath();
+     std::string getAgenteSeleccionado();
      /**
       *lanza la caja de dialogo en la cual seleccionamos los agentes
       */

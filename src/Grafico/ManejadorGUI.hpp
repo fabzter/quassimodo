@@ -51,6 +51,7 @@ public:
      * @param lista liste de Agentes a seleccionar
      */
     void AgntVSAgnt(bool ambos,std::vector<std::string> lista);
+    //TODO: eliminar este método
     /**
      *manda a llamar al metodo de la clase GUI
      * @as GUI::getPath()
@@ -59,6 +60,11 @@ public:
      * @param noA numero del agente a pedir,se ignora en modo 3D
      */
      std::string getPath(bool grafico=true,int noA=1);
+     /**
+      * regresa el Agente seleccionado en el combo Box
+      * @return un string que contiene el nombre del agente.
+      */
+     std::string getAgenteSeleccionado();
      /**
       *abrimos una caja de "OpenFile"
       * @as GUI:: OpenFileDialog

@@ -19,6 +19,7 @@ PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gu
     this->t=new Tablero(smgr,this->skin,this->parent);
     this->juez = new Reglas::Juez(*t);
     this->velAnim=VelAnim;
+    this->ManAgentes=new Agentes::ManejadorAgentes();
     for(std::size_t i = 0; i < this->antorchas.size(); i++){
          this->antorchas.at(i)=new Antorcha(smgr,this->skin,this->parent);
     }
@@ -39,6 +40,7 @@ PartidaGrafica::~PartidaGrafica() {
      delete(this->t);
      this->parent->removeAll();
      this->parent->remove();
+     delete(this->ManAgentes);
 }
 
 void PartidaGrafica::iniciarPartida()
@@ -134,11 +136,8 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
  bool PartidaGrafica::SetJugadores(std::string rutaAgente1,std::string rutaAgente2){
      
 
-
-      std::vector<Reglas::Agente*> agentes=this->getAgentes(rutaAgente1,rutaAgente2,this->t);
-
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0,agentes[0],this->skin,this->velAnim,this->parent));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1,agentes[1],this->skin,this->velAnim,this->parent));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0,this->ManAgentes->makeAgente(rutaAgente1),this->skin,this->velAnim,this->parent));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,1,this->ManAgentes->makeAgente(rutaAgente2),this->skin,this->velAnim,this->parent));
 
       this->t->setJugadores( this->jugadores);
  }
@@ -168,6 +167,9 @@ bool PartidaGrafica::animacionesEnd(){
             return end & this->Barreras.at(this->Barreras.size()-1)->endAnimacion();
         }
     }
+}
+std::vector<std::string> PartidaGrafica::getNombresAgentes(){
+    return this->ManAgentes->getNombresAgentes();
 }
 void PartidaGrafica::dropBarreras(){
 

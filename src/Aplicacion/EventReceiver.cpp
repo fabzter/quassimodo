@@ -51,7 +51,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 s32 id = event.GUIEvent.Caller->getID();
                 switch(id){
                     case B_AGENTE_VS_MAKINA:
-                       //this->app->getManJuego()->setAgente("../bin/agenteMiniMax2.py", 1);
+                       this->app->getManJuego()->setAgente("Agente A*", 0);
                        this->app->getManJuego()->AgntVsMkn();
                         break;
                     case B_AGENTE_VS_AGENTE:
@@ -75,6 +75,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
                         this->app->getManJuego()->getManejadorGUI()->OpenFileDialog();
                         break;
                     case BO_INICIA:
+                        this->app->getManJuego()->setAgente(this->app->getManJuego()->getManejadorGUI()->getAgenteSeleccionado(), 1);
                         this->app->getManJuego()->getManejadorGUI()->dropAvsA();
                         if( this->app->getManJuego()->setPartida() )
                             this->piniciada=true;
@@ -110,12 +111,12 @@ bool EventReceiver::OnEvent(const SEvent& event)
                 } 
             }
             //si es un evento que selecciono un archivo
-            if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
+            /*if(event.GUIEvent.EventType==gui::EGET_FILE_SELECTED){
                this->app->getManJuego()->setAgente(this->app->getManJuego()->getManejadorGUI()->getPath(), this->noA);
                this->app->getManJuego()->CambiaTextoAgnt(this->noA);
                 this->noA=-1;
 
-              }
+              }*/
             //si es un evento de presionar el botón de OK en un msgBox
             if(event.GUIEvent.EventType==gui::EGET_MESSAGEBOX_OK){
                 switch(event.GUIEvent.Caller->getID()){

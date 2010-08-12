@@ -43,13 +43,16 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
 
  std::string Grafico::ManejadorGUI::getPath(bool grafico,int noA){
      if(grafico){
-         return this->Gui->getPath();
+         return this->Gui->getAgenteSeleccionado();
      }
      else{
          return this->pideAgente(noA);
      }
 
      
+ }
+ std::string Grafico::ManejadorGUI::getAgenteSeleccionado(){
+     return this->Gui->getAgenteSeleccionado();
  }
 
  void  Grafico::ManejadorGUI::OpenFileDialog(){

@@ -63,9 +63,9 @@ void Grafico::GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
  void Grafico::GUI::AgntVSMkn(std::vector<std::string> lista){
      this->dibujaSelector(lista);
  }
-std::string Grafico::GUI::getPath()
+std::string Grafico::GUI::getAgenteSeleccionado()
 {
-    wchar_t* m = (wchar_t*)op->getFileName();
+    wchar_t* m = (wchar_t*)this->combo->getItem(this->combo->getSelected());
     boost::filesystem::wpath w_path(m);
 
     return std::string(w_path.string().begin(), w_path.string().end());

@@ -7,8 +7,7 @@
 #include<Grafico/Tablero.hpp>
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Jugador.hpp>
-
-
+#include <Agentes/ManejadorAgentes.hpp>
 
 using namespace irr;
 using namespace Grafico;
@@ -61,7 +60,9 @@ public:
      * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
     core::vector3df getCentro();
+
     bool animacionesEnd();
+    std::vector<std::string> getNombresAgentes();
 
 
 private:
@@ -129,6 +130,10 @@ private:
      * velocidad de animacion que tendrá la barrera y el jugador
      */
     int velAnim;
+    /**
+     *Este objeto es el encargado de administrar los agentes disponibles en el sistema.
+     */
+    Agentes::ManejadorAgentes* ManAgentes;
      scene::ISceneNode *parent;
 
 };
