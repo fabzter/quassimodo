@@ -15,6 +15,11 @@ class FabricaAgente
 {
 public:
     /**
+     * El destructor default sólo se agrega para poder eliminar la basura de
+     * manera correcta.
+     */
+    virtual ~FabricaAgente(){};
+    /**
      * Debe regresar un apuntador a un nuevo Agente creado, y delegar la propiedad
      * a quien llamó el método.
      * @return Un apuntador a un nuevo Agente. Delega la responsabilidad de borrar

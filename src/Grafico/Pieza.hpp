@@ -5,11 +5,11 @@
 #include<irrlicht.h>
 
 namespace Grafico{
+using namespace irr;
  /**
   * Clase Pieza del paquete grafico que contiene la posicion en la que se  encuentra la pieza grafica (el tablero, el jugador la barrera etc.).
   * la malla en donde es cargada la pieza. (el objeto de direct x maya, etc.) y el nodo en el que se dibuja la pieza.
   */
-using namespace irr;
 class Pieza {
 
 public:

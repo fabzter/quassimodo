@@ -13,6 +13,10 @@ class Agente
 {
 public:
     /**
+     * Destructor virtual para ocuparse correctamente de la basura.
+     */
+    virtual ~Agente(){};
+    /**
      *Este método es un aviso al Agente de que los dos Jugadores ya han sido
      * colocados dentro del tablero. Le da oportunidad de construir estructuras,
      * almacenar informacion, etc.
