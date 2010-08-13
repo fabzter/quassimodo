@@ -11,16 +11,19 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,
     this->Agentes.resize(2);
     this->velAnim=VelAnim;
     this->init();
-    this->setMenu();    
+    if(smgr!=NULL)
+        this->setMenu();
 }
 
 ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 }
 
-ManejadorJuego::~ManejadorJuego() {  
-    delete(this->partida);
+ManejadorJuego::~ManejadorJuego() {
+    if(this->smgr!=NULL){
+        delete(this->partida);
+        this->dropSkinAmbiente();}
     delete(this->mgui);     
-    this->dropSkinAmbiente();
+    
     
 }
 void ManejadorJuego::init(){
@@ -28,11 +31,16 @@ void ManejadorJuego::init(){
     this->clearAgentes();
     this->pausa=false;
     this->partidainiciada=false;
+    if(this->smgr!=NULL){
         this->partida=new PartidaGrafica(this->smgr,this->skin,this->env,this->velAnim);
-        PartidaGrafica *p= (PartidaGrafica*)this->partida;
-        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin);
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin);
         this->setSkinAmbiente();
         this->cam=0;
+    }
+    else{
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,NULL,this->skin);
+    }
+        
 
 
 }
@@ -127,19 +135,7 @@ void ManejadorJuego::clearAgentes(){
      
 
   }
- void ManejadorJuego::CambiaTextoAgnt(int bAgente){
-     std::string nom= this->SplitNombre( this->Agentes[bAgente] ) ;
-     this->mgui->SetTextBtnAngt(bAgente ,nom );
 
- }
-
-std::string ManejadorJuego::SplitNombre (std::string str)
-{
-  size_t found;
-  found=str.find_last_of("/\\");
-  return str.substr(found+1) ;
-
-}
 
  void ManejadorJuego::setCamJuego(){
    

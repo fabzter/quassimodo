@@ -36,7 +36,7 @@ Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones){
     if(err!="")
         this->juego->getManejadorGUI()->MsgBox(err.c_str(),false,Grafico::BOK_ADVERTENCIA);
    
-    this->quick(opciones.getAgentePath(0),opciones.getAgentePath(1));
+    
 }
 
 Aplicacion::Aplicacion(const Aplicacion& orig) {
@@ -51,6 +51,7 @@ Aplicacion::~Aplicacion() {
 
 void Aplicacion::run(){
 
+    if(this->grafico)
         this->loopGrafico();
 
 }
@@ -113,11 +114,6 @@ void Aplicacion::loopGrafico(){
 			device->setWindowCaption(str.c_str());
 			lastFPS = fps;
 		}
-            if(this->p_rapida){
-                this->juego->setPartida();
-                this->p_rapida=false;
-            }
-            
             }
         else{
             this->device->yield();
@@ -126,16 +122,8 @@ void Aplicacion::loopGrafico(){
 }
 
 
-void Aplicacion::quick(std::string pathJ1,std::string pathj2){
 
-    if(pathJ1!=""&& pathj2!=""){
-        this->juego->setAgente(pathJ1,0);
-        this->juego->setAgente(pathj2,1);
-        this->p_rapida=true;
-    }
-    else{
-    this->p_rapida=false;}
-}
+
 void Aplicacion::setNull(){
     this->skin=NULL;
     this->device=NULL;

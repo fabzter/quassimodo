@@ -97,11 +97,6 @@ public:
      */
     void printCam();
     /**
-     *Cambia el texto en el boton selector de agentes
-     * @param bAgente numero de boton del agente a cambiar
-     */
-    void CambiaTextoAgnt(int bAgente);
-    /**
      * Cambia la vista de la camara en la partida
      * @param vista numero de vista a colocar
      */
@@ -141,12 +136,6 @@ public:
      */
     void AgntVsMkn();
 private:
-    /**
-     *Metodo que separa el nombre del archivo del path del agente
-     * @param str path en donde se encuentra el agente
-     * @return string con el nombre del archivo que contiene al agente
-     */
-    std::string SplitNombre(std::string str);
     /**
      *Coloca la camara de la partida asi como tambien el tope de esta
      * para que no pase mas abajo del terreno del piso

@@ -60,12 +60,6 @@ public:
       */
      void setMenu();
      /**
-      *Cambia el texto en los botones de la ventana de seleccion de agentes
-      * @param num numero de boton del agente
-      * @param text texto a colocar
-      */
-     void SetTextBtnAngt(int num, std::string text);
-     /**
       *Método encargado aumentar o disminuir la escala del menu
       * @param x Un entero que representa la escala que tendrá en el eje de las X
       * @param y Un entero que representa la escala que tendrá en el eje de las Y

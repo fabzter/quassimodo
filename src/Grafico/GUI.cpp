@@ -28,7 +28,6 @@ Grafico::GUI::~GUI() {
     this->dropBotonesPartida();
     this->dropAvsA();
     this->dropTextPausa();
-    this->op=NULL;
 }
 void Grafico::GUI::setSkin(){
 
@@ -53,8 +52,7 @@ void Grafico::GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
 {
     std::wstringstream wsstring;
     wsstring << msg;
-    gui::IGUIWindow* window =
-            this->env->addMessageBox(L"Quassimodo dice:", wsstring.str().c_str(),
+    this->env->addMessageBox(L"Quassimodo dice:", wsstring.str().c_str(),
                                     true, gui::EMBF_OK,0, idMsg);
 }
  void Grafico::GUI::AgntVSAgnt(){
@@ -101,15 +99,6 @@ void Grafico::GUI::dibujaSelector(std::vector<std::string> lista){
 
 }
 
-void Grafico::GUI::setTextAgnt(int num, const char* text)
-{
-    if(this->AvsA!=NULL)
-    {
-        std::wstringstream wsstream;
-        wsstream << text;
-       // this->botonAgente.at(num)->setText(wsstream.str().c_str());
-    }
-}
 void Grafico::GUI::setBotonesPartida(){
     
       int dis_ancho=20,dis_alto=20;

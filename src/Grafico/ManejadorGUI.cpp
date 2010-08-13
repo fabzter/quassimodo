@@ -5,8 +5,14 @@
 using namespace irr;
 
 Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin) {
-    this->menu=new Menu(smgr,env,t,skin);
-    this->Gui=new GUI(smgr,env,skin);
+    if(t!=NULL){
+        this->menu=new Menu(smgr,env,t,skin);
+        this->Gui=new GUI(smgr,env,skin);}
+    else{
+        this->menu=NULL;
+        this->Gui=NULL;
+    }
+    
 
 }
 
@@ -14,8 +20,10 @@ Grafico::ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
 }
 
 Grafico::ManejadorGUI::~ManejadorGUI() {
-    delete(this->Gui);
-    delete(this->menu);
+    if(this->Gui!=NULL)
+        delete(this->Gui);
+    if(this->menu!=NULL)
+        delete(this->menu);
 }
 void Grafico::ManejadorGUI::dropMenu(){
     this->menu->dropMenuP();
@@ -48,9 +56,6 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
         this->menu->setMenuP();   
  }
 
- void Grafico::ManejadorGUI::SetTextBtnAngt(int num, std::string text){
-     this->Gui->setTextAgnt(num,text.c_str() );
- }
 
  void Grafico::ManejadorGUI::setEscala(int x,int y,int z){
      this->menu->SetEscala(x,y,z);
