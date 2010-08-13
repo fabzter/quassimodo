@@ -21,9 +21,8 @@ public:
      * @param env un apuntador al manejador de GUI del juego
      * @param t Un apuntador a un objeto de la Clase Grafico::Tablero
      * @param skin  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
-     * @param grafico indica si la gui sera modo grfico o solo mensajes en consola.
      */
-    ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin,bool grafico=true);
+    ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Grafico::Skin* skin);
     /**
      *Constructor copia de la clase ManejadorGUI
      * @param orig un objeto de la clase ManejadorGUI
@@ -58,10 +57,8 @@ public:
      std::string getAgenteSeleccionado();
      /**
       *Se coloca el menú principal del Juego
-      *@param grafico indica si el menu estara en 3D o en consola.
-      * @return  un caracter que representa la opcion seleccionada en modo consola, o un caracter cualquiera si fue ejecutado en modo grafico
       */
-     char setMenu(bool grafico=true);
+     void setMenu();
      /**
       *Cambia el texto en los botones de la ventana de seleccion de agentes
       * @param num numero de boton del agente
@@ -82,9 +79,8 @@ public:
      void setMenuPartida();
      /**
       *Muestra los creditos en la aplicacion. ya se a en modo consola o grafico.
-      * @param grafico si se va mostrar en modo consola o modo grafico.
       */
-     void creditos(bool grafico);
+     void creditos();
      /**
       *Borra la ventana de selector de agentes
       */

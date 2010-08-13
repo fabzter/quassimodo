@@ -8,6 +8,10 @@ Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones){
     if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
     this->velAnimacion=opciones.getVelocidad();
     std::string err="";
+    if(!this->grafico){
+        err=">>> No pudo ser cargada la parte de video! (puede que el driver de la tarjeta de video no esté soportado) <<<<";
+    }
+    else{
         this->device=this->Dvideo->creaDevice (opciones.isFullScreen() );
         this->Vdriver = this->device->getVideoDriver();
         this->smgr = this->device->getSceneManager();
@@ -25,13 +29,12 @@ Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones){
             this->dropIrrlicht();
             this->setNull();
         }
+    }
         
-    
-
-    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion,this->grafico);
+    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion);
 
     if(err!="")
-        this->juego->getManejadorGUI()->MsgBox(err.c_str(),this->grafico,Grafico::BOK_ADVERTENCIA);
+        this->juego->getManejadorGUI()->MsgBox(err.c_str(),false,Grafico::BOK_ADVERTENCIA);
    
     this->quick(opciones.getAgentePath(0),opciones.getAgentePath(1));
 }
@@ -68,10 +71,9 @@ void Aplicacion::nuevoJuego(){
         
     }
     
-    if(this->grafico)
-        this->smgr->clear();
+    this->smgr->clear();
     
-    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion,this->grafico);
+    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion);
     if(err!="")
         this->juego->getManejadorGUI()->MsgBox(err.c_str(),true,Grafico::BOK_ADVERTENCIA);
 }

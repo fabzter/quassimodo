@@ -61,7 +61,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
                        this->app->getManJuego()->getManejadorGUI()->MsgBox("Proximamente!!");
                         break;
                     case  B_CREDITOS:
-                        this->app->getManJuego()->getManejadorGUI()->creditos(true);
+                        this->app->getManJuego()->getManejadorGUI()->creditos();
                         break;
                     case B_SALIR:
                         this->app->getManJuego()->setSalir(true);

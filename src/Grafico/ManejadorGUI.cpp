@@ -4,11 +4,9 @@
 
 using namespace irr;
 
-Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin,bool grafico) {
+Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin) {
     this->menu=new Menu(smgr,env,t,skin);
-    this->Gui=NULL;
-    if(grafico)
-        this->Gui=new GUI(smgr,env,skin);
+    this->Gui=new GUI(smgr,env,skin);
 
 }
 
@@ -16,8 +14,7 @@ Grafico::ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
 }
 
 Grafico::ManejadorGUI::~ManejadorGUI() {
-    if(this->Gui!=NULL)
-        delete(this->Gui);
+    delete(this->Gui);
     delete(this->menu);
 }
 void Grafico::ManejadorGUI::dropMenu(){
@@ -46,12 +43,9 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
      return this->Gui->getAgenteSeleccionado();
  }
 
- char Grafico::ManejadorGUI::setMenu(bool grafico){
+ void Grafico::ManejadorGUI::setMenu(){
 
-        this->menu->setMenuP();
-        return '0';
-
-     
+        this->menu->setMenuP();   
  }
 
  void Grafico::ManejadorGUI::SetTextBtnAngt(int num, std::string text){
@@ -73,9 +67,9 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
  }
 
 
-  void Grafico::ManejadorGUI::creditos(bool grafico){
-  
-          this->Gui->setCreditos();
+  void Grafico::ManejadorGUI::creditos(){
+
+      this->Gui->setCreditos();
 
   }
 
