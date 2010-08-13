@@ -121,16 +121,6 @@ public:
      */
     void setSalir(bool valor);
     /**
-     * Pide los agentes desde modo consola los almacena e inicia la partida.
-     * @param ambos, si se van a pedia ambos agentes o no.
-     * @return true si la partida ha iniciado, false en caso contrario.
-     */
-    bool SetAgentesConsola(bool ambos);
-    /**
-     *Imprime el tablero en consola y espera hasta que se presione la tecla INTRO.
-     */
-    void imprimeTableroConsola();
-    /**
      *Elimina la camara actual del manejador de la escena.
      */
     void dropCamera();
@@ -205,7 +195,7 @@ private:
     /**
      * Un apuntador de la clase Partida que es la que se encarga de mantener la partida
      */
-    Partida *partida;
+    PartidaGrafica *partida;
     /**
      * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */

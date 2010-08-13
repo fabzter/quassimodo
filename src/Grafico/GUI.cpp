@@ -71,10 +71,6 @@ std::string Grafico::GUI::getAgenteSeleccionado()
     return std::string(w_path.string().begin(), w_path.string().end());
 }
 
- void  Grafico::GUI::OpenFileDialog()
- {
-      op = this->env->addFileOpenDialog(L"Selecciona el Agente",true,0,5);
- }
  
 void Grafico::GUI::dropAvsA(){
     if(this->AvsA!=0){

@@ -1,7 +1,9 @@
 
 #ifndef PARTIDAGRAFICA_HPP
 #define	PARTIDAGRAFICA_HPP
-#include "Partida.hpp"
+#include<Reglas/Juez.hpp>
+#include<Reglas/Jugador.hpp>
+#include<vector>
 #include<irrlicht/irrlicht.h>
 #include<Grafico/Barrera.hpp>
 #include<Grafico/Tablero.hpp>
@@ -11,7 +13,7 @@
 
 using namespace irr;
 using namespace Grafico;
-class PartidaGrafica: public Partida {
+class PartidaGrafica {
  friend class ManejadorJuego;
 public:
 /**
@@ -63,6 +65,29 @@ public:
 
     bool animacionesEnd();
     std::vector<std::string> getNombresAgentes();
+        /**
+     * Nos indica el valor de la bandera esta_en_curso.
+     * @return true si la Partida está andando, false si se ha detenido por
+     * algún motivo (como que hay un ganador o se han roto las reglas).
+     */
+    virtual bool estaEnCurso();
+
+    /**
+     * Nos indica el valor de la bandera hay_ganador
+     * @return true si existe un ganador, false de lo contrario.
+     */
+    bool hayGanador();
+    /**
+     * Regresa el numero del jugador ganador.
+     * @return un entero que indica el jugador que gano la partida.
+     */
+    int getJugadorGanador();
+    /**
+     * regresa el agente con el error
+     * @return un caracter que contiene el numero del agente con error
+     */
+    char getAgenteConError();
+
 
 
 private:
@@ -95,7 +120,14 @@ private:
      *Elimina los jugadores de la PartidaGrafica y de la escena actual.
      */
     void dropJugadores();
-
+            /**
+     * En si este es le método siguente jugada, pues cada clase que hereda de esta manda a llamar a este método
+     * solo que cada una le pasa un apuntador a su tablero.
+     * @param t un apuntador al tablero de la partida
+     * @return true si se realizó la jugada
+     * @return false si la Jugada ha terminado (por ejemplo si ganó un Jugador)
+     */
+    bool Siguiente(Reglas::Tablero *t);
     /**
      * Tablero sobre el que se realizará la PartidaGrafica.
      */
@@ -134,7 +166,42 @@ private:
      *Este objeto es el encargado de administrar los agentes disponibles en el sistema.
      */
     Agentes::ManejadorAgentes* ManAgentes;
+
      scene::ISceneNode *parent;
+
+     /**
+     * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se
+     * eliminen hasta el final de la partida.
+     */
+    std::vector< Reglas::Jugador* > jugadores;
+    /**
+     * Este es el Juez que se usará en ésta partida. Atado al Tablero con que se
+     * construye la Partida, éste Juez se construye en el contructor de Partida.
+     */
+     Reglas::Juez* juez;
+    /**
+     * El identificador del Jugador al que se le pedirá la siguiente Jugada.
+     */
+     int jugador_en_turno;
+
+     /**
+      * Tiene el id del Jugador que ha ganado la Partida.
+      */
+     int jugador_ganador;
+
+     /**
+      * Bandera que se prende en true cuando hay un ganador.
+      */
+     bool hay_ganador;
+
+     /**
+      * Bandera que se encuentra en true mientras la Partida no ha terminado.
+      */
+     bool en_curso;
+     /**
+      * variale que indica el agente en el que hubo error al cargarse;
+      */
+     char errorEnAgente;
 
 };
 

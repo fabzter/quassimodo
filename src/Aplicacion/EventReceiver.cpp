@@ -66,14 +66,6 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case B_SALIR:
                         this->app->getManJuego()->setSalir(true);
                         break;
-                    case BA_AGENTE_1:
-                        this->noA=0;
-                       this->app->getManJuego()->getManejadorGUI()->OpenFileDialog();
-                        break;
-                    case BA_AGENTE_2:
-                        this->noA=1;
-                        this->app->getManJuego()->getManejadorGUI()->OpenFileDialog();
-                        break;
                     case BO_INICIA:
                         this->app->getManJuego()->setAgente(this->app->getManJuego()->getManejadorGUI()->getAgenteSeleccionado(), 1);
                         this->app->getManJuego()->getManejadorGUI()->dropAvsA();

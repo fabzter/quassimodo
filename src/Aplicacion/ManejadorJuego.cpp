@@ -32,7 +32,7 @@ void ManejadorJuego::init(){
     this->clearAgentes();
     this->pausa=false;
     this->partidainiciada=false;
-    if(this->grafico){
+    
         this->partida=new PartidaGrafica(this->smgr,this->skin,this->env,this->velAnim);
         PartidaGrafica *p= (PartidaGrafica*)this->partida;
         this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
@@ -40,11 +40,7 @@ void ManejadorJuego::init(){
         this->cam=0;
         
         //this->setEscala(5,5,5);
-    }
-    else{
-        this->partida=new PartidaConsola();
-        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
-    }
+
 
 }
 char ManejadorJuego::setMenu(){
@@ -80,8 +76,7 @@ bool ManejadorJuego::setPartida(){
 }
 
  void ManejadorJuego::setEscala(int x,int y,int z){
-     PartidaGrafica *p= (PartidaGrafica*)this->partida;
-     p->SetEscala(x,y,z);
+     this->partida->SetEscala(x,y,z);
      this->mgui->setEscala(x,y,z);
  }
 
@@ -255,23 +250,6 @@ void ManejadorJuego::setSalir(bool valor){
     this->salir=valor;
 }
 
-bool ManejadorJuego::SetAgentesConsola(bool ambos){
-    //this->setAgente(this->getManejadorGUI()->getPath(false,1), 0);
-    if(ambos)
-        this->setAgente(this->getManejadorGUI()->getPath(false,2), 1);
-    else
-        this->hayagente=true;//this->setAgente("../../bin/agenteBarreras2.py", 1);
-
-    return this->setPartida();
-
-}
-void ManejadorJuego::imprimeTableroConsola(){
-     PartidaConsola *p= (PartidaConsola*)this->partida;
-     p->impimeTablero();
-    //std::cout<<std::cout.tellp()<<std::endl;
-    std::cin.get();
-}
-
 void ManejadorJuego::dropCamera(){
     if(this->cam!=0){
         this->cam->removeAnimators();
@@ -288,9 +266,8 @@ const char* ManejadorJuego::getMsjGanador(){
 
 void ManejadorJuego::despachaJugada(){
 
-    if(this->partida->estaEnCurso()&& !this->pausa){
-        PartidaGrafica *p= (PartidaGrafica*)this->partida;
-        if( p->animacionesEnd() ){
+    if(this->partida->estaEnCurso()&& !this->pausa){      
+        if( this->partida->animacionesEnd() ){
             this->SiguienteJugada();
         }
     }
@@ -303,8 +280,7 @@ void ManejadorJuego::Pausar(){
     }
 }
 void ManejadorJuego::AgntVsMkn(){
-    PartidaGrafica *p= (PartidaGrafica*)this->partida;
-    this->mgui->AgntVSAgnt( false, p->getNombresAgentes() );
+    this->mgui->AgntVSAgnt( false, this->partida->getNombresAgentes() );
 }
 
 void ManejadorJuego::setObjetivoCam(){

@@ -41,32 +41,16 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
          this->Gui->AgntVSMkn(lista);
  }
 
- std::string Grafico::ManejadorGUI::getPath(bool grafico,int noA){
-     if(grafico){
-         return this->Gui->getAgenteSeleccionado();
-     }
-     else{
-         return this->pideAgente(noA);
-     }
 
-     
- }
  std::string Grafico::ManejadorGUI::getAgenteSeleccionado(){
      return this->Gui->getAgenteSeleccionado();
  }
 
- void  Grafico::ManejadorGUI::OpenFileDialog(){
-     this->Gui->OpenFileDialog();
- }
-
  char Grafico::ManejadorGUI::setMenu(bool grafico){
 
-     if(grafico){
         this->menu->setMenuP();
         return '0';
-     }
-     else
-        return this->menu->MenuConsola();
+
      
  }
 
@@ -81,30 +65,17 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
  void Grafico::ManejadorGUI::setMenuPartida(){
      this->Gui->setBotonesPartida();
  }
+
  void Grafico::ManejadorGUI::MsgBoxConsola(const char* msg){
     std::cout<<std::endl<<"###############################################################################";
     std::cout<<std::endl<<msg<<std::endl;
     std::cout<<std::endl<<"###############################################################################"<<std::endl<<std::endl;
  }
-  std::string Grafico::ManejadorGUI::pideAgente(int noA){
-    std::string agente;
-    std::cout<<std::endl<<"Escribe la ruta del Agente :"<<noA<<std::endl;
-    std::cin>>agente;
-    return agente;
-  }
+
 
   void Grafico::ManejadorGUI::creditos(bool grafico){
-
-      if(!grafico){
-          std::string creditos;
-          creditos="\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernandez Hernandez \t\t <faboster@gmail.com>\n"
-                  "Hugo Cesar Hernandez Pinha \t\t\t <eltokyo@gmail.com>";
-
-          this->MsgBox(creditos.c_str(),grafico);
-      }
-      else{
+  
           this->Gui->setCreditos();
-      }
 
   }
 

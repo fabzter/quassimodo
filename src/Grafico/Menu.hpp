@@ -53,11 +53,7 @@ public:
      * @param z Un entero que representa la escala que tendrá en el eje de las Z
      */
     void SetEscala(int x,int y,int z);
-    /**
-     *Desplega el menu en modo consola
-     * @return la opcion seleccionada del menu
-     */
-    char MenuConsola();
+
 
 
     

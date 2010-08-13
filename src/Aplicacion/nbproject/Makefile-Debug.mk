@@ -36,10 +36,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Aplicacion.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/PartidaGrafica.o \
-	${OBJECTDIR}/PartidaConsola.o \
 	${OBJECTDIR}/ManejadorJuego.o \
-	${OBJECTDIR}/EventReceiver.o \
-	${OBJECTDIR}/Partida.o
+	${OBJECTDIR}/EventReceiver.o
 
 
 # C Compiler Flags
@@ -89,11 +87,6 @@ ${OBJECTDIR}/PartidaGrafica.o: PartidaGrafica.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaGrafica.o PartidaGrafica.cpp
 
-${OBJECTDIR}/PartidaConsola.o: PartidaConsola.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaConsola.o PartidaConsola.cpp
-
 ${OBJECTDIR}/ManejadorJuego.o: ManejadorJuego.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -103,11 +96,6 @@ ${OBJECTDIR}/EventReceiver.o: EventReceiver.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/EventReceiver.o EventReceiver.cpp
-
-${OBJECTDIR}/Partida.o: Partida.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Partida.o Partida.cpp
 
 # Subprojects
 .build-subprojects:

@@ -45,19 +45,9 @@ public:
     void nuevoJuego();
 private:
     /**
-     * Loop principal de la aplicacion si solo se ejecuta en modo consola
-     */
-    void loopConsola();
-    /**
      *Loop principal de la aplicacion si se ejecuta en modo 3D
      */
     void loopGrafico();
-    /**
-     *Maneja la opcion seleccionada del menu de consola.
-     * @param op un caracter que representa la opcion
-     * @return true si la opcion seleccionada inica partida, false en caso contrario
-     */
-    bool seleccionaOpcion(char op);
     /**
      * Prepara, la palicacion para iinciar una partida de inmediato, con los argumentos dados al 
      * ejecutable.

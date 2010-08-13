@@ -8,7 +8,6 @@ Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones){
     if(this->Dvideo->getVideoType()==video::EDT_NULL) this->grafico=false; else this->grafico=true;
     this->velAnimacion=opciones.getVelocidad();
     std::string err="";
-    if(this->grafico){
         this->device=this->Dvideo->creaDevice (opciones.isFullScreen() );
         this->Vdriver = this->device->getVideoDriver();
         this->smgr = this->device->getSceneManager();
@@ -21,22 +20,19 @@ Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones){
         }
         catch(Grafico::SkinNoCargado &e){
             err=e.what();
-            err+=" \n>>>>>Cambio a modo Consola<<<<< ";
+            err+=" \n>>>>>Saliendo de la Aplicación<<<<< ";
             this->grafico=false;
             this->dropIrrlicht();
             this->setNull();
         }
         
-    }
-     else{
-        this->setNull();
-     }
+    
 
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion,this->grafico);
 
     if(err!="")
         this->juego->getManejadorGUI()->MsgBox(err.c_str(),this->grafico,Grafico::BOK_ADVERTENCIA);
-
+   
     this->quick(opciones.getAgentePath(0),opciones.getAgentePath(1));
 }
 
@@ -51,12 +47,9 @@ Aplicacion::~Aplicacion() {
 }
 
 void Aplicacion::run(){
-    if(!this->grafico)
-        this->loopConsola();
-    else
+
         this->loopGrafico();
 
-   
 }
 
 ManejadorJuego* Aplicacion::getManJuego(){
@@ -122,85 +115,15 @@ void Aplicacion::loopGrafico(){
                 this->juego->setPartida();
                 this->p_rapida=false;
             }
+            
             }
         else{
             this->device->yield();
                 }
         }
 }
-void Aplicacion::loopConsola(){
 
-   
-   if( this->p_rapida || this->seleccionaOpcion( this->juego->setMenu() ) )
-   {
-       if(this->p_rapida){
-            this->juego->setPartida();
-            this->p_rapida=false;
-       }
-        while(this->juego->enCurso())
-        {
-            try{
-                this->juego->SiguienteJugada();
-            }
-            catch(std::exception &e)
-            {
-                this->loopConsola();
-                break;
-            }
-            this->juego->imprimeTableroConsola();
-            
-            
-        }
-   }
-   if(this->juego->hayGanador())
-        {
-            this->juego->getManejadorGUI()->MsgBox(this->juego->getMsjGanador(),false);
-            this->juego->getManejadorGUI()->MsgBox(" ¡¡Bye!! ",false);
-        }
 
- 
-
-}
-
-bool Aplicacion::seleccionaOpcion(char op){
-
-          switch(op){
-            case 'a': case 'A':
-                if( this->juego->SetAgentesConsola(true) )
-                    return true;
-                else{
-                    this->loopConsola();
-                    return false;}
-                break;
-            case 'b': case 'B':
-                if( this->juego->SetAgentesConsola(false) )
-                    return true;
-                else{
-                    this->loopConsola();
-                    return false;}
-                break;
-            case 'c':case 'C':
-                this->juego->getManejadorGUI()->creditos(false);
-                this->loopConsola();
-                return false;
-                break;
-            case 'd':case 'D':
-                this->juego->getManejadorGUI()->MsgBox(" ¡¡Proximamente!! ",false);
-                this->loopConsola();
-                return false;
-                break;
-            case 'e': case 'E':
-                this->juego->getManejadorGUI()->MsgBox(" ¡¡Bye!! ",false);
-                return false;
-                break;
-            default:
-                this->juego->getManejadorGUI()->MsgBox(" ¡¡Opcion incorrecta!! ",false);
-                this->loopConsola();
-                return false;
-                break;
-    }
-          
-  }
 void Aplicacion::quick(std::string pathJ1,std::string pathj2){
 
     if(pathJ1!=""&& pathj2!=""){

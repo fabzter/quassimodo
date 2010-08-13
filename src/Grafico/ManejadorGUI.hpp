@@ -51,25 +51,11 @@ public:
      * @param lista liste de Agentes a seleccionar
      */
     void AgntVSAgnt(bool ambos,std::vector<std::string> lista);
-    //TODO: eliminar este método
-    /**
-     *manda a llamar al metodo de la clase GUI
-     * @as GUI::getPath()
-     * @return un string con el path del archivo seleccionado
-     * @param grafico si se va a pedir desde modo grafico o modo consola el path
-     * @param noA numero del agente a pedir,se ignora en modo 3D
-     */
-     std::string getPath(bool grafico=true,int noA=1);
      /**
       * regresa el Agente seleccionado en el combo Box
       * @return un string que contiene el nombre del agente.
       */
      std::string getAgenteSeleccionado();
-     /**
-      *abrimos una caja de "OpenFile"
-      * @as GUI:: OpenFileDialog
-      */
-     void  OpenFileDialog();
      /**
       *Se coloca el menú principal del Juego
       *@param grafico indica si el menu estara en 3D o en consola.
@@ -123,12 +109,6 @@ private:
      * @param msg mensaje a enviar.
      */
     void MsgBoxConsola(const char* msg);
-    /**
-     *Pide el path del agente desde modo consola
-     * @param noA numero del agente que se va a pedir
-     * @return un string que contiene la direccion del archivo del agente.
-     */
-    std::string pideAgente(int noA=1);
 
     /**
      * un apuntador e un objeto de la Clase Menu
