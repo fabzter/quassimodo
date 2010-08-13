@@ -61,22 +61,9 @@ ManejadorJuego* Aplicacion::getManJuego(){
 }
 
 void Aplicacion::nuevoJuego(){
-    std::string err="";
-    try{
-        delete this->juego;
-    }
-    catch(std::exception& e){
-        err=e.what();
-        this->juego->getManejadorGUI()->dropMenu();
-        this->smgr->clear();
-        
-    }
-    
+    delete (this->juego);
     this->smgr->clear();
-    
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion);
-    if(err!="")
-        this->juego->getManejadorGUI()->MsgBox(err.c_str(),true,Grafico::BOK_ADVERTENCIA);
 }
 
 void Aplicacion::loopGrafico(){
