@@ -110,12 +110,19 @@ public:
     std::string getAntorchaTexturaPath();
 
     /**
-     * Nos indica el Path a la textura de las barreras, especificado en el archivo de
-     * configuración.
+     * Nos indica el Path a la textura de la barrera del jugador 1, especificado
+     * en el archivo de configuración.
      * @return una string que contiene el path relativo al archivo de textura de
      * las barreras.
      */
-    std::string getBarreraTexturaPath();
+    std::string getBarrera1TexturaPath();
+    /**
+     * Nos indica el Path a la textura de la barrera del jugador 2, especificado
+     * en el archivo de configuración.
+     * @return una string que contiene el path relativo al archivo de textura de
+     * las barreras.
+     */
+    std::string getBarrera2TexturaPath();
 
     /**
      * Nos indica el Path a la textura de las celdas, especificado en el archivo de

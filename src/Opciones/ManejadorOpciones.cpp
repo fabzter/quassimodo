@@ -61,7 +61,10 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("skin.texturas.antorcha",
             po::value<string>()->default_value(string("conf/skin_default/fire.bmp")),
                                         "Path relativo a la textura de la antorcha.")
-            ("skin.texturas.barrera",
+            ("skin.texturas.barrera_1",
+            po::value<string>()->default_value(string("conf/skin_default/BrickOldDirty0078_S.jpg")),
+                                        "Path relativo al modelo la textura de las barreras.")
+            ("skin.texturas.barrera_2",
             po::value<string>()->default_value(string("conf/skin_default/BrickOldDirty0078_S.jpg")),
                                         "Path relativo al modelo la textura de las barreras.")
             ("skin.texturas.celda",
@@ -260,9 +263,13 @@ std::string Opciones::ManejadorOpciones::getAntorchaTexturaPath()
     return this->vm["skin.texturas.antorcha"].as<std::string>();
 }
 
-std::string Opciones::ManejadorOpciones::getBarreraTexturaPath()
+std::string Opciones::ManejadorOpciones::getBarrera1TexturaPath()
 {
-    return this->vm["skin.texturas.barrera"].as<std::string>();
+    return this->vm["skin.texturas.barrera_1"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBarrera2TexturaPath()
+{
+    return this->vm["skin.texturas.barrera_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getCeldaTexturaPath()
