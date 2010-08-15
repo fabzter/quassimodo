@@ -53,19 +53,9 @@ public:
       */
      std::string getAgenteSeleccionado();
      /**
-      *lanza la caja de dialogo en la cual seleccionamos los agentes
-      */
-     void  OpenFileDialog();
-     /**
       * elimina de la escena el cuadro selector de agentes
       */
      void dropAvsA();
-     /**
-      *Cambia el texto a los botones de los agentes segun el archivo seleccionado
-      * @param num numero de boton del agente a cambiar el texto
-      * @param text Texto a ser colocado en el Boton
-      */
-     void setTextAgnt(int num,const char* text);
      /**
       *Coloca los botones de la partida que son los de las vistas, salir al menú y pausa.
       */
@@ -129,11 +119,6 @@ private:
      * Un apuntador al manejador de GUI del juego
      */
     gui::IGUIEnvironment* env;
-    /**
-     * Un apuntador a una ventana  de "Openfile" la cual nos serviar para que una vez presionado OK
-     * podamos extraer el path del archivo seleccionado
-     */
-    gui::IGUIFileOpenDialog *op;
     /**
      * Un apuntador a la ventana de selector de Agentes
      */

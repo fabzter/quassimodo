@@ -7,7 +7,6 @@
 #include <Grafico/Skin.hpp>
 #include <Reglas/Excepciones.hpp>
 #include <irrlicht/irrList.h>
-#include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
 #include <sstream>
 #include <string>
@@ -25,9 +24,8 @@ public:
      * @param env un apuntador al creador de GUI que proporciona irrlicht
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
-     * @param grafico bandera que indica si la aplicacion correra en modo grafico o solo en consola
      */
-    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,int VelAnim,bool grafico=true);
+    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,int VelAnim);
     /**
      * Constructor copia de la clase
      *@param orig un objeto de la clase ManejadorJuego
@@ -43,9 +41,8 @@ public:
     void init();
     /**
      * Coloca el Menu en la escena
-     * @return un caracter que representa la opcion seleccionada en modo consola, o un caracter cualquiera si fue ejecutado en modo grafico
      */
-    char setMenu();
+    void setMenu();
     /**
      * elimina el menú principal y si se han seleccionado los agentes inicia la partida
      * @return true si la partida ha iniciado, false en caso contrario.
@@ -100,11 +97,6 @@ public:
      */
     void printCam();
     /**
-     *Cambia el texto en el boton selector de agentes
-     * @param bAgente numero de boton del agente a cambiar
-     */
-    void CambiaTextoAgnt(int bAgente);
-    /**
      * Cambia la vista de la camara en la partida
      * @param vista numero de vista a colocar
      */
@@ -120,16 +112,6 @@ public:
      * @param valor un bool
      */
     void setSalir(bool valor);
-    /**
-     * Pide los agentes desde modo consola los almacena e inicia la partida.
-     * @param ambos, si se van a pedia ambos agentes o no.
-     * @return true si la partida ha iniciado, false en caso contrario.
-     */
-    bool SetAgentesConsola(bool ambos);
-    /**
-     *Imprime el tablero en consola y espera hasta que se presione la tecla INTRO.
-     */
-    void imprimeTableroConsola();
     /**
      *Elimina la camara actual del manejador de la escena.
      */
@@ -154,12 +136,6 @@ public:
      */
     void AgntVsMkn();
 private:
-    /**
-     *Metodo que separa el nombre del archivo del path del agente
-     * @param str path en donde se encuentra el agente
-     * @return string con el nombre del archivo que contiene al agente
-     */
-    std::string SplitNombre(std::string str);
     /**
      *Coloca la camara de la partida asi como tambien el tope de esta
      * para que no pase mas abajo del terreno del piso
@@ -205,7 +181,7 @@ private:
     /**
      * Un apuntador de la clase Partida que es la que se encarga de mantener la partida
      */
-    Partida *partida;
+    PartidaGrafica *partida;
     /**
      * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
@@ -228,10 +204,6 @@ private:
      * Bandera que indica si el usuario desea salir de la aplicacion
      */
     bool salir;
-    /**
-     * bandera que indica si la partida sera en modo 3D o en modo consola.
-     */
-    bool grafico;
     /**
      * bandera que indica si la partida fue iniciada o no.
      */

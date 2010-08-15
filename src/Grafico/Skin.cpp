@@ -74,7 +74,7 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->Barrera=smgr->getMesh(this->opciones->getBarreraModeloPath().c_str());
-    this->TBarrera=smgr->getVideoDriver()->getTexture(this->opciones->getBarreraTexturaPath().c_str());
+    this->TBarrera=smgr->getVideoDriver()->getTexture(this->opciones->getBarrera1TexturaPath().c_str());
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Barrera ";

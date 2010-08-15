@@ -119,20 +119,7 @@ void Grafico::Menu::dropMenuP(){
       }
     
  }
-
-  char Grafico::Menu::MenuConsola(){
-    char op;
-    std::cout<<std::endl<<"\t\t¡¡Bienvenido a Quassimodo!!"<<std::endl<<std::endl;
-    std::cout<<"Por favor selecciona la letra indicada según la Opcion que desees: "<<std::endl<<std::endl;
-    std::cout<<"a) Agente Vs Agente"<<std::endl;
-    std::cout<<"b) Agente Vs Maquina"<<std::endl;
-    std::cout<<"c) Creditos"<<std::endl;
-    std::cout<<"d) Ayuda"<<std::endl;
-    std::cout<<"e) Salir"<<std::endl;
-    std::cin>>op;
-    return op;
-  }
-  
+ 
  bool Grafico::Menu::menuEnEscena(){
      return this->haymenu;
  }

@@ -6,7 +6,11 @@ using namespace irr;
 using namespace Grafico;
 
 
-PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env,int VelAnim): Partida() {
+PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env,int VelAnim) {
+    this->juez = NULL;
+    this->jugadores.reserve(2);
+    this->en_curso = this->hay_ganador = false;
+    this->jugador_ganador = this->jugador_en_turno = 0;
     this->skin=skin;
     this->smgr=smgr;
     this->env=env;
@@ -31,7 +35,7 @@ PartidaGrafica::PartidaGrafica(const PartidaGrafica& orig) {
 }
 
 PartidaGrafica::~PartidaGrafica() {
-
+      delete this->juez;
      this->dropJugadores();
      for(int i=0;i<this->antorchas.size();i++){
         delete this->antorchas.at(i);
@@ -168,9 +172,11 @@ bool PartidaGrafica::animacionesEnd(){
         }
     }
 }
+
 std::vector<std::string> PartidaGrafica::getNombresAgentes(){
     return this->ManAgentes->getNombresAgentes();
 }
+
 void PartidaGrafica::dropBarreras(){
 
      for(int i=0;i<this->Barreras.size();i++){
@@ -188,3 +194,54 @@ void PartidaGrafica::dropJugadores() {
       }
      this->jugadores.clear();
  }
+
+
+bool PartidaGrafica::estaEnCurso()
+{
+    return this->en_curso;
+}
+
+bool PartidaGrafica::hayGanador()
+{
+    return this->hay_ganador;
+}
+int PartidaGrafica::getJugadorGanador(){
+
+    return this->jugador_ganador;
+}
+
+/*std::vector<Reglas::Agente*> PartidaGrafica::getAgentes(std::string rutaAgente1,std::string rutaAgente2,Reglas::Tablero* t){
+     //TODO: Pedir en verdad a los agentes!
+    std::vector<Reglas::Agente*> agentes;
+
+    return agentes;
+
+}*/
+ char PartidaGrafica::getAgenteConError(){
+     return this->errorEnAgente;
+ }
+
+bool PartidaGrafica::Siguiente(Reglas::Tablero *t){
+
+     if(!this->en_curso)
+        throw Reglas::PartidaTerminada();
+    this->en_curso = false; //si todo sale bien, la regresamos a en_curso = true
+    //pedimos la Jugada y enviamos excepciones
+    Reglas::Jugada j= this->juez->siguienteJugada(this->jugador_en_turno);
+   this->en_curso = true;
+
+    this->actualizarTablero(j, this->jugador_en_turno);
+    //actualizamos el Jugador en turno.
+    this->jugador_en_turno =
+            ++(this->jugador_en_turno) % t->num_jugadores;
+
+    //Actualizamos Banderas:
+    int idGanador = this->juez->hayGanador();
+    if(idGanador >= 0)
+    {
+        this->hay_ganador = true;
+        this->jugador_ganador = idGanador+1;
+        this->en_curso = false;
+    }
+    return this->en_curso;
+}

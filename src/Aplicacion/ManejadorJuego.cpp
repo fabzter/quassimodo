@@ -1,9 +1,8 @@
 #include "ManejadorJuego.hpp"
 
 ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,
-        gui::IGUIEnvironment* env, Grafico::Skin* skin,int VelAnim,bool grafico)
+        gui::IGUIEnvironment* env, Grafico::Skin* skin,int VelAnim)
 {
-    this->grafico=grafico;
     this->smgr=smgr;
     this->env=env;
     this->skin=skin;
@@ -12,49 +11,42 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,
     this->Agentes.resize(2);
     this->velAnim=VelAnim;
     this->init();
-    if(grafico)
-      this->setMenu();    
+    if(smgr!=NULL)
+        this->setMenu();
 }
 
 ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 }
 
-ManejadorJuego::~ManejadorJuego() {  
-    delete(this->partida);
-    delete(this->mgui);
-    if(this->grafico){
-        
-        this->dropSkinAmbiente();
-    }
+ManejadorJuego::~ManejadorJuego() {
+    if(this->smgr!=NULL){
+        delete(this->partida);
+        this->dropSkinAmbiente();}
+    delete(this->mgui);     
+    
+    
 }
 void ManejadorJuego::init(){
 
     this->clearAgentes();
     this->pausa=false;
     this->partidainiciada=false;
-    if(this->grafico){
+    if(this->smgr!=NULL){
         this->partida=new PartidaGrafica(this->smgr,this->skin,this->env,this->velAnim);
-        PartidaGrafica *p= (PartidaGrafica*)this->partida;
-        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,p->t,this->skin,this->grafico);
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin);
         this->setSkinAmbiente();
         this->cam=0;
-        
-        //this->setEscala(5,5,5);
     }
     else{
-        this->partida=new PartidaConsola();
-        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,NULL,this->skin,this->grafico);
+        this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,NULL,this->skin);
     }
+        
+
 
 }
-char ManejadorJuego::setMenu(){
-    
-
-    if(this->grafico){
-        this->setCamMenu();
-
-    }
-    return this->mgui->setMenu(this->grafico);
+void ManejadorJuego::setMenu(){
+    this->setCamMenu();
+    this->mgui->setMenu();
 
 }
 
@@ -65,11 +57,10 @@ bool ManejadorJuego::setPartida(){
 
         this->partida->iniciarPartida();
         this->partidainiciada=true;
-        if(this->grafico){
-            this->mgui->dropMenu();
-            this->setCamJuego();
-            this->mgui->setMenuPartida();
-        }
+        this->mgui->dropMenu();
+        this->setCamJuego();
+        this->mgui->setMenuPartida();
+        
         return this->partidainiciada;
     }
     else{
@@ -80,8 +71,7 @@ bool ManejadorJuego::setPartida(){
 }
 
  void ManejadorJuego::setEscala(int x,int y,int z){
-     PartidaGrafica *p= (PartidaGrafica*)this->partida;
-     p->SetEscala(x,y,z);
+     this->partida->SetEscala(x,y,z);
      this->mgui->setEscala(x,y,z);
  }
 
@@ -92,14 +82,12 @@ bool ManejadorJuego::SiguienteJugada(){
         }
          catch(std::exception &e)
          {
-            this->mgui->MsgBox(e.what(),this->grafico,BOK_ERROR);
-            if(!this->grafico)
-                throw;
+            this->mgui->MsgBox(e.what(),true,BOK_ERROR);
          }
 
-     if(this->hayGanador() && this->grafico )
+     if(this->hayGanador() )
       {
-        this->mgui->MsgBox(this->getMsjGanador(),this->grafico );
+        this->mgui->MsgBox(this->getMsjGanador(),true );
       }
     return curso;
 }
@@ -147,22 +135,7 @@ void ManejadorJuego::clearAgentes(){
      
 
   }
- void ManejadorJuego::CambiaTextoAgnt(int bAgente){
-     std::string nom= this->SplitNombre( this->Agentes[bAgente] ) ;
-      std::cout<<"nom  " <<nom<<std::endl;
-     this->mgui->SetTextBtnAngt(bAgente ,nom );
 
- }
-
-std::string ManejadorJuego::SplitNombre (std::string str)
-{
-  size_t found;
-   std::cout<<"en find  " <<str<<std::endl;
-  found=str.find_last_of("/\\");
-  std::cout<< str.substr(found+1) <<std::endl;
-  return str.substr(found+1) ;
-
-}
 
  void ManejadorJuego::setCamJuego(){
    
@@ -255,23 +228,6 @@ void ManejadorJuego::setSalir(bool valor){
     this->salir=valor;
 }
 
-bool ManejadorJuego::SetAgentesConsola(bool ambos){
-    //this->setAgente(this->getManejadorGUI()->getPath(false,1), 0);
-    if(ambos)
-        this->setAgente(this->getManejadorGUI()->getPath(false,2), 1);
-    else
-        this->hayagente=true;//this->setAgente("../../bin/agenteBarreras2.py", 1);
-
-    return this->setPartida();
-
-}
-void ManejadorJuego::imprimeTableroConsola(){
-     PartidaConsola *p= (PartidaConsola*)this->partida;
-     p->impimeTablero();
-    //std::cout<<std::cout.tellp()<<std::endl;
-    std::cin.get();
-}
-
 void ManejadorJuego::dropCamera(){
     if(this->cam!=0){
         this->cam->removeAnimators();
@@ -288,9 +244,8 @@ const char* ManejadorJuego::getMsjGanador(){
 
 void ManejadorJuego::despachaJugada(){
 
-    if(this->partida->estaEnCurso()&& !this->pausa){
-        PartidaGrafica *p= (PartidaGrafica*)this->partida;
-        if( p->animacionesEnd() ){
+    if(this->partida->estaEnCurso()&& !this->pausa){      
+        if( this->partida->animacionesEnd() ){
             this->SiguienteJugada();
         }
     }
@@ -303,8 +258,7 @@ void ManejadorJuego::Pausar(){
     }
 }
 void ManejadorJuego::AgntVsMkn(){
-    PartidaGrafica *p= (PartidaGrafica*)this->partida;
-    this->mgui->AgntVSAgnt( false, p->getNombresAgentes() );
+    this->mgui->AgntVSAgnt( false, this->partida->getNombresAgentes() );
 }
 
 void ManejadorJuego::setObjetivoCam(){

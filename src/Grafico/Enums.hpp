@@ -18,18 +18,6 @@ enum GUI_BOTONES{
 
 };
 /**
- * Este enum, contiene los identificadores para los botones de seleccionar agente.
- */
-enum GUI_BOTONES_AGENTES{
-
-    BA_AGENTE_1=10,
-    BA_AGENTE_2,
-    /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
-     se agregan antes de COUNT*/
-    BA_COUNT=2
-
-};
-/**
  * Enum que contiene los identificadores de las opciones del cuadro de dialogo de selecciona agentes
  */
 enum GUI_BOTONES_OPCION{

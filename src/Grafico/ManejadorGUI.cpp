@@ -4,11 +4,15 @@
 
 using namespace irr;
 
-Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin,bool grafico) {
-    this->menu=new Menu(smgr,env,t,skin);
-    this->Gui=NULL;
-    if(grafico)
-        this->Gui=new GUI(smgr,env,skin);
+Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin) {
+    if(t!=NULL){
+        this->menu=new Menu(smgr,env,t,skin);
+        this->Gui=new GUI(smgr,env,skin);}
+    else{
+        this->menu=NULL;
+        this->Gui=NULL;
+    }
+    
 
 }
 
@@ -18,7 +22,8 @@ Grafico::ManejadorGUI::ManejadorGUI(const ManejadorGUI& orig) {
 Grafico::ManejadorGUI::~ManejadorGUI() {
     if(this->Gui!=NULL)
         delete(this->Gui);
-    delete(this->menu);
+    if(this->menu!=NULL)
+        delete(this->menu);
 }
 void Grafico::ManejadorGUI::dropMenu(){
     this->menu->dropMenuP();
@@ -41,38 +46,16 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
          this->Gui->AgntVSMkn(lista);
  }
 
- std::string Grafico::ManejadorGUI::getPath(bool grafico,int noA){
-     if(grafico){
-         return this->Gui->getAgenteSeleccionado();
-     }
-     else{
-         return this->pideAgente(noA);
-     }
 
-     
- }
  std::string Grafico::ManejadorGUI::getAgenteSeleccionado(){
      return this->Gui->getAgenteSeleccionado();
  }
 
- void  Grafico::ManejadorGUI::OpenFileDialog(){
-     this->Gui->OpenFileDialog();
+ void Grafico::ManejadorGUI::setMenu(){
+
+        this->menu->setMenuP();   
  }
 
- char Grafico::ManejadorGUI::setMenu(bool grafico){
-
-     if(grafico){
-        this->menu->setMenuP();
-        return '0';
-     }
-     else
-        return this->menu->MenuConsola();
-     
- }
-
- void Grafico::ManejadorGUI::SetTextBtnAngt(int num, std::string text){
-     this->Gui->setTextAgnt(num,text.c_str() );
- }
 
  void Grafico::ManejadorGUI::setEscala(int x,int y,int z){
      this->menu->SetEscala(x,y,z);
@@ -81,30 +64,17 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
  void Grafico::ManejadorGUI::setMenuPartida(){
      this->Gui->setBotonesPartida();
  }
+
  void Grafico::ManejadorGUI::MsgBoxConsola(const char* msg){
     std::cout<<std::endl<<"###############################################################################";
     std::cout<<std::endl<<msg<<std::endl;
     std::cout<<std::endl<<"###############################################################################"<<std::endl<<std::endl;
  }
-  std::string Grafico::ManejadorGUI::pideAgente(int noA){
-    std::string agente;
-    std::cout<<std::endl<<"Escribe la ruta del Agente :"<<noA<<std::endl;
-    std::cin>>agente;
-    return agente;
-  }
 
-  void Grafico::ManejadorGUI::creditos(bool grafico){
 
-      if(!grafico){
-          std::string creditos;
-          creditos="\t\t****Quassimodo fue desarrollado por:****\n\nFabrizio Alonso Hernandez Hernandez \t\t <faboster@gmail.com>\n"
-                  "Hugo Cesar Hernandez Pinha \t\t\t <eltokyo@gmail.com>";
+  void Grafico::ManejadorGUI::creditos(){
 
-          this->MsgBox(creditos.c_str(),grafico);
-      }
-      else{
-          this->Gui->setCreditos();
-      }
+      this->Gui->setCreditos();
 
   }
 
