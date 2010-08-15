@@ -15,7 +15,6 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
                                                             " la aplicación:");
     this->descriptionCommandLine->add_options()
             ("help,h", "Muestra mensaje de ayuda.")
-            ("texto,t", "Inicia la partida en modo de texto.")
             ("fullscreen,f", "Inicia la partida en modo fullscreen, se ignora"
                              "si se usa modo de texto.")
             ("agentes,a", po::value< vector<string> >()->multitoken(),
@@ -175,8 +174,6 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
         cout << '\n' << *this->descriptionCommandLine << endl;
         exit(0);
     }
-
-    this->video_mode = this->vm.count("texto")? "NULL": "AUTO";
 }
 
 Opciones::ManejadorOpciones::ManejadorOpciones(const ManejadorOpciones& orig)
