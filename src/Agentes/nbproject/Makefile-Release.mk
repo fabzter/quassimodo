@@ -33,6 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/AgenteMinimax2.o \
 	${OBJECTDIR}/ManejadorAgentes.o \
 	${OBJECTDIR}/AgenteAstar.o \
 	${OBJECTDIR}/AgenteCaminaAdelante.o
@@ -63,6 +64,11 @@ dist/Release/GNU-Linux-x86/libAgentes.so: ../Reglas/dist/Release/GNU-Linux-x86/l
 dist/Release/GNU-Linux-x86/libAgentes.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAgentes.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/AgenteMinimax2.o: AgenteMinimax2.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteMinimax2.o AgenteMinimax2.cpp
 
 ${OBJECTDIR}/ManejadorAgentes.o: ManejadorAgentes.cpp 
 	${MKDIR} -p ${OBJECTDIR}

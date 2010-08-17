@@ -79,9 +79,9 @@ micropather::MicroPather* Reglas::Mapa::getPather()
     return this->pather;
 }
 
-std::vector<void*>* Reglas::astar(Reglas::Tablero *t, int idJugador)
+std::vector<void*>* Reglas::astar(const Reglas::Tablero *t, int idJugador)
 {
-    Mapa mapa(t, idJugador);
+    Mapa mapa((Tablero*)t, idJugador);
 
     std::vector< void* >* path;
     std::vector< void* >* min_path = NULL;

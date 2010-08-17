@@ -40,7 +40,7 @@ private:
  * void, que en realidad apuntan a las celdas) desde la posición actual del
  * jugador con id idJugador hasta su meta.
  */
-std::vector<void*>* astar(Tablero *t, int idJugador);
+std::vector<void*>* astar(const Tablero *t, int idJugador);
 }
 #endif	/* _ASTAR_HPP */
 
