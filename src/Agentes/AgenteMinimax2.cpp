@@ -1,3 +1,4 @@
+
 #include "AgenteMinimax2.hpp"
 #include <Reglas/Astar.hpp>
 #include <Reglas/Minimax.hpp>
