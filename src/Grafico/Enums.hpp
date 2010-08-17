@@ -27,7 +27,7 @@ enum GUI_BOTONES_OPCION{
     BO_CREDITOS,
     /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
      se agregan antes de COUNT*/
-    BO_COUNT=2
+    BO_COUNT=3
 
 };
 /**
