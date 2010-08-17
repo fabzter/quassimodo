@@ -7,6 +7,7 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>AgenteAstar.hpp</itemPath>
       <itemPath>AgenteCaminaAdelante.hpp</itemPath>
+      <itemPath>AgenteMinimax2.hpp</itemPath>
       <itemPath>FabricaAgente.hpp</itemPath>
       <itemPath>ManejadorAgentes.hpp</itemPath>
     </logicalFolder>
@@ -21,6 +22,7 @@
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>AgenteAstar.cpp</itemPath>
       <itemPath>AgenteCaminaAdelante.cpp</itemPath>
+      <itemPath>AgenteMinimax2.cpp</itemPath>
       <itemPath>ManejadorAgentes.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
