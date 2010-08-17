@@ -69,6 +69,12 @@ private:
         */
 	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
         /**
+         * Si el click se le dio a un botón éste étodo checa a cual boton fue y realiza
+         * la acción correspondiente.
+         * @param id id del elemento al que se le dio click
+         */
+        void Click_a_Boton(irr::s32 id);
+        /**
          * Un apuntador Nucleo de la aplicacion (la clase Juego)
          */
         Aplicacion* app;
