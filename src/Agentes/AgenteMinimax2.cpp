@@ -34,8 +34,8 @@ Reglas::Jugada Agentes::AgenteMinimax2::siguienteJugada(const Reglas::Tablero ta
     delete path_yo;
     delete path_enemigo;
 
-    if( (len_path_yo < len_path_enemigo) &&
-            (!ayudante.getBarrerasPosibles(this->id).empty()) )
+    if( (len_path_enemigo <= len_path_yo) &&
+            (ayudante.getBarrerasPosibles(this->id).size() > 0) )
     {
         return minimax((Tablero*)&tablero, this->id, 0, 2, BARRERA);
     }
