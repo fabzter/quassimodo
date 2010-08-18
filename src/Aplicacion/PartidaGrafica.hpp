@@ -11,6 +11,10 @@
 
 using namespace irr;
 using namespace Grafico;
+/**
+ *Clase encargada de crear y mantener una partida del juego en modo gráfico.
+ * @as Partida
+ */
 class PartidaGrafica: public Partida {
  friend class ManejadorJuego;
 public:
@@ -60,6 +64,10 @@ public:
      * @return un vector de tamaño 3 en donde tiene el centro del tablero
      */
     core::vector3df getCentro();
+    /**
+     * Indica si la animación de mover jugador o colocar barrera ha terminado
+     * @return true si terminó, false en caso contrario
+     */
     bool animacionesEnd();
 
 
@@ -108,8 +116,8 @@ private:
      */
     std::vector<Grafico::Barrera*> Barreras;
      /**
-      *  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
-         * @param sombra Un booleano que indica si la antorcha llevara sombra o no por default no lleva.
+      * Un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+      * @param sombra Un booleano que indica si la antorcha llevara sombra o no por default no lleva.
       */
      Grafico::Skin* skin;
      /**
@@ -128,7 +136,11 @@ private:
      * velocidad de animacion que tendrá la barrera y el jugador
      */
     int velAnim;
-     scene::ISceneNode *parent;
+    /**
+     * Nodo escena que es el padre de toda la partida, (Tablero,Antorchas y Jugadores)
+     * Utilizado para mejorar el rendimiento de los FPS en la escena.
+     */
+    scene::ISceneNode *parent;
 
 };
 

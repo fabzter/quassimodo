@@ -7,7 +7,10 @@
 #include<Scripting/Manejador.hpp>
 #include<Scripting/Excepciones.hpp>
 
-
+/**
+ * Clase base para realizar una partida, esta contiene los métodos principales para que las clases hijas puedan
+ * mantener una partida ya sea en modo consola o en modo gráfico.
+ */
 class Partida {
 public:
 

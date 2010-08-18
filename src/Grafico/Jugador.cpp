@@ -32,7 +32,7 @@ Grafico::Jugador::~Jugador() {
      this->nodoA->setRotation(giro);
  }
 
- bool Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas){
+ void Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas){
 
       this->nodoA->removeAnimators();
       //new JumpAnimator(node->getPosition(),node1->getPosition(),300.0f,0.0f);
@@ -44,7 +44,7 @@ Grafico::Jugador::~Jugador() {
 			anim->drop();
       }
       this->posiciong=npos;
-      return true;
+      
      
   }
 

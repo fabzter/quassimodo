@@ -24,7 +24,6 @@ Grafico::Celda::Celda(const Celda& orig):Grafico::Pieza(orig) {
 
 
 Grafico::Celda::~Celda() {
-    //delete(this->celdaR);
 
 }
 
@@ -48,7 +47,4 @@ Grafico::Celda::~Celda() {
       this->setEscala(x,y,z);
       std::cout<<"Escala celda "<<this->getEscala().X<<" , "<<this->getEscala().Y<<" , "<<this->getEscala().Z<<std::endl;
 
-  }
-  void Grafico::Celda::setParent(scene::ISceneNode* parent){
-      this->nodoA->setParent(parent);
   }

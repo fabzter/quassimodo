@@ -25,6 +25,7 @@ public:
      * @param smgr Un apuntador al  manejador de la escena
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param VelAnim velocidad de animacion que tendrá la barrera
+     * @param parent Nodo escena del que será hijo la barrera.
      */
     Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,scene::ISceneNode* parent);
     /**
@@ -41,7 +42,7 @@ public:
     /**
      * Coloca la barrera para que tenga dirección Este
      * @param pos posicion en la que estara la barrera
-     * @return  u vector que contiene la nueva posicion ya con el giro en la barrera
+     * @return  un vector que contiene la nueva posicion ya con el giro en la barrera
      */
     core::vector3df giraEste(core::vector3df pos);
     /**
@@ -53,7 +54,10 @@ public:
      * @param smgr Un apuntador al  manejador de la escena
      */
     void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir,scene::ISceneManager* smgr);
-
+    /**
+     * Método que indica si la animación de colocar la barrera termino o no.
+     * @return  true si la animacion termino, false en caso contrario.
+     */
     bool endAnimacion();
 private:
     /**

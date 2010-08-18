@@ -57,10 +57,7 @@ public:
      *Desplega el menu en modo consola
      * @return la opcion seleccionada del menu
      */
-    char MenuConsola();
-
-
-    
+    char MenuConsola();    
 
 private:
     /**
@@ -116,6 +113,9 @@ private:
      * La escala que tendrá en el juego;
      */
     core::vector3df escala;
+    /**
+     * Nodo del que seran hijos las piezas del menú.
+     */
     scene::ISceneNode *parent;
 
 };

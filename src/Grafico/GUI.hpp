@@ -153,6 +153,9 @@ private:
      * nodo texto que se coloca en la escena al presionarse el botón de pausa
      */
     gui::IGUIStaticText* T_Pausa;
+    /**
+     * Imagen en la que se presenta la pantalla de creditos.
+     */
     gui::IGUIImage* creditos;
 };
 }

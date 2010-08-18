@@ -15,7 +15,6 @@
       <itemPath>Antorcha.hpp</itemPath>
       <itemPath>Barrera.hpp</itemPath>
       <itemPath>Celda.hpp</itemPath>
-      <itemPath>Constantes.hpp</itemPath>
       <itemPath>Enums.hpp</itemPath>
       <itemPath>Exepciones.hpp</itemPath>
       <itemPath>GUI.hpp</itemPath>

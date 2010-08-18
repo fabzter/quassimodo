@@ -28,7 +28,9 @@ public:
      * @param orig una referencia a un objeto de la clase Celda del namespace Grafico
      */
     Celda(const Celda& orig);
-
+    /**
+     * Destructor de la clase Celda
+     */
     virtual ~Celda();
 
     /**
@@ -40,19 +42,18 @@ public:
      *Coloca la celda en la posicion que le corresponde en la escena, según la posicion en la que esta
      * en la clase Celda del namespace Reglas. a partir de los parametros dados será la posicion que se mueva
      * por ejemplo si x, y z son cero la celda con coordenadas (0,0) estara colocada en (x,y,z) osea en 0,0,0
-      * @param x Un entero que representa la posición que tendrá en el eje de las X
-      * @param y Un entero que representa la posición que tendrá en el eje de las Y
-      * @param z Un entero que representa la posición que tendrá en el eje de las Z
+     * @param x Un entero que representa la posición que tendrá en el eje de las X
+     * @param y Un entero que representa la posición que tendrá en el eje de las Y
+     * @param z Un entero que representa la posición que tendrá en el eje de las Z
      */
     void colocar(int x=0,int y=0,int z=0);
      /**
-         *Método encargado aumentar o disminuir la escala de la celda
-         * @param x Un entero que representa la escala que tendrá en el eje de las X
-         * @param y Un entero que representa la escala que tendrá en el eje de las Y
-         * @param z Un entero que representa la escala que tendrá en el eje de las Z
-         */
+      *Método encargado aumentar o disminuir la escala de la celda
+      * @param x Un entero que representa la escala que tendrá en el eje de las X
+      * @param y Un entero que representa la escala que tendrá en el eje de las Y
+      * @param z Un entero que representa la escala que tendrá en el eje de las Z
+      */
     void SetEscalaCelda(int x, int y, int z);
-    void setParent(scene::ISceneNode* parent);
 private:
     /**
      * Un apuntador a  una clase de Reglas::Celda esta apunta a una celda en el tablero

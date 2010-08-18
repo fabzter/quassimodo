@@ -8,7 +8,7 @@
 #include<iostream>
 /**
  * El namespace Grafico contiene todo lo relacionado al manejo de la GUI, como la pantalla principal,
- * el tablero, los jugadores, los eventos. etc.
+ * el tablero, los jugadores etc.
  */
 namespace Grafico{
 using namespace irr;
@@ -23,6 +23,7 @@ using namespace irr;
          *Constructor de la clase Antorcha  se crea pegada al piso por lo que solo se podra mover en dirección X o Z.
          * @param smgr Un apuntador al  manejador de la escena que nos servira para crear la antorcha y el fuego
          * @param skin  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+         * @param parent Nodo escena del que será hijo la antorcha.
          */
         Antorcha(scene::ISceneManager* smgr,Skin* skin,scene::ISceneNode* parent);
         /**

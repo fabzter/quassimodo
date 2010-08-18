@@ -184,7 +184,7 @@ private:
 
     scene::ISceneManager* smgr;
     /**
-     * un apuntador al creador de GUI que proporciona irrlicht
+     * Un apuntador al creador de GUI que proporciona irrlicht
      */
     gui::IGUIEnvironment* env;
     /**
@@ -192,7 +192,7 @@ private:
      */
     std::vector<std::string> Agentes;
     /**
-     * bandera que indica si se han cargado agentes o no
+     * Bandera que indica si se han cargado agentes o no
      */
     bool hayagente;
     /**
@@ -204,12 +204,12 @@ private:
      */
     Partida *partida;
     /**
-     * un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * Un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      */
     Grafico::Skin* skin;
 
     /**
-     * un apuntador a un nodo de terreno que es donde se carga y amacena nuestro piso del juego
+     * Un apuntador a un nodo de terreno que es donde se carga y amacena nuestro piso del juego
      */
     scene::ITerrainSceneNode* terrain ;
     /**
@@ -225,19 +225,19 @@ private:
      */
     bool salir;
     /**
-     * bandera que indica si la partida sera en modo 3D o en modo consola.
+     * Bandera que indica si la partida sera en modo 3D o en modo consola.
      */
     bool grafico;
     /**
-     * bandera que indica si la partida fue iniciada o no.
+     * Bandera que indica si la partida fue iniciada o no.
      */
     bool partidainiciada;
     /**
-     * velocidad de animacion que tendrá la barrera y el jugador
+     * Velocidad de animacion que tendrá la barrera y el jugador
      */
     int velAnim;
     /**
-     * BAndera que indica si la partida esta en pausa o no.
+     * Bandera que indica si la partida esta en pausa o no.
      */
     bool pausa;
 };

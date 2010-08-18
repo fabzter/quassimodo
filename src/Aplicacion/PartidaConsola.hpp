@@ -3,10 +3,24 @@
 #define	PARTIDACONSOLA_HPP
 #include"Partida.hpp"
 #include<Reglas/Tablero.hpp>
+/**
+ * Clase encargada de mantener una partida en modo consola.
+ * @as Partida
+ */
 class PartidaConsola :public Partida{
 public:
+    /**
+     * Constructor de la clase. Crea un nuevo Tablero y un nuevo Juez.
+     */
     PartidaConsola();
+    /**
+     * Cosntructor copia.
+     * @param orig un objeto de la clase PartidaConsola
+     */
     PartidaConsola(const PartidaConsola& orig);
+    /**
+     * Destructor
+     */
     virtual ~PartidaConsola();
     /**
      *@as Partida::iniciarPartida

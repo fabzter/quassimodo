@@ -6,11 +6,10 @@
 #include<Reglas/Jugador.hpp>
 #include "Skin.hpp"
 #include"JumpAnimator.hpp"
-//TODO: terminar de documentar
 namespace Grafico{
     using namespace irr;
  /**
-  * Clase del namespace Grafico de la clase Jugador, se encarga de la parte grafica como la de Reglas.
+  * Clase que se encarga de la parte grafica como la de Reglas.
   */
 class Jugador:public Grafico::Pieza,public Reglas::Jugador {
 public:
@@ -21,6 +20,7 @@ public:
      * @param a parametro requerido por ReglasJugador
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
+     * @param parent Nodo escena del que el Jugador será hijo.
      */
     Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent);
     /**
@@ -28,6 +28,9 @@ public:
      * @param orig una referencia a un objeto de la clase Jugador del namespace Grafico
      */
     Jugador(const Jugador& orig);
+    /**
+     * Destructor de la clase.
+     */
     virtual ~Jugador();
     /**
      *Gira el Jugador según lo indicado por giro
@@ -35,9 +38,17 @@ public:
      * ese eje.
      */
     void Gira(core::vector3df giro);
-
-    bool Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas);
-
+    /**
+     * Método que se encarga de mover a la pieza del jugador, y manda a actualizar su posicion en el tablero.
+     * @param smgr Un apuntador al  manejador de la escena
+     * @param npos posicion a la que se movera el jugador.
+     * @param numceldas numero de celdas que se movera el jugador, 1 o mas (sirve para indicarle a la animacion el tamaño del salto)
+     */
+    void Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas);
+    /**
+     * Método que indica si la animación de colocar al jugador termino o no.
+     * @return  true si la animacion termino, false en caso contrario.
+     */
     bool endAnimacion();
 
 private:
