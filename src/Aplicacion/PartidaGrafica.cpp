@@ -88,13 +88,13 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
     p.Y+=this->t->getsizeCelda().Y*this->escala.Y;
     p.Z+=( ( this->t->getsizeCelda().Z*this->escala.Z ) /2);
     p.X+=( ( this->t->getsizeCelda().X*this->escala.X ) /2);
-    bool termino=true;
+
     if(this->en_curso)
-        termino=ju->Mover( smgr,p,this->t->getCeldasAMover( this->jugadores.at(idJugador)->getPosicion(),j.getPosicion() ) );
+        ju->Mover( smgr,p,this->t->getCeldasAMover( this->jugadores.at(idJugador)->getPosicion(),j.getPosicion() ) );
     else
         ju->setPosicion(p);
     this->t->moverJugador(idJugador, j.getPosicion());
-    return termino;
+    return true;
 }
 
  void PartidaGrafica::SetBarrera(Reglas::Jugada &j, int idJugador){

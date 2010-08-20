@@ -24,8 +24,9 @@ public:
      * @param env un apuntador al creador de GUI que proporciona irrlicht
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
+     * @param grafico bandera que indica si la aplicacion correra en modo grafico o solo en consola
      */
-    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,int VelAnim);
+    ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Skin* skin,int VelAnim,bool grafico=true);
     /**
      * Constructor copia de la clase
      *@param orig un objeto de la clase ManejadorJuego

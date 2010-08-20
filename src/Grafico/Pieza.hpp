@@ -114,6 +114,9 @@ protected:
          * El nodo sombra de la pieza.
          */
         scene::IShadowVolumeSceneNode *sombra;
+	 /**
+      * Nodo escena padre de la pieza actual.
+      */
         scene::ISceneNode* par;
 
 };
