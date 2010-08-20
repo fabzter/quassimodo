@@ -44,11 +44,6 @@ public:
      */
     scene::IAnimatedMesh* getTablero();
     /**
-     *Se obtiene el Mesh (la malla) con la que es dibujada la Antorcha
-     *@return un apuntador a un objeto de la clase IAnimatedMesh
-     */
-    scene::IAnimatedMesh* getAntorcha();
-    /**
      *Obtiene el Mesh (la malla) con el que es dibujado el jugador 1
      * @return un apuntador a un objeto de la clase IAnimatedMesh
      */
@@ -58,11 +53,6 @@ public:
      * @return un apuntador a un objeto de la clase IAnimatedMesh
      */
     scene::IAnimatedMesh* getJugador2();
-    /**
-     *Obtiene el Mesh (la malla) con el que es dibujado la sombra de los jugadores
-     * @return un apuntador a un objeto de la clase IAnimatedMesh
-     */
-    scene::IAnimatedMesh* getSombraJugador();
     /**
      *Obtiene el Mesh (la malla) con la que es dibujada la Barrera
      *@return un apuntador a un objeto de la clase IAnimatedMesh
@@ -166,12 +156,6 @@ private:
      */
     void setJugadores(scene::ISceneManager* smgr);
     /**
-     * Carga la malla de la antorcha y la textura del fuego.
-     * @param smgr un apuntador al manejador de escena del juego
-     * @throws SkinNoCargado si algun elemento no pudo ser cargado
-     */
-    void setAntorcha(scene::ISceneManager* smgr);
-    /**
      *Carga la malla y la textura de la barrera.
      * @param smgr un apuntador al manejador de escena del juego
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
@@ -255,10 +239,6 @@ private:
       */
      scene::IAnimatedMesh* Celda;
      /**
-      *Malla con la que se dibujará la Antorcha
-      */
-     scene::IAnimatedMesh* Antorcha;
-     /**
       * Malla con la que se dibujará el Jugador 1
       */
      scene::IAnimatedMesh* Jugador1;
@@ -266,10 +246,6 @@ private:
       * Malla con la que se dibujará el Jugador 2
       */
      scene::IAnimatedMesh* Jugador2;
-     /**
-      * Malla con la que se dibujará la sombra de los jugadores
-      */
-     scene::IAnimatedMesh* SombraJugador;
      /**
       * Malla con la que se dibujará la barrera
       */
@@ -286,10 +262,6 @@ private:
       *  Textura que le será aplicada a la malla del tablero
       */
      video::ITexture* TTAblero;
-     /**
-      * Textura que le será aplicada al fuego de la Antorcha
-      */
-     video::ITexture* TAntorcha;
      /**
       * Tipografia que tendrá los botones del menú
       */

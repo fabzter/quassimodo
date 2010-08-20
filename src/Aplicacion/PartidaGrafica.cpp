@@ -25,7 +25,7 @@ PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gu
     this->velAnim=VelAnim;
     this->ManAgentes=new Agentes::ManejadorAgentes();
     for(std::size_t i = 0; i < this->antorchas.size(); i++){
-         this->antorchas.at(i)=new Antorcha(smgr,this->skin,this->parent);
+         this->antorchas.at(i)=new Antorcha(smgr,this->parent);
     }
      this->ColocaAntorchas();
 

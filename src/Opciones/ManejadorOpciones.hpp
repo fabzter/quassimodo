@@ -60,22 +60,6 @@ public:
     std::string getJugador2ModeloPath();
 
     /**
-     * Nos indica el Path al modelo de la sombra de los jugadores, especificado
-     *  en el archivo de configuración.
-     * @return una string que contiene el path relativo al archivo de modelo de
-     * la sombra de los Jugadores.
-     */
-    std::string getJugadorSombraModeloPath();
-
-    /**
-     * Nos indica el Path al modelo de la antorcha, especificado en el archivo de
-     * configuración.
-     * @return una string que contiene el path relativo al archivo de modelo de
-     * la antorcha.
-     */
-    std::string getAntorchaModeloPath();
-
-    /**
      * Nos indica el Path al modelo de las barreras, especificado en el archivo de
      * configuración.
      * @return una string que contiene el path relativo al archivo de modelo de
@@ -100,14 +84,6 @@ public:
      * Tablero.
      */
     std::string getTableroTexturaPath();
-
-    /**
-     * Nos indica el Path a la textura de la antorcha, especificado en el archivo de
-     * configuración.
-     * @return una string que contiene el path relativo al archivo de textura de
-     * la antorcha.
-     */
-    std::string getAntorchaTexturaPath();
 
     /**
      * Nos indica el Path a la textura de la barrera del jugador 1, especificado

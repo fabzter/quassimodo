@@ -22,10 +22,9 @@ using namespace irr;
         /**
          *Constructor de la clase Antorcha  se crea pegada al piso por lo que solo se podra mover en dirección X o Z.
          * @param smgr Un apuntador al  manejador de la escena que nos servira para crear la antorcha y el fuego
-         * @param skin  un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
          * @param parent Nodo escena del que será hijo la antorcha.
          */
-        Antorcha(scene::ISceneManager* smgr,Skin* skin,scene::ISceneNode* parent);
+        Antorcha(scene::ISceneManager* smgr,scene::ISceneNode* parent);
         /**
          *Constructor copia de la clase Antorcha
          * @param orig una referecnia a un objeto Antorcha
@@ -52,20 +51,9 @@ using namespace irr;
            /**
          *Metodo que se encarga de dibujar la pieza
          * @param smgr un apuntador al manejador de la escena
+         * @param parent Nodo escena del que será hijo la antorcha.
          */
-       void dibujaAntorcha(scene::ISceneManager* smgr);
-       /**
-        *Método encargado de colocar al fuego en una nueva posición
-         * @param x Un entero que representa la nueva posición que tendrá en el eje de las X
-         * @param y Un entero que representa la nueva posición que tendrá en el eje de las Y
-         * @param z Un entero que representa la nueva posición que tendrá en el eje de las Z
-        */
-       void setPosicionFuego(int x, int y ,int z);
-       /**
-        *Regresa la posicion en donde se encuentra colocado el fuego
-         * @return Un vector3df que indica la posicin del fuego
-        */
-       core::vector3df getPosicionFuego();
+       void dibujaAntorcha(scene::ISceneManager* smgr,scene::ISceneNode* parent);
        /**
          *Método encargado aumentar o disminuir la escala de la antorcha
          * @param x Un entero que representa la escala que tendrá en el eje de las X
@@ -96,18 +84,6 @@ using namespace irr;
          * Un nodo escena que contiene el fuego
          */
         scene::ILightSceneNode *nfuego;
-        /**
-         * La textura o la imagen que la que el fuego toma
-         */
-        video::ITexture *fuego;
-        /**
-         *una bandera si se quiere sombra o  no
-         */
-         bool sombra;
-         /**
-          * Un objeto que maneja el fuego.
-          */
-         scene::IParticleSystemSceneNode* ps;
          /**
           * Indica el radio de iluminacion que tendrá la luz de la antorcha!
           */

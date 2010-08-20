@@ -87,9 +87,11 @@ core::vector3df  Grafico::Pieza::getEscala(){
 }
 
 void Grafico::Pieza::drop(){
+    if(this->nodoA!=NULL){
          this->nodoA->removeAnimators();
          this->nodoA->removeAll();
          this->nodoA->remove();
+    }
      
 }
 

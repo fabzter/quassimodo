@@ -4,7 +4,6 @@
 Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,
         Opciones::ManejadorOpciones &opciones) {
     this->opciones = &opciones;
-    this->setAntorcha(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
     this->setJugadores(smgr);
@@ -52,25 +51,9 @@ void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
             strs << "No pudo ser cargado el Skin del jugador 1 ";
             throw SkinNoCargado(strs.str().c_str());
         }
-     this->SombraJugador=smgr->getMesh(this->opciones->getJugadorSombraModeloPath().c_str());
-
-     if( this->SombraJugador== NULL  )
-         {
-            strs << "No pudo ser cargado el Skin de la sombra de los jugadores ";
-            throw SkinNoCargado(strs.str().c_str());
-        }
      
 }
-void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
-    std::ostringstream strs;
-    this->Antorcha=smgr->getMesh(this->opciones->getAntorchaModeloPath().c_str());
-    this->TAntorcha=smgr->getVideoDriver()->getTexture(this->opciones->getAntorchaTexturaPath().c_str());
-      if( this->Antorcha== NULL || this->TAntorcha== 0  )
-        {
-            strs << "No pudo ser cargado el Skin en la parte de la antorcha ";
-            throw SkinNoCargado(strs.str().c_str());
-        }
-}
+
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->Barrera=smgr->getMesh(this->opciones->getBarreraModeloPath().c_str());
@@ -201,18 +184,12 @@ scene::IAnimatedMesh* Grafico::Skin::getCelda(){
 scene::IAnimatedMesh* Grafico::Skin::getTablero(){
     return this->Tablero;
 }
-scene::IAnimatedMesh* Grafico::Skin::getAntorcha(){
-    return this->Antorcha;
-}
 scene::IAnimatedMesh* Grafico::Skin::getJugador1(){
     return this->Jugador1;
 }
 scene::IAnimatedMesh* Grafico::Skin::getJugador2(){
     return this->Jugador2;
 }
- scene::IAnimatedMesh* Grafico::Skin::getSombraJugador(){
-   return  this->SombraJugador;
- }
 scene::IAnimatedMesh* Grafico::Skin::getBarrera(){
     return this->Barrera;
 }
@@ -221,9 +198,6 @@ video::ITexture* Grafico::Skin::getTTAblero(){
 }
 video::ITexture* Grafico::Skin::getTCelda(){
     return this->TCelda;
-}
-video::ITexture* Grafico::Skin::getTAntorcha(){
-    return this->TAntorcha;
 }
 video::ITexture* Grafico::Skin::getTBarrera(){
     return this->TBarrera;
