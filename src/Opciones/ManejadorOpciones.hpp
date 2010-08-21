@@ -84,7 +84,13 @@ public:
      * Tablero.
      */
     std::string getTableroTexturaPath();
-
+    /**
+     * Nos indica el Path a la textura de la antorcha, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de textura de
+     * la antorcha.
+     */
+    std::string getAntorchaTexturaPath();
     /**
      * Nos indica el Path a la textura de la barrera del jugador 1, especificado
      * en el archivo de configuración.

@@ -6,8 +6,9 @@
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent) ,Reglas::Jugador(num,a) {
-    
+Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent,bool Humano):Grafico::Pieza(parent) ,Reglas::Jugador(num,a) {
+    this->agente=a;
+    this->Humano=Humano;
     this->init(smgr,num,skin,VelAnim);
 }
 Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent),Reglas::Jugador(num,NULL){
@@ -65,4 +66,6 @@ Grafico::Jugador::~Jugador() {
         return anim->hasFinished();
      }
  }
-
+bool Grafico::Jugador::IsHumano(){
+    return this->Humano;
+}

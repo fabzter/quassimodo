@@ -5,14 +5,14 @@
 using namespace irr;
 
 Grafico::ManejadorGUI::ManejadorGUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Grafico::Tablero* t,Skin* skin) {
+
     if(t!=NULL){
         this->menu=new Menu(smgr,env,t,skin);
         this->Gui=new GUI(smgr,env,skin);}
     else{
         this->menu=NULL;
         this->Gui=NULL;
-    }
-    
+    }  
 
 }
 
@@ -91,4 +91,11 @@ void Grafico::ManejadorGUI::Pausar(bool pausa){
 }
 void Grafico::ManejadorGUI::dropCreditos(){
     this->Gui->dropCreditos();
+}
+void Grafico::ManejadorGUI::setBotonesJugador(){
+    this->Gui->setBotonesJugador();
+}
+
+void Grafico::ManejadorGUI::dropBotonesJugador(){
+    this->Gui->dropBotonesJugador();
 }

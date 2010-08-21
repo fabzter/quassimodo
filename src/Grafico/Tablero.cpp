@@ -106,3 +106,11 @@ irr::core::vector3df Grafico::Tablero::getsizeLineaCeldas(){
           return y;
 
   }
+  Grafico::Celda* Grafico::Tablero::getCeldaGrafica(int x,int y){
+
+      return this->datos.at(y).at(x) ;
+  }
+  Grafico::Celda* Grafico::Tablero::getCeldaGrafica(std::vector<int> pos){
+
+      return this->getCeldaGrafica(pos.at(0),pos.at(1));
+  }

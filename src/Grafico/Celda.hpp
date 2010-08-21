@@ -54,12 +54,26 @@ public:
       * @param z Un entero que representa la escala que tendrá en el eje de las Z
       */
     void SetEscalaCelda(int x, int y, int z);
+    /**
+     * Resalta la celda actual.
+     */
+    void ResaltarCelda();
+    /**
+     * Regresa la celda al estado normal.
+     */
+    void dropResaltado();
 private:
     /**
      * Un apuntador a  una clase de Reglas::Celda esta apunta a una celda en el tablero
      *
      */
     const Reglas::Celda *celdaR;
+    /**
+     * Un apuntador al  manejador de la escena
+     */
+    scene::ISceneManager* smgr;
+    Skin* skin;
+
     
 
 };

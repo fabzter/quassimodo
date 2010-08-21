@@ -2,6 +2,7 @@
 #include "AgenteAstar.hpp"
 #include "AgenteCaminaAdelante.hpp"
 #include "AgenteMinimax2.hpp"
+#include "AgenteHumano.hpp"
 
 Agentes::ManejadorAgentes::ManejadorAgentes()
 {
@@ -15,6 +16,9 @@ Agentes::ManejadorAgentes::ManejadorAgentes()
 
     nombre = "Agente MiniMax2";
     this->registrar(nombre, new FabricaMinimax2());
+
+    nombre = "Agente Humano";
+    this->registrar(nombre, new FabricaHumano());
 }
 
 Agentes::ManejadorAgentes::ManejadorAgentes(const ManejadorAgentes& orig)

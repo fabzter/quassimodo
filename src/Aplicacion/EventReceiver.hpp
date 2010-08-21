@@ -86,6 +86,7 @@ private:
          * Una bandera que indica si la partida ha iniciado o no.
          */
         bool piniciada;
+        bool AmbosHumanos;
 
 };
 

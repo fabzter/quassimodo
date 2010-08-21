@@ -30,7 +30,8 @@ void ManejadorJuego::init(){
 
     this->clearAgentes();
     this->pausa=false;
-    this->partidainiciada=false;
+    botonesJugador=this->partidainiciada=false;
+    this->haciendoJugada=true;
     if(this->smgr!=NULL){
         this->partida=new PartidaGrafica(this->smgr,this->skin,this->env,this->velAnim);
         this->mgui=new Grafico::ManejadorGUI(this->smgr,this->env,this->partida->t,this->skin);
@@ -50,10 +51,10 @@ void ManejadorJuego::setMenu(){
 
 }
 
-bool ManejadorJuego::setPartida(){
+bool ManejadorJuego::setPartida(bool Humanos){
     if(this->hayagente){
 
-        this->partida->SetJugadores(this->Agentes[0],this->Agentes[1]);
+        this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],Humanos);
 
         this->partida->iniciarPartida();
         this->partidainiciada=true;
@@ -121,7 +122,7 @@ void ManejadorJuego::clearAgentes(){
     this->Agentes[0]="./bin/agente_astar.py";
     this->Agentes[1]="./bin/agente_astar.py";
     this->hayagente=true;
-    return this->setPartida();
+    return this->setPartida(false);
   }
   void ManejadorJuego::printCam(){
 
@@ -180,8 +181,8 @@ void ManejadorJuego::clearAgentes(){
 		2					// smoothFactor
 		);
 	
-	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
-        this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
+        this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
+       this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
        this->terrain->scaleTexture(1.0f, 1.0f);
     //   this->smgr->setAmbientLight(video::SColorf(1.0,1.0,1.0,1.0));
 
@@ -245,35 +246,59 @@ const char* ManejadorJuego::getMsjGanador(){
 void ManejadorJuego::despachaJugada(){
 
     if(this->partida->estaEnCurso()&& !this->pausa){      
-        if( this->partida->animacionesEnd() ){
+        if( this->partida->animacionesEnd() && !this->JugadorPreparaJugada() ){
             this->SiguienteJugada();
         }
     }
 }
 
 void ManejadorJuego::Pausar(){
+
     if( this->partida->estaEnCurso() ){
         this->pausa=!this->pausa;
         this->mgui->Pausar(this->pausa);
     }
 }
 void ManejadorJuego::AgntVsMkn(){
+
     this->mgui->AgntVSAgnt( false, this->partida->getNombresAgentes() );
 }
+bool ManejadorJuego::JugadorPreparaJugada(){
+    
+    bool isHumano=this->partida->JugadorIsHumano( this->partida->getJugadorEnTurno() );
+    if( isHumano  ){
+        this->haciendoJugada=true;
+        if(!this->botonesJugador){
+            this->mgui->setBotonesJugador();
+            this->botonesJugador=true;
+        }
+    }
+    else{
+        this->haciendoJugada=false;
+        if(this->botonesJugador){
+            this->mgui->dropBotonesJugador();
+        }
+    }
 
+
+    return this->haciendoJugada;
+    
+}
+void ManejadorJuego::setOpcionesMover(){
+    this->partida->setOpcionesMover();
+}
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
-     this->cam = smgr->addCameraSceneNode();
-	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
-        anm->setRotationNumbers(270,57) ;
-        anm->setZoom(602);
-	this->cam->addAnimator(anm);
-        this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
-	anm->drop();
-    PartidaGrafica *p= (PartidaGrafica*)this->partida;
-    core::vector3df v=p->getCentro();
+    this->cam = smgr->addCameraSceneNode();
+    IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
+    anm->setRotationNumbers(270,57) ;
+    anm->setZoom(602);
+    this->cam->addAnimator(anm);
+    this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
+    anm->drop();
+    core::vector3df v=this->partida->getCentro();
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);
     cam->setTarget(t+v);
-     this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
+    this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
     this->smgr->setActiveCamera(cam);   
 }

@@ -36,6 +36,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/AgenteMinimax2.o \
 	${OBJECTDIR}/ManejadorAgentes.o \
 	${OBJECTDIR}/AgenteAstar.o \
+	${OBJECTDIR}/AgenteHumano.o \
 	${OBJECTDIR}/AgenteCaminaAdelante.o
 
 
@@ -79,6 +80,11 @@ ${OBJECTDIR}/AgenteAstar.o: AgenteAstar.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteAstar.o AgenteAstar.cpp
+
+${OBJECTDIR}/AgenteHumano.o: AgenteHumano.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteHumano.o AgenteHumano.cpp
 
 ${OBJECTDIR}/AgenteCaminaAdelante.o: AgenteCaminaAdelante.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -91,6 +91,14 @@ public:
       * @as GUI::dropCreditos
       */
      void dropCreditos();
+     /**
+      * @as GUI::setBotonesJugador
+      */
+     void setBotonesJugador();
+     /**
+      * as GUI::dropBotonesJugador
+      */
+     void dropBotonesJugador();
 
 private:
 

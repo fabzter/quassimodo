@@ -3,6 +3,7 @@
 #define	PARTIDAGRAFICA_HPP
 #include<Reglas/Juez.hpp>
 #include<Reglas/Jugador.hpp>
+#include<Reglas/AyudanteDeAgente.hpp>
 #include<vector>
 #include<irrlicht/irrlicht.h>
 #include<Grafico/Barrera.hpp>
@@ -55,7 +56,7 @@ public:
     /**
      *@as Partida::SetJugadores
      */
-    bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2);
+    bool SetJugadores(std::string rutaAgente1,std::string rutaAgente2,bool ambosHumanos);
 
     /**
      *Calcula el centro del tablero y lo regresa
@@ -87,7 +88,21 @@ public:
      * @return un caracter que contiene el numero del agente con error
      */
     char getAgenteConError();
-
+    /**
+     * regresa el Jugador en Turno de la partida
+     * @return un entero que indica el Id del jugador en turno.
+     */
+    int getJugadorEnTurno();
+    /**
+     * Indica si el jugador es Humano o es el agente elegido.
+     * @param idJugador id del jugador del que se desea saber su estado
+     * @return true si el jugador es Humano false en caso contrario
+     */
+    bool JugadorIsHumano(int idJugador);
+    /**
+     * Resalta las celdas a las que un jugador se puede mover.
+     */
+    void setOpcionesMover();
 
 
 private:
@@ -167,7 +182,7 @@ private:
      */
     Agentes::ManejadorAgentes* ManAgentes;
 
-     scene::ISceneNode *parent;
+    scene::ISceneNode *parent;
 
      /**
      * Un vector de Jugadores, esto pues ya que los Jugadores serán dibujadas y no queremos que se

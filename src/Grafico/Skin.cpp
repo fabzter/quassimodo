@@ -4,6 +4,7 @@
 Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,
         Opciones::ManejadorOpciones &opciones) {
     this->opciones = &opciones;
+    this->setFuego(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
     this->setJugadores(smgr);
@@ -23,6 +24,15 @@ Grafico::Skin::Skin(const Skin& orig) {
 }
 
 Grafico::Skin::~Skin() {
+}
+void Grafico::Skin:: setFuego(scene::ISceneManager* smgr){
+    std::ostringstream strs;
+    this->TAntorcha=smgr->getVideoDriver()->getTexture(this->opciones->getAntorchaTexturaPath().c_str());
+      if( this->TAntorcha== 0  )
+        {
+            strs << "No pudo ser cargado el Skin en la parte del Fuego ";
+            throw SkinNoCargado(strs.str().c_str());
+        }
 }
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
@@ -198,6 +208,9 @@ video::ITexture* Grafico::Skin::getTTAblero(){
 }
 video::ITexture* Grafico::Skin::getTCelda(){
     return this->TCelda;
+}
+video::ITexture* Grafico::Skin::getTAntorcha(){
+    return this->TAntorcha;
 }
 video::ITexture* Grafico::Skin::getTBarrera(){
     return this->TBarrera;

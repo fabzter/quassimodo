@@ -47,6 +47,21 @@ enum GUI_BOTONES_PARTIDA{
 
 };
 /**
+ * Enum que contiene los identificadores de las opciones para que un humano pueda jugar la partida.
+ */
+enum GUI_BOTONES_JUGADOR{
+
+    BJ_MOVER=300,
+    BJ_BARRERA,
+    BJ_GIRA_ESTE,
+    BJ_GIRA_NORTE,
+    BJ_LISTO,
+    /*este es sólo para indicar el número maximo de menús que hay, si se desea agregar depues mas botones
+     se agregan antes de COUNT*/
+    BJ_COUNT=5
+
+};
+/**
  * Enum que contiene los identificadores de los cuadros de dialogo. si es de advertencia, error, etc;
  */
 enum GUI_BOTONES_OK{

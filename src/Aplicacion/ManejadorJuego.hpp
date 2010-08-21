@@ -47,7 +47,7 @@ public:
      * elimina el menú principal y si se han seleccionado los agentes inicia la partida
      * @return true si la partida ha iniciado, false en caso contrario.
      */
-    bool setPartida();
+    bool setPartida(bool Humanos);
     /**
      *Método encargado aumentar o disminuir la escala del juego
      * @param x Un entero que representa la escala que tendrá en el eje de las X
@@ -135,6 +135,16 @@ public:
      * que se utiizara para poder escoger al agente con el que se desea jugar!.
      */
     void AgntVsMkn();
+    /**
+     * Métdo que ayudara a saber si un jugador Humano esta preparando la jugada, y en caso de que lo esté haciendo
+     * actualiza banderas y pone los botones correspondientes.
+     * @return true si el turno es de un jugador humano y est prepara Jugada, false en caso contrario.
+     */
+    bool JugadorPreparaJugada();
+    /**
+     * @as PartidaGrafica::setOpcionesMover
+     */
+    void setOpcionesMover();
 private:
     /**
      *Coloca la camara de la partida asi como tambien el tope de esta
@@ -216,6 +226,8 @@ private:
      * BAndera que indica si la partida esta en pausa o no.
      */
     bool pausa;
+    bool haciendoJugada;
+    bool botonesJugador;
 };
 
 #endif	/* _MANEJADORJUEGO_HPP */

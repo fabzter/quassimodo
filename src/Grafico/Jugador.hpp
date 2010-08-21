@@ -22,7 +22,7 @@ public:
      * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      * @param parent Nodo escena del que el Jugador será hijo.
      */
-    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent);
+    Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent,bool Humano=false);
     /**
      *Constructor del Jugador carga el modelo del jugador, y se manda a dibujar
      * @param num parametro requerido por Reglas::Jugador
@@ -60,13 +60,15 @@ public:
      * @return  true si la animacion termino, false en caso contrario.
      */
     bool endAnimacion();
+    bool IsHumano();
 
 private:
     /**
      * velocidad de animacion que tendrá el jugador
      */
     int velAnim;
-
+    Reglas::Agente *agente;
+    bool Humano;
 };
 }
 #endif	/* _JUGADOR_HPP */

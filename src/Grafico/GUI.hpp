@@ -78,6 +78,8 @@ public:
       * Elimina la imagen de los creditos de la escena.
       */
      void dropCreditos();
+     void setBotonesJugador();
+     void dropBotonesJugador();
 
 private:
     /**
@@ -131,10 +133,13 @@ private:
      * Vector de botones que son mostrados en la partida en curso
      */
     std::vector<gui::IGUIButton *> botonPartida;
+
+    std::vector<gui::IGUIButton *> botonesJugador;
     /**
      * bandera que indica si se colocaron los botones de la partida
      */
     bool botonesPartida;
+    bool botonJugador;
     /**
      * combo box en donde se mostrará la lista de Agentes disponibles.
      */

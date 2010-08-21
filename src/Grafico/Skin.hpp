@@ -33,6 +33,7 @@ public:
      *Destructor
      */
     virtual ~Skin();
+
     /**
      *Se obtiene el Mesh (la malla) con la que es dibujada la celda
      * @return un apuntador a un objeto de la clase IAnimatedMesh
@@ -143,6 +144,12 @@ public:
 
 
 private:
+    /**
+     * Carga la malla de la antorcha y la textura del fuego.
+     * @param smgr un apuntador al manejador de escena del juego
+     * @throws SkinNoCargado si algun elemento no pudo ser cargado
+     */
+    void setFuego(scene::ISceneManager* smgr);
     /**
      *Carga la malla y la textura del tablero .
      * @param smgr un apuntador al manejador de escena del juego
@@ -258,6 +265,10 @@ private:
       *  Textura que le será aplicada a la malla de la celda
       */
      video::ITexture* TCelda;
+     /**
+      * Textura que le será aplicada al fuego
+      */
+     video::ITexture* TAntorcha;
      /**
       *  Textura que le será aplicada a la malla del tablero
       */

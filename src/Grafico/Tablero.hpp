@@ -85,6 +85,19 @@ public:
       * @return un entero que indica el número de celdas a moverse.
       */
      int getCeldasAMover(const std::vector<int> & actual,const std::vector<int> & nueva);
+     /**
+      * Regresa la celda del namespace Grafico de la posicion indicada
+      * @param x posición en el eje de las X
+      * @param y posición en el eje de las Y
+      * @return Un apuntador a un objeto de la clase Grafico::C elda.
+      */
+     Grafico::Celda* getCeldaGrafica(int x,int y);
+     /**
+      * Regresa la celda del namespace Grafico de la posicion indicada
+      * @param pos Un vector que nos indica la posicion
+      * @return Un apuntador a un objeto de la clase Grafico::C elda.
+      */
+     Grafico::Celda* getCeldaGrafica(std::vector<int> pos);
 
 private:
     /**

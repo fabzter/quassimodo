@@ -11,7 +11,7 @@ using namespace irr;
 
 Grafico::Antorcha::Antorcha(scene::ISceneManager* smgr,scene::ISceneNode* parent): Pieza(parent){
 
-        this->radioLuz=175.0f;
+        this->radioLuz=190.0f;
         this->setVectPosicion(0,0,0);
         this->dibujaAntorcha(smgr,parent);
         

@@ -8,6 +8,7 @@ EventReceiver::EventReceiver(Aplicacion* app)
     this->app=app;
     this->piniciada=false;
     this->noA=-1;
+    this->AmbosHumanos=false;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
     KeyIsDown[i] = false;
 }
@@ -64,7 +65,7 @@ return false;
 void EventReceiver::Click_a_Boton(irr::s32 id){
     switch(id){
         case B_AGENTE_VS_MAKINA:
-            this->app->getManJuego()->setAgente("Agente A*", 0);
+            this->app->getManJuego()->setAgente("Agente Humano", 0);
             this->app->getManJuego()->AgntVsMkn();
             break;
         case B_AGENTE_VS_AGENTE:
@@ -82,7 +83,7 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
         case BO_INICIA:
              this->app->getManJuego()->setAgente(this->app->getManJuego()->getManejadorGUI()->getAgenteSeleccionado(), 1);
              this->app->getManJuego()->getManejadorGUI()->dropAvsA();
-             if( this->app->getManJuego()->setPartida() )
+             if( this->app->getManJuego()->setPartida(this->AmbosHumanos) )
                  this->piniciada=true;
             break;
        case BO_CANCELA:
@@ -105,6 +106,9 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
        case BP_PAUSA:
              this->app->getManJuego()->Pausar();
              break;
+        case BJ_MOVER:
+            this->app->getManJuego()->setOpcionesMover();
+            break;
        case BP_MENU:
              this->piniciada=false;
              this->app->nuevoJuego();

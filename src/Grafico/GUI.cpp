@@ -7,9 +7,10 @@ Grafico::GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Skin* Ski
     this->env=env;
     this->skin=Skin;
     this->botonPartida.resize(BP_COUNT);
+    this->botonesJugador.resize(2);
     this->AvsA=0;
     this->T_Pausa=NULL;
-    botonesPartida=false;
+    botonJugador=botonesPartida=false;
    this->setSkin();
 }
 
@@ -28,6 +29,7 @@ Grafico::GUI::~GUI() {
     this->dropBotonesPartida();
     this->dropAvsA();
     this->dropTextPausa();
+    this->dropBotonesJugador();
 }
 void Grafico::GUI::setSkin(){
 
@@ -166,9 +168,10 @@ void Grafico::GUI::dropTextPausa(){
 void Grafico::GUI::setOpcionesCombo(std::vector<std::string> lista){
 
     for(int i=0;i<lista.size();i++){
+        if(lista.at(i) !="Agente Humano"){
         std::wstringstream wsstream;
         wsstream << lista.at(i).c_str();
-        this->combo->addItem(wsstream.str().c_str(),i+1);
+        this->combo->addItem(wsstream.str().c_str(),i+1);}
     }
 
 }
@@ -187,4 +190,30 @@ void Grafico::GUI::dropCreditos(){
 
     this->creditos->remove();
 }
+void Grafico::GUI::setBotonesJugador(){
+    
+    if(this->botonJugador)
+        return;
 
+    core::dimension2d<u32> siz=this->smgr->getVideoDriver()->getScreenSize();
+     int dis_ancho=20,dis_alto=20;
+      float size=100,dan=dis_ancho;
+      for(int i=0;i<2;i++){
+
+              this->botonesJugador.at(i)= this->env->addButton(core::rect<s32>( siz.Width-(dan+size), siz.Height-(dis_alto+size),siz.Width-dan,siz.Height-dis_alto ) , 0,i+300,L"2") ;
+              dan+=size+15;
+              //this->botonesJugador.at(i)->setDrawBorder(true);
+              //this->botonesJugador.at(i)->setUseAlphaChannel(true);
+      }
+      this->botonJugador=true;
+}
+void Grafico::GUI::dropBotonesJugador(){
+
+ if(botonJugador){
+          for(int i=0;i<2;i++){
+            this->botonesJugador.at(i)->remove();
+            this->botonesJugador.at(i)=0;
+          }
+          botonJugador=false;
+    }
+}

@@ -110,7 +110,7 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
  void PartidaGrafica::ColocaAntorchas(){
 
 
-     int x,x1,z,z1,y,aumento=5;
+     int x,x1,z,z1,y,aumento=50;
      core::vector3df v=this->t->getPosicionCelda(0,0);
     x=v.X+(-aumento-this->t->getEscala().X);
     x1=(aumento+this->t->getsizeLineaCeldas().X);
@@ -137,11 +137,11 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
  }
 
- bool PartidaGrafica::SetJugadores(std::string rutaAgente1,std::string rutaAgente2){
+ bool PartidaGrafica::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,bool ambosHumanos){
      
 
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0,this->ManAgentes->makeAgente(rutaAgente1),this->skin,this->velAnim,this->parent));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1,this->ManAgentes->makeAgente(rutaAgente2),this->skin,this->velAnim,this->parent));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,0,this->ManAgentes->makeAgente(rutaAgente1),this->skin,this->velAnim,this->parent,true));
+      this->jugadores.push_back(new Grafico::Jugador(smgr,1,this->ManAgentes->makeAgente(rutaAgente2),this->skin,this->velAnim,this->parent,ambosHumanos));
 
       this->t->setJugadores( this->jugadores);
  }
@@ -210,17 +210,30 @@ int PartidaGrafica::getJugadorGanador(){
     return this->jugador_ganador;
 }
 
-/*std::vector<Reglas::Agente*> PartidaGrafica::getAgentes(std::string rutaAgente1,std::string rutaAgente2,Reglas::Tablero* t){
-     //TODO: Pedir en verdad a los agentes!
-    std::vector<Reglas::Agente*> agentes;
-
-    return agentes;
-
-}*/
  char PartidaGrafica::getAgenteConError(){
      return this->errorEnAgente;
  }
 
+int PartidaGrafica::getJugadorEnTurno(){
+    return this->jugador_en_turno;
+}
+
+bool PartidaGrafica::JugadorIsHumano(int idJugador){
+
+    Grafico::Jugador *j= (Grafico::Jugador*)&(this->t->getJugador(idJugador));
+    return j->IsHumano();
+
+}
+void PartidaGrafica::setOpcionesMover(){
+    Reglas::AyudanteDeAgente ayudante(this->t);
+    std::list<Reglas::Jugada> mov=ayudante.getMovimientosPosibles(this->jugador_en_turno);
+
+    for( std::list<Reglas::Jugada>::iterator i=mov.begin();i!=mov.end();i++ ){
+        Grafico::Celda* c=this->t->getCeldaGrafica( (*i).getPosicion() );
+        c->ResaltarCelda();
+    }
+
+}
 bool PartidaGrafica::Siguiente(Reglas::Tablero *t){
 
      if(!this->en_curso)
