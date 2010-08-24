@@ -62,6 +62,7 @@ public:
      * Regresa la celda al estado normal.
      */
     void dropResaltado();
+
 private:
     /**
      * Un apuntador a  una clase de Reglas::Celda esta apunta a una celda en el tablero
