@@ -145,6 +145,11 @@ public:
      * @as PartidaGrafica::setOpcionesMover
      */
     void setOpcionesMover();
+    /**
+     * 
+     * @as PartidaGrafica::clickCelda
+     */
+    bool clickCelda(core::position2d<s32>& pos);
 
 private:
     /**
@@ -201,7 +206,7 @@ private:
     /**
      * un apuntador a un nodo de terreno que es donde se carga y amacena nuestro piso del juego
      */
-    scene::ITerrainSceneNode* terrain ;
+    scene::ISceneNode* terrain ;
     /**
      * Un apunador a un nodo escena que es donde se carga y almacena nuestro cielo
      */

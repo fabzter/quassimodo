@@ -8,7 +8,7 @@ EventReceiver::EventReceiver(Aplicacion* app)
     this->app=app;
     this->piniciada=false;
     this->noA=-1;
-    this->AmbosHumanos=false;
+    this->mover=this->barrera=this->AmbosHumanos=false;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
     KeyIsDown[i] = false;
 }
@@ -25,17 +25,20 @@ bool EventReceiver::OnEvent(const SEvent& event)
        case irr::EET_MOUSE_INPUT_EVENT:
             switch(event.MouseInput.Event)
             {
+                    case EMIE_MOUSE_MOVED:
+                            MouseState.Posicion.X = event.MouseInput.X;
+                            MouseState.Posicion.Y = event.MouseInput.Y;
+                            break;
                     case EMIE_LMOUSE_PRESSED_DOWN:
                             MouseState.LeftButtonDown = true;
                             break;
                     case EMIE_LMOUSE_LEFT_UP:
                             MouseState.LeftButtonDown = false;
+                            core::position2d<s32> pp=MouseState.Posicion;
+                            this->app->getManJuego()->clickCelda(pp);
                             break;
 
-                    case EMIE_MOUSE_MOVED:
-                            MouseState.Posicion.X = event.MouseInput.X;
-                            MouseState.Posicion.Y = event.MouseInput.Y;
-                            break;
+
 
             }
             break;
@@ -117,6 +120,9 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
              this->app->getManJuego()->getManejadorGUI()->dropCreditos();
              break;
     }
+}
+void EventReceiver::ArmaJugada(){
+
 }
 const SMouseState& EventReceiver::GetMouseState(void) const
 {

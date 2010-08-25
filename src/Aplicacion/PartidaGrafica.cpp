@@ -20,6 +20,7 @@ PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gu
     this->Barreras.reserve(20);
     this->parent=smgr->addEmptySceneNode();
     this->parent->setPosition(core::vector3df(0,0,0));
+    this->parent->setName("PARENTPG");
     this->t=new Tablero(smgr,this->skin,this->parent);
     this->juez = new Reglas::Juez(*t);
     this->velAnim=VelAnim;
@@ -257,4 +258,15 @@ bool PartidaGrafica::Siguiente(Reglas::Tablero *t){
         this->en_curso = false;
     }
     return this->en_curso;
+}
+bool PartidaGrafica::clickCelda(core::position2d<s32>& pos){
+    scene::ISceneNode* n=this->smgr->getSceneCollisionManager()-> getSceneNodeFromScreenCoordinatesBB(pos,0,true,this->t->getNodo())   ;
+    if(n!=0){
+        std::string nom=n->getName();
+        if(nom=="CELDA"){
+        std::cout<<"Celda "<<n->getID()<<std::endl;
+        return true;}
+    }
+        return false;
+
 }

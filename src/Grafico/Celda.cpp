@@ -42,12 +42,13 @@ void Grafico::Celda::colocar(int x, int y, int z){
            v= this->nodoA->getScale();
        else
            v.X=1,v.Y=1,v.Z=1;
-
+      this->nodoA->setName("CELDA");
+      this->nodoA->setID((this->celdaR->getPosicion().at(0)*10)+this->celdaR->getPosicion().at(1));
+  
       x+=this->celdaR->getPosicion().at(0)* ( (this->size.X+this->size.Y)*v.X ) ;
       z+=this->celdaR->getPosicion().at(1)*( (this->size.X+this->size.Y)*v.Z );
       y-=12;
-      this->nodoA->setName("CELDA");
-      this->nodoA->setID((x*10)+y);
+      
       this->setPosicion(x,y,z);
   }
 void Grafico::Celda::SetEscalaCelda(int x, int y, int z){
@@ -55,7 +56,7 @@ void Grafico::Celda::SetEscalaCelda(int x, int y, int z){
 }
  void Grafico::Celda::ResaltarCelda(){
 
-     scene::IParticleSystemSceneNode *ps=smgr->addParticleSystemSceneNode(false,this->nodoA,0,core::vector3df(this->size.X/2,this->size.Y,this->size.Z/2) );
+    /* scene::IParticleSystemSceneNode *ps=smgr->addParticleSystemSceneNode(false,this->nodoA,0,core::vector3df(this->size.X/2,this->size.Y,this->size.Z/2) );
      ps->setMaterialTexture(0,skin->getTAntorcha());
 
      scene::IParticleEmitter* em = ps->createBoxEmitter(
@@ -73,7 +74,12 @@ void Grafico::Celda::SetEscalaCelda(int x, int y, int z){
      ps->setMaterialFlag(video::EMF_LIGHTING,false);
      scene::IParticleAffector* paf =ps->createFadeOutParticleAffector(video::SColor(0,0,0,0),4000);
      ps->addAffector(paf); 
-     paf->drop();
+     paf->drop();*/
+     this->nodoA->setMaterialType(video::EMT_SOLID);
+     this->nodoA->getMaterial(0).EmissiveColor=video::SColor(255,255,0,0);
+     
+     //this->nodoA->setMaterialFlag(video::EMF_LIGHTING,false);
+     //this->nodoA->getMaterial(0).DiffuseColor=video::SColor(0,255,0,0);
 
  }
  void Grafico::Celda::dropResaltado(){

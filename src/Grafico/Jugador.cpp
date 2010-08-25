@@ -24,6 +24,7 @@ void Grafico::Jugador::init(scene::ISceneManager* smgr,int num,Skin* skin,int Ve
       this->dibuja(smgr);
       this->getNodo()->getMaterial(0).Shininess=20.0f;
       this->velAnim=VelAnim;
+      this->nodoA->setName("JUGADOR");
 }
 
 Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){

@@ -103,6 +103,14 @@ public:
      * Resalta las celdas a las que un jugador se puede mover.
      */
     void setOpcionesMover();
+    /**
+     * A partir de la posicion del mouse en la aplicacion indica si se le dio click a una celda del tablero
+     * o no.
+     * @param pos posicion del mouse en el screen de la aplicación
+     * @return true si si le dio a una celda, false en caso contrario.
+     */
+    bool clickCelda(core::position2d<s32>& pos);
+
 
 
 private:
