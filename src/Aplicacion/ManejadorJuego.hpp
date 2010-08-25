@@ -142,9 +142,23 @@ public:
      */
     bool JugadorPreparaJugada();
     /**
+     * Si un jugador humano esta haciendo jugada o no
+     * @return true en caso de que la este haciendo, false en caso contrario.
+     */
+    bool estaHaciendoJugada();
+    /**
      * @as PartidaGrafica::setOpcionesMover
      */
     void setOpcionesMover();
+    /**
+     * 
+     * @as PartidaGrafica::ChecaJugada
+     */
+    int ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion=0);
+    /**
+     * @as PartidaGrafica::setJugada
+     */
+    void setJugada(int celda,bool movimiento,int Direccion=0);
 
 private:
     /**
@@ -201,7 +215,7 @@ private:
     /**
      * un apuntador a un nodo de terreno que es donde se carga y amacena nuestro piso del juego
      */
-    scene::ITerrainSceneNode* terrain ;
+    scene::ISceneNode* terrain ;
     /**
      * Un apunador a un nodo escena que es donde se carga y almacena nuestro cielo
      */

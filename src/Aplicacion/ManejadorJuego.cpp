@@ -144,7 +144,7 @@ void ManejadorJuego::clearAgentes(){
    
      //colocamos el tope de la camara para que nosevea debajo del piso
      if(this->terrain!=NULL){
-         scene::ITriangleSelector* selector= this->smgr->createTerrainTriangleSelector(this->terrain, 0);
+         scene::ITriangleSelector* selector= this->smgr->createTriangleSelectorFromBoundingBox(this->terrain);
             this->terrain->setTriangleSelector(selector);
 
             // create collision response animator and attach it to the camera
@@ -170,8 +170,9 @@ void ManejadorJuego::clearAgentes(){
 
  void ManejadorJuego::setSkinAmbiente(){
 
-        this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome() );
-        this->terrain =   this->smgr->addTerrainSceneNode(this->skin->getheightMapFile(),
+        this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome(),16,8,1,1.3,400.f );
+        this->skydome->setName("CIELO");
+       /* this->terrain =   this->smgr->addTerrainSceneNode(this->skin->getheightMapFile(),
 		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
 		core::vector3df(0.f, 0.f, 0.f),		// rotation
 		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
@@ -183,8 +184,21 @@ void ManejadorJuego::clearAgentes(){
 	
         this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
        this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
-       this->terrain->scaleTexture(1.0f, 1.0f);
-    //   this->smgr->setAmbientLight(video::SColorf(1.0,1.0,1.0,1.0));
+       this->terrain->scaleTexture(1.0f, 1.0f);*/
+
+       scene::IAnimatedMesh* mesh = smgr->addHillPlaneMesh( "myHill",
+		core::dimension2d<f32>(60,60),
+		core::dimension2d<u32>(90,90), 0, 0,
+		core::dimension2d<f32>(0,0),
+		core::dimension2d<f32>(40,40));
+
+	this->terrain = smgr->addWaterSurfaceSceneNode(mesh->getMesh(0), 5.0f, 300.0f, 100.0f);
+	this->terrain->setPosition(core::vector3df(0,30,0));
+	this->terrain->setMaterialTexture(0,skin-> getTTerrain());
+
+    this->terrain->setMaterialType(video::EMT_REFLECTION_2_LAYER);
+       this->terrain->setName("TERRENO");
+       this->smgr->setAmbientLight(video::SColorf(1.0,1.0,1.0,1.0));
 
  }
 
@@ -267,16 +281,21 @@ bool ManejadorJuego::JugadorPreparaJugada(){
     
     bool isHumano=this->partida->JugadorIsHumano( this->partida->getJugadorEnTurno() );
     if( isHumano  ){
-        this->haciendoJugada=true;
-        if(!this->botonesJugador){
-            this->mgui->setBotonesJugador();
-            this->botonesJugador=true;
+        if(this->partida->HaciendoJugada()){
+            this->haciendoJugada=true;
+            if(!this->botonesJugador){
+                this->mgui->setBotonesJugador();
+                this->botonesJugador=true;
+            }
         }
+
     }
     else{
         this->haciendoJugada=false;
+       // this->partida->dropOpcionesMover();
         if(this->botonesJugador){
             this->mgui->dropBotonesJugador();
+            this->botonesJugador=false;
         }
     }
 
@@ -284,9 +303,21 @@ bool ManejadorJuego::JugadorPreparaJugada(){
     return this->haciendoJugada;
     
 }
+bool ManejadorJuego::estaHaciendoJugada(){
+    return this->haciendoJugada;
+}
 void ManejadorJuego::setOpcionesMover(){
     this->partida->setOpcionesMover();
 }
+int ManejadorJuego::ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion){
+    return this->partida->ChecaJugada(pos,movimiento,Direccion);
+}
+
+void ManejadorJuego::setJugada(int celda,bool movimiento,int Direccion){
+    this->partida->setJugada(celda,movimiento,Direccion);
+    this->haciendoJugada=false;
+}
+
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
     this->cam = smgr->addCameraSceneNode();

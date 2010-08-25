@@ -10,6 +10,7 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
     this->agente=a;
     this->Humano=Humano;
     this->init(smgr,num,skin,VelAnim);
+    this->haciendoJugada=Humano;
 }
 Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent),Reglas::Jugador(num,NULL){
 
@@ -24,6 +25,7 @@ void Grafico::Jugador::init(scene::ISceneManager* smgr,int num,Skin* skin,int Ve
       this->dibuja(smgr);
       this->getNodo()->getMaterial(0).Shininess=20.0f;
       this->velAnim=VelAnim;
+      this->nodoA->setName("JUGADOR");
 }
 
 Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){
@@ -68,4 +70,16 @@ Grafico::Jugador::~Jugador() {
  }
 bool Grafico::Jugador::IsHumano(){
     return this->Humano;
+}
+
+void Grafico::Jugador::setJugada(Reglas::Jugada &j){
+    Agentes::AgenteHumano *a=(Agentes::AgenteHumano*)this->agente;
+    a->SetJugada(j);
+    this->haciendoJugada=false;
+}
+bool Grafico::Jugador::IsHaciendoJugada(){
+    return this->haciendoJugada;
+}
+void Grafico::Jugador::setHaciendoJugada(bool haciendo){
+    this->haciendoJugada=haciendo;
 }

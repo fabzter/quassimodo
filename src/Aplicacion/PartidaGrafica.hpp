@@ -103,7 +103,33 @@ public:
      * Resalta las celdas a las que un jugador se puede mover.
      */
     void setOpcionesMover();
-
+    /**
+     * Elimina las opciones de mover para un jugador.
+     */
+    void dropOpcionesMover();
+    /**
+     * Revisa si la jugada que se está intentando puede realizarse, en caso de que si regresa el id de la celda en la cual se dio click
+     * si no se puede regresa un numero negativo.
+     * @param pos posicion del mouse en el screen de la aplicación
+     * @param movimiento, si la jugada a relizar es de tipo movimiento o no
+     * @param Direccion si la jugada no es de tipo movimiento, se debe indicar la direccion en la que se colocara la barrera @as Reglas::Direccion
+     *        si es de tipo movimiento este parametro es ignorado.
+     * @return si si le dio a una celda regrsa el id de esa celda (que es la posicion de ésta), -1 en caso contrario.
+     */
+    int ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion);
+    /**
+     *
+     * @param celda poisición de la celda en la que se hará la jugada
+     * @param movimiento, si la jugada a relizar es de tipo movimiento o no.
+     * @param Direccion si la jugada no es de tipo movimiento, se debe indicar la direccion en la que se colocara la barrera @as Reglas::Direccion
+     *        si es de tipo movimiento este parametro es ignorado.
+     */
+    void setJugada(int celda,bool movimiento,int Direccion=0);
+    /**
+     * @as Jugador::IsHaciendoJugada
+     * @return
+     */
+    bool HaciendoJugada();
 
 private:
     /**
@@ -143,6 +169,14 @@ private:
      * @return false si la Jugada ha terminado (por ejemplo si ganó un Jugador)
      */
     bool Siguiente(Reglas::Tablero *t);
+    /**
+     * Arma una Jugada a partir de los datos dados
+     * @param celda la posicion de la celda esta es de 2 digitos, las decenas indican el eje de las X y uas unidades el eje de las Y
+     * @param movimiento si la jugada es de tipo movimiento o no
+     * @param direccion si no es de tipo movimiento, se indica la direccion enla que se colocara la barrera
+     * @return Un objeto del Tipo Reglas::Jugada que contiene la jugada armada.
+     */
+    Reglas::Jugada ArmaJugada(int celda,bool movimiento,int direccion);
     /**
      * Tablero sobre el que se realizará la PartidaGrafica.
      */
@@ -217,6 +251,10 @@ private:
       * variale que indica el agente en el que hubo error al cargarse;
       */
      char errorEnAgente;
+     /**
+      * dice si estan resaltadas celdas.
+      */
+     bool Resaltado_celda;
 
 };
 

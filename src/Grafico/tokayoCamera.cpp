@@ -88,7 +88,7 @@ void Grafico::TokayoCamera::animateNode(scene::ISceneNode *node, u32 timeMs)
 	f32 nRotX = RotX;
 	f32 nRotY = RotY;
 	f32 nZoom = CurrentZoom;
-    const f32 targetMinDistance = 0.1f,targetMaxDistance=900.0f;
+    const f32 targetMinDistance = 0.1f,targetMaxDistance=700.0f;
 	if ( (isMouseKeyDown(0) && isMouseKeyDown(2)) || isMouseKeyDown(1) )
 	{
 		if (!Zooming)

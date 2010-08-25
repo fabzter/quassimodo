@@ -9,7 +9,7 @@ using namespace Grafico;
 PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gui::IGUIEnvironment* env,int VelAnim) {
     this->juez = NULL;
     this->jugadores.reserve(2);
-    this->en_curso = this->hay_ganador = false;
+    this->Resaltado_celda=this->en_curso = this->hay_ganador = false;
     this->jugador_ganador = this->jugador_en_turno = 0;
     this->skin=skin;
     this->smgr=smgr;
@@ -20,6 +20,7 @@ PartidaGrafica::PartidaGrafica(scene::ISceneManager* smgr,Grafico::Skin* skin,gu
     this->Barreras.reserve(20);
     this->parent=smgr->addEmptySceneNode();
     this->parent->setPosition(core::vector3df(0,0,0));
+    this->parent->setName("PARENTPG");
     this->t=new Tablero(smgr,this->skin,this->parent);
     this->juez = new Reglas::Juez(*t);
     this->velAnim=VelAnim;
@@ -72,6 +73,7 @@ bool PartidaGrafica::siguienteJugada()
 
 void PartidaGrafica::actualizarTablero(Reglas::Jugada &j, int idJugador)
 {
+    this->dropOpcionesMover();
     if(j.getTipoDeJugada() == Reglas::MOVIMIENTO)
     {
         this->MoverJugador(j,idJugador);
@@ -80,6 +82,7 @@ void PartidaGrafica::actualizarTablero(Reglas::Jugada &j, int idJugador)
     {
         this->SetBarrera(j,idJugador);
     }
+    
 }
 
 bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
@@ -225,6 +228,8 @@ bool PartidaGrafica::JugadorIsHumano(int idJugador){
 
 }
 void PartidaGrafica::setOpcionesMover(){
+    if(this->Resaltado_celda)
+        return;
     Reglas::AyudanteDeAgente ayudante(this->t);
     std::list<Reglas::Jugada> mov=ayudante.getMovimientosPosibles(this->jugador_en_turno);
 
@@ -232,7 +237,20 @@ void PartidaGrafica::setOpcionesMover(){
         Grafico::Celda* c=this->t->getCeldaGrafica( (*i).getPosicion() );
         c->ResaltarCelda();
     }
+    this->Resaltado_celda=true;
 
+}
+void PartidaGrafica::dropOpcionesMover(){
+    if(!this->Resaltado_celda)
+        return;
+     Reglas::AyudanteDeAgente ayudante(this->t);
+    std::list<Reglas::Jugada> mov=ayudante.getMovimientosPosibles(this->jugador_en_turno);
+
+    for( std::list<Reglas::Jugada>::iterator i=mov.begin();i!=mov.end();i++ ){
+        Grafico::Celda* c=this->t->getCeldaGrafica( (*i).getPosicion() );
+        c->dropResaltado();
+    }
+    this->Resaltado_celda=false;
 }
 bool PartidaGrafica::Siguiente(Reglas::Tablero *t){
 
@@ -256,5 +274,61 @@ bool PartidaGrafica::Siguiente(Reglas::Tablero *t){
         this->jugador_ganador = idGanador+1;
         this->en_curso = false;
     }
+    else{
+         Grafico::Jugador *j= (Grafico::Jugador*)&(this->t->getJugador(this->jugador_en_turno));
+         j->setHaciendoJugada(true);
+    }
     return this->en_curso;
+}
+int PartidaGrafica::ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion){
+    scene::ISceneNode* n=this->smgr->getSceneCollisionManager()-> getSceneNodeFromScreenCoordinatesBB(pos,0,true,this->t->getNodo())   ;
+    if(n!=0){
+        std::string nom=n->getName();
+        if(nom=="CELDA"){
+            Reglas::Jugada j=this->ArmaJugada(n->getID(),movimiento,Direccion);
+            Reglas::AyudanteDeAgente ayudante(this->t);
+            std::list<Reglas::Jugada>::iterator i;
+            if(movimiento){
+                std::list<Reglas::Jugada> mov=ayudante.getMovimientosPosibles(this->jugador_en_turno);
+                i=std::find(mov.begin(),mov.end(),j);
+                if( (*i)==j )
+                    return n->getID();
+                else
+                    return -1;
+            }
+            return -1;
+        }
+    }
+        return -1;
+
+}
+void PartidaGrafica::setJugada(int celda,bool movimiento,int Direccion){
+
+    Reglas::Jugada j=this->ArmaJugada(celda,movimiento,Direccion);
+    Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(this->jugador_en_turno);
+    ju->setJugada(j);
+}
+bool PartidaGrafica::HaciendoJugada(){
+    Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(this->jugador_en_turno);
+    return ju->IsHaciendoJugada();
+}
+
+Reglas::Jugada PartidaGrafica::ArmaJugada(int celda,bool movimiento,int direccion){
+    int x=celda/10, y=celda%10;
+    if(celda==0)
+        x=y=0;
+    Reglas::Jugada j;
+    j.setPosicion(x,y);
+    if(movimiento){
+        j.setTipoDeJugada(Reglas::MOVIMIENTO);
+    }
+    else{
+        j.setTipoDeJugada(Reglas::BARRERA);
+        if(direccion==0){
+            j.setDireccion(Reglas::NORTE);}
+        else{
+            j.setDireccion(Reglas::ESTE);}
+    }
+
+    return j;
 }

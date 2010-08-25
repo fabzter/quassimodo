@@ -63,7 +63,7 @@ public:
      /**
      *Elimina nos botones de la partida  (botones de las vistas, pausa y salir al menu)
      */
-    void dropBotonesPartida();
+     void dropBotonesPartida();
          /**
       * Cambia el boton de pausa, por el de continua o viceversa, y muestra o quita
       * un mensaje de PAUSA en la interfaz.
@@ -78,7 +78,13 @@ public:
       * Elimina la imagen de los creditos de la escena.
       */
      void dropCreditos();
+     /**
+      * Coloca los botones para que el jugador pueda realizar una partida
+      */
      void setBotonesJugador();
+     /**
+      * Elimina los botones para que el jugador pueda realizar una partida
+      */
      void dropBotonesJugador();
 
 private:
@@ -133,12 +139,17 @@ private:
      * Vector de botones que son mostrados en la partida en curso
      */
     std::vector<gui::IGUIButton *> botonPartida;
-
+    /**
+     * Vector de botones que son mostrados cuando un usuario v a realizar si jugada
+     */
     std::vector<gui::IGUIButton *> botonesJugador;
     /**
      * bandera que indica si se colocaron los botones de la partida
      */
     bool botonesPartida;
+    /**
+     * Bandera que indica si estan puesto los botones del jugador.
+     */
     bool botonJugador;
     /**
      * combo box en donde se mostrará la lista de Agentes disponibles.

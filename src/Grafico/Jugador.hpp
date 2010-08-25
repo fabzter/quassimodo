@@ -6,6 +6,7 @@
 #include<Reglas/Jugador.hpp>
 #include "Skin.hpp"
 #include"JumpAnimator.hpp"
+#include <Agentes/AgenteHumano.hpp>
 namespace Grafico{
     using namespace irr;
  /**
@@ -60,7 +61,26 @@ public:
      * @return  true si la animacion termino, false en caso contrario.
      */
     bool endAnimacion();
+    /**
+     * Indica si el Jugador es Humano o no.
+     * @return true si es humano, false en caso contrario.
+     */
     bool IsHumano();
+    /**
+     * Si el jugador es Humano se colocara la jugada que eligio, al agente, para que pueda continuar la partida
+     * @param j jugada a realizar.
+     */
+    void setJugada(Reglas::Jugada &j);
+    /**
+     * si el jugador estahaciendo la jugada o no
+     * @return true si esta elaborando la jugada, false en caso contrario.
+     */
+    bool IsHaciendoJugada();
+    /**
+     * Coloca si se esta haciendo una jugada o no
+     * @param haciendo booleano que indica si se hace una jugada o no
+     */
+    void setHaciendoJugada(bool haciendo);
 
 private:
     /**
@@ -69,6 +89,7 @@ private:
     int velAnim;
     Reglas::Agente *agente;
     bool Humano;
+    bool haciendoJugada;
 };
 }
 #endif	/* _JUGADOR_HPP */

@@ -200,10 +200,12 @@ void Grafico::GUI::setBotonesJugador(){
       float size=100,dan=dis_ancho;
       for(int i=0;i<2;i++){
 
-              this->botonesJugador.at(i)= this->env->addButton(core::rect<s32>( siz.Width-(dan+size), siz.Height-(dis_alto+size),siz.Width-dan,siz.Height-dis_alto ) , 0,i+300,L"2") ;
+              this->botonesJugador.at(i)= this->env->addButton(core::rect<s32>( siz.Width-(dan+size), siz.Height-(dis_alto+size),siz.Width-dan,siz.Height-dis_alto ) , 0,i+300,L"") ;
               dan+=size+15;
               //this->botonesJugador.at(i)->setDrawBorder(true);
-              //this->botonesJugador.at(i)->setUseAlphaChannel(true);
+              this->botonesJugador.at(i)->setImage( this->skin->getBotonJugador(i) );
+              this->botonesJugador.at(i)->setPressedImage( this->skin->getBotonJugadorPres(i) );
+              this->botonesJugador.at(i)->setUseAlphaChannel(true);
       }
       this->botonJugador=true;
 }

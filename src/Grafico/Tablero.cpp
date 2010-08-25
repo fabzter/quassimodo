@@ -36,7 +36,9 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
   
         }
     }
-
+      this->nodoA->setName("Tablero");
+      this->nodoA->setIsDebugObject(true);
+      
 }
 Grafico::Tablero::Tablero(const Tablero& orig): Pieza(orig), Reglas::Tablero(orig) {
 

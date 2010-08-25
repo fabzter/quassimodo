@@ -8,7 +8,7 @@ EventReceiver::EventReceiver(Aplicacion* app)
     this->app=app;
     this->piniciada=false;
     this->noA=-1;
-    this->AmbosHumanos=false;
+    this->mover=this->barr_este=this->AmbosHumanos=false;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
     KeyIsDown[i] = false;
 }
@@ -25,18 +25,23 @@ bool EventReceiver::OnEvent(const SEvent& event)
        case irr::EET_MOUSE_INPUT_EVENT:
             switch(event.MouseInput.Event)
             {
+                    case EMIE_MOUSE_MOVED:
+                            MouseState.Posicion.X = event.MouseInput.X;
+                            MouseState.Posicion.Y = event.MouseInput.Y;
+                            break;
                     case EMIE_LMOUSE_PRESSED_DOWN:
                             MouseState.LeftButtonDown = true;
                             break;
                     case EMIE_LMOUSE_LEFT_UP:
                             MouseState.LeftButtonDown = false;
+                            core::position2d<s32> pp=MouseState.Posicion;
+                            if( this->piniciada && this->app->getManJuego()->estaHaciendoJugada()){
+                                int celda=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barr_este);
+                                if(celda>0){
+                                    this->app->getManJuego()->setJugada(celda,this->mover,this->barr_este);
+                                    this->mover=false;}
+                            }
                             break;
-
-                    case EMIE_MOUSE_MOVED:
-                            MouseState.Posicion.X = event.MouseInput.X;
-                            MouseState.Posicion.Y = event.MouseInput.Y;
-                            break;
-
             }
             break;
             //si es un evento dela GUI
@@ -108,6 +113,7 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
              break;
         case BJ_MOVER:
             this->app->getManJuego()->setOpcionesMover();
+            this->mover=true;
             break;
        case BP_MENU:
              this->piniciada=false;
@@ -117,6 +123,9 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
              this->app->getManJuego()->getManejadorGUI()->dropCreditos();
              break;
     }
+}
+void EventReceiver::ArmaJugada(){
+
 }
 const SMouseState& EventReceiver::GetMouseState(void) const
 {

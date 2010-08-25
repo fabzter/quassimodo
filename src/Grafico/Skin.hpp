@@ -22,8 +22,7 @@ public:
      * @param fsys proporciona un apuntador al sistema de archivos
      * @param opciones Un objeto que sirve para manejar las opciones de creacion de la aplicacion
      */
-    Skin(scene::ISceneManager* smgr, gui::IGUIEnvironment* env,
-                io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones);
+    Skin(scene::ISceneManager* smgr, gui::IGUIEnvironment* env,io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones);
     /**
      *Constructor copia de la clase skin
      * @param orig un objeto de la clase skin
@@ -105,11 +104,6 @@ public:
      */
     gui::IGUIFont* getGUIWindow();
     /**
-     *Regresa el nodo escena que contiene el terreno
-     * @return un objeto de la clase scene::ITerrainSceneNode
-     */
-   io::IReadFile* getheightMapFile();
-    /**
      *Obtiene la textura que le es aplicada Terreno del juego
      * @return  un apuntador a un objeto de la clase ITexture
      */
@@ -136,6 +130,18 @@ public:
      * @return un apuntador a un objeto de la clase ITexture
      */
     video::ITexture* getBotonPartidaPres(int i);
+    /**
+     * regresa la textura del boton del menu de jugador
+     * @param i indice del boton que se desea obtener si textura
+     * @return un apuntador a un objeto de la clase ITexture
+     */
+    video::ITexture* getBotonJugador(int i);
+    /**
+     * regresa la textura del boton del menu de jugador cuando esta presionado
+     * @param i indice del boton que se desea obtener si textura
+     * @return un apuntador a un objeto de la clase ITexture
+     */
+    video::ITexture* getBotonJugadorPres(int i);
     /**
      * Regresa la imagen de los crditos del juego
      * @return un apuntador a un objeto de la clase ITexture
@@ -207,10 +213,9 @@ private:
     /**
      *Carga las texturas del Terreno.
      * @param smgr un apuntador al manejador de escena del juego
-     * @param fsys proporciona un apuntador al sistema de archivos
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
-    void setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys);
+    void setTerrain(scene::ISceneManager* smgr);
     /**
      *Carga la textura del skydome .
      * @param smgr un apuntador al manejador de escena del juego
@@ -231,6 +236,12 @@ private:
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
     void setBotonesPartida(scene::ISceneManager* smgr);
+    /**
+     * Carga los iconos de los botones del menu del jugador.
+     * @param smgr un apuntador al manejador de escena del juego
+     * @throws SkinNoCargado si algun elemento no pudo ser cargado
+     */
+    void setBotonesJugador(scene::ISceneManager* smgr);
     /**
      * Carga la Imagen de los Creditos.
      * @param smgr un apuntador al manejador de escena del juego
@@ -294,10 +305,6 @@ private:
       */
      gui::IGUIFont* GUIWindow;
      /**
-      *Archivo del terreno con las que se dibujan las montañas, valles etc.
-      */
-     io::IReadFile* heightMapFile;
-     /**
       *  Textura que le será aplicada al terreno del juego
       */
      video::ITexture* TTerrain;
@@ -317,6 +324,14 @@ private:
       * Imagenes de los  iconos de los botones de la partida cuando estan presionados
       */
      std::vector<video::ITexture*> botonesPartidaPresionado;
+     /**
+      * Imagenes de los  iconos de los botones del jugador
+      */
+     std::vector<video::ITexture*> botonesJugador;
+     /**
+      * Imagenes de los  iconos de los botones del jugador cuando estan presionados
+      */
+     std::vector<video::ITexture*> botonesJugadorPresionado;
      /**
       * Imagen de los creditos.
       */
