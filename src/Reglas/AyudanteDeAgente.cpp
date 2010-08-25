@@ -147,7 +147,10 @@ Reglas::AyudanteDeAgente::getBarrerasPosibles(int numJugador)
                     this->juez->revisar_reglas(j, numJugador);
                     jugadas.push_back(j);
                 }
-                catch(ReglasRotas &e){/*jiji*/}
+                catch(ReglasRotas &e)
+                {
+                    continue;
+                }
             }
         }
     }
