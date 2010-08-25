@@ -163,6 +163,10 @@ public:
      * @as PartidaGrafica::setBarreraT
      */
     void setBarreraT(int celda,int Direccion);
+    /**
+     * cambia el giro del la barrera temporal y actualiza los botones de la gui.
+     */
+    void cambiaGiro(bool este);
 
 private:
     /**

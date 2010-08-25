@@ -322,6 +322,10 @@ void ManejadorJuego::setBarreraT(int celda,int Direccion){
     this->partida->setBarreraT(celda,Direccion);
 
 }
+void ManejadorJuego::cambiaGiro(bool este){
+    this->mgui->cambiaGiro(este);
+    this->partida->cambiaGiro(este);
+}
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
     this->cam = smgr->addCameraSceneNode();

@@ -54,10 +54,15 @@ public:
      */
     scene::IAnimatedMesh* getJugador2();
     /**
-     *Obtiene el Mesh (la malla) con la que es dibujada la Barrera
+     *Obtiene el Mesh (la malla) con la que es dibujada la Barrera del jugador 1
      *@return un apuntador a un objeto de la clase IAnimatedMesh
      */
-    scene::IAnimatedMesh* getBarrera();
+    scene::IAnimatedMesh* getBarrera1();
+    /**
+     *Obtiene el Mesh (la malla) con la que es dibujada la Barrera del jugador 2
+     *@return un apuntador a un objeto de la clase IAnimatedMesh
+     */
+    scene::IAnimatedMesh* getBarrera2();
     /**
      *Obtiene la textura que le es aplicada a la malla del tablero
      * @return  un apuntador a un objeto de la clase ITexture
@@ -73,11 +78,6 @@ public:
      * @return  un apuntador a un objeto de la clase ITexture
      */
     video::ITexture* getTAntorcha();
-    /**
-     *Obtiene la textura que le es aplicada a la malla de la Barrera
-     * @return  un apuntador a un objeto de la clase ITexture
-     */
-    video::ITexture* getTBarrera();
     /**
      *Obtiene la tipografia que se le aplica a los botones del Menu
      * @return  un apuntador a un objeto de la clase IGUIFont
@@ -265,13 +265,13 @@ private:
       */
      scene::IAnimatedMesh* Jugador2;
      /**
-      * Malla con la que se dibujará la barrera
+      * Malla con la que se dibujará la barrera del jugador 1
       */
-     scene::IAnimatedMesh* Barrera;
-     /**
-      * Textura que le será aplicada a la malla de la barrera
+     scene::IAnimatedMesh* Barrera1;
+       /**
+      * Malla con la que se dibujará la barrera del jugador 2
       */
-     video::ITexture* TBarrera;
+     scene::IAnimatedMesh* Barrera2;
      /**
       *  Textura que le será aplicada a la malla de la celda
       */

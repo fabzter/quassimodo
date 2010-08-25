@@ -37,13 +37,14 @@ bool EventReceiver::OnEvent(const SEvent& event)
                             core::position2d<s32> pp=MouseState.Posicion;
                             
                             if( this->piniciada && this->app->getManJuego()->estaHaciendoJugada()){
-                                int celda=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barrera,this->barr_este);
-                                if(celda>=0){
+                                int celda1=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barrera,this->barr_este);
+                                if(celda1>=0){
                                     if(mover){
-                                        this->app->getManJuego()->setJugada(celda,this->mover,this->barrera,this->barr_este);
+                                        this->app->getManJuego()->setJugada(celda1,this->mover,this->barrera,this->barr_este);
                                         this->mover=false;
                                   }
                                     else if(barrera){
+                                        celda=celda1;
                                         this->app->getManJuego()->setBarreraT(celda,this->barr_este);
                                        // this->barrera=false;
                                     }
@@ -107,7 +108,7 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
        case BP_VISTA1:
              this->app->getManJuego()->cambiaVistaJuego(1);
              break;
-             case BP_VISTA2:
+       case BP_VISTA2:
              this->app->getManJuego()->cambiaVistaJuego(2);
              break;
        case BP_VISTA3:
@@ -129,7 +130,11 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
             break;
         case BJ_GIRA_ESTE:case BJ_GIRA_NORTE:
             this->barr_este= (!this->barr_este);
-            this->app->getManJuego()->getManejadorGUI()->cambiaGiro(this->barr_este);
+            this->app->getManJuego()->cambiaGiro(this->barr_este);
+            break;
+        case BJ_LISTO:
+            this->app->getManJuego()->setJugada(celda,this->mover,this->barrera,this->barr_este);
+            this->barr_este=this->barrera=false;
             break;
        case BP_MENU:
              this->piniciada=false;
@@ -139,9 +144,6 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
              this->app->getManJuego()->getManejadorGUI()->dropCreditos();
              break;
     }
-}
-void EventReceiver::ArmaJugada(){
-
 }
 const SMouseState& EventReceiver::GetMouseState(void) const
 {

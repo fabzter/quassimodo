@@ -60,12 +60,20 @@ public:
     std::string getJugador2ModeloPath();
 
     /**
-     * Nos indica el Path al modelo de las barreras, especificado en el archivo de
+     * Nos indica el Path al modelo de las barrerasdel jugador 1, especificado en el archivo de
      * configuración.
      * @return una string que contiene el path relativo al archivo de modelo de
-     * las barreras.
+     * las barrerasdel jugador 1.
      */
-    std::string getBarreraModeloPath();
+    std::string getBarrera1ModeloPath();
+    /**
+     * Nos indica el Path al modelo de las barrerasdel jugador 2, especificado en el archivo de
+     * configuración.
+     * @return una string que contiene el path relativo al archivo de modelo de
+     * las barrerasdel jugador 2.
+     */
+    std::string getBarrera2ModeloPath();
+
 
     /**
      * Nos indica el Path al modelo de las celdas, especificado en el archivo de

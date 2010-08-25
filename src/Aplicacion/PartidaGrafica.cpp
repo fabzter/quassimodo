@@ -103,7 +103,7 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
 
  void PartidaGrafica::SetBarrera(Reglas::Jugada &j, int idJugador){
 
-     this->Barreras.push_back(new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo()));
+     this->Barreras.push_back( new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo(),this->jugador_en_turno ) );
         unsigned int pos=this->Barreras.size();
         const std::vector<int> p=j.getPosicion();
         this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
@@ -184,7 +184,6 @@ std::vector<std::string> PartidaGrafica::getNombresAgentes(){
 void PartidaGrafica::dropBarreras(){
 
      for(int i=0;i<this->Barreras.size();i++){
-         std::cout<<"borrando la barrera : "<<i<<" de "<<this->Barreras.size()<<std::endl;
          delete( this->Barreras.at(i) );
      }
      this->Barreras.clear();
@@ -192,7 +191,6 @@ void PartidaGrafica::dropBarreras(){
 
 void PartidaGrafica::dropJugadores() {
      for(int i=0;i<this->jugadores.size();i++){
-         std::cout<<"borrando el jugador: "<<i<<" de "<<this->jugadores.size()<<std::endl;
             Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(i);
             delete(ju);
       }
@@ -298,12 +296,13 @@ int PartidaGrafica::ChecaJugada(core::position2d<s32>& pos,bool movimiento,bool 
                     return -1;
             }
             else if(barrera){
-                std::list<Reglas::Jugada> mov=ayudante.getBarrerasPosibles(this->jugador_en_turno);
-                i=std::find(mov.begin(),mov.end(),j);
-                if( (*i)==j )
-                    return n->getID();
-                else
+                try{
+                    ayudante.revisarReglas(j,this->jugador_en_turno);
+                }
+                catch(Reglas::Excepcion &e){
                     return -1;
+                }
+                return n->getID();
             }
         }
     }
@@ -311,7 +310,8 @@ int PartidaGrafica::ChecaJugada(core::position2d<s32>& pos,bool movimiento,bool 
 
 }
 void PartidaGrafica::setJugada(int celda,bool movimiento,bool barrera,int Direccion){
-
+    if(this->b_tmp!=NULL)
+        delete (this->b_tmp);
     Reglas::Jugada j=this->ArmaJugada(celda,movimiento,barrera,Direccion);
     Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(this->jugador_en_turno);
     ju->setJugada(j);
@@ -326,17 +326,13 @@ void PartidaGrafica::setBarreraT(int celda,int Direccion){
     
     Reglas::Jugada j=this->ArmaJugada(celda,false,true,Direccion);
 
-    this->b_tmp=new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo());
+    this->b_tmp=new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo(),this->jugador_en_turno);
     const std::vector<int> p=j.getPosicion();
     this->b_tmp->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
 
 }
 Reglas::Jugada PartidaGrafica::ArmaJugada(int celda,bool movimiento,bool barrera ,int direccion){
     int x=celda/10, y=celda%10;
-    if(celda==0)
-        x=y=0;
-    /*if(celda>0 && celda<10)
-        y=celda;x=0;*/
     Reglas::Jugada j;
     j.setPosicion(x,y);
     if(movimiento){
@@ -351,4 +347,12 @@ Reglas::Jugada PartidaGrafica::ArmaJugada(int celda,bool movimiento,bool barrera
     }
 
     return j;
+}
+void PartidaGrafica::cambiaGiro(bool este){
+    if(this->b_tmp==NULL)
+        return;
+    if(este)
+        this->b_tmp->giraEste(this->b_tmp->getPosicionEscena());
+    else
+        this->b_tmp->giraNorte();
 }

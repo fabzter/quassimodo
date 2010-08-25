@@ -139,6 +139,11 @@ public:
      * @param Direccion la direccion en la que se colocara la barrera @as Reglas::Direccion
      */
     void setBarreraT(int celda ,int Direccion);
+    /**
+     * cambia la direccion de la barrera temporal si es que está dibujada
+     * @param este si la direccion a cambiar es al este o no;
+     */
+    void cambiaGiro(bool este);
 
 private:
     /**

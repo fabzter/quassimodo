@@ -4,12 +4,14 @@
 
 using namespace irr;
 
-Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent),Reglas::Barrera() {
-
-      this->mesh=skin->getBarrera();
+Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,scene::ISceneNode* parent,int idJugador):Grafico::Pieza(parent),Reglas::Barrera() {
+    if(idJugador==0)
+        this->mesh=skin->getBarrera1();
+    else
+        this->mesh=skin->getBarrera2();
      this->dibuja(smgr);
-     this->nodoA->setMaterialTexture( 0, skin->getTBarrera() );
-     this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);
+     if(idJugador==0)
+         this->nodoA->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR );
      this->velAnim=VelAnim;
      //  this->setSombra();
 }

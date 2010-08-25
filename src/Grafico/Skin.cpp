@@ -67,9 +67,9 @@ void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
 
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Barrera=smgr->getMesh(this->opciones->getBarreraModeloPath().c_str());
-    this->TBarrera=smgr->getVideoDriver()->getTexture(this->opciones->getBarrera1TexturaPath().c_str());
-      if( this->Barrera== NULL || this->TBarrera==0 )
+    this->Barrera1=smgr->getMesh(this->opciones->getBarrera1ModeloPath().c_str());
+    this->Barrera2=smgr->getMesh(this->opciones->getBarrera2ModeloPath().c_str());
+      if( this->Barrera2== NULL || this->Barrera1==NULL )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Barrera ";
             throw SkinNoCargado(strs.str().c_str());
@@ -231,8 +231,11 @@ scene::IAnimatedMesh* Grafico::Skin::getJugador1(){
 scene::IAnimatedMesh* Grafico::Skin::getJugador2(){
     return this->Jugador2;
 }
-scene::IAnimatedMesh* Grafico::Skin::getBarrera(){
-    return this->Barrera;
+scene::IAnimatedMesh* Grafico::Skin::getBarrera1(){
+    return this->Barrera1;
+}
+scene::IAnimatedMesh* Grafico::Skin::getBarrera2(){
+    return this->Barrera2;
 }
 video::ITexture* Grafico::Skin::getTTAblero(){
     return this->TTAblero;
@@ -242,9 +245,6 @@ video::ITexture* Grafico::Skin::getTCelda(){
 }
 video::ITexture* Grafico::Skin::getTAntorcha(){
     return this->TAntorcha;
-}
-video::ITexture* Grafico::Skin::getTBarrera(){
-    return this->TBarrera;
 }
 gui::IGUIFont* Grafico::Skin::getMenuBoton(){
     return this->MenuBoton;
