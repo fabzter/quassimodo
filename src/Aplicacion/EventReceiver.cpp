@@ -8,7 +8,7 @@ EventReceiver::EventReceiver(Aplicacion* app)
     this->app=app;
     this->piniciada=false;
     this->noA=-1;
-    this->mover=this->barrera=this->AmbosHumanos=false;
+    this->mover=this->barr_este=this->AmbosHumanos=false;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
     KeyIsDown[i] = false;
 }
@@ -35,11 +35,12 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case EMIE_LMOUSE_LEFT_UP:
                             MouseState.LeftButtonDown = false;
                             core::position2d<s32> pp=MouseState.Posicion;
-                            this->app->getManJuego()->clickCelda(pp);
+                            if( this->piniciada && this->app->getManJuego()->estaHaciendoJugada()){
+                                int celda=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barr_este);
+                                if(celda>0)
+                                    this->app->getManJuego()->setJugada(celda,this->mover,this->barr_este);//std::cout<<"si se puede"<<std::endl;
+                            }
                             break;
-
-
-
             }
             break;
             //si es un evento dela GUI
@@ -111,6 +112,7 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
              break;
         case BJ_MOVER:
             this->app->getManJuego()->setOpcionesMover();
+            this->mover=true;
             break;
        case BP_MENU:
              this->piniciada=false;

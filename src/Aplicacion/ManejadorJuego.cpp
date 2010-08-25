@@ -281,16 +281,21 @@ bool ManejadorJuego::JugadorPreparaJugada(){
     
     bool isHumano=this->partida->JugadorIsHumano( this->partida->getJugadorEnTurno() );
     if( isHumano  ){
-        this->haciendoJugada=true;
-        if(!this->botonesJugador){
-            this->mgui->setBotonesJugador();
-            this->botonesJugador=true;
+        if(this->partida->HaciendoJugada()){
+            this->haciendoJugada=true;
+            if(!this->botonesJugador){
+                this->mgui->setBotonesJugador();
+                this->botonesJugador=true;
+            }
         }
+
     }
     else{
         this->haciendoJugada=false;
+       // this->partida->dropOpcionesMover();
         if(this->botonesJugador){
             this->mgui->dropBotonesJugador();
+            this->botonesJugador=false;
         }
     }
 
@@ -298,12 +303,21 @@ bool ManejadorJuego::JugadorPreparaJugada(){
     return this->haciendoJugada;
     
 }
+bool ManejadorJuego::estaHaciendoJugada(){
+    return this->haciendoJugada;
+}
 void ManejadorJuego::setOpcionesMover(){
     this->partida->setOpcionesMover();
 }
-bool ManejadorJuego::clickCelda(core::position2d<s32>& pos){
-    return this->partida->clickCelda(pos);
+int ManejadorJuego::ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion){
+    return this->partida->ChecaJugada(pos,movimiento,Direccion);
 }
+
+void ManejadorJuego::setJugada(int celda,bool movimiento,int Direccion){
+    this->partida->setJugada(celda,movimiento,Direccion);
+    this->haciendoJugada=false;
+}
+
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
     this->cam = smgr->addCameraSceneNode();

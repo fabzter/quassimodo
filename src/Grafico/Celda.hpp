@@ -74,6 +74,7 @@ private:
      */
     scene::ISceneManager* smgr;
     Skin* skin;
+    scene::IParticleSystemSceneNode *ps;
 
     
 

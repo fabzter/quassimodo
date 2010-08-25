@@ -142,14 +142,23 @@ public:
      */
     bool JugadorPreparaJugada();
     /**
+     * Si un jugador humano esta haciendo jugada o no
+     * @return true en caso de que la este haciendo, false en caso contrario.
+     */
+    bool estaHaciendoJugada();
+    /**
      * @as PartidaGrafica::setOpcionesMover
      */
     void setOpcionesMover();
     /**
      * 
-     * @as PartidaGrafica::clickCelda
+     * @as PartidaGrafica::ChecaJugada
      */
-    bool clickCelda(core::position2d<s32>& pos);
+    int ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion=0);
+    /**
+     * @as PartidaGrafica::setJugada
+     */
+    void setJugada(int celda,bool movimiento,int Direccion=0);
 
 private:
     /**

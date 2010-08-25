@@ -56,7 +56,7 @@ void Grafico::Celda::SetEscalaCelda(int x, int y, int z){
 }
  void Grafico::Celda::ResaltarCelda(){
 
-    /* scene::IParticleSystemSceneNode *ps=smgr->addParticleSystemSceneNode(false,this->nodoA,0,core::vector3df(this->size.X/2,this->size.Y,this->size.Z/2) );
+     /*ps=smgr->addParticleSystemSceneNode(false,this->nodoA,0,core::vector3df(this->size.X/2,this->size.Y,this->size.Z/2) );
      ps->setMaterialTexture(0,skin->getTAntorcha());
 
      scene::IParticleEmitter* em = ps->createBoxEmitter(
@@ -84,4 +84,6 @@ void Grafico::Celda::SetEscalaCelda(int x, int y, int z){
  }
  void Grafico::Celda::dropResaltado(){
      this->nodoA->removeAll();
+     this->nodoA->setMaterialType(video::EMT_TRANSPARENT_REFLECTION_2_LAYER);
+     this->nodoA->getMaterial(0).EmissiveColor=video::SColor(0,0,0,0);
  }
