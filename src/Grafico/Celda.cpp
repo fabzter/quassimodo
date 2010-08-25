@@ -44,7 +44,6 @@ void Grafico::Celda::colocar(int x, int y, int z){
            v.X=1,v.Y=1,v.Z=1;
       this->nodoA->setName("CELDA");
       this->nodoA->setID((this->celdaR->getPosicion().at(0)*10)+this->celdaR->getPosicion().at(1));
-  
       x+=this->celdaR->getPosicion().at(0)* ( (this->size.X+this->size.Y)*v.X ) ;
       z+=this->celdaR->getPosicion().at(1)*( (this->size.X+this->size.Y)*v.Z );
       y-=12;
