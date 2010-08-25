@@ -23,9 +23,11 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
     //dibujamos el tablero
       this->mesh=skin->getTablero();
       this->dibuja(smgr);
-      this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
-
-      //dibujamos las celdas y le damos su posición a cada celda...
+    //  this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
+      //this->nodoA->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
+     // this->nodoA->getMaterial(1).MaterialTypeParam=5;
+     // this->nodoA->getMaterial(1).MaterialTypeParam2=10;
+              //dibujamos las celdas y le damos su posición a cada celda...
     for(std::size_t i = 0; i < this->datos.size(); i++){
         for(std::size_t j = 0; j < this->datos.at(i).size(); j++){
             this->datos.at(i).at(j)=new Celda(smgr,skin,this->nodoA);

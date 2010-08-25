@@ -145,6 +145,7 @@ public:
      * @as PartidaGrafica::setOpcionesMover
      */
     void setOpcionesMover();
+
 private:
     /**
      *Coloca la camara de la partida asi como tambien el tope de esta
