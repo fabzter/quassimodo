@@ -17,6 +17,7 @@ Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IF
     this->setSkyDome(smgr);
     this->setSkinGui(env,fsys,smgr->getVideoDriver());
     this->setBotonesPartida(smgr);
+    this->setBotonesJugador(smgr);
     this->setImagenCreditos(smgr);
 }
 
@@ -176,6 +177,35 @@ void Grafico::Skin::setBotonesPartida(scene::ISceneManager* smgr){
             }
     }
 }
+void Grafico::Skin::setBotonesJugador(scene::ISceneManager* smgr){
+    std::ostringstream strs;
+
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getMoverPinguinoPath().c_str() ));
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraPinguinoPath().c_str() ));
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraPinguinoPath().c_str() ));
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraNorteBarreraPinguinoPath().c_str() ));
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getMoverRobotPath().c_str() ));
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraRobotPath().c_str() ));
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraRobotPath().c_str() ));
+    this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraNorteBarreraRobotPath().c_str() ));
+
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getMoverPinguinoPressPath().c_str() ));
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraPinguinoPressPath().c_str() ));
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraPinguinoPressPath().c_str() ));
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraNorteBarreraPinguinoPressPath().c_str() ));
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getMoverRobotPressPath().c_str() ));
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraRobotPressPath().c_str() ));
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraRobotPressPath().c_str() ));
+    this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraNorteBarreraRobotPressPath().c_str() ));
+     for(int i=0;i<this->botonesJugador.size();i++){
+         if( this->botonesJugador.at(i)== NULL || this->botonesJugadorPresionado.at(i)== NULL )
+            {
+                strs << "No pudo ser cargado el Skin en la parte de los botones del Jugador ( el boton "<<i<<" )";
+                throw SkinNoCargado(strs.str().c_str());
+            }
+    }
+
+}
 void Grafico::Skin::setImagenCreditos(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->creditos=smgr->getVideoDriver()->getTexture(this->opciones->getCreditos().c_str() );
@@ -243,6 +273,12 @@ video::ITexture*  Grafico::Skin::getBotonPartida(int i){
 }
 video::ITexture*  Grafico::Skin::getBotonPartidaPres(int i){
     return this->botonesPartidaPresionado.at(i);
+}
+video::ITexture* Grafico::Skin::getBotonJugador(int i){
+    return this->botonesJugador.at(i);
+}
+video::ITexture* Grafico::Skin::getBotonJugadorPres(int i){
+    return this->botonesJugadorPresionado.at(i);
 }
 video::ITexture* Grafico::Skin::getImagenCreditos(){
     return this->creditos;

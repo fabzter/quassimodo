@@ -130,6 +130,7 @@ public:
      */
     std::string getSkydomeTexturaPath();
 
+
     /*GETTERS PARA LAS FONTS*/
 
     /**
@@ -275,6 +276,119 @@ public:
      * de vuelta al menú..
      */
     std::string getBotonMenuPresPath();
+    /**
+     * Nos indica el Path a la imagen del botón de mover al pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * mover al pinguino
+     */
+    std::string getMoverPinguinoPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de mover al pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * mover al pinguino
+     */
+    std::string getMoverPinguinoPressPath();
+      /**
+     * Nos indica el Path a la imagen del botón de mover al robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * mover al pinguino
+     */
+    std::string getMoverRobotPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de mover al robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * mover al pinguino
+     */
+    std::string getMoverRobotPressPath();
+        /**
+     * Nos indica el Path a la imagen del botón de poner barrera del pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * de poner barrera del pinguino
+     */
+    std::string getSetBarreraPinguinoPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de poner barrera del pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * de poner barrera del pinguino
+     */
+    std::string getSetBarreraPinguinoPressPath();
+      /**
+     * Nos indica el Path a la imagen del botón de poner barrera del robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * de poner barrera del pinguino
+     */
+    std::string getSetBarreraRobotPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de poner barrera del robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * de poner barrera del pinguino
+     */
+    std::string getSetBarreraRobotPressPath();
+    /**
+     * Nos indica el Path a la imagen del botón de Girar al este la barrera del pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * de Girar al este la barrera del pinguino
+     */
+    std::string getGiraEsteBarreraPinguinoPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de Girar al este la barrera del pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * de Girar al este la barrera del pinguino
+     */
+    std::string getGiraEsteBarreraPinguinoPressPath();
+      /**
+     * Nos indica el Path a la imagen del botón de Girar al este la barrera del robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * de Girar al este la barrera del pinguino
+     */
+    std::string getGiraEsteBarreraRobotPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de Girar al este la barrera del robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * de Girar al este la barrera del pinguino
+     */
+    std::string getGiraEsteBarreraRobotPressPath();
+               /**
+     * Nos indica el Path a la imagen del botón de Girar al Norte la barrera del pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * de Girar al Norte la barrera del pinguino
+     */
+    std::string getGiraNorteBarreraPinguinoPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de Girar al Norte la barrera del pinguino,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * de Girar al Norte la barrera del pinguino
+     */
+    std::string getGiraNorteBarreraPinguinoPressPath();
+      /**
+     * Nos indica el Path a la imagen del botón de Girar al Norte la barrera del robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón
+     * de Girar al Norte la barrera del pinguino
+     */
+    std::string getGiraNorteBarreraRobotPath();
+    /**
+     * Nos indica el Path a la imagen del botón presionado de Girar al Norte la barrera del robot,
+     * especificado en el archivo de configuración.
+     * @return una string con el path relativo al archivo del botón  presionado
+     * de Girar al Norte la barrera del pinguino
+     */
+    std::string getGiraNorteBarreraRobotPressPath();
+
 
     /*Otros*/
 

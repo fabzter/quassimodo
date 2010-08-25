@@ -133,6 +133,55 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("gui.botones.menu_2",
             po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu-2.png")),
                             "Path relativo a la imagen del botón de volver a menú.")
+ /*de aqui*/("gui.botones.mover_pin",
+            po::value<string>()->default_value(string("conf/gui_default/mover_pingu.png")),
+                            "Path relativo a la imagen del botón de mover al pinguino.")
+            ("gui.botones.mover_pin_2",
+            po::value<string>()->default_value(string("conf/gui_default/mover_pingu_2.png")),
+                            "Path relativo a la imagen del botón presionado de mover al pinguino.")
+            ("gui.botones.mover_rob",
+            po::value<string>()->default_value(string("conf/gui_default/mover_robot.png")),
+                            "Path relativo a la imagen del botón de mover al Robot.")
+            ("gui.botones.mover_rob_2",
+            po::value<string>()->default_value(string("conf/gui_default/mover_robot_2.png")),
+                            "Path relativo a la imagen del botón presionado de mover al Robot.")
+            ("gui.botones.set_Barr_pin",
+            po::value<string>()->default_value(string("conf/gui_default/poner_pingu.png")),
+                            "Path relativo a la imagen del botón de poner una barrera del Pinguino.")
+            ("gui.botones.set_Barr_pin_2",
+            po::value<string>()->default_value(string("conf/gui_default/poner_pingu_2.png")),
+                            "Path relativo a la imagen del botón presionado de poner una barrera del Pinguino.")
+            ("gui.botones.set_Barr_rob",
+            po::value<string>()->default_value(string("conf/gui_default/poner_robot.png")),
+                            "Path relativo a la imagen del botón de poner una barrera del Robot.")
+            ("gui.botones.set_Barr_rob_2",
+            po::value<string>()->default_value(string("conf/gui_default/poner_robot_2.png")),
+                            "Path relativo a la imagen del botón presionado de poner una barrera del Robot.")
+            ("gui.botones.gir_est_Barr_pin",
+            po::value<string>()->default_value(string("conf/gui_default/girar_1_pingu.png")),
+                            "Path relativo a la imagen del botón de girar al este una barrera del Pinguino.")
+            ("gui.botones.gir_est_Barr_pin_2",
+            po::value<string>()->default_value(string("conf/gui_default/girar_1_pingu_2.png")),
+                            "Path relativo a la imagen del botón presionado de girar al este una barrera del Pinguino.")
+            ("gui.botones.gir_est_Barr_rob",
+            po::value<string>()->default_value(string("conf/gui_default/girar_1_robot.png")),
+                            "Path relativo a la imagen del botón de girar al este una barrera del Pinguino.")
+            ("gui.botones.gir_est_Barr_rob_2",
+            po::value<string>()->default_value(string("conf/gui_default/girar_1_robot_2.png")),
+                            "Path relativo a la imagen del botón presionado de girar al este una barrera del Pinguino.")
+            ("gui.botones.gir_nort_Barr_pin",
+            po::value<string>()->default_value(string("conf/gui_default/girar_2_pingu.png")),
+                            "Path relativo a la imagen del botón de girar al Norte una barrera del Pinguino.")
+            ("gui.botones.gir_nort_Barr_pin_2",
+            po::value<string>()->default_value(string("conf/gui_default/girar_2_pingu_2.png")),
+                            "Path relativo a la imagen del botón presionado de girar al norte una barrera del Pinguino.")
+            ("gui.botones.gir_nort_Barr_rob",
+            po::value<string>()->default_value(string("conf/gui_default/girar_2_robot.png")),
+                            "Path relativo a la imagen del botón de girar al norte una barrera del Pinguino.")
+            ("gui.botones.gir_nort_Barr_rob_2",
+            po::value<string>()->default_value(string("conf/gui_default/girar_2_robot_2.png")),
+                            "Path relativo a la imagen del botón presionado de girar al norte una barrera del Pinguino.")
+
             //cfg
             ("gui.gui_cfg",
             po::value<string>()->default_value(string("conf/gui_default/boton3_2_menu.png")),
@@ -345,7 +394,6 @@ std::string Opciones::ManejadorOpciones::getBotonPausa2PresPath()
     return this->vm["gui.botones.pausa_2_2"].as<std::string>();
 }
 
-
 std::string Opciones::ManejadorOpciones::getBotonMenuPath()
 {
     return this->vm["gui.botones.menu"].as<std::string>();
@@ -353,6 +401,66 @@ std::string Opciones::ManejadorOpciones::getBotonMenuPath()
 std::string Opciones::ManejadorOpciones::getBotonMenuPresPath()
 {
     return this->vm["gui.botones.menu_2"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getMoverPinguinoPath(){
+    return this->vm["gui.botones.mover_pin"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getMoverPinguinoPressPath(){
+    return this->vm["gui.botones.mover_pin_2"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getMoverRobotPath(){
+    return this->vm["gui.botones.mover_rob"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getMoverRobotPressPath(){
+    return this->vm["gui.botones.mover_rob_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getSetBarreraPinguinoPath(){
+    return this->vm["gui.botones.set_Barr_pin"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getSetBarreraPinguinoPressPath(){
+    return this->vm["gui.botones.set_Barr_pin_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getSetBarreraRobotPath(){
+    return this->vm["gui.botones.set_Barr_rob"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getSetBarreraRobotPressPath(){
+    return this->vm["gui.botones.set_Barr_rob_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraEsteBarreraPinguinoPath(){
+    return this->vm["gui.botones.gir_est_Barr_pin"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraEsteBarreraPinguinoPressPath(){
+    return this->vm["gui.botones.gir_est_Barr_pin_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraEsteBarreraRobotPath(){
+    return this->vm["gui.botones.gir_est_Barr_rob"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraEsteBarreraRobotPressPath(){
+    return this->vm["gui.botones.gir_est_Barr_rob_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraNorteBarreraPinguinoPath(){
+    return this->vm["gui.botones.gir_nort_Barr_pin"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraNorteBarreraPinguinoPressPath(){
+    return this->vm["gui.botones.gir_nort_Barr_pin_2"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraNorteBarreraRobotPath(){
+    return this->vm["gui.botones.gir_nort_Barr_rob"].as<std::string>();
+}
+
+std::string Opciones::ManejadorOpciones::getGiraNorteBarreraRobotPressPath(){
+    return this->vm["gui.botones.gir_nort_Barr_rob_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getGUIConfig()
