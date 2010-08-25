@@ -46,47 +46,21 @@ Reglas::AyudanteDeAgente::getMovimientosPosibles(int numJugador)
 {
     std::list<Jugada> jugadas;
     const Celda &celda_actual = this->tablero->getCelda(numJugador);
-    const std::vector<int> &pos_actual = celda_actual.getPosicion();
     
     for(int dir = (int)NORTE; dir <= (int)OESTE; dir++)
     {
-        //tratamos de obtener la celda justo adelante en direccion dir
+        //tratamos de obtener el hijo en dirección d, con salto.
         try
         {
-            Jugada j(this->tablero->getCelda(
-                pos_actual.at(0) + this->getDeltaX((Direccion) dir),
-                pos_actual.at(1) + this->getDeltaY((Direccion) dir)
-                ) );
+            Jugada j(celda_actual.getHijo((Direccion)dir, true));
             
             this->agregarJugadaSelectivamente(numJugador, j, jugadas);
         }
-        catch(std::out_of_range &e){/*ups!*/}
-        //intentamos con el que está a la derecha de el anterior que sacamos...
-        try
+        catch(SinHijo &e)
         {
-            Jugada j(this->tablero->getCelda(
-                pos_actual.at(0) + this->getDeltaX((Direccion) dir) +
-                    this->getDeltaX((Direccion) (dir + 1) ),
-                pos_actual.at(1) + this->getDeltaY((Direccion) dir) +
-                    this->getDeltaX((Direccion) (dir + 1) )
-                ) );
-
-            this->agregarJugadaSelectivamente(numJugador, j, jugadas);
+            continue;
         }
-        catch(std::out_of_range &e){/*ups!*/}
-        //intentamos con que esta uno más adelante del primero que sacamos...
-        try
-        {
-            Jugada j(this->tablero->getCelda(
-                pos_actual.at(0) + this->getDeltaX((Direccion) dir)*2,
-                pos_actual.at(1) + this->getDeltaY((Direccion) dir)*2
-                ) );
-
-            this->agregarJugadaSelectivamente(numJugador, j, jugadas);
-        }
-        catch(std::out_of_range &e){/*ups!*/}
     }
-
     return jugadas;
 }
 

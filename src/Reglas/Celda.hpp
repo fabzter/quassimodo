@@ -60,10 +60,13 @@ public:
     /**
      * Éste método nos indica al hijo de la celda en alguna dirección.
      * @param d es la direccion de la cual se quiere obtener al hijo.
+     * @param darSaltos si se pone a true, en caso de que un hijo esté ocupado
+     * por el enemigo, se tomará como hijo a la Celda a la que se llega saltando
+     * al enemigo.
      * @return un apuntador a la Celda hijo en dirección d.
      * @throws SinHijo si la Celda no tiene un hijo en esa posición.
      */
-    Celda& getHijo(Direccion d) const;
+    Celda& getHijo(Direccion d, bool darSaltos = false) const;
 
     /**
      * Determina si la Celda enviada es hijo de la Celda actual.

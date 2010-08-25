@@ -40,7 +40,6 @@ Reglas::Jugada Agentes::AgenteMinimax2::siguienteJugada(const Reglas::Tablero ta
     {
         return minimax((Tablero*)&tablero, this->id, 0, 2, BARRERA);
     }
-
     try
     {
         std::vector<void*>* my_path = astar(&tablero, this->id);
