@@ -37,8 +37,9 @@ bool EventReceiver::OnEvent(const SEvent& event)
                             core::position2d<s32> pp=MouseState.Posicion;
                             if( this->piniciada && this->app->getManJuego()->estaHaciendoJugada()){
                                 int celda=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barr_este);
-                                if(celda>0)
-                                    this->app->getManJuego()->setJugada(celda,this->mover,this->barr_este);//std::cout<<"si se puede"<<std::endl;
+                                if(celda>0){
+                                    this->app->getManJuego()->setJugada(celda,this->mover,this->barr_este);
+                                    this->mover=false;}
                             }
                             break;
             }

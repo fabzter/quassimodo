@@ -315,6 +315,8 @@ bool PartidaGrafica::HaciendoJugada(){
 
 Reglas::Jugada PartidaGrafica::ArmaJugada(int celda,bool movimiento,int direccion){
     int x=celda/10, y=celda%10;
+    if(celda==0)
+        x=y=0;
     Reglas::Jugada j;
     j.setPosicion(x,y);
     if(movimiento){
@@ -322,10 +324,10 @@ Reglas::Jugada PartidaGrafica::ArmaJugada(int celda,bool movimiento,int direccio
     }
     else{
         j.setTipoDeJugada(Reglas::BARRERA);
-        if(direccion==0)
-            j.setDireccion(Reglas::NORTE);
-        else
-            j.setDireccion(Reglas::ESTE);
+        if(direccion==0){
+            j.setDireccion(Reglas::NORTE);}
+        else{
+            j.setDireccion(Reglas::ESTE);}
     }
 
     return j;
