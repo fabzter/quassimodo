@@ -123,14 +123,6 @@ public:
     std::string getTerrenoTexturaPath();
 
     /**
-     * Nos indica el Path a la textura de alturas del terreno, especificado en
-     * el archivo de configuración.
-     * @return una string que contiene el path relativo al archivo de textura
-     * de alturas del terreno.
-     */
-    std::string getTerrenoHeightTexturaPath();
-
-    /**
      * Nos indica el Path a la textura del skydome, especificado en el archivo de
      * configuración.
      * @return una string que contiene el path relativo al archivo de textura del

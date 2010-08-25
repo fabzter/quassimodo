@@ -13,7 +13,7 @@ Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IF
     this->setGUIBoton(env);
     this->setMenuBoton(env);
     this->setMenuToolTip(env);
-    this->setTerrain(smgr,fsys);
+    this->setTerrain(smgr);
     this->setSkyDome(smgr);
     this->setSkinGui(env,fsys,smgr->getVideoDriver());
     this->setBotonesPartida(smgr);
@@ -124,10 +124,9 @@ void Grafico::Skin::setGUIWindow(gui::IGUIEnvironment* env){
             throw SkinNoCargado(strs.str().c_str());
      }
 }
-void Grafico::Skin::setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys){
+void Grafico::Skin::setTerrain(scene::ISceneManager* smgr){
      std::ostringstream strs;
     this->TTerrain =smgr->getVideoDriver()->getTexture(this->opciones->getTerrenoTexturaPath().c_str());
-   this->heightMapFile=fsys->createAndOpenFile(this->opciones->getTerrenoHeightTexturaPath().c_str());
      if( this->TTerrain== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del Terreno ";
@@ -229,9 +228,6 @@ gui::IGUIFont* Grafico::Skin::getGUIBoton(){
 }
 gui::IGUIFont* Grafico::Skin::getGUIWindow(){
     return this->GUIWindow;
-}
-io::IReadFile* Grafico::Skin::getheightMapFile(){
-    return this->heightMapFile;
 }
 video::ITexture* Grafico::Skin::getTTerrain(){
     return this->TTerrain;

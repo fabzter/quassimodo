@@ -65,9 +65,6 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("skin.texturas.terreno",
             po::value<string>()->default_value(string("conf/skin_default/piso3_TX.jpg")),
                                     "Path relativo a la textura del terreno.")
-            ("skin.texturas.terreno_height",
-            po::value<string>()->default_value(string("conf/skin_default/piso3_HM.bmp")),
-                            "Path relativo al archivo de relieve del terreno.")
             ("skin.texturas.skydome",
             po::value<string>()->default_value(string("conf/skin_default/3.tree.skydome.png")),
                                     "Path relativo a la textura del skydome.")
@@ -258,11 +255,6 @@ std::string Opciones::ManejadorOpciones::getCeldaTexturaPath()
 std::string Opciones::ManejadorOpciones::getTerrenoTexturaPath()
 {
     return this->vm["skin.texturas.terreno"].as<std::string>();
-}
-
-std::string Opciones::ManejadorOpciones::getTerrenoHeightTexturaPath()
-{
-    return this->vm["skin.texturas.terreno_height"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getSkydomeTexturaPath()

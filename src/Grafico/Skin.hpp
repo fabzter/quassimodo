@@ -22,8 +22,7 @@ public:
      * @param fsys proporciona un apuntador al sistema de archivos
      * @param opciones Un objeto que sirve para manejar las opciones de creacion de la aplicacion
      */
-    Skin(scene::ISceneManager* smgr, gui::IGUIEnvironment* env,
-                io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones);
+    Skin(scene::ISceneManager* smgr, gui::IGUIEnvironment* env,io::IFileSystem* fsys,Opciones::ManejadorOpciones &opciones);
     /**
      *Constructor copia de la clase skin
      * @param orig un objeto de la clase skin
@@ -104,11 +103,6 @@ public:
      * @return  un apuntador a un objeto de la clase IGUIFont
      */
     gui::IGUIFont* getGUIWindow();
-    /**
-     *Regresa el nodo escena que contiene el terreno
-     * @return un objeto de la clase scene::ITerrainSceneNode
-     */
-   io::IReadFile* getheightMapFile();
     /**
      *Obtiene la textura que le es aplicada Terreno del juego
      * @return  un apuntador a un objeto de la clase ITexture
@@ -207,10 +201,9 @@ private:
     /**
      *Carga las texturas del Terreno.
      * @param smgr un apuntador al manejador de escena del juego
-     * @param fsys proporciona un apuntador al sistema de archivos
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
-    void setTerrain(scene::ISceneManager* smgr, io::IFileSystem* fsys);
+    void setTerrain(scene::ISceneManager* smgr);
     /**
      *Carga la textura del skydome .
      * @param smgr un apuntador al manejador de escena del juego
@@ -293,10 +286,6 @@ private:
       * Tipografia que tendrá el titulo de las Ventana
       */
      gui::IGUIFont* GUIWindow;
-     /**
-      *Archivo del terreno con las que se dibujan las montañas, valles etc.
-      */
-     io::IReadFile* heightMapFile;
      /**
       *  Textura que le será aplicada al terreno del juego
       */
