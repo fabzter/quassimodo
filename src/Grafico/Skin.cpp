@@ -184,6 +184,7 @@ void Grafico::Skin::setBotonesJugador(scene::ISceneManager* smgr){
     this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraPinguinoPath().c_str() ));
     this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraPinguinoPath().c_str() ));
     this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraNorteBarreraPinguinoPath().c_str() ));
+
     this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getMoverRobotPath().c_str() ));
     this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraRobotPath().c_str() ));
     this->botonesJugador.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraRobotPath().c_str() ));
@@ -193,6 +194,7 @@ void Grafico::Skin::setBotonesJugador(scene::ISceneManager* smgr){
     this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraPinguinoPressPath().c_str() ));
     this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraPinguinoPressPath().c_str() ));
     this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraNorteBarreraPinguinoPressPath().c_str() ));
+    
     this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getMoverRobotPressPath().c_str() ));
     this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getSetBarreraRobotPressPath().c_str() ));
     this->botonesJugadorPresionado.push_back(smgr->getVideoDriver()->getTexture(this->opciones->getGiraEsteBarreraRobotPressPath().c_str() ));
