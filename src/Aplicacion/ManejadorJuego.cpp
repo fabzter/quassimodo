@@ -309,15 +309,19 @@ bool ManejadorJuego::estaHaciendoJugada(){
 void ManejadorJuego::setOpcionesMover(){
     this->partida->setOpcionesMover();
 }
-int ManejadorJuego::ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion){
-    return this->partida->ChecaJugada(pos,movimiento,Direccion);
+int ManejadorJuego::ChecaJugada(core::position2d<s32>& pos,bool movimiento,bool barrera,int Direccion){
+    return this->partida->ChecaJugada(pos,movimiento,barrera,Direccion);
 }
 
-void ManejadorJuego::setJugada(int celda,bool movimiento,int Direccion){
-    this->partida->setJugada(celda,movimiento,Direccion);
+void ManejadorJuego::setJugada(int celda,bool movimiento,bool barrera,int Direccion){
+    this->partida->setJugada(celda,movimiento,barrera,Direccion);
     this->haciendoJugada=false;
 }
+void ManejadorJuego::setBarreraT(int celda,int Direccion){
 
+    this->partida->setBarreraT(celda,Direccion);
+
+}
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
     this->cam = smgr->addCameraSceneNode();

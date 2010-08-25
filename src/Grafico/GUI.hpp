@@ -86,6 +86,15 @@ public:
       * Elimina los botones para que el jugador pueda realizar una partida
       */
      void dropBotonesJugador();
+     /**
+      * Cambia los botones del menu del jugador, para que se pueda colocar una barrera.
+      */
+     void setBotonesBarrera();
+     /**
+      * cabia el boton de giro
+      * @param este si ahora las barreras se colocan en direccion este, el boton sera el de giro a direccion norte
+      */
+     void cambiaGiro(bool este);
 
 private:
     /**

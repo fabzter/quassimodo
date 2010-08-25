@@ -93,6 +93,7 @@ private:
         bool AmbosHumanos;
         bool mover;
         bool barr_este;
+        bool barrera;
         irr::core::position2d<irr::s32> celda;
 
 };

@@ -99,3 +99,9 @@ void Grafico::ManejadorGUI::setBotonesJugador(){
 void Grafico::ManejadorGUI::dropBotonesJugador(){
     this->Gui->dropBotonesJugador();
 }
+void Grafico::ManejadorGUI::setBotonesBarrera(){
+    this->Gui->setBotonesBarrera();
+}
+void Grafico::ManejadorGUI::cambiaGiro(bool este){
+    this->Gui->cambiaGiro(este);
+}

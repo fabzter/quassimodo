@@ -219,3 +219,27 @@ void Grafico::GUI::dropBotonesJugador(){
           botonJugador=false;
     }
 }
+void Grafico::GUI::setBotonesBarrera(){
+    int a=0,b=8;
+    this->botonesJugador.at(0)->setImage( this->skin->getBotonJugador(a+1) );
+    this->botonesJugador.at(0)->setPressedImage( this->skin->getBotonJugadorPres(a+1) );
+    this->botonesJugador.at(0)->setID(Grafico::BJ_LISTO);
+    this->botonesJugador.at(1)->setImage( this->skin->getBotonJugador(a+2) );
+    this->botonesJugador.at(1)->setPressedImage( this->skin->getBotonJugadorPres(a+2) );
+    this->botonesJugador.at(1)->setID(Grafico::BJ_GIRA_ESTE);
+
+}
+void Grafico::GUI::cambiaGiro(bool este){
+    int a=0,aum;
+    if(este){
+        this->botonesJugador.at(1)->setID(Grafico::BJ_GIRA_NORTE);
+        aum=3;
+    }
+    else{
+        this->botonesJugador.at(1)->setID(Grafico::BJ_GIRA_ESTE);
+        aum=2;
+    }
+    this->botonesJugador.at(1)->setImage( this->skin->getBotonJugador(a+aum) );
+    this->botonesJugador.at(1)->setPressedImage( this->skin->getBotonJugadorPres(a+aum) );
+
+}

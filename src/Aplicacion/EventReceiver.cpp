@@ -8,7 +8,7 @@ EventReceiver::EventReceiver(Aplicacion* app)
     this->app=app;
     this->piniciada=false;
     this->noA=-1;
-    this->mover=this->barr_este=this->AmbosHumanos=false;
+    this->barrera=this->mover=this->barr_este=this->AmbosHumanos=false;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
     KeyIsDown[i] = false;
 }
@@ -35,11 +35,19 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case EMIE_LMOUSE_LEFT_UP:
                             MouseState.LeftButtonDown = false;
                             core::position2d<s32> pp=MouseState.Posicion;
+                            
                             if( this->piniciada && this->app->getManJuego()->estaHaciendoJugada()){
-                                int celda=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barr_este);
+                                int celda=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barrera,this->barr_este);
                                 if(celda>=0){
-                                    this->app->getManJuego()->setJugada(celda,this->mover,this->barr_este);
-                                    this->mover=false;}
+                                    if(mover){
+                                        this->app->getManJuego()->setJugada(celda,this->mover,this->barrera,this->barr_este);
+                                        this->mover=false;
+                                  }
+                                    else if(barrera){
+                                        this->app->getManJuego()->setBarreraT(celda,this->barr_este);
+                                       // this->barrera=false;
+                                    }
+                                }
                             }
                             break;
             }
@@ -114,6 +122,14 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
         case BJ_MOVER:
             this->app->getManJuego()->setOpcionesMover();
             this->mover=true;
+            break;
+        case BJ_BARRERA:
+            this->app->getManJuego()->getManejadorGUI()->setBotonesBarrera();
+            this->barrera=true;
+            break;
+        case BJ_GIRA_ESTE:case BJ_GIRA_NORTE:
+            this->barr_este= (!this->barr_este);
+            this->app->getManJuego()->getManejadorGUI()->cambiaGiro(this->barr_este);
             break;
        case BP_MENU:
              this->piniciada=false;
