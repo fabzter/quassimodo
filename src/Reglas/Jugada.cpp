@@ -1,6 +1,3 @@
-/**
- */
-
 #include "Jugada.hpp"
 #include "Pieza.hpp"
 #include "Barrera.hpp"

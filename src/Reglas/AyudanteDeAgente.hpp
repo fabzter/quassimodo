@@ -69,6 +69,15 @@ public:
     std::list<Jugada> getBarrerasPosibles(int numJugador);
 
     /**
+     * Nos indica si la Jugada j es válida para el Jugador con id idJugador en
+     * el Tablero actual.
+     * @param j una referencia a la Jugada que se quiere juzgar.
+     * @param idJugador es el id del Jugador que realizaría dicha Jugada.
+     * @throws ReglasRotas si la Jugada rompe las reglas.
+     */
+    void revisarReglas(Jugada &j, int idJugador);
+
+    /**
      * Nos indica la Celda en la que se encuentra el Jugador con id idJugador.
      * @param idJugador un entero con el id del Jugador a buscar.
      * @return una referencia a la Celda donde se encuentra el Jugador buscado.

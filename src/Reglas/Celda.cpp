@@ -42,11 +42,24 @@ void Reglas::Celda::setHijo(Reglas::Direccion d, const Reglas::Celda &c)
     this->hijos[d] = (Celda*)&c;
 }
 
-Reglas::Celda& Reglas::Celda::getHijo(Direccion d) const
+Reglas::Celda& Reglas::Celda::getHijo(Direccion d, bool darSaltos) const
 {
-    if(this->hijos[d] == NULL)
+    Celda* hijo_inmediato = this->hijos.at(d);
+    if(hijo_inmediato == NULL)//si no hay hijo
+    {
         throw SinHijo();
-    return *this->hijos[d];
+    }
+    else
+    {
+        if(darSaltos && !hijo_inmediato->esta_libre)
+        {
+            return hijo_inmediato->getHijo(d, false);
+        }
+        else
+        {
+            return *hijo_inmediato;
+        }
+    }
 }
 
 /**
