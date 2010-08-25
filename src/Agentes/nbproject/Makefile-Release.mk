@@ -37,7 +37,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/ManejadorAgentes.o \
 	${OBJECTDIR}/AgenteAstar.o \
 	${OBJECTDIR}/AgenteHumano.o \
-	${OBJECTDIR}/AgenteCaminaAdelante.o
+	${OBJECTDIR}/AgenteCaminaAdelante.o \
+	${OBJECTDIR}/AgenteMinimax4.o
 
 
 # C Compiler Flags
@@ -90,6 +91,11 @@ ${OBJECTDIR}/AgenteCaminaAdelante.o: AgenteCaminaAdelante.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteCaminaAdelante.o AgenteCaminaAdelante.cpp
+
+${OBJECTDIR}/AgenteMinimax4.o: AgenteMinimax4.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteMinimax4.o AgenteMinimax4.cpp
 
 # Subprojects
 .build-subprojects:
