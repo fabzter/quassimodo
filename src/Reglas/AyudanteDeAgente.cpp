@@ -131,6 +131,11 @@ Reglas::AyudanteDeAgente::getBarrerasPosibles(int numJugador)
     return jugadas;
 }
 
+void Reglas::AyudanteDeAgente::revisarReglas(Reglas::Jugada &j, int idJugador)
+{
+    this->juez->revisar_reglas(j, idJugador);
+}
+
 const Reglas::Celda& Reglas::AyudanteDeAgente::getCelda(int idJugador)
 {
     return this->tablero->getCelda(idJugador);
