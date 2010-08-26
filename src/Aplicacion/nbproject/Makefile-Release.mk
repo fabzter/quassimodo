@@ -36,6 +36,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Aplicacion.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/PartidaGrafica.o \
+	${OBJECTDIR}/AgenteThreads.o \
 	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/EventReceiver.o
 
@@ -86,6 +87,11 @@ ${OBJECTDIR}/PartidaGrafica.o: PartidaGrafica.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaGrafica.o PartidaGrafica.cpp
+
+${OBJECTDIR}/AgenteThreads.o: AgenteThreads.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteThreads.o AgenteThreads.cpp
 
 ${OBJECTDIR}/ManejadorJuego.o: ManejadorJuego.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>AgenteThreads.hpp</itemPath>
       <itemPath>Aplicacion.hpp</itemPath>
       <itemPath>EventReceiver.hpp</itemPath>
       <itemPath>ManejadorJuego.hpp</itemPath>
@@ -16,6 +17,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>AgenteThreads.cpp</itemPath>
       <itemPath>Aplicacion.cpp</itemPath>
       <itemPath>EventReceiver.cpp</itemPath>
       <itemPath>ManejadorJuego.cpp</itemPath>
@@ -105,6 +107,7 @@
                             OP="dist/Debug/GNU-Linux-x86/libAgentes.so">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-Wl,-R../lib -Wl,-R./lib -lutil</commandLine>
         </linkerTool>
