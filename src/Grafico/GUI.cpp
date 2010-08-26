@@ -179,7 +179,7 @@ void Grafico::GUI::setCreditos(){
 
     int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
     this->creditos=this->env->addImage(this->skin->getImagenCreditos(),core::position2d<s32>(d_a,d_al),true,0);
-    this->env->addButton(core::rect<s32>( 815,495,895, 525 ),this->creditos,BO_CREDITOS,L"OK") ;
+    this->env->addButton(core::rect<s32>( 865,645,955, 675 ),this->creditos,BO_CREDITOS,L"OK") ;
 
 }
 
