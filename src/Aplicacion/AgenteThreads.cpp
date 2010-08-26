@@ -28,8 +28,8 @@ void AgenteThreads::run(const Reglas::Tablero &tablero,
         return;
     this->esta_thread_corriendo = true;
     
-    this->thread = boost::thread(&AgenteThreads::pedirJugada, this, tablero,
-                                                                    ayudante);
+    this->thread = boost::thread(&AgenteThreads::pedirJugada, this, 
+            tablero, boost::ref(ayudante) );
 }
 
 bool AgenteThreads::estaListaJugada()
