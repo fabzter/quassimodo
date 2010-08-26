@@ -248,3 +248,14 @@ void Grafico::GUI::cambiaGiro(bool este){
     this->botonesJugador.at(1)->setToolTipText(GUI_BOTONES_TOLTIP_JUGADOR[aum]);
 
 }
+void Grafico::GUI::setAyuda(){
+    core::dimension2d<u32> S_S= this->skin->getImagenCreditos()->getSize();
+
+    int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
+    this->ayuda=this->env->addImage(this->skin->getImagenAyuda(),core::position2d<s32>(d_a,d_al),true,0);
+    this->env->addButton(core::rect<s32>( 815,705,905, 735 ),this->ayuda,BOK_AYUDA,L"OK") ;
+}
+
+void Grafico::GUI::dropAyuda(){
+    this->ayuda->remove();
+}

@@ -107,6 +107,14 @@ public:
       * @as GUI::cambiaGiro
       */
      void cambiaGiro(bool este);
+     /**
+      * @as GUI::setAyuda
+      */
+     void setAyuda();
+     /**
+      * @as GUI::dropAyuda
+      */
+     void dropAyuda();
 
 private:
 

@@ -424,6 +424,12 @@ public:
      * créditos.
      */
     std::string getCreditos();
+    /**
+     * Nos indica el path al archivo de la pantalla de ayuda.
+     * @return una string con el path relativo al archivo de la pantalla de
+     * ayuda.
+     */
+    std::string getAyuda();
 
     /**
      * Nos indica si se especificó la opción de fullscreen como argumente en la

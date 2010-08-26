@@ -187,6 +187,9 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("gui.creditos",
             po::value<string>()->default_value(string("conf/gui_default/creditos.png")),
             "Path relativo al archivo de la pantalla de créditos.")
+            ("gui.ayuda",
+            po::value<string>()->default_value(string("conf/gui_default/instrucciones.jpg")),
+            "Path relativo al archivo de la pantalla de ayuda.")
             ;
 
     //Parseamos la linea de comando segun las opciones de linea de comando.
@@ -464,6 +467,10 @@ std::string Opciones::ManejadorOpciones::getGUIConfig()
 std::string Opciones::ManejadorOpciones::getCreditos()
 {
     return this->vm["gui.creditos"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getAyuda(){
+    
+    return this->vm["gui.ayuda"].as<std::string>();
 }
 bool Opciones::ManejadorOpciones::isFullScreen()
 {

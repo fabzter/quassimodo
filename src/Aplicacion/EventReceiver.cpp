@@ -95,6 +95,9 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
          case B_OPCIONES:
              this->app->getManJuego()->getManejadorGUI()->MsgBox("¡¡Proximamente!!");
              break;
+        case B_AYUDA:
+            this->app->getManJuego()->getManejadorGUI()->setAyuda();
+            break;
         case  B_CREDITOS:
              this->app->getManJuego()->getManejadorGUI()->creditos();
              break;
@@ -151,6 +154,10 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
        case BO_CREDITOS:
              this->app->getManJuego()->getManejadorGUI()->dropCreditos();
              break;
+       case BOK_AYUDA:
+           this->app->getManJuego()->getManejadorGUI()->dropAyuda();
+           break;
+
     }
 }
 const SMouseState& EventReceiver::GetMouseState(void) const

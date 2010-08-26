@@ -93,6 +93,14 @@ public:
       * @param este si ahora las barreras se colocan en direccion este, el boton sera el de giro a direccion norte
       */
      void cambiaGiro(bool este);
+     /**
+      * Muestra la imagen de como usar la aplicacion
+      */
+     void setAyuda();
+     /**
+      * elimina la imagen de ayuda
+      */
+     void dropAyuda();
 
 private:
     /**
@@ -170,6 +178,10 @@ private:
      * Imagen en la que se presenta la pantalla de creditos.
      */
     gui::IGUIImage* creditos;
+    /**
+     * Imagen en la que se presenta la pantalla de ayuda
+     */
+    gui::IGUIImage* ayuda;
     /**
      * variable que ayuda a saber que botones del jugador se debera de poner
      */

@@ -132,6 +132,11 @@ public:
      * @return un apuntador a un objeto de la clase ITexture
      */
     video::ITexture* getImagenCreditos();
+    /**
+     * Regresa la imagen de la ayuda del juego
+     * @return un apuntador a un objeto de la clase ITexture
+     */
+    video::ITexture* getImagenAyuda();
 
 
 private:
@@ -227,6 +232,12 @@ private:
      * @throws SkinNoCargado si algun elemento no pudo ser cargado
      */
     void setImagenCreditos(scene::ISceneManager* smgr);
+     /**
+     * Carga la Imagen de la ayuda.
+     * @param smgr un apuntador al manejador de escena del juego
+     * @throws SkinNoCargado si algun elemento no pudo ser cargado
+     */
+    void setImagenAyuda(scene::ISceneManager* smgr);
     /**
      * Malla con la que se dibujará el tablero
      */
@@ -303,6 +314,10 @@ private:
       * Imagen de los creditos.
       */
      video::ITexture* creditos;
+     /**
+      * Imagen de los ayuda.
+      */
+     video::ITexture* ayuda;
      /**
      * Contiene los metodos para recuperar los paths de la skin.
      */

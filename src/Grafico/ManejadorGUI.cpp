@@ -100,3 +100,10 @@ void Grafico::ManejadorGUI::setBotonesBarrera(){
 void Grafico::ManejadorGUI::cambiaGiro(bool este){
     this->Gui->cambiaGiro(este);
 }
+void Grafico::ManejadorGUI::setAyuda(){
+    this->Gui->setAyuda();
+}
+
+void Grafico::ManejadorGUI::dropAyuda(){
+    this->Gui->dropAyuda();
+}

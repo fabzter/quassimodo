@@ -18,6 +18,7 @@ Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IF
     this->setBotonesPartida(smgr);
     this->setBotonesJugador(smgr);
     this->setImagenCreditos(smgr);
+    this->setImagenAyuda(smgr);
 }
 
 Grafico::Skin::Skin(const Skin& orig) {
@@ -207,6 +208,15 @@ void Grafico::Skin::setImagenCreditos(scene::ISceneManager* smgr){
     }
 
 }
+void Grafico::Skin::setImagenAyuda(scene::ISceneManager* smgr){
+    std::ostringstream strs;
+    this->ayuda=smgr->getVideoDriver()->getTexture(this->opciones->getAyuda().c_str() );
+    if( this->ayuda == NULL)
+    {
+        strs << "No pudo ser cargado el Skin en la parte de la imagen de la ayuda ";
+        throw SkinNoCargado(strs.str ().c_str());
+    }
+}
 
 scene::IAnimatedMesh* Grafico::Skin::getCelda(){
     return this->Celda;
@@ -264,4 +274,7 @@ video::ITexture* Grafico::Skin::getBotonJugadorPres(int i){
 }
 video::ITexture* Grafico::Skin::getImagenCreditos(){
     return this->creditos;
+}
+video::ITexture* Grafico::Skin::getImagenAyuda(){
+    return this->ayuda;
 }
