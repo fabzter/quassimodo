@@ -91,6 +91,7 @@ void Grafico::Menu::dropMenuP(){
          haymenu=false;
          this->botones.clear();
          this->jugadores.clear();
+         this->cpyr->remove();
     }
   
 }
@@ -117,7 +118,8 @@ void Grafico::Menu::dropMenuP(){
       this->botones.at(i)->setDrawBorder(false);
 
       }
-    
+      this->cpyr=this->env->addStaticText(L"Copyright© Gregarios 2010",core::rect<s32>(20,Scren_Size.Height-80,200,Scren_Size.Height-10));
+      this->cpyr->setOverrideFont(skin->getGUIBoton());
  }
  
  bool Grafico::Menu::menuEnEscena(){

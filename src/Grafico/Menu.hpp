@@ -112,6 +112,10 @@ private:
      * La escala que tendrá en el juego;
      */
     core::vector3df escala;
+    /**
+     * leyenda del texto copyright
+     */
+    gui::IGUIStaticText *cpyr;
     scene::ISceneNode *parent;
 
 };

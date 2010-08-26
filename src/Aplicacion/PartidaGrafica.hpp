@@ -1,6 +1,7 @@
 
 #ifndef PARTIDAGRAFICA_HPP
 #define	PARTIDAGRAFICA_HPP
+#include"AgenteThreads.hpp"
 #include<Reglas/Juez.hpp>
 #include<Reglas/Jugador.hpp>
 #include<Reglas/AyudanteDeAgente.hpp>
@@ -229,7 +230,9 @@ private:
      *Este objeto es el encargado de administrar los agentes disponibles en el sistema.
      */
     Agentes::ManejadorAgentes* ManAgentes;
-
+    /**
+     * nodo Padre del tablero y de los jugadores
+     */
     scene::ISceneNode *parent;
 
      /**

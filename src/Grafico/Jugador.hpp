@@ -32,7 +32,13 @@ public:
      * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
      */
     Jugador(scene::ISceneManager* smgr,int num,Skin* skin,int VelAnim,scene::ISceneNode* parent);
-
+    /**
+     * Inicializa las variables de la clase.
+     * @param num parametro requerido por Reglas::Jugador
+     * @param smgr Un apuntador al  manejador de la escena
+     * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
+     * @param VelAnim velocidad de animacion que tendrá la barrera y el jugador
+     */
     void init(scene::ISceneManager* smgr,int num,Skin* skin,int VelAnim);
     /**
      *Constructor copia de la clase Jugador
@@ -81,6 +87,11 @@ public:
      * @param haciendo booleano que indica si se hace una jugada o no
      */
     void setHaciendoJugada(bool haciendo);
+    /**
+     * Regresa el agente con el cual esta trabajando el jugador
+     * @return un apuntador a un objet del tipo Reglas::Agente
+     */
+    Reglas::Agente* getAgente();
 
 private:
     /**

@@ -4,7 +4,6 @@
 Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,
         Opciones::ManejadorOpciones &opciones) {
     this->opciones = &opciones;
-    this->setFuego(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
     this->setJugadores(smgr);
@@ -26,20 +25,11 @@ Grafico::Skin::Skin(const Skin& orig) {
 
 Grafico::Skin::~Skin() {
 }
-void Grafico::Skin:: setFuego(scene::ISceneManager* smgr){
-    std::ostringstream strs;
-    this->TAntorcha=smgr->getVideoDriver()->getTexture(this->opciones->getAntorchaTexturaPath().c_str());
-      if( this->TAntorcha== 0  )
-        {
-            strs << "No pudo ser cargado el Skin en la parte del Fuego ";
-            throw SkinNoCargado(strs.str().c_str());
-        }
-}
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
     this->Tablero=smgr->getMesh(this->opciones->getTableroModeloPath().c_str());
-    this->TTAblero=smgr->getVideoDriver()->getTexture(this->opciones->getTableroTexturaPath().c_str());
-    if( this->Tablero== NULL || this->TTAblero==0 )
+    
+    if( this->Tablero== NULL  )
         {
             strs << "No pudo ser cargado el Skin en la parte del Tablero ";
             throw SkinNoCargado(strs.str().c_str());
@@ -78,8 +68,7 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
     this->Celda=smgr->getMesh(this->opciones->getCeldaModeloPath().c_str());
-    this->TCelda=smgr->getVideoDriver()->getTexture(this->opciones->getCeldaTexturaPath().c_str());
-    if( this->Celda== NULL || this->TCelda== 0 )
+    if( this->Celda== NULL )
         {
             strs << "No pudo ser cargado el Skin en la parte de la Celda ";
             throw SkinNoCargado(strs.str().c_str());
@@ -236,15 +225,6 @@ scene::IAnimatedMesh* Grafico::Skin::getBarrera1(){
 }
 scene::IAnimatedMesh* Grafico::Skin::getBarrera2(){
     return this->Barrera2;
-}
-video::ITexture* Grafico::Skin::getTTAblero(){
-    return this->TTAblero;
-}
-video::ITexture* Grafico::Skin::getTCelda(){
-    return this->TCelda;
-}
-video::ITexture* Grafico::Skin::getTAntorcha(){
-    return this->TAntorcha;
 }
 gui::IGUIFont* Grafico::Skin::getMenuBoton(){
     return this->MenuBoton;

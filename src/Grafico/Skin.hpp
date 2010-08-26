@@ -64,21 +64,6 @@ public:
      */
     scene::IAnimatedMesh* getBarrera2();
     /**
-     *Obtiene la textura que le es aplicada a la malla del tablero
-     * @return  un apuntador a un objeto de la clase ITexture
-     */
-    video::ITexture* getTTAblero();
-    /**
-     *Obtiene la textura que le es aplicada a la malla de la celda
-     * @return  un apuntador a un objeto de la clase ITexture
-     */
-    video::ITexture* getTCelda();
-    /**
-     *Obtiene la textura que le es aplicada al fuego de la Antorcha
-     * @return  un apuntador a un objeto de la clase ITexture
-     */
-    video::ITexture* getTAntorcha();
-    /**
      *Obtiene la tipografia que se le aplica a los botones del Menu
      * @return  un apuntador a un objeto de la clase IGUIFont
      */
@@ -150,12 +135,6 @@ public:
 
 
 private:
-    /**
-     * Carga la malla de la antorcha y la textura del fuego.
-     * @param smgr un apuntador al manejador de escena del juego
-     * @throws SkinNoCargado si algun elemento no pudo ser cargado
-     */
-    void setFuego(scene::ISceneManager* smgr);
     /**
      *Carga la malla y la textura del tablero .
      * @param smgr un apuntador al manejador de escena del juego
@@ -272,18 +251,6 @@ private:
       * Malla con la que se dibujará la barrera del jugador 2
       */
      scene::IAnimatedMesh* Barrera2;
-     /**
-      *  Textura que le será aplicada a la malla de la celda
-      */
-     video::ITexture* TCelda;
-     /**
-      * Textura que le será aplicada al fuego
-      */
-     video::ITexture* TAntorcha;
-     /**
-      *  Textura que le será aplicada a la malla del tablero
-      */
-     video::ITexture* TTAblero;
      /**
       * Tipografia que tendrá los botones del menú
       */

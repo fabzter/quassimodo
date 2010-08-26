@@ -83,3 +83,6 @@ bool Grafico::Jugador::IsHaciendoJugada(){
 void Grafico::Jugador::setHaciendoJugada(bool haciendo){
     this->haciendoJugada=haciendo;
 }
+Reglas::Agente* Grafico::Jugador::getAgente(){
+    return this->agente;
+}

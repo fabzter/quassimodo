@@ -142,12 +142,15 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
  }
 
  bool PartidaGrafica::SetJugadores(std::string rutaAgente1,std::string rutaAgente2,bool ambosHumanos){
-     
 
-      this->jugadores.push_back(new Grafico::Jugador(smgr,0,this->ManAgentes->makeAgente(rutaAgente1),this->skin,this->velAnim,this->parent,true));
-      this->jugadores.push_back(new Grafico::Jugador(smgr,1,this->ManAgentes->makeAgente(rutaAgente2),this->skin,this->velAnim,this->parent,ambosHumanos));
+    this->jugadores.push_back(new Grafico::Jugador(smgr,0,this->ManAgentes->makeAgente(rutaAgente1)  ,this->skin,this->velAnim,this->parent,true));
 
-      this->t->setJugadores( this->jugadores);
+     if(rutaAgente2!="Agente Humano")
+         this->jugadores.push_back(new Grafico::Jugador(smgr,1,new AgenteThreads( this->ManAgentes->makeAgente(rutaAgente2) ),this->skin,this->velAnim,this->parent,ambosHumanos));
+     else
+         this->jugadores.push_back(new Grafico::Jugador(smgr,1,this->ManAgentes->makeAgente(rutaAgente2) ,this->skin,this->velAnim,this->parent,ambosHumanos));
+
+     this->t->setJugadores( this->jugadores);
  }
 
 core::vector3df PartidaGrafica::getCentro(){
@@ -320,7 +323,14 @@ void PartidaGrafica::setJugada(int celda,bool movimiento,bool barrera,int Direcc
 }
 bool PartidaGrafica::HaciendoJugada(){
     Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(this->jugador_en_turno);
+    if(ju->IsHumano())
+        return ju->IsHaciendoJugada();
+    AgenteThreads *a=(AgenteThreads *)ju->getAgente();
+    Reglas::AyudanteDeAgente ay(this->t);
+    a->run( this->t,ay);
+    ju->setHaciendoJugada( !a->estaListaJugada() );
     return ju->IsHaciendoJugada();
+
 }
 void PartidaGrafica::setBarreraT(int celda,int Direccion){
     if(this->b_tmp!=NULL)
