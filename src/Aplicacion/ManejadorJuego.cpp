@@ -226,10 +226,10 @@ void ManejadorJuego::clearAgentes(){
             anm->setRotationNumbers(1078,45);
              break;
         case 3:
-             anm->setRotationNumbers(1350,45);
+             anm->setRotationNumbers(1350,75);
              break;
          case 4:
-             anm->setRotationNumbers(1170,45);
+             anm->setRotationNumbers(1170,75);
              break;   
 
      }
