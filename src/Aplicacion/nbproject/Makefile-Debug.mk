@@ -55,7 +55,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Debug/GNU-Linux-x86 -L../Agentes/dist/Debug/GNU-Linux-x86 -lAgentes -lboost_thread-mt
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -L../../lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Debug/GNU-Linux-x86 -L../Agentes/dist/Debug/GNU-Linux-x86 -lAgentes -lboost_thread-mt -lIrrKlang
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

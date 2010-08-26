@@ -29,12 +29,12 @@ void AgenteThreads::run(const Reglas::Tablero &tablero,
     this->esta_thread_corriendo = true;
     
     this->thread = boost::thread(&AgenteThreads::pedirJugada, this, 
-            tablero, boost::ref(ayudante) );
+            tablero, ayudante );
 }
 
 bool AgenteThreads::estaListaJugada()
 {
-    if(!this->jugada.getPosicion().at(0) == -1)
+    if( this->jugada.getPosicion().at(0) != -1 )
     {
         this->esta_lista_jugada = true;
         this->esta_thread_corriendo = false;
@@ -53,6 +53,7 @@ Reglas::Jugada AgenteThreads::siguienteJugada(const Reglas::Tablero tablero,
 {
     Reglas::Jugada j = this->jugada;
     this->jugada.setPosicion(-1, -1);
+    this->thread.join();
     return j;
 }
 
