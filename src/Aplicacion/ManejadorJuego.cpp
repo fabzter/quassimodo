@@ -260,13 +260,18 @@ const char* ManejadorJuego::getMsjGanador(){
 
 void ManejadorJuego::despachaJugada(){
 
-    if(this->partida->estaEnCurso()&& !this->pausa){      
-        if( this->partida->animacionesEnd() && !this->JugadorPreparaJugada() ){
-            
-            this->SiguienteJugada();
-            this->cambiaVistaTurno();
-            
+    if(this->partida->estaEnCurso()&& !this->pausa){
+
+        if( this->partida->animacionesEnd()   ){
+            if( !this->JugadorPreparaJugada() ){
+                this->SiguienteJugada();
+                this->cambiaVistaTurno();
+            }
+            else if ( !this->partida->JugadorIsHumano( this->partida->getJugadorEnTurno() ) ){
+            std::cout<<"aun no!";
+            }
         }
+        
     }
 }
 
@@ -295,8 +300,9 @@ bool ManejadorJuego::JugadorPreparaJugada(){
 
     }
     else{
-        this->haciendoJugada=false;
-       // this->partida->dropOpcionesMover();
+        if(this->partida->HaciendoJugada()){
+            this->haciendoJugada=true;
+        }
         if(this->botonesJugador){
             this->mgui->dropBotonesJugador();
             this->botonesJugador=false;
