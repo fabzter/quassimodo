@@ -94,7 +94,7 @@ public:
      /**
       * @as GUI::setBotonesJugador
       */
-     void setBotonesJugador();
+     void setBotonesJugador(int idjugador);
      /**
       * as GUI::dropBotonesJugador
       */

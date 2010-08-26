@@ -310,8 +310,10 @@ int PartidaGrafica::ChecaJugada(core::position2d<s32>& pos,bool movimiento,bool 
 
 }
 void PartidaGrafica::setJugada(int celda,bool movimiento,bool barrera,int Direccion){
-    if(this->b_tmp!=NULL)
+    if(this->b_tmp!=NULL){
         delete (this->b_tmp);
+        this->b_tmp=NULL;
+    }
     Reglas::Jugada j=this->ArmaJugada(celda,movimiento,barrera,Direccion);
     Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(this->jugador_en_turno);
     ju->setJugada(j);
@@ -328,7 +330,7 @@ void PartidaGrafica::setBarreraT(int celda,int Direccion){
 
     this->b_tmp=new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo(),this->jugador_en_turno);
     const std::vector<int> p=j.getPosicion();
-    this->b_tmp->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
+    this->b_tmp->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr,false );
 
 }
 Reglas::Jugada PartidaGrafica::ArmaJugada(int celda,bool movimiento,bool barrera ,int direccion){

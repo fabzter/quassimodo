@@ -38,11 +38,6 @@ void Grafico::ManejadorGUI::MsgBox(const char* msg,bool grafico,GUI_BOTONES_OK i
 }
 
  void Grafico::ManejadorGUI::AgntVSAgnt(bool ambos,std::vector<std::string> lista){
-     
-    // this->menu->dropMenuP();
-     if(ambos)
-         this->Gui->AgntVSAgnt();
-     else
          this->Gui->AgntVSMkn(lista);
  }
 
@@ -92,8 +87,8 @@ void Grafico::ManejadorGUI::Pausar(bool pausa){
 void Grafico::ManejadorGUI::dropCreditos(){
     this->Gui->dropCreditos();
 }
-void Grafico::ManejadorGUI::setBotonesJugador(){
-    this->Gui->setBotonesJugador();
+void Grafico::ManejadorGUI::setBotonesJugador(int idjugador){
+    this->Gui->setBotonesJugador(idjugador);
 }
 
 void Grafico::ManejadorGUI::dropBotonesJugador(){

@@ -43,7 +43,7 @@ void Grafico::Barrera::giraNorte(){
         this->setPosicion(p);
     }
 }
-void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vector<int>& pos, Reglas::Direccion dir,scene::ISceneManager* smgr){
+void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vector<int>& pos, Reglas::Direccion dir,scene::ISceneManager* smgr,bool animacion){
 
     core::vector3df pos_final=core::vector3df( posg.X-(this->getSize().X*this->getEscala().X) , posg.Y, posg.Z );
     core::vector3df pos_ini=pos_final;
@@ -51,7 +51,7 @@ void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vecto
         pos_final=pos_ini=this->giraEste(pos_final);
     //poneos a la posicion inicial debajo del tablero.
     pos_ini.Y-=( ( this->getSize().Y*this->getEscala().Y ) +5 );
-    
+    if(animacion){
     this->nodoA->removeAnimators();
     scene::ISceneNodeAnimator* anim =smgr->createFlyStraightAnimator(pos_ini ,pos_final,this->velAnim,false,false);
     if (anim)
@@ -60,6 +60,10 @@ void Grafico::Barrera::ColocaBarrera(irr::core::vector3df posg, const std::vecto
 	anim->drop();
     }
     this->posiciong=pos_final;
+    }
+    else{
+        this->setPosicion(pos_final);
+    }
     //this->setPosicion( posg.X-(this->getSize().X*this->getEscala().X) , posg.Y, posg.Z);
     this->colocar(pos,dir);
 }

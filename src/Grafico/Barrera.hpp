@@ -53,8 +53,9 @@ public:
      * en la que se quiere que se coloque la barrera
      * @param dir dirección en la que la barrera estará ( ya sea ESTE o NORTE )
      * @param smgr Un apuntador al  manejador de la escena
+     * @param animacion booleano que sirve en caso de que no se quiera la animacion y solo colocar la barrera
      */
-    void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir,scene::ISceneManager* smgr);
+    void ColocaBarrera(irr::core::vector3df posg,const std::vector<int> &pos,Reglas::Direccion dir,scene::ISceneManager* smgr,bool animacion=true);
     /**
      * Método que indica si la animación de colocar la barrera termino o no.
      * @return  true si la animacion termino, false en caso contrario.

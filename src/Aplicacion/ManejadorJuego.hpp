@@ -191,6 +191,10 @@ private:
      */
     void setObjetivoCam();
     /**
+     * cambia la vista del jugador en turno para que su pieza se encuentre en primer plano.
+     */
+    void cambiaVistaTurno();
+    /**
      * Un apuntador al manejador de la escena del juego
      */
 

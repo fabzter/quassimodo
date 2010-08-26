@@ -61,7 +61,7 @@ bool ManejadorJuego::setPartida(bool Humanos){
         this->mgui->dropMenu();
         this->setCamJuego();
         this->mgui->setMenuPartida();
-        
+        this->cambiaVistaJuego(4);
         return this->partidainiciada;
     }
     else{
@@ -156,6 +156,7 @@ void ManejadorJuego::clearAgentes(){
             cam->addAnimator(anim);
             anim->drop();
      }
+     
 
  }
 
@@ -261,7 +262,10 @@ void ManejadorJuego::despachaJugada(){
 
     if(this->partida->estaEnCurso()&& !this->pausa){      
         if( this->partida->animacionesEnd() && !this->JugadorPreparaJugada() ){
+            
             this->SiguienteJugada();
+            this->cambiaVistaTurno();
+            
         }
     }
 }
@@ -284,7 +288,7 @@ bool ManejadorJuego::JugadorPreparaJugada(){
         if(this->partida->HaciendoJugada()){
             this->haciendoJugada=true;
             if(!this->botonesJugador){
-                this->mgui->setBotonesJugador();
+                this->mgui->setBotonesJugador(this->partida->getJugadorEnTurno());
                 this->botonesJugador=true;
             }
         }
@@ -316,6 +320,10 @@ int ManejadorJuego::ChecaJugada(core::position2d<s32>& pos,bool movimiento,bool 
 void ManejadorJuego::setJugada(int celda,bool movimiento,bool barrera,int Direccion){
     this->partida->setJugada(celda,movimiento,barrera,Direccion);
     this->haciendoJugada=false;
+    if(this->botonesJugador){
+            this->mgui->dropBotonesJugador();
+            this->botonesJugador=false;
+   }
 }
 void ManejadorJuego::setBarreraT(int celda,int Direccion){
 
@@ -340,4 +348,10 @@ void ManejadorJuego::setObjetivoCam(){
     cam->setTarget(t+v);
     this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
     this->smgr->setActiveCamera(cam);   
+}
+void ManejadorJuego::cambiaVistaTurno(){
+    if(this->partida->jugador_en_turno==0)
+        this->cambiaVistaJuego(4);
+    else
+        this->cambiaVistaJuego(3);
 }

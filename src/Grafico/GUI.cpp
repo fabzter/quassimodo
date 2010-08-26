@@ -57,9 +57,6 @@ void Grafico::GUI::MsgBox(const char* msg ,GUI_BOTONES_OK idMsg)
     this->env->addMessageBox(L"Quassimodo dice:", wsstring.str().c_str(),
                                     true, gui::EMBF_OK,0, idMsg);
 }
- void Grafico::GUI::AgntVSAgnt(){
-
- }
  void Grafico::GUI::AgntVSMkn(std::vector<std::string> lista){
      this->dibujaSelector(lista);
  }
@@ -190,21 +187,22 @@ void Grafico::GUI::dropCreditos(){
 
     this->creditos->remove();
 }
-void Grafico::GUI::setBotonesJugador(){
+void Grafico::GUI::setBotonesJugador(int idjugador){
     
     if(this->botonJugador)
         return;
-
+    this->idJugador=idjugador;
     core::dimension2d<u32> siz=this->smgr->getVideoDriver()->getScreenSize();
      int dis_ancho=20,dis_alto=20;
       float size=100,dan=dis_ancho;
       for(int i=0;i<2;i++){
-
+          int aum;
+          if(this->idJugador==0) aum=0;else aum=4;
               this->botonesJugador.at(i)= this->env->addButton(core::rect<s32>( siz.Width-(dan+size), siz.Height-(dis_alto+size),siz.Width-dan,siz.Height-dis_alto ) , 0,i+300,L"") ;
               dan+=size+15;
               //this->botonesJugador.at(i)->setDrawBorder(true);
-              this->botonesJugador.at(i)->setImage( this->skin->getBotonJugador(i) );
-              this->botonesJugador.at(i)->setPressedImage( this->skin->getBotonJugadorPres(i) );
+              this->botonesJugador.at(i)->setImage( this->skin->getBotonJugador(i+aum) );
+              this->botonesJugador.at(i)->setPressedImage( this->skin->getBotonJugadorPres(i+aum) );
               this->botonesJugador.at(i)->setUseAlphaChannel(true);
       }
       this->botonJugador=true;
@@ -220,7 +218,8 @@ void Grafico::GUI::dropBotonesJugador(){
     }
 }
 void Grafico::GUI::setBotonesBarrera(){
-    int a=0,b=8;
+    int a=0;
+    if(this->idJugador==0) a=0;else a=4;
     this->botonesJugador.at(0)->setImage( this->skin->getBotonJugador(a+1) );
     this->botonesJugador.at(0)->setPressedImage( this->skin->getBotonJugadorPres(a+1) );
     this->botonesJugador.at(0)->setID(Grafico::BJ_LISTO);
@@ -230,7 +229,8 @@ void Grafico::GUI::setBotonesBarrera(){
 
 }
 void Grafico::GUI::cambiaGiro(bool este){
-    int a=0,aum;
+    int a,aum;
+    if(this->idJugador==0) a=0;else a=4;
     if(este){
         this->botonesJugador.at(1)->setID(Grafico::BJ_GIRA_NORTE);
         aum=3;

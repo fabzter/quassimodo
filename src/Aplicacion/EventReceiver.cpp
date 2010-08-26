@@ -83,7 +83,14 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
             this->app->getManJuego()->AgntVsMkn();
             break;
         case B_AGENTE_VS_AGENTE:
-            //this->app->getManJuego()->getManejadorGUI()->AgntVSAgnt(true);
+            this->AmbosHumanos=true;
+            this->app->getManJuego()->setAgente("Agente Humano", 0);
+            this->app->getManJuego()->setAgente("Agente Humano", 1);
+            if( this->app->getManJuego()->setPartida(this->AmbosHumanos) ){
+                this->piniciada=true;
+                this->AmbosHumanos=false;
+            }
+
              break;
          case B_OPCIONES:
              this->app->getManJuego()->getManejadorGUI()->MsgBox("¡¡Proximamente!!");

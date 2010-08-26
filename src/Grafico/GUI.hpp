@@ -39,10 +39,6 @@ public:
      */
      void MsgBox(const char* msg ,GUI_BOTONES_OK idMsg);
      /**
-      *Lanza el cuadro selector de los dos agentes.
-      */
-     void AgntVSAgnt();
-     /**
       *Lanza el cuadro selector del agente, en este caso solo se elige uno y el otro ya esta fijo
       * @param lista liste de Agentes a seleccionar
       */
@@ -80,8 +76,10 @@ public:
      void dropCreditos();
      /**
       * Coloca los botones para que el jugador pueda realizar una partida
+      * @param idJugador, el id del jugador que servira para saber que iconos poner, si los del pinguino
+      * o los del robot.
       */
-     void setBotonesJugador();
+     void setBotonesJugador(int idjugador);
      /**
       * Elimina los botones para que el jugador pueda realizar una partida
       */
@@ -172,6 +170,10 @@ private:
      * Imagen en la que se presenta la pantalla de creditos.
      */
     gui::IGUIImage* creditos;
+    /**
+     * variable que ayuda a saber que botones del jugador se debera de poner
+     */
+    int idJugador;
 };
 }
 #endif	/* _GUI_HPP */
