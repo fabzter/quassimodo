@@ -24,6 +24,7 @@ public:
     void terminar();
 private:
     int id;
+    int id_enemigo;
 };
 
 class FabricaAstar: public FabricaAgente
