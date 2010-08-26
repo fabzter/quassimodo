@@ -121,7 +121,7 @@ void Reglas::Celda::desbloquearDireccion(Direccion d, Celda &celdaHijo)
 
 bool Reglas::Celda::estaLibreDireccion(Reglas::Direccion d) const
 {
-    return this->hijos[d] != NULL;
+    return this->hijos.at((int)d) != NULL;
 }
 
 void Reglas::Celda::init_hijos()

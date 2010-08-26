@@ -15,12 +15,12 @@ public:
                                             Reglas::AyudanteDeAgente &ayudante);
     virtual void terminar();
 
-    void run(const Reglas::Tablero tablero, Reglas::AyudanteDeAgente &ayudante);
+    void run(const Reglas::Tablero &tablero, Reglas::AyudanteDeAgente &ayudante);
 
     bool estaListaJugada();
    
 private:
-    void pedirJugada(const Reglas::Tablero tablero,
+    void pedirJugada(const Reglas::Tablero &tablero,
                                             Reglas::AyudanteDeAgente &ayudante);
     Reglas::Agente* agente;
     bool esta_lista_jugada;

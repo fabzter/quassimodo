@@ -15,18 +15,19 @@ AgenteThreads::~AgenteThreads()
 {
 }
 
-void AgenteThreads::pedirJugada(const Reglas::Tablero tablero,
+void AgenteThreads::pedirJugada(const Reglas::Tablero &tablero,
                                             Reglas::AyudanteDeAgente &ayudante)
 {
     this->jugada = this->agente->siguienteJugada(tablero, ayudante);
 }
 
-void AgenteThreads::run(const Reglas::Tablero tablero,
+void AgenteThreads::run(const Reglas::Tablero &tablero,
                                             Reglas::AyudanteDeAgente &ayudante)
 {
     if(this->esta_thread_corriendo)
         return;
     this->esta_thread_corriendo = true;
+    
     this->thread = boost::thread(&AgenteThreads::pedirJugada, this, tablero,
                                                                     ayudante);
 }

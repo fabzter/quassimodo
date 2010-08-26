@@ -326,8 +326,8 @@ bool PartidaGrafica::HaciendoJugada(){
     if(ju->IsHumano())
         return ju->IsHaciendoJugada();
     AgenteThreads *a=(AgenteThreads *)ju->getAgente();
-    Reglas::AyudanteDeAgente ay(this->t);
-    a->run( this->t,ay);
+    Reglas::AyudanteDeAgente ayu(this->t);
+    a->run(this->t, ayu);
     ju->setHaciendoJugada( !a->estaListaJugada() );
     return ju->IsHaciendoJugada();
 
