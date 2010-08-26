@@ -185,7 +185,7 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             "Path relativo al archivo de configuración de la gui de irrlicht.")
 
             ("gui.creditos",
-            po::value<string>()->default_value(string("conf/gui_default/creditos1.jpg")),
+            po::value<string>()->default_value(string("conf/gui_default/creditos.png")),
             "Path relativo al archivo de la pantalla de créditos.")
             ;
 
