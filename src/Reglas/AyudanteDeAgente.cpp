@@ -27,13 +27,13 @@ Reglas::AyudanteDeAgente::AyudanteDeAgente(const AyudanteDeAgente& orig)
 
 Reglas::AyudanteDeAgente::AyudanteDeAgente(const AyudanteDeAgente* orig)
 {
-    this->copiar(orig);
+    this->copiar(*orig);
 }
 
 void Reglas::AyudanteDeAgente::copiar(const AyudanteDeAgente& orig)
 {
     this->tablero = orig.tablero;
-    this->juez = orig.juez;
+    this->juez = new Juez(*this->tablero);
 }
 
 Reglas::AyudanteDeAgente::~AyudanteDeAgente()

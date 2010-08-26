@@ -46,7 +46,7 @@ void Reglas::Tablero::init_tablero()
     }
 
     //ponemos a los jugadores en blanco.
-    this->jugadores.reserve(this->num_jugadores);
+    this->jugadores.resize(this->num_jugadores);
 }
 
 void Reglas::Tablero::copiar(const Reglas::Tablero& orig)
@@ -76,9 +76,11 @@ void Reglas::Tablero::copiar(const Reglas::Tablero& orig)
             }
         }
     }
+    this->barreras_colocadas.resize(orig.barreras_colocadas.size());
+    
     this->barreras_colocadas = orig.barreras_colocadas;
 
-    this->jugadores.resize(orig.jugadores.size());
+    //this->jugadores.resize(orig.jugadores.size());
     for(int i = 0; i < this->jugadores.size(); i++)
     {
         this->jugadores.at(i) = new Jugador(*orig.jugadores.at(i));
