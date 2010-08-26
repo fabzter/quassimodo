@@ -36,6 +36,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Aplicacion.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/PartidaGrafica.o \
+	${OBJECTDIR}/AgenteThreads.o \
 	${OBJECTDIR}/ManejadorJuego.o \
 	${OBJECTDIR}/EventReceiver.o
 
@@ -54,7 +55,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Debug/GNU-Linux-x86 -L../Agentes/dist/Debug/GNU-Linux-x86 -lAgentes
+LDLIBSOPTIONS=-L/usr/lib/irrlicht -L../lib -L./lib -Wl,-rpath . -Wl,-rpath ../Grafico/dist/Debug/GNU-Linux-x86 -L../Grafico/dist/Debug/GNU-Linux-x86 -lGrafico -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas -Wl,-rpath ../Opciones/dist/Debug/GNU-Linux-x86 -L../Opciones/dist/Debug/GNU-Linux-x86 -lOpciones -lIrrlicht -lboost_filesystem-mt -lboost_system-mt -Wl,-rpath ../Agentes/dist/Debug/GNU-Linux-x86 -L../Agentes/dist/Debug/GNU-Linux-x86 -lAgentes -lboost_thread-mt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -86,6 +87,11 @@ ${OBJECTDIR}/PartidaGrafica.o: PartidaGrafica.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/PartidaGrafica.o PartidaGrafica.cpp
+
+${OBJECTDIR}/AgenteThreads.o: AgenteThreads.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I.. -I/usr/include/irrlicht -I/usr/include/python2.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/AgenteThreads.o AgenteThreads.cpp
 
 ${OBJECTDIR}/ManejadorJuego.o: ManejadorJuego.cpp 
 	${MKDIR} -p ${OBJECTDIR}
