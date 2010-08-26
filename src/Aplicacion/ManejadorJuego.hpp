@@ -7,6 +7,7 @@
 #include <Grafico/Skin.hpp>
 #include <Reglas/Excepciones.hpp>
 #include <irrlicht/irrList.h>
+#include <Irrklang/irrKlang.h>
 #include "PartidaGrafica.hpp"
 #include <sstream>
 #include <string>
@@ -236,6 +237,21 @@ private:
      * Un nodo camara que es la camara que se maneja durante el juego y el menú
      */
     scene::ICameraSceneNode* cam;
+
+    /**
+     * El engine del sonido.
+     */
+    irrklang::ISoundEngine* sound_engine;
+
+    /**
+     * Objeto que maneja la canción que se esta reproduciendo actualmente.
+     */
+     irrklang::ISound* cancion;
+
+    /**
+     * Bandera para ver si prendió el audio.
+     */
+    bool sound_engine_on;
 
     /**
      * Bandera que indica si el usuario desea salir de la aplicacion

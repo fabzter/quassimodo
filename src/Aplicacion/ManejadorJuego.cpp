@@ -11,6 +11,9 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,
     this->Agentes.resize(2);
     this->velAnim=VelAnim;
     this->init();
+    this->sound_engine = irrklang::createIrrKlangDevice();
+    this->sound_engine_on = this->sound_engine == NULL? false: true;
+    this->cancion = NULL;
     if(smgr!=NULL)
         this->setMenu();
 }
@@ -24,7 +27,11 @@ ManejadorJuego::~ManejadorJuego() {
         this->dropSkinAmbiente();}
     delete(this->mgui);     
     
-    
+    if(this->sound_engine_on)
+    {
+        this->cancion->drop();
+        this->sound_engine->drop();
+    }
 }
 void ManejadorJuego::init(){
 
@@ -46,12 +53,25 @@ void ManejadorJuego::init(){
 
 }
 void ManejadorJuego::setMenu(){
+    if(this->cancion)
+    {
+        this->cancion->stop();
+        this->cancion->drop();
+    }
     this->setCamMenu();
     this->mgui->setMenu();
-
+    this->cancion = this->sound_engine->play2D("conf/audio/menu.ogg", true, true);
+    this->cancion->setVolume(0.20);
+    this->cancion->setIsPaused(false);
 }
 
 bool ManejadorJuego::setPartida(bool Humanos){
+    if(this->cancion)
+    {
+        this->cancion->stop();
+        this->cancion->drop();
+    }
+
     if(this->hayagente){
 
         this->partida->SetJugadores(this->Agentes[0],this->Agentes[1],Humanos);
@@ -62,6 +82,14 @@ bool ManejadorJuego::setPartida(bool Humanos){
         this->setCamJuego();
         this->mgui->setMenuPartida();
         this->cambiaVistaJuego(4);
+
+        this->cancion = this->sound_engine->play2D("conf/audio/ingame.ogg", true, true);
+        if(this->cancion)
+        {
+            this->cancion->setVolume(0.2);
+            this->cancion->setIsPaused(false);
+        }
+
         return this->partidainiciada;
     }
     else{
