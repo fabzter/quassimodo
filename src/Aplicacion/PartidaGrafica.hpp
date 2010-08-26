@@ -273,6 +273,7 @@ private:
       */
      bool Resaltado_celda;
      Grafico::Barrera* b_tmp;
+     Reglas::AyudanteDeAgente *ayu;
 
 };
 
