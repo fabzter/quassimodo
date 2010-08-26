@@ -168,6 +168,10 @@ public:
      * cambia el giro del la barrera temporal y actualiza los botones de la gui.
      */
     void cambiaGiro(bool este);
+    /**
+     * Elimina los botones del Jugador
+     */
+    void dropBotonesJugador();
 
 private:
     /**

@@ -132,8 +132,9 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
             this->mover=true;
             break;
         case BJ_BARRERA:
+            if(!this->mover){
             this->app->getManJuego()->getManejadorGUI()->setBotonesBarrera();
-            this->barrera=true;
+            this->barrera=true;}
             break;
         case BJ_GIRA_ESTE:case BJ_GIRA_NORTE:
             this->barr_este= (!this->barr_este);

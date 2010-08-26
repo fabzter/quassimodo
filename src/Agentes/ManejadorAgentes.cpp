@@ -9,17 +9,17 @@ Agentes::ManejadorAgentes::ManejadorAgentes()
 {
     std::string nombre;
 
-    nombre = "Agente A*";
+    nombre = "Facil";
     this->registrar(nombre, new FabricaAstar());
 
-    nombre = "Agente Camina Hacia Adelante";
-    this->registrar(nombre, new FabricaCaminaAdelante());
+    //nombre = "Agente Camina Hacia Adelante";
+    //this->registrar(nombre, new FabricaCaminaAdelante());
 
-    nombre = "Agente MiniMax2";
+    nombre = "Dificil";
     this->registrar(nombre, new FabricaMinimax2());
 
-    nombre = "Agente MiniMax4";
-    this->registrar(nombre, new FabricaMinimax4());
+   // nombre = "Agente MiniMax4";
+   // this->registrar(nombre, new FabricaMinimax4());
 
     nombre = "Agente Humano";
     this->registrar(nombre, new FabricaHumano());

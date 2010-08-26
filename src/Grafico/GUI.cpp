@@ -204,6 +204,7 @@ void Grafico::GUI::setBotonesJugador(int idjugador){
               this->botonesJugador.at(i)->setImage( this->skin->getBotonJugador(i+aum) );
               this->botonesJugador.at(i)->setPressedImage( this->skin->getBotonJugadorPres(i+aum) );
               this->botonesJugador.at(i)->setUseAlphaChannel(true);
+              this->botonesJugador.at(i)->setToolTipText(GUI_BOTONES_TOLTIP_JUGADOR[i]);
       }
       this->botonJugador=true;
 }
@@ -223,9 +224,11 @@ void Grafico::GUI::setBotonesBarrera(){
     this->botonesJugador.at(0)->setImage( this->skin->getBotonJugador(a+1) );
     this->botonesJugador.at(0)->setPressedImage( this->skin->getBotonJugadorPres(a+1) );
     this->botonesJugador.at(0)->setID(Grafico::BJ_LISTO);
+    this->botonesJugador.at(0)->setToolTipText(GUI_BOTONES_TOLTIP_JUGADOR[4]);
     this->botonesJugador.at(1)->setImage( this->skin->getBotonJugador(a+2) );
     this->botonesJugador.at(1)->setPressedImage( this->skin->getBotonJugadorPres(a+2) );
     this->botonesJugador.at(1)->setID(Grafico::BJ_GIRA_ESTE);
+    this->botonesJugador.at(1)->setToolTipText(GUI_BOTONES_TOLTIP_JUGADOR[2]);
 
 }
 void Grafico::GUI::cambiaGiro(bool este){
@@ -237,9 +240,11 @@ void Grafico::GUI::cambiaGiro(bool este){
     }
     else{
         this->botonesJugador.at(1)->setID(Grafico::BJ_GIRA_ESTE);
+
         aum=2;
     }
     this->botonesJugador.at(1)->setImage( this->skin->getBotonJugador(a+aum) );
     this->botonesJugador.at(1)->setPressedImage( this->skin->getBotonJugadorPres(a+aum) );
+    this->botonesJugador.at(1)->setToolTipText(GUI_BOTONES_TOLTIP_JUGADOR[aum]);
 
 }

@@ -103,6 +103,18 @@ const wchar_t* const GUI_BOTONES_TOLTIP_PARTIDA[2]=
 L"Regresa al menú principal",
 0
 };
+/**
+ * Tooltip de ayuda para el menu de juego del jugador.
+ */
+const wchar_t* const GUI_BOTONES_TOLTIP_JUGADOR[BJ_COUNT+1]=
+{
+L"Moverse",
+L"Colocar Barrera ",
+L"Gira Barrera de modo Horizontal",
+L"Gira Barrera de modo Vertical",
+L"Terminé de colocar la barrera",
+0
+};
 }
 
 #endif	/* _ENUMS_HPP */
