@@ -99,6 +99,14 @@ public:
       * as GUI::dropBotonesJugador
       */
      void dropBotonesJugador();
+     /**
+      * as GUI::setBotonesBarrera
+      */
+     void setBotonesBarrera();
+     /**
+      * @as GUI::cambiaGiro
+      */
+     void cambiaGiro(bool este);
 
 private:
 

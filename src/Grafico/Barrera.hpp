@@ -26,8 +26,9 @@ public:
      * @param skin un apuntador a un objeto de la clase Grafico::skin que tiene los modelos y las texturas del programa
      * @param VelAnim velocidad de animacion que tendrá la barrera
      * @param parent Nodo escena del que será hijo la barrera.
+     * @param idJugador un entero que indica el id del jugador, ya que segun el numero de jugador es el tipo de barrera que colocará
      */
-    Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,scene::ISceneNode* parent);
+    Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,scene::ISceneNode* parent,int idJugador);
     /**
      *Constructor copia de la clase Barrera
      * @param orig una referencia a un objeto de la clase Barera del namespace Grafico

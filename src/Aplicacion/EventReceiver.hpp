@@ -75,10 +75,6 @@ private:
          */
         void Click_a_Boton(irr::s32 id);
         /**
-         * Cuando el Jugadoracaba de realizar la jugada, se arma la jugada que pidio
-         */
-        void ArmaJugada();
-        /**
          * Un apuntador Nucleo de la aplicacion (la clase Juego)
          */
         Aplicacion* app;
@@ -93,7 +89,8 @@ private:
         bool AmbosHumanos;
         bool mover;
         bool barr_este;
-        irr::core::position2d<irr::s32> celda;
+        bool barrera;
+        int celda;
 
 };
 

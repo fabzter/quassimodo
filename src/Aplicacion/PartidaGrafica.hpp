@@ -112,24 +112,38 @@ public:
      * si no se puede regresa un numero negativo.
      * @param pos posicion del mouse en el screen de la aplicación
      * @param movimiento, si la jugada a relizar es de tipo movimiento o no
+     * @param barrera, si la jugada es de tipo barrera
      * @param Direccion si la jugada no es de tipo movimiento, se debe indicar la direccion en la que se colocara la barrera @as Reglas::Direccion
      *        si es de tipo movimiento este parametro es ignorado.
      * @return si si le dio a una celda regrsa el id de esa celda (que es la posicion de ésta), -1 en caso contrario.
      */
-    int ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion);
+    int ChecaJugada(core::position2d<s32>& pos,bool movimiento,bool barrera,int Direccion);
     /**
      *
      * @param celda poisición de la celda en la que se hará la jugada
      * @param movimiento, si la jugada a relizar es de tipo movimiento o no.
+     * @param barrera, si la jugada es de tipo barrera
      * @param Direccion si la jugada no es de tipo movimiento, se debe indicar la direccion en la que se colocara la barrera @as Reglas::Direccion
      *        si es de tipo movimiento este parametro es ignorado.
      */
-    void setJugada(int celda,bool movimiento,int Direccion=0);
+    void setJugada(int celda,bool movimiento,bool barrera,int Direccion=0);
     /**
      * @as Jugador::IsHaciendoJugada
      * @return
      */
     bool HaciendoJugada();
+    /**
+     * Coloca una barrera si es que se puede en la posicion que se le dio click, esta la colocara
+     * en la celda que se le dio clck del lado izquierdo(si se coloca con direccion norte, o del lado inferior, si se coloca con direccion este
+     * @param celda poisición de la celda en la que se hará la jugada
+     * @param Direccion la direccion en la que se colocara la barrera @as Reglas::Direccion
+     */
+    void setBarreraT(int celda ,int Direccion);
+    /**
+     * cambia la direccion de la barrera temporal si es que está dibujada
+     * @param este si la direccion a cambiar es al este o no;
+     */
+    void cambiaGiro(bool este);
 
 private:
     /**
@@ -176,7 +190,7 @@ private:
      * @param direccion si no es de tipo movimiento, se indica la direccion enla que se colocara la barrera
      * @return Un objeto del Tipo Reglas::Jugada que contiene la jugada armada.
      */
-    Reglas::Jugada ArmaJugada(int celda,bool movimiento,int direccion);
+    Reglas::Jugada ArmaJugada(int celda,bool movimiento,bool barrera,int direccion);
     /**
      * Tablero sobre el que se realizará la PartidaGrafica.
      */
@@ -255,6 +269,7 @@ private:
       * dice si estan resaltadas celdas.
       */
      bool Resaltado_celda;
+     Grafico::Barrera* b_tmp;
 
 };
 

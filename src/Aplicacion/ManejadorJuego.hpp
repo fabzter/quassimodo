@@ -154,11 +154,19 @@ public:
      * 
      * @as PartidaGrafica::ChecaJugada
      */
-    int ChecaJugada(core::position2d<s32>& pos,bool movimiento,int Direccion=0);
+    int ChecaJugada(core::position2d<s32>& pos,bool movimiento,bool barrera,int Direccion=0);
     /**
      * @as PartidaGrafica::setJugada
      */
-    void setJugada(int celda,bool movimiento,int Direccion=0);
+    void setJugada(int celda,bool movimiento,bool barrera,int Direccion=0);
+    /**
+     * @as PartidaGrafica::setBarreraT
+     */
+    void setBarreraT(int celda,int Direccion);
+    /**
+     * cambia el giro del la barrera temporal y actualiza los botones de la gui.
+     */
+    void cambiaGiro(bool este);
 
 private:
     /**

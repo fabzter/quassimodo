@@ -8,7 +8,7 @@ EventReceiver::EventReceiver(Aplicacion* app)
     this->app=app;
     this->piniciada=false;
     this->noA=-1;
-    this->mover=this->barr_este=this->AmbosHumanos=false;
+    this->barrera=this->mover=this->barr_este=this->AmbosHumanos=false;
 for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
     KeyIsDown[i] = false;
 }
@@ -35,11 +35,20 @@ bool EventReceiver::OnEvent(const SEvent& event)
                     case EMIE_LMOUSE_LEFT_UP:
                             MouseState.LeftButtonDown = false;
                             core::position2d<s32> pp=MouseState.Posicion;
+                            
                             if( this->piniciada && this->app->getManJuego()->estaHaciendoJugada()){
-                                int celda=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barr_este);
-                                if(celda>0){
-                                    this->app->getManJuego()->setJugada(celda,this->mover,this->barr_este);
-                                    this->mover=false;}
+                                int celda1=this->app->getManJuego()->ChecaJugada(pp,this->mover,this->barrera,this->barr_este);
+                                if(celda1>=0){
+                                    if(mover){
+                                        this->app->getManJuego()->setJugada(celda1,this->mover,this->barrera,this->barr_este);
+                                        this->mover=false;
+                                  }
+                                    else if(barrera){
+                                        celda=celda1;
+                                        this->app->getManJuego()->setBarreraT(celda,this->barr_este);
+                                       // this->barrera=false;
+                                    }
+                                }
                             }
                             break;
             }
@@ -99,7 +108,7 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
        case BP_VISTA1:
              this->app->getManJuego()->cambiaVistaJuego(1);
              break;
-             case BP_VISTA2:
+       case BP_VISTA2:
              this->app->getManJuego()->cambiaVistaJuego(2);
              break;
        case BP_VISTA3:
@@ -115,6 +124,18 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
             this->app->getManJuego()->setOpcionesMover();
             this->mover=true;
             break;
+        case BJ_BARRERA:
+            this->app->getManJuego()->getManejadorGUI()->setBotonesBarrera();
+            this->barrera=true;
+            break;
+        case BJ_GIRA_ESTE:case BJ_GIRA_NORTE:
+            this->barr_este= (!this->barr_este);
+            this->app->getManJuego()->cambiaGiro(this->barr_este);
+            break;
+        case BJ_LISTO:
+            this->app->getManJuego()->setJugada(celda,this->mover,this->barrera,this->barr_este);
+            this->barr_este=this->barrera=false;
+            break;
        case BP_MENU:
              this->piniciada=false;
              this->app->nuevoJuego();
@@ -123,9 +144,6 @@ void EventReceiver::Click_a_Boton(irr::s32 id){
              this->app->getManJuego()->getManejadorGUI()->dropCreditos();
              break;
     }
-}
-void EventReceiver::ArmaJugada(){
-
 }
 const SMouseState& EventReceiver::GetMouseState(void) const
 {

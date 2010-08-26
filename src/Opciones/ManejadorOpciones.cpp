@@ -40,9 +40,12 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("skin.modelos.jugador_2",
             po::value<string>()->default_value(string("conf/skin_default/Robot.3ds")),
                                         "Path relativo al modelo del Jugador 2.")
-            ("skin.modelos.barrera",
-            po::value<string>()->default_value(string("conf/skin_default/Barrera.3ds")),
-                                        "Path relativo al modelo de las barreras.")
+            ("skin.modelos.barrera_1",
+            po::value<string>()->default_value(string("conf/skin_default/Barrera_Pinguino.3ds")),
+                                        "Path relativo al modelo de las barreras del Jugador 1")
+            ("skin.modelos.barrera_2",
+            po::value<string>()->default_value(string("conf/skin_default/Barrera_Robot.3ds")),
+                                        "Path relativo al modelo la textura de las barreras del Jugador 2")
             ("skin.modelos.celda",
             po::value<string>()->default_value(string("conf/skin_default/Celda.3ds")),
                                         "Path relativo al modelo del celda.")
@@ -53,12 +56,6 @@ Opciones::ManejadorOpciones::ManejadorOpciones(int argc, char *argv[])
             ("skin.texturas.antorcha",
             po::value<string>()->default_value(string("conf/skin_default/fire.bmp")),
                                         "Path relativo a la textura de la antorcha.")
-            ("skin.texturas.barrera_1",
-            po::value<string>()->default_value(string("conf/skin_default/BrickOldDirty0078_S.jpg")),
-                                        "Path relativo al modelo la textura de las barreras.")
-            ("skin.texturas.barrera_2",
-            po::value<string>()->default_value(string("conf/skin_default/BrickOldDirty0078_S.jpg")),
-                                        "Path relativo al modelo la textura de las barreras.")
             ("skin.texturas.celda",
             po::value<string>()->default_value(string("conf/skin_default/Moss0138_2_S.jpg")),
                                         "Path relativo a la textura de las celdas.")
@@ -267,9 +264,13 @@ std::string Opciones::ManejadorOpciones::getJugador2ModeloPath()
     return this->vm["skin.modelos.jugador_2"].as<std::string>();
 }
 
-std::string Opciones::ManejadorOpciones::getBarreraModeloPath()
+std::string Opciones::ManejadorOpciones::getBarrera1ModeloPath()
 {
-    return this->vm["skin.modelos.barrera"].as<std::string>();
+    return this->vm["skin.modelos.barrera_1"].as<std::string>();
+}
+std::string Opciones::ManejadorOpciones::getBarrera2ModeloPath()
+{
+    return this->vm["skin.modelos.barrera_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getCeldaModeloPath()
@@ -286,14 +287,6 @@ std::string Opciones::ManejadorOpciones::getTableroTexturaPath()
 std::string Opciones::ManejadorOpciones::getAntorchaTexturaPath()
 {
     return this->vm["skin.texturas.antorcha"].as<std::string>();
-}
-std::string Opciones::ManejadorOpciones::getBarrera1TexturaPath()
-{
-    return this->vm["skin.texturas.barrera_1"].as<std::string>();
-}
-std::string Opciones::ManejadorOpciones::getBarrera2TexturaPath()
-{
-    return this->vm["skin.texturas.barrera_2"].as<std::string>();
 }
 
 std::string Opciones::ManejadorOpciones::getCeldaTexturaPath()
