@@ -5,9 +5,20 @@
 #include <string>
 #include <map>
 
+/**
+ * Este namespace contiene a nuestros Agente implementados. En realidad uno
+ * sólo debe interactuar con la clase ManejadorAgentes, que sirve como catálogo
+ * y fábrica de nuestros Agentes.
+ */
 namespace Agentes
 {
 
+/**
+ * Esta clase sirve tanto de catálogo, como fábrica de agentes. Es decir, 
+ * nosotros no necesitamos instanciar directamente a ningún Agente, sino que
+ * el manejador nos entrega una lista de los Agentes (getNombresAgentes), y
+ * podemos pedirle instancia del que queramos (makeAgente).
+ */
 class ManejadorAgentes
 {
 public:

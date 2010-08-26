@@ -3,8 +3,20 @@
 #include <boost/program_options.hpp>
 #include <string>
 #include <vector>
+
+/**
+ * Este namespace contiene las clases que se encargan del manejo de las opciones
+ * del juego, tanto las recibidas por línea de comando, como las recibidas por
+ * medio del archivo de configuración. 
+ * 
+ * La clase con la que se interactúa es la clase ManejadorOpciones.
+ */
 namespace Opciones
 {
+    /**
+     * El punto principal de interacción para obtener las opciones del Juego.
+     * Contiene un método para cada opción. :S
+     */
 class ManejadorOpciones
 {
 public:
