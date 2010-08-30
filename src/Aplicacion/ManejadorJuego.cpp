@@ -287,13 +287,13 @@ const char* ManejadorJuego::getMsjGanador(){
 void ManejadorJuego::despachaJugada(){
 
     if(this->partida->estaEnCurso()&& !this->pausa){
-
+        this->setPensando();
         if( this->partida->animacionesEnd()   ){
             if( !this->JugadorPreparaJugada() ){
                 
                 this->SiguienteJugada();
                // this->dropPensando();
-             //   this->cambiaVistaTurno();
+                this->cambiaVistaTurno();
             }
         }
         

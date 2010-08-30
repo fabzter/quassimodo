@@ -19,12 +19,8 @@ Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,sce
         this->mesh=skin->getBarrera2();
      this->dibuja(smgr);
      if(idJugador==0){
-         this->nodoA->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
-         int c=0;
-        this->nodoA-> getMaterial(0).EmissiveColor.setAlpha(c);
-        this->nodoA-> getMaterial(0).AmbientColor.setAlpha(c);
-        this->nodoA-> getMaterial(0).DiffuseColor.setAlpha(c);
-         
+         this->nodoA->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
+  
      }
      this->velAnim=VelAnim;
      //  this->setSombra();
