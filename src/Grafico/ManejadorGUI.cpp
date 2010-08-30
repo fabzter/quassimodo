@@ -107,3 +107,9 @@ void Grafico::ManejadorGUI::setAyuda(){
 void Grafico::ManejadorGUI::dropAyuda(){
     this->Gui->dropAyuda();
 }
+void Grafico::ManejadorGUI::setPensando(){
+    this->Gui->setPensando();
+}
+ void Grafico::ManejadorGUI::dropPensando(){
+     this->Gui->dropPensando();
+ }

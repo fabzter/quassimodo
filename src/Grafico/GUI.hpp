@@ -101,6 +101,14 @@ public:
       * elimina la imagen de ayuda
       */
      void dropAyuda();
+     /**
+      * coloca la leyenda de Pensando en el screen
+      */
+     void setPensando();
+     /**
+      * Elimina la leyenda de Pensando del screen
+      */
+     void dropPensando();
 
 private:
     /**
@@ -182,6 +190,10 @@ private:
      * Imagen en la que se presenta la pantalla de ayuda
      */
     gui::IGUIImage* ayuda;
+    /**
+     * nodo texto que se coloca en la escena al estar pensando el cerebro
+     */
+    gui::IGUIStaticText* T_Pensando;
     /**
      * variable que ayuda a saber que botones del jugador se debera de poner
      */

@@ -14,6 +14,7 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,
     this->sound_engine = irrklang::createIrrKlangDevice();
     this->sound_engine_on = this->sound_engine == NULL? false: true;
     this->cancion = NULL;
+    this->pensando=false;
     if(smgr!=NULL)
         this->setMenu();
 }
@@ -26,7 +27,7 @@ ManejadorJuego::~ManejadorJuego() {
         delete(this->partida);
         this->dropSkinAmbiente();}
     delete(this->mgui);     
-    
+    this->dropPensando();
     if(this->sound_engine_on)
     {
         this->cancion->drop();
@@ -106,14 +107,24 @@ bool ManejadorJuego::setPartida(bool Humanos){
 
 bool ManejadorJuego::SiguienteJugada(){
     bool curso=false;
+    
        try{
         curso=this->partida->siguienteJugada();
         }
-         catch(std::exception &e)
+         catch(Reglas::Excepcion &e)
          {
-            this->mgui->MsgBox(e.what(),true,BOK_ERROR);
+            std::stringstream m;
+            m<<"Error de Reglas:\n"<<e.what();
+            this->mgui->MsgBox(m.str().c_str(),true,BOK_ERROR);
+            std::cout<<m<<std::endl;
          }
-
+        catch(std::exception &e)
+         {
+            std::stringstream m;
+            m<<"Error :\n"<<e.what();
+            this->mgui->MsgBox(m.str().c_str(),true,BOK_ERROR);
+            std::cout<<m<<std::endl;
+         }
      if(this->hayGanador() )
       {
         this->mgui->MsgBox(this->getMsjGanador(),true );
@@ -201,19 +212,6 @@ void ManejadorJuego::clearAgentes(){
 
         this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome(),16,8,1,1.3,400.f );
         this->skydome->setName("CIELO");
-       /* this->terrain =   this->smgr->addTerrainSceneNode(this->skin->getheightMapFile(),
-		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
-		core::vector3df(0.f, 0.f, 0.f),		// rotation
-		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
-		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
-		5,					// maxLOD
-		scene::ETPS_33,				// patchSize
-		2					// smoothFactor
-		);
-	
-        this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
-       this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
-       this->terrain->scaleTexture(1.0f, 1.0f);*/
 
        scene::IAnimatedMesh* mesh = smgr->addHillPlaneMesh( "myHill",
 		core::dimension2d<f32>(60,60),
@@ -292,8 +290,10 @@ void ManejadorJuego::despachaJugada(){
 
         if( this->partida->animacionesEnd()   ){
             if( !this->JugadorPreparaJugada() ){
+                
                 this->SiguienteJugada();
-                this->cambiaVistaTurno();
+               // this->dropPensando();
+             //   this->cambiaVistaTurno();
             }
         }
         
@@ -317,6 +317,7 @@ bool ManejadorJuego::JugadorPreparaJugada(){
     if( isHumano  ){
         if(this->partida->HaciendoJugada()){
             this->haciendoJugada=true;
+            this->dropPensando();
             if(!this->botonesJugador){
                 this->mgui->setBotonesJugador(this->partida->getJugadorEnTurno());
                 this->botonesJugador=true;
@@ -326,8 +327,10 @@ bool ManejadorJuego::JugadorPreparaJugada(){
     }
     else{
         //if(this->partida->HaciendoJugada()){
-            this->haciendoJugada=false;
+        this->setPensando();
+         this->haciendoJugada=false;
         //}
+            
         this->dropBotonesJugador();
     }
 
@@ -385,4 +388,21 @@ void ManejadorJuego::cambiaVistaTurno(){
         this->cambiaVistaJuego(4);
     else
         this->cambiaVistaJuego(3);
+}
+void ManejadorJuego::setPensando(){
+
+    if(!this->partida->JugadorIsHumano( this->partida->getJugadorEnTurno() )){
+        if(!pensando){
+            this->mgui->setPensando();
+            pensando=true;
+        }
+    }
+  
+}
+
+void ManejadorJuego::dropPensando(){
+    if(pensando){
+       this->mgui->dropPensando();
+       this->pensando=false;
+    }
 }

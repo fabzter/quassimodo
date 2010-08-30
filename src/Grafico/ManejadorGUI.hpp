@@ -115,6 +115,14 @@ public:
       * @as GUI::dropAyuda
       */
      void dropAyuda();
+      /**
+      * coloca la leyenda de Pensando en el screen
+      */
+     void setPensando();
+     /**
+      * Elimina la leyenda de Pensando del screen
+      */
+     void dropPensando();
 
 private:
 
