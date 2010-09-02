@@ -50,7 +50,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lboost_program_options-mt
+LDLIBSOPTIONS=-Wl,-rpath . -Wl,-rpath ../lib -Wl,-rpath ./lib -lboost_program_options-mt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

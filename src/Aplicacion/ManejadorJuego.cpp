@@ -113,7 +113,7 @@ bool ManejadorJuego::SiguienteJugada(){
          {
             this->mgui->MsgBox(e.what(),true,BOK_ERROR);
          }
-
+         
      if(this->hayGanador() )
       {
         this->mgui->MsgBox(this->getMsjGanador(),true );

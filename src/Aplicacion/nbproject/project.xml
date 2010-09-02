@@ -11,9 +11,8 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../Agentes</make-dep-project>
-                <make-dep-project>../Opciones</make-dep-project>
                 <make-dep-project>../Grafico</make-dep-project>
-                <make-dep-project>../Reglas</make-dep-project>
+                <make-dep-project>../Opciones</make-dep-project>
                 <make-dep-project>/home/tokayo/Proyecto/pt/Grafico</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>

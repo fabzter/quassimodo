@@ -55,13 +55,11 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas
+LDLIBSOPTIONS=-L. -L../../lib -Wl,-rpath . -Wl,-rpath ../../lib -lReglas
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libAgentes.so
-
-dist/Debug/GNU-Linux-x86/libAgentes.so: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
 dist/Debug/GNU-Linux-x86/libAgentes.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
@@ -99,7 +97,6 @@ ${OBJECTDIR}/AgenteMinimax4.o: AgenteMinimax4.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -108,7 +105,6 @@ ${OBJECTDIR}/AgenteMinimax4.o: AgenteMinimax4.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
