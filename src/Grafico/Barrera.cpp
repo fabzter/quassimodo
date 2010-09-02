@@ -1,5 +1,13 @@
 
 
+#include <irrlicht/SMaterial.h>
+#include <irrlicht/SMaterialLayer.h>
+#include <irrlicht/IAnimatedMeshSceneNode.h>
+#include <irrlicht/IMesh.h>
+#include <irrlicht/IAnimatedMesh.h>
+#include <irrlicht/ISceneNode.h>
+#include <irrlicht/SColor.h>
+
 #include "Barrera.hpp"
 
 using namespace irr;
@@ -10,8 +18,14 @@ Grafico::Barrera:: Barrera(scene::ISceneManager* smgr,Skin* skin,int VelAnim,sce
     else
         this->mesh=skin->getBarrera2();
      this->dibuja(smgr);
-     if(idJugador==0)
-         this->nodoA->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR );
+     if(idJugador==0){
+         this->nodoA->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+         int c=0;
+        this->nodoA-> getMaterial(0).EmissiveColor.setAlpha(c);
+        this->nodoA-> getMaterial(0).AmbientColor.setAlpha(c);
+        this->nodoA-> getMaterial(0).DiffuseColor.setAlpha(c);
+         
+     }
      this->velAnim=VelAnim;
      //  this->setSombra();
 }

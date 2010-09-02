@@ -199,6 +199,14 @@ private:
      * cambia la vista del jugador en turno para que su pieza se encuentre en primer plano.
      */
     void cambiaVistaTurno();
+     /**
+      * coloca la leyenda de Pensando en el screen
+      */
+     void setPensando();
+     /**
+      * Elimina la leyenda de Pensando del screen
+      */
+     void dropPensando();
     /**
      * Un apuntador al manejador de la escena del juego
      */
@@ -275,6 +283,7 @@ private:
     bool pausa;
     bool haciendoJugada;
     bool botonesJugador;
+    bool pensando;
 };
 
 #endif	/* _MANEJADORJUEGO_HPP */

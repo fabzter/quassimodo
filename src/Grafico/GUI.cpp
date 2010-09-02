@@ -10,6 +10,7 @@ Grafico::GUI::GUI(scene::ISceneManager* smgr,gui::IGUIEnvironment* env,Skin* Ski
     this->botonesJugador.resize(2);
     this->AvsA=0;
     this->T_Pausa=NULL;
+    this->T_Pensando=NULL;
     botonJugador=botonesPartida=false;
    this->setSkin();
 }
@@ -258,4 +259,23 @@ void Grafico::GUI::setAyuda(){
 
 void Grafico::GUI::dropAyuda(){
     this->ayuda->remove();
+}
+void Grafico::GUI::setPensando(){
+
+        core::dimension2d<unsigned int> S_S=core::dimension2d<unsigned int>(180,60);
+      int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
+      core::rect<s32> rec=core::rect<s32>(d_a, d_al , S_S.Width+d_a ,S_S.Height+d_al);
+
+    core::dimension2d<unsigned int> SS=this->smgr->getVideoDriver()->getScreenSize();
+    this->T_Pensando=this->env->addStaticText(L"*Pensando*",rec);
+    this->T_Pensando->setOverrideFont(this->skin->getMenuBoton());
+    this->T_Pensando->setOverrideColor(video::SColor(255,130,0,0));
+}
+
+void Grafico::GUI::dropPensando(){
+      if(this->T_Pensando!=NULL||this->T_Pensando!=0){
+        this->T_Pensando->remove();
+        this->T_Pensando=NULL;
+    }
+
 }

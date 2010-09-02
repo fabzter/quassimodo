@@ -61,9 +61,14 @@ ManejadorJuego* Aplicacion::getManJuego(){
 }
 
 void Aplicacion::nuevoJuego(){
+    try{
     delete (this->juego);
     this->smgr->clear();
-    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion);
+    this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion);}
+    catch(std::exception &e){
+        this->grafico=false;
+        std::cout<<e.what()<<std::endl;
+    }
 }
 
 void Aplicacion::loopGrafico(){

@@ -97,6 +97,9 @@ ${OBJECTDIR}/EventReceiver.o: EventReceiver.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release
+	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -105,6 +108,9 @@ ${OBJECTDIR}/EventReceiver.o: EventReceiver.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../Grafico && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../Opciones && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../Agentes && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
