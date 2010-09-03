@@ -40,6 +40,9 @@
       </toolsSet>
       <compileType>
         <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibLibItem>boost_program_options-mt</linkerLibLibItem>
           </linkerLibItems>
@@ -66,6 +69,11 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>../lib</pElem>
+            <pElem>./lib</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibLibItem>boost_program_options-mt</linkerLibLibItem>
           </linkerLibItems>

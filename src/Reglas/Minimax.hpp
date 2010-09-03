@@ -35,6 +35,17 @@ struct CompararNodoMinimaxMIN
     bool operator()(NodoMinimax* a, NodoMinimax* b);
 };
 
+struct EliminarJugadas
+{
+    EliminarJugadas(AyudanteDeAgente &a, int idEnemigo);
+    EliminarJugadas(const EliminarJugadas &other);
+    bool operator()(Jugada &j);
+
+private:
+    AyudanteDeAgente *ayudante;
+    int id_enemigo;
+};
+
 void minimax(NodoMinimax *currentTab, int currentDepth, int maxDepth,
                 TipoDeJugada tipoJug);
 

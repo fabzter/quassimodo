@@ -1,5 +1,6 @@
 #include "AgenteAstar.hpp"
 #include <Reglas/Astar.hpp>
+#include <iostream>
 
 Agentes::AgenteAstar::AgenteAstar()
 {
@@ -28,8 +29,8 @@ Reglas::Jugada Agentes::AgenteAstar::siguienteJugada(const Reglas::Tablero table
 
     if(!path_mio->empty())
     {
-        std::list<Reglas::Jugada> barreras = ayudante.getBarrerasPosibles(this->id_enemigo);
-        if( (path_enemigo->size() <= path_mio->size()) && !barreras.empty())
+        std::list<Reglas::Jugada> barreras = ayudante.getBarrerasPosibles(this->id);
+        if( !barreras.empty() && (path_enemigo->size() <= path_mio->size()) )
         {
             j.setTipoDeJugada(Reglas::BARRERA);
             j.setPosicion( barreras.back().getPosicion() );
@@ -52,7 +53,6 @@ Reglas::Jugada Agentes::AgenteAstar::siguienteJugada(const Reglas::Tablero table
                     j.setDireccion(it->getDireccion());
                     j.setPosicion(it->getPosicion());
                 }
-
             }
         }
         

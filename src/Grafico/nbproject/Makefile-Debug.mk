@@ -68,17 +68,11 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath . -lIrrlicht /usr/lib/libGL.so /usr/lib/libXxf86vm.so -Wl,-rpath ../Reglas/dist/Debug/GNU-Linux-x86 -L../Reglas/dist/Debug/GNU-Linux-x86 -lReglas
+LDLIBSOPTIONS=-L./lib -L../lib -L../../lib -Wl,-rpath . -lIrrlicht -lReglas -lGL -lXxf86vm
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libGrafico.so
-
-dist/Debug/GNU-Linux-x86/libGrafico.so: /usr/lib/libGL.so
-
-dist/Debug/GNU-Linux-x86/libGrafico.so: /usr/lib/libXxf86vm.so
-
-dist/Debug/GNU-Linux-x86/libGrafico.so: ../Reglas/dist/Debug/GNU-Linux-x86/libReglas.so
 
 dist/Debug/GNU-Linux-x86/libGrafico.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
@@ -181,7 +175,6 @@ ${OBJECTDIR}/Barrera.o: Barrera.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -190,7 +183,6 @@ ${OBJECTDIR}/Barrera.o: Barrera.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
