@@ -46,7 +46,7 @@ void Grafico::GUI::setSkin(){
      }
 
     sskin->setColor( gui::EGDC_BUTTON_TEXT,video::SColor(255,255,255,255) );
-    
+
     this->env->setSkin( sskin );
 
 
@@ -69,13 +69,13 @@ std::string Grafico::GUI::getAgenteSeleccionado()
     return std::string(w_path.string().begin(), w_path.string().end());
 }
 
- 
+
 void Grafico::GUI::dropAvsA(){
     if(this->AvsA!=0){
         this->AvsA->remove();
         this->AvsA=0;
     }
-        
+
 }
 
 void Grafico::GUI::dibujaSelector(std::vector<std::string> lista){
@@ -100,11 +100,11 @@ void Grafico::GUI::dibujaSelector(std::vector<std::string> lista){
 }
 
 void Grafico::GUI::setBotonesPartida(){
-    
+
       int dis_ancho=20,dis_alto=20;
       float size=50,dan=dis_ancho;
       for(int i=0;i<BP_COUNT;i++){
-          
+
               this->botonPartida.at(i)= this->env->addButton(core::rect<s32>( dan,dis_alto,dan+size, dis_alto+size ),0,i+1000,L"") ;
               dan+=size+10;
               this->botonPartida.at(i)->setDrawBorder(true);
@@ -114,7 +114,7 @@ void Grafico::GUI::setBotonesPartida(){
       }
       this->botonPartida.at(BP_COUNT-1)->setToolTipText(GUI_BOTONES_TOLTIP_PARTIDA[0]);
       botonesPartida=true;
-    
+
 }
 void Grafico::GUI::dropBotonesPartida(){
     if(botonesPartida){
@@ -151,7 +151,7 @@ void Grafico::GUI::setTextPausa(){
     core::dimension2d<unsigned int> SS=this->smgr->getVideoDriver()->getScreenSize();
     this->T_Pausa=this->env->addStaticText(L"PAUSA",rec);
     this->T_Pausa->setOverrideFont(this->skin->getMenuBoton());
-    this->T_Pausa->setOverrideColor(video::SColor(255,130,0,0)); 
+    this->T_Pausa->setOverrideColor(video::SColor(255,130,0,0));
 }
 
 void Grafico::GUI::dropTextPausa(){
@@ -176,11 +176,16 @@ void Grafico::GUI::setOpcionesCombo(std::vector<std::string> lista){
 
 void Grafico::GUI::setCreditos(){
 
-    core::dimension2d<u32> S_S= this->skin->getImagenCreditos()->getSize();
-
-    int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
-    this->creditos=this->env->addImage(this->skin->getImagenCreditos(),core::position2d<s32>(d_a,d_al),true,0);
-    this->env->addButton(core::rect<s32>( 815,645,905, 675 ),this->creditos,BO_CREDITOS,L"OK") ;
+	core::dimension2d<u32> ss2=core::dimension2d<u32>(1024, 768);
+	core::dimension2d<unsigned int> S_S= this->smgr->getVideoDriver()->getScreenSize();
+	if(S_S.Height>ss2.Height||S_S.Width>ss2.Width )
+		S_S=ss2;
+	int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
+    core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a ,S_S.Height+d_al);
+	this->creditos=this->env->addImage(recW,0);//core::rect<s32>(0, 0 , S_S.Width ,S_S.Height),0);
+	this->creditos->setImage(this->skin->getImagenCreditos());
+	this->creditos->setScaleImage(true);
+	this->env->addButton(core::rect<s32>(S_S.Width-209,S_S.Height-123,S_S.Width-119, S_S.Height-93 ),this->creditos,BO_CREDITOS,L"OK") ;
 
 }
 
@@ -189,7 +194,7 @@ void Grafico::GUI::dropCreditos(){
     this->creditos->remove();
 }
 void Grafico::GUI::setBotonesJugador(int idjugador){
-    
+
     if(this->botonJugador)
         return;
     this->idJugador=idjugador;
@@ -230,7 +235,6 @@ void Grafico::GUI::setBotonesBarrera(){
     this->botonesJugador.at(1)->setPressedImage( this->skin->getBotonJugadorPres(a+2) );
     this->botonesJugador.at(1)->setID(Grafico::BJ_GIRA_ESTE);
     this->botonesJugador.at(1)->setToolTipText(GUI_BOTONES_TOLTIP_JUGADOR[2]);
-
 }
 void Grafico::GUI::cambiaGiro(bool este){
     int a,aum;
@@ -250,11 +254,17 @@ void Grafico::GUI::cambiaGiro(bool este){
 
 }
 void Grafico::GUI::setAyuda(){
-    core::dimension2d<u32> S_S= this->skin->getImagenCreditos()->getSize();
+    core::dimension2d<u32> ss2=core::dimension2d<u32>(1024, 768);
+	core::dimension2d<unsigned int> S_S= this->smgr->getVideoDriver()->getScreenSize();
+	if(S_S.Height>ss2.Height||S_S.Width>ss2.Width )
+		S_S=ss2;
+	int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
+    core::rect<s32> recW=core::rect<s32>(d_a, d_al , S_S.Width+d_a ,S_S.Height+d_al);
 
-    int d_a=(this->smgr->getVideoDriver()->getScreenSize().Width-S_S.Width)/2, d_al=(this->smgr->getVideoDriver()->getScreenSize().Height-S_S.Height)/2;
-    this->ayuda=this->env->addImage(this->skin->getImagenAyuda(),core::position2d<s32>(d_a,d_al),true,0);
-    this->env->addButton(core::rect<s32>( 815,705,905, 735 ),this->ayuda,BOK_AYUDA,L"OK") ;
+	this->ayuda=this->env->addImage(recW,0);
+	this->ayuda->setImage(this->skin->getImagenAyuda());
+	this->ayuda->setScaleImage(true);
+    this->env->addButton(core::rect<s32>(S_S.Width-209,S_S.Height-63,S_S.Width-119, S_S.Height-33 ),this->ayuda,BOK_AYUDA,L"OK") ;
 }
 
 void Grafico::GUI::dropAyuda(){
