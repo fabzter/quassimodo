@@ -24,6 +24,27 @@ bool Reglas::CompararNodoMinimaxMIN::operator ()(NodoMinimax* a, NodoMinimax* b)
     return a->val < b->val;
 }
 
+Reglas::EliminarJugadas::EliminarJugadas(Reglas::AyudanteDeAgente& a, int idEnemigo)
+{
+    this->ayudante = &a;
+    this->id_enemigo = idEnemigo;
+}
+Reglas::EliminarJugadas::EliminarJugadas(const EliminarJugadas &other)
+{
+    this->ayudante = other.ayudante;
+    this->id_enemigo = other.id_enemigo;
+}
+bool Reglas::EliminarJugadas::operator ()(Reglas::Jugada& j)
+{
+    int posJug_y = j.getPosicion().at(1);
+    int posEnem_y =
+            this->ayudante->getCelda((int)this->id_enemigo).getPosicion().at(1);
+
+    return ( !(
+                 (posJug_y <= (posEnem_y + 2)) && (posJug_y >= (posEnem_y - 2))
+                    ) );
+}
+
 void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth, 
                      int maxDepth, Reglas::TipoDeJugada tipoJug)
 {
@@ -51,20 +72,8 @@ void Reglas::minimax(Reglas::NodoMinimax *currentTab, int currentDepth,
     {
         jugadas = ayudanteCurrent.getBarrerasPosibles(currentTab->idJugador);
         //discriminamos las jugadas.
-        std::list<Reglas::Jugada>::iterator it_jugs;
-        for(it_jugs = jugadas.begin(); it_jugs != jugadas.end(); it_jugs++)
-        {
-            int posJug_y = it_jugs->getPosicion().at(1);
-            int posEnem_y = 
-            ayudanteCurrent.getCelda((int)currentTab->idEnemigo).getPosicion().at(1);
-            if( !( 
-                 (posJug_y <= (posEnem_y + 2)) && (posJug_y >= (posEnem_y - 2))
-                    ) )
-            {
-                jugadas.erase(it_jugs);
-                it_jugs--;
-            }
-        }
+        EliminarJugadas pred(ayudanteCurrent, currentTab->idEnemigo);
+        jugadas.remove_if(pred);
     }
     }//para deshacernos del ayudante
     while(!jugadas.empty())
