@@ -175,6 +175,7 @@ ${OBJECTDIR}/Barrera.o: Barrera.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -183,6 +184,7 @@ ${OBJECTDIR}/Barrera.o: Barrera.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../Reglas && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

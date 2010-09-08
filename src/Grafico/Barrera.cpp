@@ -1,5 +1,3 @@
-
-
 #include <irrlicht/SMaterial.h>
 #include <irrlicht/SMaterialLayer.h>
 #include <irrlicht/IAnimatedMeshSceneNode.h>
@@ -46,10 +44,10 @@ core::vector3df Grafico::Barrera::giraEste(core::vector3df pos){
 
 void Grafico::Barrera::giraNorte(){
     if(this->nodoA->getRotation().Y==90){
-        this->nodoA->setRotation(core::vector3df(0,0,0));
         core::vector3df p=this->getPosicionEscena();
-        // p.Z+=this->size.X;
-         p.X-=this->size.X*this->getEscala().X;
+        this->nodoA->setRotation(core::vector3df(0,0,0));
+        
+        // p.X-=this->size.X*this->getEscala().X;
         this->setPosicion(p);
     }
 }
