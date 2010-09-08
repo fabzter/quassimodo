@@ -51,6 +51,9 @@ void Grafico::Antorcha::setVectPosicion(int x, int y, int z){
            v.X=1,v.Y=1,v.Z=1;
         this->posicionF.X=0;// this->posiciong.X;
         this->posicionF.Y=this->posiciong.Y+(this->size.Y*v.Y);
+        std::cout<<this->size.Y<<std::endl;
+        std::cout<<"pos F "<<this->posicionF.Y<<std::endl;
+
         this->posicionF.Z=0;//this->posiciong.Z;
 }
 
