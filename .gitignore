@@ -19,5 +19,11 @@ nbproject/private/
 /quassimodo/
 /quassimodo.concurso/
 
-# OpenWolf transient snapshots
+# OpenWolf transient snapshots + volatile runtime state (churns every action)
 /.wolf/backups/
+/.wolf/memory.md
+/.wolf/hooks/_session.json
+/.wolf/token-ledger.json
+/.wolf/cron-state.json
+/.wolf/suggestions.json
+/.wolf/designqc-report.json
