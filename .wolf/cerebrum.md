@@ -6,7 +6,7 @@
 
 ## User Preferences
 
-<!-- How the user likes things done. Code style, tools, patterns, communication. -->
+- [2026-05-26] NEVER include references to LLM/AI authorship or generation anywhere — no "Co-Authored-By: Claude", no "Generated with Claude Code", no AI mentions in git commit messages, pushes, PR titles/bodies, code comments, or any other artifact. Keep all output attribution-free.
 
 ## Key Learnings
 
@@ -21,6 +21,7 @@
 
 - [2026-05-26] hg→git: do NOT use hg-fast-export.sh on this machine — the active python3 (pyenv 3.13) cannot `import mercurial`. Use git-cinnabar instead (self-contained, no mercurial python module needed).
 - [2026-05-26] Don't convert the two clones to git separately and graft — topology is interleaved. Unify into one hg repo first (`hg pull`), then convert once so the fork point is reconstructed correctly from the DAG.
+- [2026-05-26] Do NOT add "Co-Authored-By: Claude" or any AI/LLM authorship trailer to commits (corrected by user mid-commit). See User Preferences.
 
 ## Decision Log
 

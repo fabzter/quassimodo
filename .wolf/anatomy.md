@@ -1,11 +1,16 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T22:20:46.932Z
-> Files: 512 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-26T22:25:44.098Z
+> Files: 514 tracked | Anatomy hits: 0 | Misses: 0
+
+## ../../.claude/projects/-Users-fabzter-src-quassimodo/memory/
+
+- `feedback_no_ai_attribution.md` (~258 tok)
+- `MEMORY.md` — Memory Index (~43 tok)
 
 ## ./
 
-- `.gitignore` — Git ignore rules (~88 tok)
+- `.gitignore` — Git ignore rules (~101 tok)
 - `CLAUDE.md` — OpenWolf (~57 tok)
 - `README.md` — Project documentation (~1163 tok)
 

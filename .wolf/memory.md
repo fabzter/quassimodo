@@ -17,3 +17,6 @@
 | 16:30 | PENDING user confirm before deleting originals | quassimodo/, quassimodo.concurso/, .migration/ | awaiting go-ahead | — |
 | 16:16 | Session end: 1 writes across 1 files (.gitignore) | 1 reads | ~1243 tok |
 | 16:20 | Edited .gitignore | scratch() → clones() | ~34 |
+| 16:21 | Edited .gitignore | 4→7 lines | ~47 |
+| 16:25 | Created ../../.claude/projects/-Users-fabzter-src-quassimodo/memory/feedback_no_ai_attribution.md | — | ~254 |
+| 16:25 | Created ../../.claude/projects/-Users-fabzter-src-quassimodo/memory/MEMORY.md | — | ~46 |
