@@ -1,0 +1,23 @@
+# Build artifacts (stripped from history during hg->git migration)
+*.o
+*.so
+*.so.*
+*.o.d
+*.pyc
+*.py~
+
+# NetBeans build/IDE state
+build/
+dist/
+nbproject/private/
+
+# Compiled executables
+/bin/ejecutable
+
+# Migration scratch + original Mercurial clones (kept locally as a safety net)
+/.migration/
+/quassimodo/
+/quassimodo.concurso/
+
+# OpenWolf transient snapshots
+/.wolf/backups/
