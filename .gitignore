@@ -35,3 +35,8 @@ nbproject/private/
 result
 result-*
 .devbox/
+
+# Python / runtime
+.venv/
+__pycache__/
+/lib/Reglas.so
