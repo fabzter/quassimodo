@@ -36,8 +36,8 @@ void Scripting::manejar_excepcion_python_libre(
     {
         object modulo_main = import("__main__");
         object modulo_main_namespace = modulo_main.attr("__dict__");
-        exec("import traceback\nimport cStringIO\n"
-             "fout = cStringIO.StringIO()\n"
+        exec("import traceback\nimport io\n"
+             "fout = io.StringIO()\n"
              "traceback.print_exc(file=fout)\n"
              "fout = fout.getvalue()\n",
              modulo_main_namespace, modulo_main_namespace);
