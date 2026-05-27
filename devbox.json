@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/main/.schema/devbox.schema.json",
   "packages": [
-    "cmake@latest",
-    "ninja@latest",
-    "pkg-config@latest",
-    "python311@latest",
+    "cmake@3.30.5",
+    "ninja@1.12.1",
+    "pkg-config@0.29.2",
+    "python311@3.11.11",
     "path:.#boostPython"
   ],
   "shell": {
