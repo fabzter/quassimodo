@@ -14,6 +14,14 @@ uses Irrlicht (3D) + Boost.Python (embeds CPython). It was dormant; we migrated 
 hg→git and are reviving it to **build + run natively on macOS arm64** inside an
 **isolated, reproducible Nix/Devbox + CMake** environment.
 
+**The greater plan (master design):**
+[`docs/superpowers/specs/2026-05-26-build-isolation-design.md`](docs/superpowers/specs/2026-05-26-build-isolation-design.md)
+is the overarching plan — the full arc in **Phases A–E** (isolated env → de-risking
+spikes → source port → runtime/playable). Per-phase implementation plans live in
+[`docs/superpowers/plans/`](docs/superpowers/plans/). The roadmap below sequences what
+is left; `.wolf/cerebrum.md` records the decisions/gotchas behind it. **When in doubt
+about the big picture, re-read that spec.**
+
 **Status (2026-05-27):**
 - ✅ Hg→git migration done. `main` + `concurso` branches (diverge at the real fork).
 - ✅ Build-isolation foundation (PR #1, merged): Nix/Devbox + CMake, two de-risking
@@ -39,8 +47,25 @@ hg→git and are reviving it to **build + run natively on macOS arm64** inside a
 
 ## 2. How we work (the methodology — keep doing this)
 
-We follow the **superpowers** skill workflow, invoked via the `Skill` tool. The flow
-for any non-trivial change:
+**Use the superpowers skills — actually invoke them with the `Skill` tool, exactly as
+this work has been done.** Do not merely emulate the workflow from memory: invoke the
+relevant skill *before* acting. The `superpowers:using-superpowers` skill (loaded at
+session start) is the entry point and states the rule — if there's even a ~1% chance a
+skill applies, invoke it. Our toolkit (all via the `Skill` tool):
+
+- `superpowers:brainstorming` — before ANY creative/design work; explore intent, ask
+  one question at a time, propose 2–3 options, get decisions.
+- `superpowers:writing-plans` — turn a spec into a bite-sized, exact-code plan.
+- `superpowers:subagent-driven-development` — **how we build**: fresh implementer
+  subagent per task + two-stage (spec, then quality) review.
+- `superpowers:executing-plans` — alternative inline execution with checkpoints.
+- `superpowers:systematic-debugging` — for ANY bug/crash (this found the SIGTRAP).
+- `superpowers:test-driven-development`, `superpowers:verification-before-completion`,
+  `superpowers:requesting-code-review` / `receiving-code-review`,
+  `superpowers:finishing-a-development-branch`.
+
+When the user types `/<name>` or names a skill, invoke it. Announce "Using [skill] to
+[purpose]" when you do. The flow for any non-trivial change:
 
 1. **brainstorming** — explore intent + approach, ask one question at a time
    (`AskUserQuestion`), propose 2–3 options with a recommendation, get decisions.
