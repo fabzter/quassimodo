@@ -8,23 +8,17 @@
       systems = [ "aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux" ];
       forAll = f: nixpkgs.lib.genAttrs systems (s: f (import nixpkgs { system = s; }));
     in {
-      packages = forAll (pkgs: {
-        boostPython = pkgs.boost.override {
-          enablePython = true;
-          python = pkgs.python311;
-        };
-      });
+      packages = forAll (pkgs:
+        let boostPython = pkgs.boost.override { enablePython = true; python = pkgs.python311; };
+        in { inherit boostPython; });
 
-      devShells = forAll (pkgs: {
-        default = pkgs.mkShell {
-          packages = [
-            pkgs.cmake
-            pkgs.ninja
-            pkgs.pkg-config
-            pkgs.python311
-            (pkgs.boost.override { enablePython = true; python = pkgs.python311; })
-          ];
-        };
-      });
+      devShells = forAll (pkgs:
+        let boostPython = pkgs.boost.override { enablePython = true; python = pkgs.python311; };
+        in {
+          default = pkgs.mkShell {
+            # add config/overlays to the nixpkgs import above if needed later
+            packages = [ pkgs.cmake pkgs.ninja pkgs.pkg-config pkgs.python311 boostPython ];
+          };
+        });
     };
 }
