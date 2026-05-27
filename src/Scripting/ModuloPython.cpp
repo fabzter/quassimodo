@@ -45,7 +45,7 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
     
     try
     {
-        this->modulo = import(str(ruta_path.stem()));
+        this->modulo = import(str(ruta_path.stem().string()));
     }
     catch(error_already_set& e)
     {

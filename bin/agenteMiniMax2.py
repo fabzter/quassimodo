@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 import sys
-from sys import maxint
+from sys import maxsize as maxint
 sys.path.append("../lib")
 import random
 import math
@@ -15,11 +15,11 @@ MAX = True
 CELLS = 81
 
 def printInfo(tab):
-    print "Soy un tablero esperando tiro por el Jugador {0}, mi valor es {1}.".format(tab.idJugador, tab.val)
-    print "Soy de tipo", "MAX" if tab.tipo is MAX else "MIN"
-    print "Este soy yo\n", tab
+    print("Soy un tablero esperando tiro por el Jugador {0}, mi valor es {1}.".format(tab.idJugador, tab.val))
+    print("Soy de tipo", "MAX" if tab.tipo is MAX else "MIN")
+    print("Este soy yo\n", tab)
     try:
-        print "Mis hijos son:"
+        print("Mis hijos son:")
         for hijo in tab.hijos: printInfo(hijo)
     except AttributeError: pass
 
@@ -47,7 +47,7 @@ def minmax(currentTab, currentDepth = 0, maxDepth = 4,
         posEnemigo = tablero.getCelda(currentTab.idEnemigo).getPosicion()
         jugadas.extend( ( hijo for hijo in ayudanteCurrent.getBarrerasPosibles(currentTab.idJugador)\
                             if hijo.getPosicion()[1] in \
-                            xrange(posEnemigo[1] -2, posEnemigo[1] +2 ) ) )
+                            range(posEnemigo[1] -2, posEnemigo[1] +2 ) ) )
     ayudanteCurrent = None #no necesitamos mas al ayudante
     
     currentTab.hijos = []
@@ -70,7 +70,7 @@ def minmax(currentTab, currentDepth = 0, maxDepth = 4,
         minmax(tabHijo, currentDepth + 1, 4, TipoDeJugada.MOVIMIENTO)
         
         currentTab.hijos.append(tabHijo)
-        print "Aun quedan {0} jugadas por revisar.".format(len(jugadas))
+        print("Aun quedan {0} jugadas por revisar.".format(len(jugadas)))
     
     #propagamos hacia arriba los valores de los hijos
     valsHijos = (tab.val for tab in currentTab.hijos)
@@ -95,7 +95,7 @@ class AgenteInteligente (Reglas.Agente):
         self.ayudante = ayudante
         
     def siguienteJugada(self):
-        print "Jugador {0} prepara jugada.".format(self.id)
+        print("Jugador {0} prepara jugada.".format(self.id))
         tablero.tipo = MAX
         tablero.idJugador = self.id
         
@@ -122,5 +122,5 @@ class AgenteInteligente (Reglas.Agente):
 
     
     def terminar(self):
-        print "Jugador {0} ha terminado.".format( self.id )
+        print("Jugador {0} ha terminado.".format( self.id ))
 

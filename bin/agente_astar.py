@@ -24,8 +24,8 @@ class AgenteAStar (Reglas.Agente):
         try: j = Reglas.Jugada( Reglas.astar(tablero, self.id)[1] )
         except IndexError: j = random.choice(ayudante.getMovimientosPosibles(self.id) )
         
-        print self.id, ": Hice mi Jugada"
+        print(self.id, ": Hice mi Jugada")
         return j
-    
+
     def terminar(self):
-        print "Jugador {0} ha terminado.".format( self.id )
+        print("Jugador {0} ha terminado.".format( self.id ))

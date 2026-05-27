@@ -86,7 +86,7 @@ bool Scripting::InterpretePython::manejaModulo(std::string ruta)
 
     for(int i = 0; i < subfixes.size(); i++)
     {
-        if(subfixes.at(i).compare(ruta_path.extension()))
+        if(subfixes.at(i).compare(ruta_path.extension().string()))
         {
             return true;
         }

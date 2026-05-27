@@ -1,5 +1,5 @@
 #include <boost/python.hpp>
-#include <Reglas/Excepciones.cpp>
+#include <Reglas/Excepciones.hpp>
 #include <iostream>
 #include <string>
 

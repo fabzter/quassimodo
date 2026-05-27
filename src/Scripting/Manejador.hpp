@@ -3,7 +3,7 @@
 
 #ifndef _MANEJADOR_HPP
 #define	_MANEJADOR_HPP
-#include <python2.6/Python.h>
+#include <Python.h>
 #include <boost/python.hpp>
 #include <list>
 #include <string>
