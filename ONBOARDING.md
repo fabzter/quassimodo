@@ -14,13 +14,16 @@ uses Irrlicht (3D) + Boost.Python (embeds CPython). It was dormant; we migrated 
 hg→git and are reviving it to **build + run natively on macOS arm64** inside an
 **isolated, reproducible Nix/Devbox + CMake** environment.
 
-**The greater plan (master design):**
-[`docs/superpowers/specs/2026-05-26-build-isolation-design.md`](docs/superpowers/specs/2026-05-26-build-isolation-design.md)
-is the overarching plan — the full arc in **Phases A–E** (isolated env → de-risking
-spikes → source port → runtime/playable). Per-phase implementation plans live in
-[`docs/superpowers/plans/`](docs/superpowers/plans/). The roadmap below sequences what
-is left; `.wolf/cerebrum.md` records the decisions/gotchas behind it. **When in doubt
-about the big picture, re-read that spec.**
+**The greater plan:**
+[`docs/superpowers/ROADMAP.md`](docs/superpowers/ROADMAP.md) is the **canonical phase
+index** — it defines every phase, reconciles the master spec's **Phases A–E** with the
+**D1 / D1.5 / D1′ / D2** breakdown ("the Ds"), and tracks status + which plan implements
+each. The master *design* behind it is
+[`docs/superpowers/specs/2026-05-26-build-isolation-design.md`](docs/superpowers/specs/2026-05-26-build-isolation-design.md);
+per-phase plans live in [`docs/superpowers/plans/`](docs/superpowers/plans/), and
+`.wolf/cerebrum.md` records the decisions/gotchas. **When in doubt about the big
+picture, read `ROADMAP.md` first, then the spec.** (The roadmap below is a summary of
+what's left.)
 
 **Status (2026-05-27):**
 - ✅ Hg→git migration done. `main` + `concurso` branches (diverge at the real fork).
