@@ -82,6 +82,167 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-27T03:23:57.969Z"
+    },
+    {
+      "id": "bug-006",
+      "timestamp": "2026-05-27T21:49:23Z",
+      "error_message": "Python 2→3 port: #include <python2.6/Python.h> not found; cStringIO removed in Python 3; boost::filesystem path methods return path not string",
+      "file": "src/Scripting/Manejador.hpp, src/Scripting/UtilsPython.cpp, src/Scripting/InterpretePython.cpp, src/Scripting/ModuloPython.cpp",
+      "root_cause": "Scripting module was written for Python 2.6 / Boost 1.40. Three breakages on Python 3.11 / Boost 1.81: (1) <python2.6/Python.h> path gone, (2) cStringIO module removed in Python 3, (3) boost::filesystem path::extension()/stem() now return path objects instead of std::string.",
+      "fix": "(1) Changed #include <python2.6/Python.h> to #include <Python.h>. (2) Changed cStringIO.StringIO() to io.StringIO() in embedded Python exec string. (3) Added .string() after ruta_path.extension() in InterpretePython.cpp and after ruta_path.stem() in ModuloPython.cpp.",
+      "tags": [
+        "python3-port",
+        "boost-filesystem",
+        "cstringio",
+        "cmake"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T21:49:23Z"
+    },
+    {
+      "id": "bug-007",
+      "timestamp": "2026-05-27T21:52:42.472Z",
+      "error_message": "Wrong reference: PyString_Check should be PyBytes_Check",
+      "file": "src/AgenteWrapper/container_conversions.h",
+      "root_cause": "Used \"PyString_Check\" instead of \"PyBytes_Check\"",
+      "fix": "Changed PyString_Check → PyBytes_Check",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "h"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T21:52:42.472Z"
+    },
+    {
+      "id": "bug-008",
+      "timestamp": "2026-05-27T21:52:45.375Z",
+      "error_message": "Wrong reference: cpp should be hpp",
+      "file": "src/AgenteWrapper/container_conversions.cpp",
+      "root_cause": "Used \"cpp\" instead of \"hpp\"",
+      "fix": "Changed cpp → hpp",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T21:52:45.375Z"
+    },
+    {
+      "id": "bug-009",
+      "timestamp": "2026-05-27T21:52:48.221Z",
+      "error_message": "Wrong reference: cpp should be hpp",
+      "file": "src/AgenteWrapper/Excepciones.cpp",
+      "root_cause": "Used \"cpp\" instead of \"hpp\"",
+      "fix": "Changed cpp → hpp",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T21:52:48.221Z"
+    },
+    {
+      "id": "bug-010",
+      "timestamp": "2026-05-27T00:00:00.000Z",
+      "error_message": "PyString_Check not found in Python 3 (container_conversions.h)",
+      "file": "src/AgenteWrapper/container_conversions.h",
+      "root_cause": "PyString_Check was removed in Python 3; code used Python 2 API",
+      "fix": "Replaced PyString_Check with PyBytes_Check",
+      "tags": [
+        "python3",
+        "boost-python",
+        "api-change"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T00:00:00.000Z"
+    },
+    {
+      "id": "bug-011",
+      "timestamp": "2026-05-27T00:00:00.000Z",
+      "error_message": "no member named ob_type in _typeobject (container_conversions.h Python 3)",
+      "file": "src/AgenteWrapper/container_conversions.h",
+      "root_cause": "Python 3 makes PyTypeObject opaque; ob_type->ob_type is inaccessible",
+      "fix": "Replaced obj_ptr->ob_type->ob_type access with Py_TYPE(Py_TYPE(obj_ptr)) which is valid in Python 2 and 3",
+      "tags": [
+        "python3",
+        "boost-python",
+        "api-change"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T00:00:00.000Z"
+    },
+    {
+      "id": "bug-012",
+      "timestamp": "2026-05-27T00:00:00.000Z",
+      "error_message": "double-definition from #include <Reglas/Celda.cpp> and <Reglas/Excepciones.cpp>",
+      "file": "src/AgenteWrapper/container_conversions.cpp, src/AgenteWrapper/Excepciones.cpp",
+      "root_cause": "Original code included .cpp files directly (Python 2 era workaround). With CMake build Reglas is a shared lib; including the .cpp was wrong",
+      "fix": "Changed to include the corresponding .hpp headers instead",
+      "tags": [
+        "include",
+        "cpp-direct-include",
+        "porting"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T00:00:00.000Z"
+    },
+    {
+      "id": "bug-013",
+      "timestamp": "2026-05-27T22:01:14.442Z",
+      "error_message": "Wrong reference: maxint should be maxsize",
+      "file": "bin/agenteMiniMax2.py",
+      "root_cause": "Used \"maxint\" instead of \"maxsize\"",
+      "fix": "Changed maxint → maxsize",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "py"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-27T22:01:24.202Z"
+    },
+    {
+      "id": "bug-014",
+      "timestamp": "2026-05-27T22:01:36.578Z",
+      "error_message": "Wrong reference: maxint should be maxsize",
+      "file": "bin/agenteMiniMax4.py",
+      "root_cause": "Used \"maxint\" instead of \"maxsize\"",
+      "fix": "Changed maxint → maxsize",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "py"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-27T22:01:44.245Z"
+    },
+    {
+      "id": "bug-015",
+      "timestamp": "2026-05-27T22:28:40.212Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/Consola/main.cpp",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 10→14 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T22:28:40.212Z"
     }
   ]
 }
