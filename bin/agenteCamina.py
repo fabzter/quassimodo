@@ -16,20 +16,20 @@ class AgenteCamina (Reglas.Agente):
         elif self.tab.getMetas(self.id)[0].getPosicion()[1] == 0:
             self.direccion = Reglas.Direccion.SUR
         else:
-            print "WTF"
+            print("WTF")
             self.direccion = Reglas.Direccion.SUR
-        
-        print "Soy jugador ", self.id
-        
-        print "Estoy iniciado"
-        
-        
+
+        print("Soy jugador ", self.id)
+
+        print("Estoy iniciado")
+
+
     def siguienteJugada(self):
-        print self.id, ": Preparo mi jugada"
-        
+        print(self.id, ": Preparo mi jugada")
+
         j = Reglas.Jugada()
         j.setTipoDeJugada(Reglas.TipoDeJugada.MOVIMIENTO)
-        
+
         celdaActual = self.tab.getCelda(self.id)
 
 
@@ -37,9 +37,9 @@ class AgenteCamina (Reglas.Agente):
             j.setPosicion( celdaActual.getHijo(self.direccion).getPosicion() )
         else:
             j.setPosicion( celdaActual.getHijo(self.direccion).getHijo(self.direccion).getPosicion() )
-        
-        print self.id, ": Hice mi Jugada"
+
+        print(self.id, ": Hice mi Jugada")
         return j
-    
+
     def terminar(self):
-        print "He terminado", self.id
+        print("He terminado", self.id)

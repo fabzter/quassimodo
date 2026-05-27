@@ -14,12 +14,12 @@ class AgenteCamina2 (Reglas.Agente):
         self.ayudante = ayudante
         
     def siguienteJugada(self):
-        print self.id, ": Preparo mi jugada"
-        
+        print(self.id, ": Preparo mi jugada")
+
         j = random.choice(ayudante.getMovimientosPosibles(self.id))
-        
-        print self.id, ": Hice mi Jugada"
+
+        print(self.id, ": Hice mi Jugada")
         return j
-    
+
     def terminar(self):
-        print "He terminado", self.id
+        print("He terminado", self.id)
