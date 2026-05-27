@@ -10,7 +10,7 @@
 #include <Reglas/Tablero.hpp>
 #include <Reglas/Jugada.hpp>
 #include <Reglas/Barrera.hpp>
-#include <Reglas/Celda.cpp>
+#include <Reglas/Celda.hpp>
 #include <list>
 #include <map>
 using namespace boost::python;
