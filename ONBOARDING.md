@@ -1,0 +1,166 @@
+# Quassimodo Revival — Session Handover & Operating Guide
+
+> **Read this first.** It lets a fresh session continue the work *exactly* as it has
+> been going: same methodology, same subagent discipline, same build playbook, same
+> conventions. Pair it with `.wolf/cerebrum.md` (cross-session memory, auto-loaded)
+> and the docs under `docs/superpowers/`.
+
+---
+
+## 1. The project in one breath
+
+Quassimodo is a 2010 Quoridor game (C++) where two **Python AI agents** compete. It
+uses Irrlicht (3D) + Boost.Python (embeds CPython). It was dormant; we migrated it
+hg→git and are reviving it to **build + run natively on macOS arm64** inside an
+**isolated, reproducible Nix/Devbox + CMake** environment.
+
+**Status (2026-05-27):**
+- ✅ Hg→git migration done. `main` + `concurso` branches (diverge at the real fork).
+- ✅ Build-isolation foundation (PR #1, merged): Nix/Devbox + CMake, two de-risking
+  spikes pass — Python/Boost.Python round-trip across a separate `.so`, and an
+  IrrlichtMt window on macOS arm64.
+- ✅ **Phase D1 (PR #2, branch `feat/phase-d-port`): a full AI-vs-AI match plays in
+  the terminal.** All non-graphical modules build; agents ported to Python 3.
+
+**Roadmap (user-confirmed):**
+- **D1.5 — pybind11 round-trip spike (NEXT).** De-risk replacing Boost.Python with
+  pybind11. Must prove, analogous to the existing Boost.Python `pyembed` spike:
+  trampoline subclass override C++→Py→C++ (`PYBIND11_OVERRIDE_PURE`), STL container
+  conversions (`std::list<Jugada>`/`std::vector<Celda>` ↔ Python via `pybind11/stl.h`),
+  and embedding + cross-`.so` registry sharing (`pybind11/embed.h`).
+- **D1′ — pybind11 migration.** If the spike passes, migrate the bindings
+  (`AgenteWrapper`/`Reglas.so` + `Scripting`) off Boost.Python, dropping `boost_python`.
+- **D2 — graphical port.** Port `src/Grafico` against IrrlichtMt → graphical playable
+  match. Highest risk: the Minetest fork has trimmed Irrlicht's GUI; verify which GUI
+  API survived *before* committing. `Aplicacion` (graphical, currently untouched) is
+  the D2 entry point.
+
+---
+
+## 2. How we work (the methodology — keep doing this)
+
+We follow the **superpowers** skill workflow, invoked via the `Skill` tool. The flow
+for any non-trivial change:
+
+1. **brainstorming** — explore intent + approach, ask one question at a time
+   (`AskUserQuestion`), propose 2–3 options with a recommendation, get decisions.
+   Don't start building until the design is agreed.
+2. **writing a spec** → `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`.
+3. **writing-plans** → `docs/superpowers/plans/YYYY-MM-DD-<feature>.md`: bite-sized
+   tasks, **exact** file paths + code + commands + a pass/fail gate per task. For a
+   *port*, make the known fixes concrete and frame the rest as "compile → fix the
+   discovered errors with systematic-debugging → gate."
+4. **subagent-driven-development** — execute the plan (see §3).
+5. **finishing-a-development-branch** — open a **PR per phase** (we do NOT auto-merge;
+   the user merges on GitHub).
+
+Decompose ruthlessly: if a phase has an uncertain/high-risk chunk (e.g. the Irrlicht
+GUI), split it into its own later plan and ship the low-risk, value-delivering part
+first (this is why D1 = console-only, D2 = graphics).
+
+## 3. Subagent management (the "personality")
+
+- **One implementer subagent per task.** Give it the **full task text + rich context**
+  — it has zero prior context. Always include: the working dir + branch, the env
+  gotchas (§4), the commit rule (§5), "this is a port — don't change game logic," and
+  *why* the task matters. Bake in known gotchas so it doesn't rediscover them.
+- **Two-stage review after each substantial task:** spec-compliance reviewer (verify
+  it built what was asked, independently — rebuild, run the gate, `otool -L`, etc.),
+  then code-quality reviewer. For *trivial* tasks (a verbatim-from-plan file, a clean
+  gate), the controller reviews directly instead of spending two subagents — but never
+  skip verification.
+- **Model selection:** cheap/standard model (sonnet) for mechanical/well-specified
+  tasks; the most capable (opus) for integration/debugging/judgment-heavy tasks
+  (e.g. the IrrlichtMt derivation, the live console-match integration).
+- **Escalation:** tell subagents to report BLOCKED with specifics rather than thrash or
+  change game logic to force a compile. If blocked: add context / re-dispatch with a
+  stronger model / split the task.
+- **Continuous execution:** drive tasks back-to-back; pause only for genuine blockers
+  or decisions. Keep a `TaskCreate`/`TaskUpdate` tracker.
+- **Watch for aborted-subagent residue:** an interrupted subagent can leave uncommitted
+  edits. After an interruption, `git status` and `git checkout -- <files>` / remove
+  stray files before continuing.
+
+## 4. The isolated build playbook (critical details)
+
+**Environment:** Determinate Nix + Devbox 0.17.2 + CMake/Ninja, all pinned.
+- `flake.nix` pins nixpkgs at commit `50ab793…` (nixos-24.11) → clang 16.0.6, cmake
+  3.30.5, ninja 1.12.1, python 3.11.11, boost 1.81 (with python). `flake.lock` committed.
+- `devbox.json` pins the SAME versions **explicitly** (`cmake@3.30.5`, …) because
+  Devbox 0.17.2's search ignores a global `nixpkgs.commit`; it pulls `boostPython` from
+  the flake (`path:.#boostPython`). So `devbox` and `nix develop` give identical tools.
+- `nix/irrlicht-fork.nix` builds the **Minetest Irrlicht fork** (IrrlichtMt 1.9.0mt15)
+  on darwin (stock nixpkgs `irrlicht` is broken on darwin). It needs zlib/libjpeg/libpng
+  + Cocoa/OpenGL/IOKit; ships a CMake config (`find_package(IrrlichtMt CONFIG)` →
+  target `IrrlichtMt::IrrlichtMt`; headers under `include/irrlichtmt/`).
+
+**CRITICAL gotchas (every subagent must know these):**
+1. `nix`/`devbox` are **NOT on PATH** in non-interactive shells. Prefix every command:
+   `. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && …`. Build via
+   `nix develop -c bash -c '...'`. "Git tree is dirty" warnings are harmless.
+2. **Nix flakes only see git-tracked/staged files.** After editing `flake.nix` /
+   `nix/*.nix`, `git add` them before `nix build`/`nix develop`/`nix flake lock` sees
+   the change.
+3. **Piping a crashing binary through `| tail` masks its exit code** (you'll see a
+   false `exit 0`). Capture to a file and check `$?` directly.
+
+**Python-embedding linkage rules (non-negotiable — proven on macOS):**
+- ONE shared `libReglas` linked by everyone → single source of RTTI for cross-boundary
+  casts. ONE shared `boost_python` everywhere → single converter registry. Never
+  static-link boost_python into the extension.
+- The Python extension is a CMake `MODULE` named `Reglas.so`
+  (`OUTPUT_NAME "Reglas" PREFIX "" SUFFIX ".so"`), linking `Python3::Module` (headers
+  only) + `-undefined dynamic_lookup` on macOS (resolve Python C-API from the host
+  process). The embedder links `Python3::Python`.
+- Explicit `target_link_libraries` everywhere — macOS two-level namespace forbids the
+  implicit load-time symbol resolution the original Linux build relied on.
+- The embedder adds `./lib`, `../lib`, `../../lib` to `sys.path` then `import Reglas`,
+  so stage `Reglas.so` into a `lib/` dir relative to the run CWD.
+
+**Run the console game:**
+```
+nix develop -c bash -c 'cmake -S . -B build -G Ninja && cmake --build build'
+mkdir -p lib && ln -sf "$PWD/build/src/AgenteWrapper/Reglas.so" lib/Reglas.so
+nix develop -c bash -c './build/src/Consola/consola bin/agenteCamina.py bin/agenteMiniMax2.py </dev/null'
+# → renders the board each turn, ends with "Hay un ganador!"
+```
+
+**Porting lesson:** old C++ that "worked" under 2010 gcc can be latent UB under modern
+clang. Example: `bool Partida::siguienteJugada()` had no `return` → clang emits
+`brk #0x1` → SIGTRAP at runtime. Fix the *recovered/ported* code minimally; never
+change game logic to force a compile.
+
+## 5. Conventions & preferences (hard rules)
+
+- **NO AI/LLM attribution anywhere** — no "Co-Authored-By: Claude", no "Generated with
+  …", nothing, in commits/PRs/any artifact.
+- **Git identity is pinned repo-local** to `fabzter <faboster@gmail.com>` (another
+  process on this machine mutates the global git/gh config). Plain `git commit`.
+- **GitHub:** repo is `github.com/fabzter/quassimodo`. To push, switch the active gh
+  account to `fabzter` (`gh auth switch --user fabzter`), push/PR, then **switch back**
+  to `fabriziohernandez`. Verify with `gh api user --jq .login` before pushing.
+- **Don't bend the current solution to fit recovered/old code** — adapt the old code to
+  the current modules (e.g. the recovered `Ejecutable` → `src/Consola/`).
+- **Commit per task**, focused messages, never amend. Don't commit `build/` artifacts.
+- **OpenWolf:** this repo uses OpenWolf (`.wolf/`). Honor `.wolf/cerebrum.md`
+  (learnings/decisions/do-not-repeat) and log bugs. Volatile `.wolf` files
+  (`memory.md`, `anatomy.md`, `_session.json`, `token-ledger.json`, etc.) are gitignored;
+  `cerebrum.md`/config/hooks are tracked.
+
+## 6. Key files
+
+- `docs/superpowers/specs/2026-05-26-build-isolation-design.md` — the design spec.
+- `docs/superpowers/plans/2026-05-26-build-isolation-foundation.md` — foundation plan (done).
+- `docs/superpowers/plans/2026-05-27-phase-d1-console-playable.md` — D1 plan (done).
+- `flake.nix` / `flake.lock` / `devbox.json` / `nix/irrlicht-fork.nix` — the pinned env.
+- `BUILDING.md` — how to enter the env + build/run.
+- `.wolf/cerebrum.md` — accumulated learnings, decisions, gotchas (read it).
+- `src/` — `Reglas` (rules), `Opciones`, `Scripting` (embeds py), `AgenteWrapper`
+  (`Reglas.so`), `Consola` (console runner), `Grafico` + `Aplicacion` (graphical, D2).
+
+## 7. Immediate next action
+
+Open the **D1.5 pybind11 round-trip spike**: brainstorm briefly if needed, then a small
+plan + a `spikes/pybind/` spike mirroring the Boost.Python `pyembed` spike — prove the
+three things in §1's roadmap. If it passes, plan D1′ (migrate the bindings). Keep using
+the §2–§5 methodology and conventions throughout.
