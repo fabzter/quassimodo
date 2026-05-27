@@ -28,3 +28,10 @@ nbproject/private/
 /.wolf/suggestions.json
 /.wolf/designqc-report.json
 /.wolf/anatomy.md
+
+# Build outputs
+/build/
+/spikes/**/build/
+result
+result-*
+.devbox/
