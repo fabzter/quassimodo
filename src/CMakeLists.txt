@@ -3,3 +3,4 @@
 option(QM_CONSOLE_ONLY "Build console-only (exclude Grafico/PartidaGrafica)" ON)
 
 add_subdirectory(Reglas)
+add_subdirectory(Opciones)
