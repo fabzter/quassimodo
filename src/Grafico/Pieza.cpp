@@ -49,9 +49,10 @@ core::vector3df Grafico::Pieza::getPosicionEscena(){
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
 
     this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
-    this->nodoA->setMaterialType(video::EMT_DETAIL_MAP);
-    this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
-    this->mesh->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
+    this->nodoA->getMaterial(0).MaterialType = video::EMP_DETAIL_MAP;
+    this->nodoA->getMaterial(0).Lighting = true;
+    // mesh-level material flag removed — set on the scene node instead
+    this->nodoA->getMaterial(0).NormalizeNormals = true;
     this->nodoA->setPosition( this->posiciong );
     this->size =this->nodoA->getBoundingBox().getExtent();
 
@@ -64,9 +65,9 @@ void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
 
 void Grafico::Pieza::setEscala(int x, int y ,int z){
 
-     this->nodoA->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
+     this->nodoA->getMaterial(0).NormalizeNormals = true;
      if(this->sombra!=NULL){
-         this->sombra->setMaterialFlag(video::EMF_LIGHTING, false);
+         this->sombra->getMaterial(0).Lighting = false;
      }
 }
 
@@ -93,10 +94,9 @@ void Grafico::Pieza::drop(){
 }
 
  void Grafico::Pieza::setSombra(scene::IMesh* shadowMesh){
-
-    this->sombra=this->nodoA->addShadowVolumeSceneNode(shadowMesh,-1,false);
-
- }
-scene::IShadowVolumeSceneNode* Grafico::Pieza::getNodoSombra(){
+    // No-op: IShadowVolumeSceneNode removed in IrrlichtMt
+    this->sombra = NULL;
+    }
+scene::ISceneNode* Grafico::Pieza::getNodoSombra(){
      return this->sombra;
  }

@@ -8,6 +8,7 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->skin=skin;
     this->terrain==NULL;
     this->skydome=NULL;
+    this->cameraController=nullptr;
     this->Agentes.resize(2);
     this->velAnim=VelAnim;
     this->init();
@@ -23,6 +24,7 @@ ManejadorJuego::ManejadorJuego(const ManejadorJuego& orig) {
 ManejadorJuego::~ManejadorJuego() {  
     delete(this->partida);
     delete(this->mgui);
+    delete(this->cameraController);
     if(this->grafico){
         //delete(this->aniend);
         this->dropSkinAmbiente();
@@ -183,24 +185,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 }
 
  void ManejadorJuego::setCamJuego(){
-   
      this->setObjetivoCam();
-   
-     //colocamos el tope de la camara para que nosevea debajo del piso
-     if(this->terrain!=NULL){
-         scene::ITriangleSelector* selector= this->smgr->createTerrainTriangleSelector(this->terrain, 0);
-            this->terrain->setTriangleSelector(selector);
-
-            // create collision response animator and attach it to the camera
-            scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-                    selector,cam , core::vector3df(10,50,10),
-                    core::vector3df(0,0,0),
-                    core::vector3df(0,50,0));
-            selector->drop();
-            cam->addAnimator(anim);
-            anim->drop();
-     }
-
  }
 
  void ManejadorJuego::setCamMenu(){
@@ -243,8 +228,7 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 
  void ManejadorJuego::cambiaVistaJuego(int vista){
      this->setCamJuego();
-   core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=cam->getAnimators().begin() ;
-  IAnimatorCameraTokayo* anm = (IAnimatorCameraTokayo*) *a;
+  IAnimatorCameraTokayo* anm = this->cameraController;
      
      switch(vista){
          case 1:
@@ -291,7 +275,6 @@ void ManejadorJuego::imprimeTableroConsola(){
 
 void ManejadorJuego::dropCamera(){
     if(this->cam!=0){
-        this->cam->removeAnimators();
         this->cam->removeAll();
         this->cam->remove();
         this->cam=0;
@@ -323,12 +306,10 @@ void ManejadorJuego::Pausar(){
 void ManejadorJuego::setObjetivoCam(){
     this->dropCamera();
      this->cam = smgr->addCameraSceneNode();
-	IAnimatorCameraTokayo* anm = new TokayoCamera(2,2,2);
-        anm->setRotationNumbers(270,57) ;
-        anm->setZoom(602);
-	this->cam->addAnimator(anm);
+        this->cameraController = new TokayoCamera(2,2,2);
+        this->cameraController->setRotationNumbers(270,57);
+        this->cameraController->setZoom(602);
         this->cam->setAutomaticCulling(scene::EAC_FRUSTUM_BOX);
-	anm->drop();
     PartidaGrafica *p= (PartidaGrafica*)this->partida;
     core::vector3df v=p->getCentro();
     core::vector3df t=core::vector3df(-48.275,57.6925,-63.6251);

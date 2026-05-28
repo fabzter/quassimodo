@@ -1,3 +1,4 @@
+find_package(IrrlichtMt CONFIG REQUIRED)
 file(GLOB APLICACION_SRC CONFIGURE_DEPENDS "*.cpp")
 add_executable(aplicacion ${APLICACION_SRC})
 target_include_directories(aplicacion PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)

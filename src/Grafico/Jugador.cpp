@@ -1,62 +1,52 @@
 
-
 #include <IAnimatedMeshSceneNode.h>
-#include <IShadowVolumeSceneNode.h>
 
 #include "Jugador.hpp"
 using namespace irr;
 
-Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,Skin* skin,int VelAnim,scene::ISceneNode* parent):Grafico::Pieza(parent) ,Reglas::Jugador(num,a) {
+Grafico::Jugador::Jugador(scene::ISceneManager *smgr, int num,
+                          Reglas::Agente *a, Skin *skin, int VelAnim,
+                          scene::ISceneNode *parent)
+    : Grafico::Pieza(parent), Reglas::Jugador(num, a) {
 
-    if (num==0)
-        this->mesh=skin->getJugador1();
-    else
-        this->mesh=skin->getJugador2();
-      this->dibuja(smgr);
-      //this->callback=callback;
-      //this->setSombra(skin->getSombraJugador());
-      this->getNodo()->getMaterial(0).Shininess=20.0f;
-      this->velAnim=VelAnim;
-
+  if (num == 0)
+    this->mesh = skin->getJugador1();
+  else
+    this->mesh = skin->getJugador2();
+  this->dibuja(smgr);
+  this->getNodo()->getMaterial(0).Shininess = 20.0f;
+  this->velAnim = VelAnim;
+  this->anim = nullptr;
 }
 
-Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Jugador(orig){
+Grafico::Jugador::Jugador(const Jugador &orig)
+    : Grafico::Pieza(orig), Reglas::Jugador(orig) {
+  this->anim = nullptr;
 }
 
 Grafico::Jugador::~Jugador() {
-    
-    //this->nodoA->removeAnimators();
-
+  if (this->anim)
+    delete this->anim;
 }
- void Grafico::Jugador::Gira(core::vector3df giro){
-     this->nodoA->setRotation(giro);
- }
 
- void Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas){
+void Grafico::Jugador::Gira(core::vector3df giro) {
+  this->nodoA->setRotation(giro);
+}
 
-      this->nodoA->removeAnimators();
-      //new JumpAnimator(node->getPosition(),node1->getPosition(),300.0f,0.0f);
-      scene::ISceneNodeAnimator* anim = new JumpAnimator(this->getPosicionEscena() ,npos,this->velAnim,numceldas);
-      if (anim)
-		{
-			this->nodoA->addAnimator(anim);
-
-			anim->drop();
-      }
-      this->posiciong=npos;
-      
-     
+void Grafico::Jugador::Mover(scene::ISceneManager *smgr, core::vector3df npos,
+                             int numceldas) {
+  if (this->anim) {
+    delete this->anim;
+    this->anim = nullptr;
   }
+  this->anim = new JumpAnimator(this->getPosicionEscena(), npos, this->velAnim,
+                                static_cast<f32>(numceldas), this->nodoA);
+  this->posiciong = npos;
+}
 
- bool Grafico::Jugador::endAnimacion(){
-
-     if(this->nodoA->getAnimators().empty()){
-         return true;
-     }
-     else{
-        core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
-        scene::ISceneNodeAnimator* anim=*a;
-        return anim->hasFinished();
-     }
- }
-
+bool Grafico::Jugador::endAnimacion(u32 timeMs) {
+  if (!this->anim)
+    return true;
+  this->anim->update(timeMs);
+  return this->anim->hasFinished();
+}

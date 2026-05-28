@@ -91,7 +91,7 @@ public:
       * obtiene el nodo sombra de la pieza.
       * @return  un pauntador al nodo sombra
       */
-     scene::IShadowVolumeSceneNode* getNodoSombra();
+     scene::ISceneNode* getNodoSombra();
 
 
 protected:
@@ -114,7 +114,7 @@ protected:
      /**
       * El nodo sombra de la pieza.
       */
-     scene::IShadowVolumeSceneNode *sombra;
+     scene::ISceneNode *sombra;
      /**
       * Nodo escena padre de la pieza actual.
       */

@@ -217,6 +217,11 @@ private:
      */
     scene::ISceneNode* skydome;
     /**
+     * Apuntador al controlador de la camara Tokayo (reemplaza el antiguo sistema
+     * de animadores ISceneNodeAnimator eliminado en IrrlichtMt).
+     */
+    Grafico::IAnimatorCameraTokayo* cameraController;
+    /**
      * Un nodo camara que es la camara que se maneja durante el juego y el menú
      */
     scene::ICameraSceneNode* cam;

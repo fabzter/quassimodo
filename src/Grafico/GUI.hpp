@@ -132,7 +132,7 @@ private:
     /**
      * Un apuntador a la ventana de selector de Agentes
      */
-    gui::IGUIWindow* AvsA;
+    gui::IGUIElement* AvsA;
     /**
      * Un apuntador a un objeto de la clase Grafico::Skin del cual extraemos las tipografias
      */

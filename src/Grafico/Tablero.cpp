@@ -23,7 +23,7 @@ void Grafico::Tablero::DibujaTodo(scene::ISceneManager* smgr,Skin *skin){
     //dibujamos el tablero
       this->mesh=skin->getTablero();
       this->dibuja(smgr);
-      this->nodoA->setMaterialTexture(0, skin->getTTAblero() );
+      this->nodoA->getMaterial(0).setTexture(0, skin->getTTAblero());
 
       //dibujamos las celdas y le damos su posición a cada celda...
     for(std::size_t i = 0; i < this->datos.size(); i++){

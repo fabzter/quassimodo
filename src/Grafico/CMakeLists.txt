@@ -1,3 +1,4 @@
+find_package(IrrlichtMt CONFIG REQUIRED)
 file(GLOB GRAFICO_SRC CONFIGURE_DEPENDS "*.cpp")
 add_library(Grafico SHARED ${GRAFICO_SRC})
 target_include_directories(Grafico PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
