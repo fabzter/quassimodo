@@ -2,7 +2,7 @@
 #ifndef PARTIDAGRAFICA_HPP
 #define	PARTIDAGRAFICA_HPP
 #include "Partida.hpp"
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 #include<Grafico/Barrera.hpp>
 #include<Grafico/Tablero.hpp>
 #include<Grafico/Antorcha.hpp>
@@ -68,7 +68,7 @@ public:
      * Indica si la animación de mover jugador o colocar barrera ha terminado
      * @return true si terminó, false en caso contrario
      */
-    bool animacionesEnd();
+    bool animacionesEnd(u32 timeMs);
 
 
 private:

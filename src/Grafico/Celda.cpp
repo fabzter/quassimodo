@@ -10,7 +10,7 @@ Grafico::Celda::Celda(scene::ISceneManager* smgr,Skin* skin,scene::ISceneNode* p
            this->celdaR=NULL;
            this->nodoA=NULL;
            this->dibuja(smgr);
-           this->nodoA->setMaterialTexture(0,skin->getTCelda() );
+           this->nodoA->getMaterial(0).setTexture(0, skin->getTCelda());
            this->nodoA->getMaterial(0).NormalizeNormals=true;
 
            //this->nodoA->getMaterial(0).SpecularColor.set(0,0,0,0);

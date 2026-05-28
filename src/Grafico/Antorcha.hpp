@@ -1,5 +1,3 @@
-
-
 #ifndef _ANTORCHA_HPP
 #define	_ANTORCHA_HPP
 #include<irrlicht.h>
@@ -95,7 +93,7 @@ using namespace irr;
         /**
          * Un nodo escena que contiene el fuego
          */
-        scene::ILightSceneNode *nfuego;
+        scene::ISceneNode *nfuego;
         /**
          * La textura o la imagen que la que el fuego toma
          */
@@ -107,7 +105,7 @@ using namespace irr;
          /**
           * Un objeto que maneja el fuego.
           */
-         scene::IParticleSystemSceneNode* ps;
+         scene::ISceneNode* ps;
          /**
           * Indica el radio de iluminacion que tendrá la luz de la antorcha!
           */
@@ -116,4 +114,3 @@ using namespace irr;
     };
 }
 #endif	/* _ANTORCHA_HPP */
-

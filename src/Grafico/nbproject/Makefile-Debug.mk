@@ -87,97 +87,97 @@ dist/Debug/GNU-Linux-x86/libGrafico.so: ${OBJECTFILES}
 ${OBJECTDIR}/Video.o: Video.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Video.o Video.cpp
 
 ${OBJECTDIR}/ManejadorGUI.o: ManejadorGUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ManejadorGUI.o ManejadorGUI.cpp
 
 ${OBJECTDIR}/Skin.o: Skin.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Skin.o Skin.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Skin.o Skin.cpp
 
 ${OBJECTDIR}/Exepciones.o: Exepciones.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exepciones.o Exepciones.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exepciones.o Exepciones.cpp
 
 ${OBJECTDIR}/SkinLoader.o: SkinLoader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/SkinLoader.o SkinLoader.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/SkinLoader.o SkinLoader.cpp
 
 ${OBJECTDIR}/Pieza.o: Pieza.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pieza.o Pieza.cpp
 
 ${OBJECTDIR}/Tablero.o: Tablero.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tablero.o Tablero.cpp
 
 ${OBJECTDIR}/CConfigMap.o: CConfigMap.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigMap.o CConfigMap.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigMap.o CConfigMap.cpp
 
 ${OBJECTDIR}/CConfigReader.o: CConfigReader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigReader.o CConfigReader.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CConfigReader.o CConfigReader.cpp
 
 ${OBJECTDIR}/Jugador.o: Jugador.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Jugador.o Jugador.cpp
 
 ${OBJECTDIR}/Menu.o: Menu.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Menu.o Menu.cpp
 
 ${OBJECTDIR}/tokayoCamera.o: tokayoCamera.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/tokayoCamera.o tokayoCamera.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/tokayoCamera.o tokayoCamera.cpp
 
 ${OBJECTDIR}/Celda.o: Celda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Celda.o Celda.cpp
 
 ${OBJECTDIR}/CGUIProgressBar.o: CGUIProgressBar.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CGUIProgressBar.o CGUIProgressBar.cpp
 
 ${OBJECTDIR}/JumpAnimator.o: JumpAnimator.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/JumpAnimator.o JumpAnimator.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/JumpAnimator.o JumpAnimator.cpp
 
 ${OBJECTDIR}/Antorcha.o: Antorcha.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Antorcha.o Antorcha.cpp
 
 ${OBJECTDIR}/CImageGUISkin.o: CImageGUISkin.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CImageGUISkin.o CImageGUISkin.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/CImageGUISkin.o CImageGUISkin.cpp
 
 ${OBJECTDIR}/GUI.o: GUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/GUI.o GUI.cpp
 
 ${OBJECTDIR}/Barrera.o: Barrera.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include/irrlicht -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
+	$(COMPILE.cc) -std=c++17 -g -I/nix/store/vr0swwa9xv3qakmpply6650w5k4x6qv8-irrlichtmt-1.9.0mt15/include/irrlichtmt -I../ -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Barrera.o Barrera.cpp
 
 # Subprojects
 .build-subprojects:

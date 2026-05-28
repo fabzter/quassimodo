@@ -1,6 +1,6 @@
 #ifndef _MANEJADORGUI_HPP
 #define	_MANEJADORGUI_HPP
-#include<irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include"Skin.hpp"
 #include"Tablero.hpp"
 #include"Menu.hpp"
