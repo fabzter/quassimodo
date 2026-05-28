@@ -1,50 +1,45 @@
-/*
- */
-
 #include "UtilsPython.hpp"
 
 void Scripting::manejar_excepcion_python_libre(
-                                            boost::python::error_already_set& e,
-                                            boost::python::object &globals,
-                                            boost::python::object &locals)
+    pybind11::error_already_set& e,
+    pybind11::object &globals,
+    pybind11::object &locals)
 {
     using namespace std;
-    using namespace boost::python;
+    namespace py = pybind11;
 
     string mensaje("");
     PyObject *type, *value, *traceback;
-
     PyErr_Fetch(&type, &value, &traceback);
 
     try
     {
-        handle<> hexc(type),hval(value),htb(traceback);
+        py::handle hexc(type), hval(value), htb(traceback);
         if(!htb || !hval)
         {
-            mensaje = extract<string>(str(hexc));
+            mensaje = py::str(hexc).cast<string>();
         }
         else
         {
-            object traceback(import("traceback"));
-            object format_exception(traceback.attr("format_exception"));
-            object formatted_list(format_exception(hexc,hval,htb));
-            object formatted(str("\n").join(formatted_list));
-            mensaje = extract<string>(formatted);
+            py::object traceback_mod(py::module_::import("traceback"));
+            py::object format_exception(traceback_mod.attr("format_exception"));
+            py::object formatted_list(format_exception(hexc, hval, htb));
+            py::object formatted(py::str("\n").attr("join")(formatted_list));
+            mensaje = formatted.cast<string>();
         }
     }
-    catch(boost::python::error_already_set)
+    catch(py::error_already_set&)
     {
-        object modulo_main = import("__main__");
-        object modulo_main_namespace = modulo_main.attr("__dict__");
-        exec("import traceback\nimport io\n"
-             "fout = io.StringIO()\n"
-             "traceback.print_exc(file=fout)\n"
-             "fout = fout.getvalue()\n",
-             modulo_main_namespace, modulo_main_namespace);
-
-        mensaje = extract<string>( eval("fout", modulo_main_namespace,
-                                                       modulo_main_namespace) );
+        py::object modulo_main = py::module_::import("__main__");
+        py::object modulo_main_namespace = modulo_main.attr("__dict__");
+        py::exec("import traceback\nimport io\n"
+                 "fout = io.StringIO()\n"
+                 "traceback.print_exc(file=fout)\n"
+                 "fout = fout.getvalue()\n",
+                 modulo_main_namespace, modulo_main_namespace);
+        mensaje = py::eval("fout", modulo_main_namespace,
+                                   modulo_main_namespace).cast<string>();
     }
-    
+
     throw ScriptMalo(mensaje);
 }
