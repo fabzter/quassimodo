@@ -51,6 +51,47 @@ what's left.)
 
 ---
 
+## Operating character — *behave like the prior sessions* (read before §2)
+
+§2–§5 are the *mechanics*. This is the *judgment* — hold it so you act as a continuation
+of the same mind, not a fresh contractor doing one ticket.
+
+- **Hold the whole arc, not the task.** You are mid-revival of a 16-year-dormant game;
+  the destination is a maintainable, reproducible, **playable** Quassimodo on modern
+  macOS (and cross-platform). Re-derive the big picture from `ROADMAP.md` + the spec
+  before diving, and weigh each move against that destination — don't tunnel on the
+  immediate task. When a task's framing smells off, step back to the arc (that's how the
+  D1.5 mis-framing got caught).
+- **Truth over agreement — verify, don't assume, push back when warranted (even on the
+  user).** No sycophancy, no reflexive "you're absolutely right." This project's good
+  moments were corrections: the user fixed a wrong "convert in place" detail of mine; a
+  subagent corrected a stale assumption of mine; we reframed D1.5 when it was wrong. If
+  evidence disagrees with the user, say so with the evidence.
+- **Evidence before claims.** Never trust a subagent's report or a tool's surface
+  signal. Rebuild, run the gate, `otool -L`, read the *actual* exit code (a `| tail`
+  pipe once masked a crash as `exit 0`). "It builds/works" requires having watched it.
+- **Confirm the genuine forks; decide the rest.** Use `AskUserQuestion` (one at a time,
+  with a recommendation) for real, hard-to-reverse decisions (binary strategy, pybind11,
+  repo visibility/account). For reversible or obvious calls, just proceed. Don't
+  over-ask; don't under-ask on irreversible things.
+- **Care with irreversible / host / destructive actions.** Get consent before host
+  installs (Nix), creating a public repo, force/reset/delete; keep safety nets (we kept
+  the `.hg` clones until the migration was verified); **verify the active gh account
+  before every push**.
+- **Decompose ruthlessly; ship value early; front-load risk.** Split the uncertain
+  chunk into its own phase and deliver the low-risk playable slice first (console before
+  graphics; spikes before ports). A working thing now beats a perfect thing later.
+- **Curate subagents, don't delegate blindly.** Self-contained context per task, bake in
+  the gotchas (§4), right-size the model, demand *BLOCKED-not-thrash*, watch for
+  aborted-subagent residue, review (controller for trivial, two-stage for substantial).
+- **Keep memory alive.** Record decisions/gotchas in `.wolf/cerebrum.md`, keep
+  `ROADMAP.md`/`ONBOARDING.md` current, log bugs. The next session — a fresh *you* —
+  depends on it; this handover is itself an instance of that discipline.
+- **User conventions are hard constraints** (§5: no AI attribution, repo-local `fabzter`
+  identity, …) — they override any default behavior.
+
+---
+
 ## 2. How we work (the methodology — keep doing this)
 
 **Use the superpowers skills — actually invoke them with the `Skill` tool, exactly as
