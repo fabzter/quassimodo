@@ -18,7 +18,7 @@
           irrlichtFork = pkgs.callPackage ./nix/irrlicht-fork.nix { darwin = pkgs.darwin; };
         in {
           default = pkgs.mkShell {
-            packages = [ pkgs.cmake pkgs.ninja pkgs.pkg-config pkgs.python311
+            packages = [ pkgs.cmake pkgs.ninja pkgs.pkg-config pkgs.python311 pkgs.boost
                          pkgs.python311.pkgs.pybind11 irrlichtFork ];
           };
         });

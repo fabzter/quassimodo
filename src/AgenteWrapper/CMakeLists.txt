@@ -3,7 +3,7 @@ add_library(ReglasModule MODULE ${AGENTEWRAP_SRC})
 set_target_properties(ReglasModule PROPERTIES OUTPUT_NAME "Reglas" PREFIX "" SUFFIX ".so")
 target_include_directories(ReglasModule PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
 
-find_package(Python3 REQUIRED COMPONENTS Development)
+find_package(Python3 REQUIRED COMPONENTS Development Interpreter)
 find_package(pybind11 CONFIG REQUIRED)
 target_link_libraries(ReglasModule PRIVATE Reglas pybind11::module Python3::Module)
 if(APPLE)
