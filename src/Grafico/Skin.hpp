@@ -339,6 +339,10 @@ private:
       */
      video::ITexture* creditos;
      /**
+     * Sistema de archivos para carga de recursos
+     */
+    io::IFileSystem* fsys;
+    /**
      * Contiene los metodos para recuperar los paths de la skin.
      */
     Opciones::ManejadorOpciones *opciones;

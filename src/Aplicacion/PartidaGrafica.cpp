@@ -153,7 +153,7 @@ core::vector3df PartidaGrafica::getCentro(){
      cen.Y=pos.Y;
      return cen;
 }
-bool PartidaGrafica::animacionesEnd(){
+bool PartidaGrafica::animacionesEnd(u32 timeMs){
 
     if(this->jugadores.size()<=0){
         return true;
@@ -161,7 +161,7 @@ bool PartidaGrafica::animacionesEnd(){
     else{
         Grafico::Jugador *ju0=(Grafico::Jugador*)this->jugadores.at(0);
         Grafico::Jugador *ju1=(Grafico::Jugador*)this->jugadores.at(1);
-        bool end=ju0->endAnimacion() & ju1->endAnimacion() ;
+        bool end=ju0->endAnimacion(timeMs) & ju1->endAnimacion(timeMs) ;
         if(this->Barreras.size()<=0){
             return end;
         }

@@ -4,6 +4,7 @@
 Grafico::Skin::Skin(scene::ISceneManager* smgr,gui::IGUIEnvironment* env, io::IFileSystem* fsys,
         Opciones::ManejadorOpciones &opciones) {
     this->opciones = &opciones;
+    this->fsys = fsys;
     this->setAntorcha(smgr);
     this->setBarrera(smgr);
     this->setCelda(smgr);
@@ -27,7 +28,7 @@ Grafico::Skin::~Skin() {
 }
 void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
      std::ostringstream strs;
-    this->Tablero=smgr->getMesh(this->opciones->getTableroModeloPath().c_str());
+    this->Tablero=smgr->getMesh(this->fsys->createAndOpenFile(io::path(this->opciones->getTableroModeloPath().c_str())));
     this->TTAblero=smgr->getVideoDriver()->getTexture(this->opciones->getTableroTexturaPath().c_str());
     if( this->Tablero== NULL || this->TTAblero==0 )
         {
@@ -38,21 +39,21 @@ void Grafico::Skin::setTablero(scene::ISceneManager* smgr){
 void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
      std::ostringstream strs;
 
-     this->Jugador2=smgr->getMesh(this->opciones->getJugador2ModeloPath().c_str());
+     this->Jugador2=smgr->getMesh(this->fsys->createAndOpenFile(io::path(this->opciones->getJugador2ModeloPath().c_str())));
       if( this->Jugador2== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 2 ";
             throw SkinNoCargado(strs.str().c_str());
         }
 
-     this->Jugador1=smgr->getMesh(this->opciones->getJugador1ModeloPath().c_str());
+     this->Jugador1=smgr->getMesh(this->fsys->createAndOpenFile(io::path(this->opciones->getJugador1ModeloPath().c_str())));
     
      if( this->Jugador1== NULL  )
         {
             strs << "No pudo ser cargado el Skin del jugador 1 ";
             throw SkinNoCargado(strs.str().c_str());
         }
-     this->SombraJugador=smgr->getMesh(this->opciones->getJugadorSombraModeloPath().c_str());
+     this->SombraJugador=smgr->getMesh(this->fsys->createAndOpenFile(io::path(this->opciones->getJugadorSombraModeloPath().c_str())));
 
      if( this->SombraJugador== NULL  )
          {
@@ -63,7 +64,7 @@ void Grafico::Skin::setJugadores(scene::ISceneManager* smgr){
 }
 void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Antorcha=smgr->getMesh(this->opciones->getAntorchaModeloPath().c_str());
+    this->Antorcha=smgr->getMesh(this->fsys->createAndOpenFile(io::path(this->opciones->getAntorchaModeloPath().c_str())));
     this->TAntorcha=smgr->getVideoDriver()->getTexture(this->opciones->getAntorchaTexturaPath().c_str());
       if( this->Antorcha== NULL || this->TAntorcha== 0  )
         {
@@ -73,7 +74,7 @@ void Grafico::Skin:: setAntorcha(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Barrera=smgr->getMesh(this->opciones->getBarreraModeloPath().c_str());
+    this->Barrera=smgr->getMesh(this->fsys->createAndOpenFile(io::path(this->opciones->getBarreraModeloPath().c_str())));
     this->TBarrera=smgr->getVideoDriver()->getTexture(this->opciones->getBarreraTexturaPath().c_str());
       if( this->Barrera== NULL || this->TBarrera==0 )
         {
@@ -83,7 +84,7 @@ void Grafico::Skin::setBarrera(scene::ISceneManager* smgr){
 }
 void Grafico::Skin::setCelda(scene::ISceneManager* smgr){
     std::ostringstream strs;
-    this->Celda=smgr->getMesh(this->opciones->getCeldaModeloPath().c_str());
+    this->Celda=smgr->getMesh(this->fsys->createAndOpenFile(io::path(this->opciones->getCeldaModeloPath().c_str())));
     this->TCelda=smgr->getVideoDriver()->getTexture(this->opciones->getCeldaTexturaPath().c_str());
     if( this->Celda== NULL || this->TCelda== 0 )
         {

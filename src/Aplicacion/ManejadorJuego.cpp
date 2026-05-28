@@ -6,7 +6,7 @@ ManejadorJuego::ManejadorJuego(scene::ISceneManager* smgr,gui::IGUIEnvironment* 
     this->smgr=smgr;
     this->env=env;
     this->skin=skin;
-    this->terrain==NULL;
+    this->terrain=NULL;
     this->skydome=NULL;
     this->cameraController=nullptr;
     this->Agentes.resize(2);
@@ -199,29 +199,21 @@ std::string ManejadorJuego::SplitNombre (std::string str)
 
  void ManejadorJuego::setSkinAmbiente(){
 
-        this->skydome=this->smgr->addSkyDomeSceneNode( this->skin->getTSkydome() );
-        this->terrain =   this->smgr->addTerrainSceneNode(this->skin->getheightMapFile(),
-		0,-1,core::vector3df(-4200.f, -80.f, -3000.f),		// position
-		core::vector3df(0.f, 0.f, 0.f),		// rotation
-		core::vector3df(12.0f, 0.5f, 12.0f),	// scale
-		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
-		5,					// maxLOD
-		scene::ETPS_33,				// patchSize
-		2					// smoothFactor
-		);
-	
-	this->terrain->setMaterialTexture( 0,this->skin->getTTerrain() );
-        this->terrain->setMaterialFlag(video::EMF_LIGHTING, true);
-       this->terrain->scaleTexture(1.0f, 1.0f);
+        this->skydome=this->smgr->addEmptySceneNode();
+        this->terrain=this->smgr->addEmptySceneNode();
 
 
  }
 
  void ManejadorJuego::dropSkinAmbiente(){
+     if(this->terrain){
      this->terrain->removeAll();
      this->terrain->remove();
+ }
+     if(this->skydome){
      this->skydome->removeAll();
      this->skydome->remove();
+ }
      this->terrain=NULL;
      this->skydome=NULL;
  }
@@ -290,7 +282,7 @@ void ManejadorJuego::despachaJugada(){
 
     if(this->partida->estaEnCurso()&& !this->pausa){
         PartidaGrafica *p= (PartidaGrafica*)this->partida;
-        if( p->animacionesEnd() ){
+        if( p->animacionesEnd(0) ){
             this->SiguienteJugada();
         }
     }

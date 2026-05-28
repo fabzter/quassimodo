@@ -117,7 +117,7 @@ bool EventReceiver::OnEvent(const SEvent& event)
 
               }
             //si es un evento de presionar el botón de OK en un msgBox
-            if(event.GUIEvent.EventType==gui::EGET_MESSAGEBOX_OK){
+            if(event.GUIEvent.EventType==gui::EGDT_MSG_BOX_OK){
                 switch(event.GUIEvent.Caller->getID()){
                     case BOK_ERROR:
                         this->app->nuevoJuego();

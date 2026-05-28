@@ -68,7 +68,7 @@ public:
      * Indica si la animación de mover jugador o colocar barrera ha terminado
      * @return true si terminó, false en caso contrario
      */
-    bool animacionesEnd();
+    bool animacionesEnd(u32 timeMs);
 
 
 private:

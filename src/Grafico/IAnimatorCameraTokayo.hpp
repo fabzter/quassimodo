@@ -5,6 +5,10 @@
 // standalone interface (no longer inherits from anything). The concrete
 // TokayoCamera is called directly instead of being attached as an animator.
 
+// D2: IrrlichtMt removed ISceneNodeAnimator. Standalone interface.
+#include <irrlicht.h>
+using namespace irr;
+
 namespace Grafico {
 
 class IAnimatorCameraTokayo {

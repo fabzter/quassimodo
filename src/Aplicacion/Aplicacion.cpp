@@ -76,9 +76,6 @@ void Aplicacion::nuevoJuego(){
         
     }
     
-    if(this->grafico)
-        this->smgr->getVideoDriver()->deleteAllDynamicLights();
-    
     this->juego=new ManejadorJuego(this->smgr,this->env,this->skin,this->velAnimacion,this->grafico);
     if(err!="")
         this->juego->getManejadorGUI()->MsgBox(err.c_str(),true,Grafico::BOK_ADVERTENCIA);
@@ -87,7 +84,6 @@ void Aplicacion::nuevoJuego(){
 void Aplicacion::loopGrafico(){
 
     this->device->setWindowCaption(L"Quassimodo");
-    this->smgr->setShadowColor(video::SColor(150,0,0,0));
     s32 lastFPS = -1;
    
     while(this->device->run()&& !this->juego->getSalir())
@@ -114,7 +110,7 @@ void Aplicacion::loopGrafico(){
 			core::stringw str = L"Quassimodo [";
 			str += Vdriver->getName();
 			str += "] FPS:";
-			str += fps;
+			str += core::stringw(std::to_wstring(fps).c_str());
 
 			device->setWindowCaption(str.c_str());
 			lastFPS = fps;
