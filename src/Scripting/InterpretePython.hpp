@@ -1,6 +1,6 @@
 #ifndef _INTERPRETEPYTHON_HPP
-#define	_INTERPRETEPYTHON_HPP
-#include<boost/python.hpp>
+#define _INTERPRETEPYTHON_HPP
+#include <pybind11/embed.h>
 #include "Interprete.hpp"
 #include "ModuloPython.hpp"
 #include "UtilsPython.hpp"
@@ -25,12 +25,10 @@ public:
 private:
     Reglas::Tablero *tablero;
     bool esta_finalizado;
-    
-    static void PyInicializar();
-    
+    pybind11::scoped_interpreter* guard_;
+
 protected:
     virtual void agregarModulo(std::string ruta);
 };
 }
-#endif	/* _INTERPRETEPYTHON_HPP */
-
+#endif

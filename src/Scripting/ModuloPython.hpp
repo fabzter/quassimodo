@@ -1,26 +1,22 @@
-/* 
- */
-
 #ifndef _MODULOPYTHON_HPP
-#define	_MODULOPYTHON_HPP
+#define _MODULOPYTHON_HPP
 #include "Modulo.hpp"
 #include <Reglas/Agente.hpp>
 #include <Reglas/AyudanteDeAgente.hpp>
 
-#include <boost/python.hpp>
-#include <boost/python/enum.hpp>
-#include <boost/python/def.hpp>
-#include <boost/python/module.hpp>
-#include <boost/python/object.hpp>
-#include <boost/python/import.hpp>
+#include <pybind11/embed.h>
 #include <string>
+#include <list>
 
 #include "Excepciones.hpp"
 #include "UtilsPython.hpp"
 #include "AgentePythonWrapper.hpp"
 
-namespace Scripting{
-class ModuloPython: public Modulo{
+namespace Scripting {
+
+namespace py = pybind11;
+
+class ModuloPython: public Modulo {
 public:
     ModuloPython();
     ModuloPython(const ModuloPython& orig);
@@ -29,50 +25,18 @@ public:
     virtual void cargar(std::string ruta, Reglas::Tablero &t);
     virtual Reglas::Agente *getAgente();
     virtual void finalizar();
+
 private:
-
-     /**
-     * El módulo de Boost::Python.
-     */
-    boost::python::object modulo;
-
-    /**
-     * El namespace del modulo.
-     */
-    boost::python::object namespace_modulo;
-
-    /**
-     * Este objeto mantiene LA CLASE derivada de Agente después de que se cargó
-     * el Modulo.
-     */
-    boost::python::object agente_clase;
-
-    /**
-     * Nos indica si la clase ya fue extraida para evitar intentar extraerla de
-     * nuevo.
-     */
+    py::object modulo;
+    py::object namespace_modulo;
+    py::object agente_clase;
     bool esta_extraida_clase;
-
-    /**
-     * Aqui se guardan apuntadores a las instancias creadas.
-     */
-    std::list<boost::python::object> instancias_clase;
-
+    std::list<py::object> instancias_clase;
     Reglas::AyudanteDeAgente *ayudante;
 
-    /**
-     * Extrae la clase Derivada de Agente del Modulo.
-     * @throws ModuloNoCargado si se intenta llamar antes de haber cargado el
-     * Modulo.
-     * @throws ScriptMalo si el Modulo no contiene una clase derivada de Agente.
-     */
     void extraer_clase();
-
-    /**
-     * Manejo interno de las excepciones del Modulo.
-     */
-    void manejar_excepcion_python(boost::python::error_already_set& e);
+    void manejar_excepcion_python(py::error_already_set& e);
 };
-}
-#endif	/* _MODULOPYTHON_HPP */
 
+}
+#endif

@@ -3,9 +3,11 @@ add_library(Scripting SHARED ${SCRIPTING_SRC})
 target_include_directories(Scripting PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
 
 find_package(Python3 REQUIRED COMPONENTS Development Interpreter)
-find_package(Boost REQUIRED COMPONENTS python filesystem system)
+find_package(pybind11 CONFIG REQUIRED)
+find_package(Boost REQUIRED COMPONENTS filesystem system)
 
 target_link_libraries(Scripting PUBLIC
   Reglas
-  Boost::python Boost::filesystem Boost::system
+  pybind11::embed
+  Boost::filesystem Boost::system
   Python3::Python)
