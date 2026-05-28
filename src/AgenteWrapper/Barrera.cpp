@@ -1,31 +1,26 @@
-#include <boost/python.hpp>
+#include <pybind11/pybind11.h>
+#include <pybind11/stl_bind.h>
+#include <pybind11/operators.h>
 #include <Reglas/Pieza.hpp>
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Jugada.hpp>
+#include <Reglas/Enums.hpp>
 
-using namespace boost::python;
+namespace py = pybind11;
 using namespace Reglas;
-//esto se hace pues colocar esta sobrecargada!
-typedef void (Barrera::*colocar_con_vect_y_id)(const std::vector<int>& pos, Direccion d);
-typedef void (Barrera::*colocar_con_int_y_id)(int x, int y, Direccion d);
 
-void export_barrera()
+void export_barrera(py::module_& m)
 {
-    class_< Barrera, bases<Pieza> >("Barrera")
-        .def(init<Jugada *>())
-    
-        .def("colocar", colocar_con_vect_y_id(&Barrera::colocar) )
-    
-        .def("colocar", colocar_con_int_y_id(&Barrera::colocar) )
-        
-        .def("getDireccion", &Barrera::getDireccion )
-        
+    py::class_<Barrera, Pieza>(m, "Barrera")
+        .def(py::init<Jugada*>())
+        .def("colocar",
+             py::overload_cast<const std::vector<int>&, Direccion>(&Barrera::colocar))
+        .def("colocar",
+             py::overload_cast<int, int, Direccion>(&Barrera::colocar))
+        .def("getDireccion", &Barrera::getDireccion)
         .def("getPuntoMedio", &Barrera::getPuntoMedio,
-        return_value_policy<copy_const_reference>() )
-        
+             py::return_value_policy::reference_internal)
         .def("getPunta", &Barrera::getPunta,
-        return_value_policy<copy_const_reference>() )
-        
-        .def(self == self)
-    ;
+             py::return_value_policy::reference_internal)
+        .def(py::self == py::self);
 }
