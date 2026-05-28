@@ -35,10 +35,13 @@ what's left.)
 
 **Roadmap (user-confirmed):**
 - **D1.5 — pybind11 round-trip spike (NEXT).** De-risk replacing Boost.Python with
-  pybind11. Must prove, analogous to the existing Boost.Python `pyembed` spike:
-  trampoline subclass override C++→Py→C++ (`PYBIND11_OVERRIDE_PURE`), STL container
-  conversions (`std::list<Jugada>`/`std::vector<Celda>` ↔ Python via `pybind11/stl.h`),
-  and embedding + cross-`.so` registry sharing (`pybind11/embed.h`).
+  pybind11. **The bar is the LIVE D1 system, NOT the toy `pyembed` spike.** D1's console
+  game already runs the *full* Boost.Python topology (`libReglas` + `Reglas.so` +
+  `Scripting` embed). The toy `spikes/pyembed/` only proved a sliver (abstract `Widget`,
+  returns a `string`, no STL) — do NOT treat it as the spec. The pybind11 spike must
+  prove it can reproduce **the exact mechanisms the real bindings already use** (see the
+  D1.5 briefing in §8). Build it under `spikes/pybind/`; gate string e.g.
+  `PYBIND ROUNDTRIP OK`; add pybind11 pinned to the flake.
 - **D1′ — pybind11 migration.** If the spike passes, migrate the bindings
   (`AgenteWrapper`/`Reglas.so` + `Scripting`) off Boost.Python, dropping `boost_python`.
 - **D2 — graphical port.** Port `src/Grafico` against IrrlichtMt → graphical playable
@@ -188,7 +191,68 @@ change game logic to force a compile.
 
 ## 7. Immediate next action
 
-Open the **D1.5 pybind11 round-trip spike**: brainstorm briefly if needed, then a small
-plan + a `spikes/pybind/` spike mirroring the Boost.Python `pyembed` spike — prove the
-three things in §1's roadmap. If it passes, plan D1′ (migrate the bindings). Keep using
-the §2–§5 methodology and conventions throughout.
+**D1.5 — the pybind11 round-trip spike.** Read §8 (the briefing) — it is the spec for
+this spike. Then: brainstorm any open type/scope choices with the user (one question at
+a time), write a short plan, build it under `spikes/pybind/` subagent-driven, gate on
+`PYBIND ROUNDTRIP OK`, open a PR. If it passes, plan D1′ (migrate the real bindings).
+Use the §2–§5 methodology and conventions throughout.
+
+## 8. D1.5 briefing — what the pybind11 spike must actually prove
+
+**Framing (do not get this wrong):** the `spikes/pyembed/` Boost.Python spike is a
+**toy** (abstract `Widget`, returns a `string`, *no STL*) — it is NOT the bar. The bar
+is the **live D1 system**: the console game already runs the full Boost.Python topology
+(`libReglas` shared + `Reglas.so` separate extension imported at runtime + `Scripting`
+embedder), exercising real mechanisms. D1.5 must prove **pybind11 can reproduce exactly
+those mechanisms**, because D1′ will swap them out. Read the real bindings first:
+`src/AgenteWrapper/{Agente.cpp,container_conversions.cpp,main.cpp}`,
+`src/Scripting/ModuloPython.cpp`, `src/Reglas/{Agente,Jugada,Celda,AyudanteDeAgente}.hpp`.
+
+**The three mechanisms, AS THE REAL BINDINGS USE THEM** (each is a concrete D1′ risk):
+
+1. **Pure-virtual trampoline returning a BOUND VALUE TYPE.** `Reglas::Agente` is
+   abstract with `Jugada siguienteJugada()`, `void iniciar(int)`, `void terminar()`.
+   Python agents subclass `Reglas.Agente` and override them; C++ calls them and gets a
+   `Jugada` (a *bound value type*, not a primitive) constructed in Python.
+   → pybind11: trampoline + `PYBIND11_OVERRIDE_PURE(Jugada, Agente, siguienteJugada)`.
+   Prove the override fires from C++ and a bound value type crosses Py→C++.
+
+2. **STL converters of BOUND types, BOTH directions.** `container_conversions.cpp`
+   registers `std::list<Jugada>`, `std::list<Barrera>`, `std::vector<int>`,
+   `std::vector<Celda>`, **`std::vector<Celda*>`** (pointers!), `std::vector<Jugada>`
+   with to-python (→tuple) + from-python (sequence) converters (Boost
+   `vector_indexing_suite`). `AyudanteDeAgente` hands the agent these lists.
+   → pybind11: `pybind11/stl.h` (by-value list↔vector/list) and/or `py::bind_vector` +
+   `PYBIND11_MAKE_OPAQUE` for index-suite-style mutable containers. Prove containers of a
+   *bound struct* cross both ways, **including a container of pointers** (the hardest:
+   identity/lifetime). Note pybind11 `stl.h` copies by value where Boost gave mutable
+   views — confirm that's acceptable for how agents use them (they mostly *read* the
+   possible-move lists).
+
+3. **Embed + cross-`.so` registry + `extract` the subclass back.** `ModuloPython`
+   (in `libScripting`) injects live C++ objects into the agent namespace
+   (`object(ptr(&tablero))`, a `new AyudanteDeAgente`), execs the agent `.py`, then
+   `extract<Reglas::Agente*>(instance)` pulls the Python subclass instance back as a C++
+   pointer — all against `Reglas.so` imported at runtime, RTTI single-sourced via shared
+   `libReglas`.
+   → pybind11: `pybind11/embed.h` (`scoped_interpreter`, `module_::import`), push C++
+   objects via `py::cast(ptr, return_value_policy::reference)`, pull the subclass back via
+   `obj.cast<Agente*>()`, with the extension a **separate `.so` imported at runtime**
+   (NOT linked into the embedder); pybind11's registry is shared automatically via the
+   interpreter.
+
+**Type guidance (the spike's domain model):** use **minimal stand-ins that carry the
+real shapes** — neither the toy `Widget` nor the heavy real Reglas types. Suggested:
+`Move{int x,y;}` (≈`Jugada`, bound value type), `Cell{...}` (≈`Celda`, bound class),
+abstract `Player{ virtual Move nextMove()=0; }` (≈`Agente`), and a `Helper` that returns
+`std::vector<Cell>` / `std::vector<Cell*>` / `std::list<Move>` to the agent (≈`Ayudante`).
+Wire them into ONE round-trip mirroring the live flow: C++ injects a `Helper` → Python
+agent subclass reads its STL containers and returns a `Move` → C++ pulls the agent back
+as `Player*` and calls `nextMove()`, receiving the bound `Move`.
+
+**Topology + build (same rules as the proven spikes, §4):** ONE shared domain lib
+(single RTTI); the pybind11 extension a CMake `MODULE` `.so` (`-undefined dynamic_lookup`
+on macOS, `Python3::Module`), imported at runtime; embedder links `Python3::Python`. Add
+**pybind11 pinned to `flake.nix`** (`pkgs.python311.pkgs.pybind11` or the `pybind11`
+attr; `git add` the flake before `nix develop`). Gate: assert each of the three, print
+`PYBIND ROUNDTRIP OK`. Then a PR.
