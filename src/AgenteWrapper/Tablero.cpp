@@ -1,70 +1,56 @@
-#include <boost/python.hpp>
+#include <pybind11/pybind11.h>
+#include <pybind11/stl_bind.h>
 #include <Reglas/Tablero.hpp>
-#include <Reglas/Agente.hpp>
 #include <Reglas/Barrera.hpp>
 #include <sstream>
-using namespace boost::python;
+
+namespace py = pybind11;
 using namespace Reglas;
 using namespace std;
-
-//esto se hace pues getCelda esta sobrecargada!
-typedef const Celda& (Tablero::*getCelda_with_id)(int) const;
-typedef void (Tablero::*moverJugador_with_int)(int, int, int);
-typedef void (Tablero::*moverJugador_with_vect)(int, const std::vector<int>&);
-typedef void (Tablero::*setBarrera_with_int)(int, const Barrera&);
-
-/*Esto es la pare 1 de un hack re feo para poder ver los atributos estaticos de
-Tablero...*/
-static const int Tablero_size_x = Tablero::size_x;
-static const int Tablero_size_y = Tablero::size_y;
-static const int Tablero_tam_barrera = Tablero::tam_barrera;
 
 string print_tab(Tablero *tab)
 {
     ostringstream strs;
-    
     strs << *tab;
-    
     return strs.str();
 }
 
-bool eq_tablero(Tablero * tab, Tablero *otro)
+bool eq_tablero(Tablero *tab, Tablero *otro)
 {
     return *tab == *otro;
 }
 
-void export_tablero()
+void export_tablero(py::module_& m)
 {
-    object tablero = //<--parte 2
-    class_<Tablero>("Tablero")
-        .def(init<const Tablero*>())
-        
-        .def("getPosicion", &Tablero::getPosicion, 
-        return_value_policy<copy_const_reference>() )
-        
-        .def("getBarrerasColocadas", &Tablero::getBarrerasColocadas, 
-        return_value_policy<copy_const_reference>() )
-        
-        .def("getCelda", getCelda_with_id(&Tablero::getCelda), 
-        return_value_policy<reference_existing_object>() )
-        
-        .def("getMetas", &Tablero::getMetas, 
-        return_value_policy<copy_const_reference>() )
-        
-        .def("moverJugador", moverJugador_with_int(&Tablero::moverJugador))
-        
-        .def("moverJugador", moverJugador_with_vect(&Tablero::moverJugador))
-        
-        .def("setBarrera", setBarrera_with_int(&Tablero::setBarrera))
-        
+    py::class_<Tablero>(m, "Tablero")
+        .def(py::init<const Tablero*>())
+
+        .def("getPosicion", &Tablero::getPosicion,
+             py::return_value_policy::reference_internal)
+
+        .def("getBarrerasColocadas", &Tablero::getBarrerasColocadas,
+             py::return_value_policy::reference_internal)
+
+        .def("getCelda",
+             py::overload_cast<int>(&Tablero::getCelda, py::const_),
+             py::return_value_policy::reference)
+
+        .def("getMetas", &Tablero::getMetas,
+             py::return_value_policy::reference_internal)
+
+        .def("moverJugador",
+             py::overload_cast<int, int, int>(&Tablero::moverJugador))
+
+        .def("moverJugador",
+             py::overload_cast<int, const std::vector<int>&>(&Tablero::moverJugador))
+
+        .def("setBarrera",
+             py::overload_cast<int, const Barrera&>(&Tablero::setBarrera))
+
         .def("__eq__", &eq_tablero)
-        
         .def("__str__", &print_tab)
 
-    ;
-    //parte 3...v
-    tablero.attr("size_x") = Tablero_size_x;
-    tablero.attr("size_y") = Tablero_size_y;
-    tablero.attr("tam_barrera") = Tablero_tam_barrera;
+        .def_readonly_static("size_x", &Tablero::size_x)
+        .def_readonly_static("size_y", &Tablero::size_y)
+        .def_readonly_static("tam_barrera", &Tablero::tam_barrera);
 }
-
