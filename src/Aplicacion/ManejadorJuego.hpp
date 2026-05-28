@@ -8,7 +8,7 @@
 #include <Grafico/Skin.hpp>
 #include<Reglas/Excepciones.hpp>
 #include<Scripting/Excepciones.hpp>
-#include <irrlicht/irrList.h>
+#include <irrList.h>
 #include "PartidaConsola.hpp"
 #include "PartidaGrafica.hpp"
 #include <sstream>

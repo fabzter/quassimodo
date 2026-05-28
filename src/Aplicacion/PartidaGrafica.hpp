@@ -2,7 +2,7 @@
 #ifndef PARTIDAGRAFICA_HPP
 #define	PARTIDAGRAFICA_HPP
 #include "Partida.hpp"
-#include<irrlicht/irrlicht.h>
+#include<irrlicht.h>
 #include<Grafico/Barrera.hpp>
 #include<Grafico/Tablero.hpp>
 #include<Grafico/Antorcha.hpp>

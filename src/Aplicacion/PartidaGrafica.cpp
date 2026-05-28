@@ -1,5 +1,5 @@
 
-#include <irrlicht/vector3d.h>
+#include <vector3d.h>
 
 #include "PartidaGrafica.hpp"
 using namespace irr;
