@@ -1,6 +1,6 @@
 #ifndef __I_ANIMATOR_CAMERA_TOKAYO_HPP__
 #define __I_ANIMATOR_CAMERA_TOKAYO_HPP__
-#include <irrlicht/ISceneNodeAnimator.h>
+#include <ISceneNodeAnimator.h>
 
 using namespace irr;
 namespace Grafico{

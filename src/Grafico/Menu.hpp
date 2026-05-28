@@ -4,8 +4,8 @@
 #define	_Menu_HPP
 #include<string.h>
 #include<irrlicht.h>
-#include <irrlicht/ICameraSceneNode.h>
-#include <irrlicht/vector3d.h>
+#include <ICameraSceneNode.h>
+#include <vector3d.h>
 #include"Antorcha.hpp"
 #include"Tablero.hpp"
 #include"Skin.hpp"

@@ -1,7 +1,7 @@
 #ifndef _JUMP_ANIMATOR_HPP_
 #define _JUMP_ANIMATOR_HPP_
-#include<irrlicht/irrlicht.h>
-#include <irrlicht/ISceneNodeAnimator.h>
+#include <irrlicht.h>
+#include <ISceneNodeAnimator.h>
 #include<iostream>
 
 using namespace irr;

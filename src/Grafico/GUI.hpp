@@ -2,7 +2,7 @@
 
 #ifndef _GUI_HPP
 #define	_GUI_HPP
-#include<irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include"Skin.hpp"
 #include"Enums.hpp"
 #include<iostream>

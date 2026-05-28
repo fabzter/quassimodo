@@ -1,10 +1,7 @@
 
-#include <irrlicht/ISceneManager.h>
+#include <ISceneManager.h>
 
-
-#include <irrlicht/ILightSceneNode.h>
-#include <irrlicht/IParticleSystemSceneNode.h>
-
+#include <ILightSceneNode.h>#include <IParticleSystemSceneNode.h>
 #include "Antorcha.hpp"
 
 using namespace irr;

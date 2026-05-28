@@ -1,7 +1,7 @@
 
 
-#include <irrlicht/IAnimatedMeshSceneNode.h>
-#include <irrlicht/IShadowVolumeSceneNode.h>
+#include <IAnimatedMeshSceneNode.h>
+#include <IShadowVolumeSceneNode.h>
 
 #include "Jugador.hpp"
 using namespace irr;

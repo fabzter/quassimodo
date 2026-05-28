@@ -3,12 +3,12 @@
 #ifndef __TOKAYO_CAMERA_HPP__
 #define __TOKAYO_CAMERA_HPP__
 
-#include <irrlicht/ISceneNodeAnimatorCameraMaya.h>
-#include <irrlicht/ISceneManager.h>
-#include <irrlicht/IVideoDriver.h>
-#include<irrlicht/ISceneNode.h>
-#include<irrlicht/ICameraSceneNode.h>
-#include<irrlicht/SViewFrustum.h>
+#include <ISceneNodeAnimatorCameraMaya.h>
+#include <ISceneManager.h>
+#include <IVideoDriver.h>
+#include <ISceneNode.h>
+#include <ICameraSceneNode.h>
+#include <SViewFrustum.h>
 #include <stdio.h>
 #include"IAnimatorCameraTokayo.hpp"
 #include<iostream>

@@ -1,5 +1,5 @@
 
-#include <irrlicht/ISceneNode.h>
+#include <ISceneNode.h>
 
 #include "Pieza.hpp"
 using namespace irr;

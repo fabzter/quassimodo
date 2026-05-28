@@ -3,7 +3,7 @@
 #ifndef _VIDEO_HPP
 #define	_VIDEO_HPP
 #include<string>
-#include<irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include<iostream>
 using namespace irr;
 namespace Grafico{

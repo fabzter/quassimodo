@@ -1,7 +1,7 @@
 #ifndef _SKIN_HPP
 #define	_SKIN_HPP
 #include"Exepciones.hpp"
-#include<irrlicht/irrlicht.h>
+#include <irrlicht.h>
 #include<Opciones/ManejadorOpciones.hpp>
 #include "CImageGUISkin.h"
 #include "SkinLoader.h"
