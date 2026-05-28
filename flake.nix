@@ -21,7 +21,7 @@
         in {
           default = pkgs.mkShell {
             # add config/overlays to the nixpkgs import above if needed later
-            packages = [ pkgs.cmake pkgs.ninja pkgs.pkg-config pkgs.python311 boostPython irrlichtFork ];
+            packages = [ pkgs.cmake pkgs.ninja pkgs.pkg-config pkgs.python311 pkgs.python311.pkgs.pybind11 boostPython irrlichtFork ];
           };
         });
     };
