@@ -1,32 +1,27 @@
-#include <boost/python.hpp>
-#include <Reglas/Tablero.hpp>
+#include <pybind11/pybind11.h>
 #include <Reglas/Agente.hpp>
-#include <iostream>
-using namespace boost::python;
+
+namespace py = pybind11;
 using namespace Reglas;
 
-struct AgenteWrapper: Agente, wrapper<Agente>
-{
-    Jugada siguienteJugada()
-    {
-        return this->get_override("siguienteJugada")();
+struct PyAgente : Agente {
+    using Agente::Agente;
+    Jugada siguienteJugada() override {
+        PYBIND11_OVERRIDE_PURE(Jugada, Agente, siguienteJugada);
     }
-    void iniciar(int id)
-    {
-        this->get_override("iniciar")(id);
+    void iniciar(int id) override {
+        PYBIND11_OVERRIDE_PURE(void, Agente, iniciar, id);
     }
-    void terminar()
-    {
-        this->get_override("terminar")();
+    void terminar() override {
+        PYBIND11_OVERRIDE_PURE(void, Agente, terminar);
     }
 };
 
-void export_agente()
+void export_agente(py::module_& m)
 {
-    class_<AgenteWrapper, boost::noncopyable>("Agente")
-        .def("siguienteJugada", pure_virtual(&Agente::siguienteJugada) )
-        .def("iniciar", pure_virtual(&Agente::iniciar) )
-        .def("terminar", pure_virtual(&Agente::terminar) )
-    ;
+    py::class_<Agente, PyAgente>(m, "Agente")
+        .def(py::init<>())
+        .def("siguienteJugada", &Agente::siguienteJugada)
+        .def("iniciar", &Agente::iniciar)
+        .def("terminar", &Agente::terminar);
 }
-
