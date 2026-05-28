@@ -1,20 +1,18 @@
-#include <boost/python.hpp>
+#include <pybind11/pybind11.h>
 #include <Reglas/Enums.hpp>
-using namespace boost::python;
+
+namespace py = pybind11;
 using namespace Reglas;
 
-void export_enums()
+void export_enums(py::module_& m)
 {
-    enum_<TipoDeJugada>("TipoDeJugada")
-    .value("BARRERA", BARRERA)
-    .value("MOVIMIENTO", MOVIMIENTO)
-    ;
-    
-    enum_<Direccion>("Direccion")
-    .value("NORTE", NORTE)
-    .value("ESTE", ESTE)
-    .value("SUR", SUR)
-    .value("OESTE", OESTE)
-    ;
+    py::enum_<TipoDeJugada>(m, "TipoDeJugada")
+        .value("BARRERA", BARRERA)
+        .value("MOVIMIENTO", MOVIMIENTO);
 
+    py::enum_<Direccion>(m, "Direccion")
+        .value("NORTE", NORTE)
+        .value("ESTE", ESTE)
+        .value("SUR", SUR)
+        .value("OESTE", OESTE);
 }
