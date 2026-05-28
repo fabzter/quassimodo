@@ -25,6 +25,7 @@ public:
   virtual f32 getRotationNumY() const = 0;
   virtual void setZoom(f32 Zoom) = 0;
   virtual f32 getZoom() const = 0;
+  virtual void update(scene::ICameraSceneNode *camera, u32 timeMs) = 0;
 };
 
 } // namespace Grafico

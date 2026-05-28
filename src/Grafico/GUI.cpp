@@ -64,7 +64,9 @@ std::string Grafico::GUI::getPath() {
 }
 
 void Grafico::GUI::OpenFileDialog() {
+  std::cout << "[D2] Opening file dialog..." << std::endl;
   op = this->env->addFileOpenDialog(L"Selecciona el Agente", true, 0, 5);
+  std::cout << "[D2] File dialog ptr: " << (void *)op << std::endl;
 }
 
 void Grafico::GUI::dropAvsA() {
