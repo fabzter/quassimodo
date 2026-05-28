@@ -32,7 +32,7 @@ spec phases D and E.)
 | **D1 — Console-playable** | Port non-graphical modules (Reglas, Opciones, Scripting, AgenteWrapper/`Reglas.so`) + agents to Py3; recover the `Ejecutable` console runner as `consola`. Delivers spec-D (non-graphical) **and** spec-E (a console match plays). | ✅ Done | [plan](plans/2026-05-27-phase-d1-console-playable.md), **PR #2 (merged)** |
 | **D1.5 — pybind11 spike** | De-risk replacing Boost.Python with pybind11. ... | ✅ Done | [plan](plans/2026-05-27-phase-d1.5-pybind-spike.md), **PR #3 (merged)** |
 | **D1′ — pybind11 migration** | Migrate `AgenteWrapper`/`Reglas.so` + `Scripting` bindings off Boost.Python; drop the `boost_python` dependency. | ✅ Done | [plan](plans/2026-05-28-phase-d1prime-pybind11.md), **PR #4** |
-| **D2 — Graphical** | Port `src/Grafico` against IrrlichtMt (verify which Irrlicht GUI API survived the Minetest fork *first*); bring up the graphical `Aplicacion` → graphical playable match. Completes spec-D (graphical) + spec-E (GUI). | ⬜ **NEXT** | plan: TBD |
+| **D2 — Graphical** | Port `src/Grafico` against IrrlichtMt; bring up graphical `Aplicacion` → graphical playable match. | ✅ Done | [plan](plans/2026-05-28-phase-d2-graphical-port.md), **PR #5** |
 
 ## Decisions behind the roadmap
 
