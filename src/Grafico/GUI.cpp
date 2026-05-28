@@ -69,20 +69,73 @@ void Grafico::GUI::OpenFileDialog() {
 
 void Grafico::GUI::dropAvsA() {
   if (this->AvsA != 0) {
-    this->botonAgente[0]->remove();
-    this->botonAgente[1]->remove();
-    this->botonAgente[0] = this->botonAgente[1] = 0;
-    this->AvsA->remove();
+    if (this->botonAgente[0]) {
+      this->botonAgente[0]->remove();
+      this->botonAgente[0] = 0;
+    }
+    if (this->botonAgente[1]) {
+      this->botonAgente[1]->remove();
+      this->botonAgente[1] = 0;
+    }
+    // D2: Don't remove root GUI element
+    if (this->AvsA != this->env->getRootGUIElement())
+      this->AvsA->remove();
     this->AvsA = 0;
   }
 }
 
-void Grafico::GUI::dibujaSelector(bool /*ambos*/) {
-  // Stubbed: addWindow/IGUIWindow removed from IrrlichtMt
+void Grafico::GUI::dibujaSelector(bool ambos) {
+  core::dimension2d<unsigned int> S_S =
+      core::dimension2d<unsigned int>(600, 310);
+  int d_a =
+      (this->smgr->getVideoDriver()->getScreenSize().Width - S_S.Width) / 2;
+  int d_al =
+      (this->smgr->getVideoDriver()->getScreenSize().Height - S_S.Height) / 2;
+  core::rect<s32> recW =
+      core::rect<s32>(d_a, d_al, S_S.Width + d_a, S_S.Height + d_al);
+
+  // D2: IrrlichtMt removed addWindow. Use root GUI element as parent.
+  gui::IGUIElement *root = this->env->getRootGUIElement();
+  this->AvsA = root;
+
+  this->env->addStaticText(
+      L"Vs",
+      core::rect<s32>((recW.getWidth() / 2) - 15, (recW.getHeight() / 2) - 30,
+                      (recW.getWidth() / 2) + 15, (recW.getHeight() / 2) + 40),
+      false, false, root);
+
+  this->env->addStaticText(L"Selecciona los Agentes",
+                           core::rect<s32>(35, 35, 300, 60), false, false,
+                           root);
+
+  this->botonAgente[0] = this->env->addButton(
+      core::rect<s32>((recW.getWidth() / 2) - 185, (recW.getHeight() / 2) - 50,
+                      (recW.getWidth() / 2) - 35, (recW.getHeight() / 2)),
+      root, BA_AGENTE_1, L"Agente?");
+  this->botonAgente[1] = this->env->addButton(
+      core::rect<s32>((recW.getWidth() / 2) + 40, (recW.getHeight() / 2) - 50,
+                      (recW.getWidth() / 2) + 190, (recW.getHeight() / 2)),
+      root, BA_AGENTE_2, L"Agente?");
+  if (!ambos) {
+    this->botonAgente[1]->setText(L"Agente MinMax");
+    this->botonAgente[1]->setEnabled(ambos);
+    this->botonAgente[1]->setPressed(!ambos);
+  }
+  this->env->addButton(
+      core::rect<s32>(recW.getWidth() - 360, recW.getHeight() - 60,
+                      recW.getWidth() - 190, recW.getHeight() - 20),
+      root, BO_CANCELA, L"Cancelar");
+  this->env->addButton(
+      core::rect<s32>(recW.getWidth() - 160, recW.getHeight() - 60,
+                      recW.getWidth() - 20, recW.getHeight() - 20),
+      root, BO_INICIA, L"Inicia");
 }
 
-void Grafico::GUI::setTextAgnt(int /*num*/, const char * /*text*/) {
-  // Stubbed: AvsA selector window removed from IrrlichtMt
+void Grafico::GUI::setTextAgnt(int num, const char *text) {
+  if (num >= 0 && num < 2 && this->botonAgente[num]) {
+    std::wstring ws(text, text + strlen(text));
+    this->botonAgente[num]->setText(ws.c_str());
+  }
 }
 void Grafico::GUI::setBotonesPartida() {
 
@@ -150,8 +203,10 @@ void Grafico::GUI::setTextPausa() {
       this->smgr->getVideoDriver()->getScreenSize();
   this->T_Pausa = this->env->addStaticText(L"PAUSA", rec);
   this->T_Pausa->setOverrideFont(this->skin->getMenuBoton());
-  this->T_Pausa->setOverrideColor(video::SColor(255, 130, 0, 0)); // this->smgr->addTextSceneNode(this->skin->getMenuBoton(),,video::SColor(255,255,255,255)
-                                                                  // );
+  this->T_Pausa->setOverrideColor(video::SColor(
+      255, 130, 0,
+      0)); // this->smgr->addTextSceneNode(this->skin->getMenuBoton(),,video::SColor(255,255,255,255)
+           // );
 }
 
 void Grafico::GUI::dropTextPausa() {

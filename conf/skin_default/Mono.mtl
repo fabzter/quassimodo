@@ -1,0 +1,523 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v6.0.0)
+
+newmtl mat58
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat60
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat63
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat62
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat59
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat56
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat61
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat55
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat64
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat57
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat52
+Kd 1 0.749019623 0
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat53
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat54
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat51
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat50
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat49
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat47
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat45
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat44
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat43
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat48
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat42
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat41
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat38
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat39
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat37
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat36
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat35
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat34
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat5
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat30
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat31
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat29
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat28
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat46
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat33
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat27
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat25
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat23
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat22
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat21
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat11
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat9
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat10
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat8
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat40
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat32
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat14
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat13
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat12
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat7
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat6
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat3
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat2
+Kd 0 0 0
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat20
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat19
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat18
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat16
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat15
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat17
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat0
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat1
+Kd 1 0.749019623 0
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat4
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat26
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
+newmtl mat24
+Kd 0.90196085 0.90196085 0.90196085
+Ka 0 0 0
+Ks 1 1 1
+Ke 0 0 0
+d 1
+illum 1
+
