@@ -18,7 +18,11 @@
 
 ## Critical gotchas (every subagent MUST read)
 
-1. **`nix`/`devbox` are NOT on PATH in non-interactive shells.** Every build command: `nix develop -c bash -c '...'`.
+1. **`nix`/`devbox` are NOT on PATH in non-interactive shells.** Every shell command that uses `nix` or the toolchain MUST be prefixed:
+   ```sh
+   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && <command>
+   ```
+   In practice we run builds via `. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix develop -c bash -c '...'`.
 2. **Nix flakes only see git-tracked files.** `git add flake.nix` BEFORE `nix develop`.
 3. **Never pipe through `| tail`/`| head`** — masks exit code. Capture `$?` directly.
 4. **Never amend/rebase.** Commit per task.
@@ -72,7 +76,7 @@
 
 ```bash
 git add flake.nix
-nix develop -c bash -c 'echo OK'
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix develop -c bash -c 'echo OK'
 ```
 Expected: `OK`. No boostPython errors.
 
@@ -1297,14 +1301,14 @@ git commit -m "refactor: pybind11 embed API for AgentePythonWrapper and UtilsPyt
 - [ ] **Step 1: Clean build**
 
 ```bash
-nix develop -c bash -c 'cmake -S . -B build -G Ninja && cmake --build build --target consola ReglasModule Scripting'
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix develop -c bash -c 'cmake -S . -B build -G Ninja && cmake --build build --target consola ReglasModule Scripting'
 ```
 Expected: exit 0, no Boost.Python headers in compiler output.
 
 - [ ] **Step 2: Stage Reglas.so into lib/**
 
 ```bash
-nix develop -c bash -c 'cmake --build build --target stage_reglas_module'
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix develop -c bash -c 'cmake --build build --target stage_reglas_module'
 ```
 (Or however the existing CMake install/symlink target is named; verify with `cmake --build build --target help`.)
 
@@ -1330,7 +1334,7 @@ Expected: no matches.
 - [ ] **Step 5: Full AI-vs-AI match**
 
 ```bash
-nix develop -c bash -c 'build/src/Consola/consola bin/agentX.py bin/agentY.py </dev/null; echo "exit=$?"'
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix develop -c bash -c 'build/src/Consola/consola bin/agenteCamina.py bin/agenteCamina2.py </dev/null; echo "exit=$?"'
 ```
 Expected: exits 0, prints `"Hay un ganador!"`.
 
