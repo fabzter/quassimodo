@@ -23,6 +23,7 @@ Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones) {
       this->device->setEventReceiver(this->eventos);
       this->device->setResizable(false);
     } catch (Grafico::SkinNoCargado &e) {
+      std::cerr << "[D2] SkinNoCargado: " << e.what() << std::endl;
       err = e.what();
       err += " \n>>>>>Cambio a modo Consola<<<<< ";
       this->grafico = false;
@@ -82,12 +83,32 @@ void Aplicacion::nuevoJuego() {
 void Aplicacion::loopGrafico() {
 
   this->device->setWindowCaption(L"Quassimodo");
-  // D2: Add ambient light — IrrlichtMt removed shadow support and Antorcha
-  // stubs lights
+  std::cerr << "[D2] device=" << (void *)this->device
+            << " driver=" << (void *)this->Vdriver << std::endl;
   this->smgr->setAmbientLight(video::SColorf(0.4f, 0.4f, 0.4f, 1.0f));
+
+  // D2: Ensure camera is set up BEFORE game loop starts.
+  // setPartida() skips camera setup in -a quick-start path.
+  if (!this->smgr->getActiveCamera()) {
+    scene::ICameraSceneNode *cam = this->smgr->addCameraSceneNode();
+    cam->setPosition(core::vector3df(300, 400, -400));
+    cam->setTarget(core::vector3df(300, 0, 300));
+    this->smgr->setActiveCamera(cam);
+  }
+
   s32 lastFPS = -1;
 
-  while (this->device->run() && !this->juego->getSalir()) {
+  // Call setPartida before entering the render loop (handles p_rapida)
+  if (this->p_rapida) {
+    this->juego->setPartida();
+    this->p_rapida = false;
+  }
+
+  while (this->device->run()) {
+    static int frame = 0;
+    if (frame++ < 3)
+      std::cerr << "[D2] frame " << frame
+                << " salir=" << this->juego->getSalir() << std::endl;
     bool dibuja = false;
 
     if (this->device->isFullscreen()) {
@@ -113,10 +134,6 @@ void Aplicacion::loopGrafico() {
 
         device->setWindowCaption(str.c_str());
         lastFPS = fps;
-      }
-      if (this->p_rapida) {
-        this->juego->setPartida();
-        this->p_rapida = false;
       }
     } else {
       this->device->yield();

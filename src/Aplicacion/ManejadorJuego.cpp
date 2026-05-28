@@ -57,11 +57,14 @@ char ManejadorJuego::setMenu() {
 }
 
 bool ManejadorJuego::setPartida() {
+  std::cout << "[D2] setPartida, hayagente=" << this->hayagente
+            << " grafico=" << this->grafico << std::endl;
   if (this->hayagente) {
 
     try {
       this->partida->SetJugadores(this->Agentes[0], this->Agentes[1]);
     } catch (std::exception &e) {
+      std::cout << "[D2] setPartida exception: " << e.what() << std::endl;
       std::stringstream msj;
       msj << "Error al cargar el script del Agente: "
           << this->partida->getAgenteConError() << std::endl
@@ -72,9 +75,12 @@ bool ManejadorJuego::setPartida() {
 
     try {
 
+      std::cout << "[D2] calling iniciarPartida" << std::endl;
       this->partida->iniciarPartida();
+      std::cout << "[D2] iniciarPartida returned" << std::endl;
       this->partidainiciada = true;
       if (this->grafico) {
+        std::cout << "[D2] grafico=true, setting up camera" << std::endl;
         this->mgui->dropMenu();
         this->setCamJuego();
         this->mgui->setMenuPartida();
@@ -163,7 +169,10 @@ std::string ManejadorJuego::SplitNombre(std::string str) {
   return str.substr(found + 1);
 }
 
-void ManejadorJuego::setCamJuego() { this->setObjetivoCam(); }
+void ManejadorJuego::setCamJuego() {
+  std::cout << "[D2] setCamJuego called" << std::endl;
+  this->setObjetivoCam();
+}
 
 void ManejadorJuego::setCamMenu() {
   this->dropCamera();
@@ -282,4 +291,15 @@ void ManejadorJuego::setObjetivoCam() {
   // D2: Camera must be updated to compute position from rotation/zoom settings.
   // (Old code relied on Irrlicht animator auto-tick; we call directly.)
   this->cameraController->update(this->cam, 0);
+  std::cout << "[D2] Camera pos=" << this->cam->getPosition().X << ","
+            << this->cam->getPosition().Y << "," << this->cam->getPosition().Z
+            << std::endl;
+  std::cout << "[D2] Camera target=" << this->cam->getTarget().X << ","
+            << this->cam->getTarget().Y << "," << this->cam->getTarget().Z
+            << std::endl;
+  std::cout << "[D2] Board center=" << v.X << "," << v.Y << "," << v.Z
+            << std::endl;
+  // std::list::size() returns size_t, cast needed for IrrlichtMt container
+  // change std::cout << "[D2] smgr root children=" <<
+  // this->smgr->getRootSceneNode()->getChildren().size() << std::endl;
 }

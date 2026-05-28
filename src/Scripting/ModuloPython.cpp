@@ -46,7 +46,7 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t) {
         py::cast(&t, py::return_value_policy::reference);
     this->ayudante = new Reglas::AyudanteDeAgente(t);
     this->namespace_modulo["ayudante"] =
-        py::cast(this->ayudante, py::return_value_policy::take_ownership);
+        py::cast(this->ayudante, py::return_value_policy::reference);
 
     py::eval_file(ruta.c_str(), this->namespace_modulo);
   } catch (py::error_already_set &e) {
