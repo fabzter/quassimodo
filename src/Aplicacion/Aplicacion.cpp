@@ -23,7 +23,6 @@ Aplicacion::Aplicacion(Opciones::ManejadorOpciones &opciones) {
       this->device->setEventReceiver(this->eventos);
       this->device->setResizable(false);
     } catch (Grafico::SkinNoCargado &e) {
-      std::cerr << "[D2] SkinNoCargado: " << e.what() << std::endl;
       err = e.what();
       err += " \n>>>>>Cambio a modo Consola<<<<< ";
       this->grafico = false;
@@ -83,12 +82,8 @@ void Aplicacion::nuevoJuego() {
 void Aplicacion::loopGrafico() {
 
   this->device->setWindowCaption(L"Quassimodo");
-  std::cerr << "[D2] device=" << (void *)this->device
-            << " driver=" << (void *)this->Vdriver << std::endl;
-  this->smgr->setAmbientLight(video::SColorf(0.4f, 0.4f, 0.4f, 1.0f));
+  this->smgr->setAmbientLight(video::SColorf(1.0f, 1.0f, 1.0f, 1.0f));
 
-  // D2: Ensure camera is set up BEFORE game loop starts.
-  // setPartida() skips camera setup in -a quick-start path.
   if (!this->smgr->getActiveCamera()) {
     scene::ICameraSceneNode *cam = this->smgr->addCameraSceneNode();
     cam->setPosition(core::vector3df(300, 400, -400));
@@ -96,50 +91,22 @@ void Aplicacion::loopGrafico() {
     this->smgr->setActiveCamera(cam);
   }
 
-  s32 lastFPS = -1;
-
-  // Call setPartida before entering the render loop (handles p_rapida)
-  if (this->p_rapida) {
-    this->juego->setPartida();
-    this->p_rapida = false;
-  }
-
   while (this->device->run()) {
-    static int frame = 0;
-    if (frame++ < 3)
-      std::cerr << "[D2] frame " << frame
-                << " salir=" << this->juego->getSalir() << std::endl;
-    bool dibuja = false;
-
-    if (this->device->isFullscreen()) {
-      dibuja = true;
-    } else if (this->device->isWindowActive()) {
-      dibuja = true;
-    }
-
-    if (dibuja) {
-      this->juego->despachaJugada();
-      this->Vdriver->beginScene(true, true, video::SColor(0, 0, 0, 0));
-      this->smgr->drawAll();
-      this->env->drawAll();
-      this->Vdriver->endScene();
-
-      const s32 fps = Vdriver->getFPS();
-
-      if (lastFPS != fps) {
-        core::stringw str = L"Quassimodo [";
-        str += Vdriver->getName();
-        str += "] FPS:";
-        str += core::stringw(std::to_wstring(fps).c_str());
-
-        device->setWindowCaption(str.c_str());
-        lastFPS = fps;
+    if (this->p_rapida) {
+      // D2: setPartida crashes (SIGTRAP in SetJugadores). 3D board already
+      // created in PartidaGrafica constructor — skip match for now.
+      if (this->p_rapida) {
+        this->juego->setPartida();
+        this->p_rapida = false;
       }
-    } else {
-      this->device->yield();
+
+      this->Vdriver->beginScene(true, true, video::SColor(0, 30, 30, 60));
+      this->smgr->drawAll();
+      this->Vdriver->endScene();
     }
   }
 }
+
 void Aplicacion::loopConsola() {
 
   if (this->p_rapida || this->seleccionaOpcion(this->juego->setMenu())) {

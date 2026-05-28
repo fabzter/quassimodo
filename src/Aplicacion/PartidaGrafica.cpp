@@ -47,6 +47,7 @@ PartidaGrafica::~PartidaGrafica() {
 }
 
 void PartidaGrafica::iniciarPartida() {
+  std::cerr << "[D2] iniciarPartida, en_curso=" << this->en_curso << std::endl;
   if (this->en_curso)
     throw Reglas::PartidaNoIniciada();
 
@@ -135,13 +136,21 @@ bool PartidaGrafica::SetJugadores(std::string rutaAgente1,
 
   std::vector<Reglas::Agente *> agentes =
       this->getAgentes(rutaAgente1, rutaAgente2, this->t);
+  std::cerr << "[D2] getAgentes returned, agentes[0]=" << (void *)agentes[0]
+            << std::endl;
 
+  std::cerr << "[D2] creating Jugador 0..." << std::endl;
   this->jugadores.push_back(new Grafico::Jugador(
       smgr, 0, agentes[0], this->skin, this->velAnim, this->parent));
+  std::cerr << "[D2] creating Jugador 1..." << std::endl;
   this->jugadores.push_back(new Grafico::Jugador(
       smgr, 1, agentes[1], this->skin, this->velAnim, this->parent));
 
+  this->jugadores.push_back(new Grafico::Jugador(
+      smgr, 1, agentes[1], this->skin, this->velAnim, this->parent));
+  std::cerr << "[D2] calling setJugadores..." << std::endl;
   this->t->setJugadores(this->jugadores);
+  std::cerr << "[D2] setJugadores returned" << std::endl;
 }
 
 core::vector3df PartidaGrafica::getCentro() {

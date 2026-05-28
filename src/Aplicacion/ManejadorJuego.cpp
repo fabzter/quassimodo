@@ -259,6 +259,7 @@ const char *ManejadorJuego::getMsjGanador() {
 }
 
 void ManejadorJuego::despachaJugada() {
+  std::cerr << "[D2] despachaJugada called" << std::endl;
 
   if (this->partida->estaEnCurso() && !this->pausa) {
     PartidaGrafica *p = (PartidaGrafica *)this->partida;

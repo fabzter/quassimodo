@@ -26,13 +26,13 @@ video::E_DRIVER_TYPE Grafico::Video::getVideoType() { return this->type; }
 IrrlichtDevice *Grafico::Video::creaDevice(bool fullscreen) {
 
   if (!fullscreen)
-    return irr::createDevice(this->getVideoType(),
-                             core::dimension2d<u32>(1024, 768), 32, fullscreen,
-                             true, true);
+    return irr::createDevice(video::EDT_OPENGL,
+                             core::dimension2d<u32>(1024, 768), 16, false,
+                             false, false, nullptr);
   else
-    return irr::createDevice(this->getVideoType(),
-                             core::dimension2d<u32>(1024, 768), 32, fullscreen,
-                             true, true);
+    return irr::createDevice(video::EDT_OPENGL,
+                             core::dimension2d<u32>(1024, 768), 16, true, false,
+                             false, nullptr);
 }
 void Grafico::Video::DetectaEscritorio() {
   this->DResolution = core::dimension2d<u32>(1024, 768);
