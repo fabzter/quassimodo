@@ -1,36 +1,25 @@
-#include <boost/python.hpp>
+#include <pybind11/pybind11.h>
+#include <pybind11/stl_bind.h>
 #include <Reglas/Pieza.hpp>
-using namespace boost::python;
+
+namespace py = pybind11;
 using namespace Reglas;
 
-struct PiezaWrapper: Pieza, wrapper<Pieza>
-{
-    const std::vector<int> &getPosicion() const
-    {
-        if(override getPosicion = this->get_override("getPosicion"))
-            return getPosicion();
-        return Pieza::getPosicion();
+struct PyPieza : Pieza {
+    using Pieza::Pieza;
+    const std::vector<int>& getPosicion() const override {
+        PYBIND11_OVERRIDE(const std::vector<int>&, Pieza, getPosicion);
     }
-    const std::vector<int> &default_getPosicion() const
-    {
-        return this->Pieza::getPosicion();
+    bool operator==(const Pieza& otro) const override {
+        PYBIND11_OVERRIDE(bool, Pieza, operator==, otro);
     }
-    
-    bool operator ==(const PiezaWrapper& otro) const
-    {
-        if(override o = this->get_override("__eq__"))
-            return o(otro);
-        return Pieza::operator ==(otro);
-    }
-
 };
 
-void export_pieza()
+void export_pieza(py::module_& m)
 {
-    class_<PiezaWrapper, boost::noncopyable>("Pieza")
-    
-    .def("getPosicion", &Pieza::getPosicion, &PiezaWrapper::default_getPosicion, 
-            return_value_policy<copy_const_reference>() )
-    .def(self == self)
-    ;
+    py::class_<Pieza, PyPieza>(m, "Pieza")
+        .def(py::init<>())
+        .def("getPosicion", &Pieza::getPosicion,
+             py::return_value_policy::reference_internal)
+        .def("__eq__", &Pieza::operator==);
 }

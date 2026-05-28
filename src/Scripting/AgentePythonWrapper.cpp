@@ -3,14 +3,11 @@
 Scripting::AgentePythonWrapper::AgentePythonWrapper(Reglas::Agente *agente)
 {
     this->agente = agente;
-
-    this->modulo = boost::python::import("__main__");
+    this->modulo = pybind11::module_::import("__main__");
     this->modulo_namespace = this->modulo.attr("__dict__");
 }
 
-Scripting::AgentePythonWrapper::AgentePythonWrapper(const AgentePythonWrapper& orig)
-{
-}
+Scripting::AgentePythonWrapper::AgentePythonWrapper(const AgentePythonWrapper& orig) {}
 
 Scripting::AgentePythonWrapper::~AgentePythonWrapper()
 {
@@ -23,7 +20,7 @@ void Scripting::AgentePythonWrapper::iniciar(int id)
     {
         this->agente->iniciar(id);
     }
-    catch(boost::python::error_already_set& e)
+    catch(pybind11::error_already_set& e)
     {
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
@@ -37,7 +34,7 @@ Reglas::Jugada Scripting::AgentePythonWrapper::siguienteJugada()
     {
         j = this->agente->siguienteJugada();
     }
-    catch(boost::python::error_already_set& e)
+    catch(pybind11::error_already_set& e)
     {
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);
@@ -51,7 +48,7 @@ void Scripting::AgentePythonWrapper::terminar()
     {
         this->agente->terminar();
     }
-    catch(boost::python::error_already_set& e)
+    catch(pybind11::error_already_set& e)
     {
         manejar_excepcion_python_libre(e, this->modulo_namespace,
                                        this->modulo_namespace);

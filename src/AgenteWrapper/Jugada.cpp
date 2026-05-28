@@ -1,28 +1,23 @@
-#include <boost/python.hpp>
 #include <Reglas/Celda.hpp>
-#include <Reglas/Jugada.hpp>
 #include <Reglas/Enums.hpp>
+#include <Reglas/Jugada.hpp>
+#include <pybind11/pybind11.h>
+#include <pybind11/stl_bind.h>
 
-using namespace boost::python;
+namespace py = pybind11;
 using namespace Reglas;
-using namespace std;
 
-typedef void (Jugada::*setPosicion_with_int)(int x, int y);
-typedef void (Jugada::*setPosicion_with_vect)(const std::vector<int>& pos);
-
-void export_jugada()
-{
-    class_<Jugada>("Jugada")
-        .def(init<Celda*>())
-        .def("setPosicion", setPosicion_with_int(&Jugada::setPosicion) )
-        .def("setPosicion", setPosicion_with_vect(&Jugada::setPosicion) )
-        
-        .def("getPosicion", &Jugada::getPosicion, 
-                            return_value_policy<copy_const_reference>() )
-        .def("setTipoDeJugada", &Jugada::setTipoDeJugada)
-        .def("getTipoDeJugada", &Jugada::getTipoDeJugada)
-        
-        .def("setDireccion", &Jugada::setDireccion)
-        .def("getDireccion", &Jugada::getDireccion)
-    ;
+void export_jugada(py::module_ &m) {
+  py::class_<Jugada>(m, "Jugada")
+      .def(py::init<>())
+      .def(py::init<Celda *>())
+      .def("setPosicion", py::overload_cast<int, int>(&Jugada::setPosicion))
+      .def("setPosicion",
+           py::overload_cast<const std::vector<int> &>(&Jugada::setPosicion))
+      .def("getPosicion", &Jugada::getPosicion,
+           py::return_value_policy::reference_internal)
+      .def("setTipoDeJugada", &Jugada::setTipoDeJugada)
+      .def("getTipoDeJugada", &Jugada::getTipoDeJugada)
+      .def("setDireccion", &Jugada::setDireccion)
+      .def("getDireccion", &Jugada::getDireccion);
 }
