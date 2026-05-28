@@ -2,6 +2,7 @@
 #include <pybind11/eval.h>
 
 #include <cstdlib>
+#include <filesystem>
 #include <iostream>
 #include <string>
 
@@ -15,10 +16,30 @@ int main(int argc, char** argv) {
     // the repo root, same as `consola` does for `lib/Reglas.so`).
     const std::string spike_dir = (argc > 1) ? argv[1] : "spikes/pybind";
 
+    // The extension `PybindSpike.so` is co-located with this executable in
+    // the build tree, NOT in the source `spikes/pybind/` directory. Compute
+    // the executable's directory from argv[0] so the binary can be invoked
+    // from any CWD and still find the extension.
+    std::string exe_dir = ".";
+    if (argc > 0 && argv[0] != nullptr) {
+        try {
+            std::filesystem::path exe_path(argv[0]);
+            auto parent = exe_path.parent_path();
+            if (!parent.empty()) {
+                exe_dir = parent.string();
+            }
+        } catch (...) {
+            // Fall back to ".", harmless on the success path.
+        }
+    }
+
     py::scoped_interpreter guard{};
     try {
-        // 1) Make the spike directory importable.
-        py::module_::import("sys").attr("path").attr("insert")(0, spike_dir);
+        // 1) Make the spike directory (for `agent.py`) AND the executable's
+        //    own directory (for `PybindSpike.so`) importable.
+        py::object sys_path = py::module_::import("sys").attr("path");
+        sys_path.attr("insert")(0, spike_dir);
+        sys_path.attr("insert")(0, exe_dir);
 
         // 2) Register types BEFORE injecting C++ objects into the namespace.
         //    Lesson from spikes/pyembed (cerebrum, 2026-05-26): you MUST
