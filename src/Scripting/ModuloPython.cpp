@@ -7,9 +7,7 @@ Scripting::ModuloPython::ModuloPython()
     this->ayudante = NULL;
 }
 
-Scripting::ModuloPython::ModuloPython(const ModuloPython& orig)
-{
-}
+Scripting::ModuloPython::ModuloPython(const ModuloPython& orig) {}
 
 Scripting::ModuloPython::~ModuloPython()
 {
@@ -20,62 +18,52 @@ Scripting::ModuloPython::~ModuloPython()
 void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
 {
     using namespace std;
-    using namespace boost::python;
-    
+    namespace py = pybind11;
+
     if(this->esta_cargado)
         return;
 
     boost::filesystem::path ruta_path(ruta);
-    //creamos el modulo
-    dict locals;
+    py::dict locals;
     locals["ruta"] = ruta;
     try
     {
-        this->modulo = import("__main__");
+        this->modulo = py::module_::import("__main__");
         this->namespace_modulo = this->modulo.attr("__dict__");
-        
-        //agregamos la ruta del modulo al path de python
+
         locals["ruta"] = ruta_path.parent_path().string();
-        exec("sys.path.append(ruta)\n", this->namespace_modulo, locals);
+        py::exec("sys.path.append(ruta)\n", this->namespace_modulo, locals);
     }
-    catch(error_already_set& e)
+    catch(py::error_already_set& e)
     {
         this->manejar_excepcion_python(e);
     }
-    
+
     try
     {
-        this->modulo = import(str(ruta_path.stem().string()));
+        this->modulo = py::module_::import(str(ruta_path.stem().string()));
     }
-    catch(error_already_set& e)
+    catch(py::error_already_set& e)
     {
         throw ScriptMalo("Archivo no encontrado o con errores de sintaxis.");
     }
 
     try
     {
-        //obtenemos el diccionario del namespace del modulo
         this->namespace_modulo = this->modulo.attr("__dict__");
 
-        //exponemos el Tablero
-        this->namespace_modulo["tablero"] = object(boost::python::ptr(&t));
-        //y le quitamos el metodo moverJugador
-        exec("tablero.moverJugador = None\n", this->namespace_modulo,
+        this->namespace_modulo["tablero"] = py::cast(&t, py::return_value_policy::reference);
+        py::exec("tablero.moverJugador = None\n", this->namespace_modulo,
+                                                  this->namespace_modulo);
+        py::exec("tablero.setBarrera = None\n", this->namespace_modulo,
                                                 this->namespace_modulo);
-        //le quitamos setBarrera
-        exec("tablero.setBarrera = None\n", this->namespace_modulo,
-                                                this->namespace_modulo);
-        //exponemos el ayudante
         this->ayudante = new Reglas::AyudanteDeAgente(t);
         this->namespace_modulo["ayudante"] =
-                object(boost::python::ptr(this->ayudante));
+            py::cast(this->ayudante, py::return_value_policy::take_ownership);
 
-        //ejecutamos el archivo
-        object ignored = exec_file( str(ruta),
-                                   this->namespace_modulo,
-                                   this->namespace_modulo);
+        py::eval_file(str(ruta), this->namespace_modulo);
     }
-    catch(error_already_set& e)
+    catch(py::error_already_set& e)
     {
         this->manejar_excepcion_python(e);
     }
@@ -84,7 +72,7 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t)
 
 Reglas::Agente* Scripting::ModuloPython::getAgente()
 {
-    using namespace boost::python;
+    namespace py = pybind11;
     if(!this->esta_cargado)
         throw ModuloNoCargado();
 
@@ -95,25 +83,21 @@ Reglas::Agente* Scripting::ModuloPython::getAgente()
         this->extraer_clase();
 
         this->instancias_clase.push_front( this->agente_clase() );
-        
-        a = extract<Reglas::Agente*>
-                (this->instancias_clase.front());
+
+        a = this->instancias_clase.front().cast<Reglas::Agente*>();
 
         aWrap = new AgentePythonWrapper(a);
     }
-    catch(error_already_set& e)
+    catch(py::error_already_set& e)
     {
         this->manejar_excepcion_python(e);
     }
     return aWrap;
 }
-void Scripting::ModuloPython::finalizar()
-{
-    
-}
 
-void Scripting::ModuloPython::manejar_excepcion_python
-                                          (boost::python::error_already_set& e)
+void Scripting::ModuloPython::finalizar() {}
+
+void Scripting::ModuloPython::manejar_excepcion_python(pybind11::error_already_set& e)
 {
     manejar_excepcion_python_libre(e, this->namespace_modulo,
                                        this->namespace_modulo);
@@ -121,25 +105,24 @@ void Scripting::ModuloPython::manejar_excepcion_python
 
 void Scripting::ModuloPython::extraer_clase()
 {
-    using namespace boost::python;
+    namespace py = pybind11;
     if(this->esta_extraida_clase)
         return;
     try
     {
-        object clase =
-        exec("l = dir()\n"
-             "if l.count('Reglas') == 0: raise Error()\n"
-             "clase = None\n"
-             "for i in l:\n"
-             "    res = eval(i)\n"
-             "    if type(res) == type(Reglas.Agente):\n"
-             "        clase = res\n"
-             "        break\n"
-             "if clase is None: raise Error()\n"
-                , this->namespace_modulo, this->namespace_modulo);
+        py::exec("l = dir()\n"
+                 "if l.count('Reglas') == 0: raise Error()\n"
+                 "clase = None\n"
+                 "for i in l:\n"
+                 "    res = eval(i)\n"
+                 "    if type(res) == type(Reglas.Agente):\n"
+                 "        clase = res\n"
+                 "        break\n"
+                 "if clase is None: raise Error()\n",
+                 this->namespace_modulo, this->namespace_modulo);
         this->agente_clase = this->namespace_modulo["clase"];
     }
-    catch(error_already_set& e)
+    catch(py::error_already_set& e)
     {
         this->manejar_excepcion_python(e);
     }
