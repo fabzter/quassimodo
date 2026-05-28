@@ -49,7 +49,7 @@ core::vector3df Grafico::Pieza::getPosicionEscena(){
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
 
     this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
-    this->nodoA->getMaterial(0).MaterialType = video::EMP_DETAIL_MAP;
+    this->nodoA->getMaterial(0).MaterialType = video::EMT_SOLID;
     this->nodoA->getMaterial(0).Lighting = true;
     // mesh-level material flag removed — set on the scene node instead
     this->nodoA->getMaterial(0).NormalizeNormals = true;
