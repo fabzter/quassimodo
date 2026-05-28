@@ -146,11 +146,10 @@ bool PartidaGrafica::SetJugadores(std::string rutaAgente1,
   this->jugadores.push_back(new Grafico::Jugador(
       smgr, 1, agentes[1], this->skin, this->velAnim, this->parent));
 
-  this->jugadores.push_back(new Grafico::Jugador(
-      smgr, 1, agentes[1], this->skin, this->velAnim, this->parent));
   std::cerr << "[D2] calling setJugadores..." << std::endl;
   this->t->setJugadores(this->jugadores);
   std::cerr << "[D2] setJugadores returned" << std::endl;
+  return true;
 }
 
 core::vector3df PartidaGrafica::getCentro() {
