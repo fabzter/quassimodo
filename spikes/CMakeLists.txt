@@ -28,3 +28,6 @@ if(APPLE)
   target_link_libraries(engine_spike PRIVATE
     "-framework Cocoa" "-framework OpenGL" "-framework IOKit")
 endif()
+
+# pybind11 round-trip spike (D1.5 — analog of pyembed but with pybind11).
+add_subdirectory(pybind)
