@@ -15,11 +15,12 @@
 
       devShells = forAll (pkgs:
         let
+          boostPython = pkgs.boost.override { enablePython = true; python = pkgs.python311; };
           irrlichtFork = pkgs.callPackage ./nix/irrlicht-fork.nix { darwin = pkgs.darwin; };
         in {
           default = pkgs.mkShell {
             packages = [ pkgs.cmake pkgs.ninja pkgs.pkg-config pkgs.python311 pkgs.boost
-                         pkgs.python311.pkgs.pybind11 irrlichtFork ];
+                         pkgs.python311.pkgs.pybind11 boostPython irrlichtFork ];
           };
         });
     };
