@@ -23,3 +23,11 @@ target_link_libraries(PybindSpike PRIVATE pybindspike_domain)
 if(APPLE)
     target_link_options(PybindSpike PRIVATE -Wl,-undefined,dynamic_lookup)
 endif()
+
+# Embedder: links libpython (via pybind11::embed) and the SAME shared
+# domain lib as the extension. Does NOT link PybindSpike.so — imports it
+# at runtime via py::module_::import("PybindSpike"). Verified by Task 5
+# with otool -L.
+add_executable(pybind_spike main.cpp)
+target_link_libraries(pybind_spike PRIVATE pybindspike_domain pybind11::embed)
+add_dependencies(pybind_spike PybindSpike)
