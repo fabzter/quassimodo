@@ -1,34 +1,37 @@
 #ifndef _INTERPRETEPYTHON_HPP
 #define _INTERPRETEPYTHON_HPP
-#include <pybind11/embed.h>
 #include "Interprete.hpp"
 #include "ModuloPython.hpp"
 #include "UtilsPython.hpp"
+#include <pybind11/embed.h>
 
-namespace Scripting
-{
-class InterpretePython: public Interprete
-{
+namespace Scripting {
+class InterpretePython : public Interprete {
 public:
-    InterpretePython();
-    InterpretePython(const InterpretePython& orig);
-    virtual ~InterpretePython();
+  InterpretePython();
+  InterpretePython(const InterpretePython &orig);
+  virtual ~InterpretePython();
 
-    virtual void iniciar(Reglas::Tablero &t);
-    virtual void finalizar();
+  virtual void iniciar(Reglas::Tablero &t);
+  virtual void finalizar();
 
-    virtual Reglas::Agente *getAgente(std::string ruta);
-    virtual bool manejaModulo(std::string ruta);
+  virtual Reglas::Agente *getAgente(std::string ruta);
+  virtual bool manejaModulo(std::string ruta);
 
-    static bool esta_pyiniciado;
+  static bool esta_pyiniciado;
 
 private:
-    Reglas::Tablero *tablero;
-    bool esta_finalizado;
-    pybind11::scoped_interpreter* guard_;
+  Reglas::Tablero *tablero;
+  bool esta_finalizado;
+
+  /**
+   * El intérprete de pybind11. Se construye una sola vez (no es reentrante)
+   * y se destruye en finalizar(). Reemplaza el viejo Py_Initialize().
+   */
+  pybind11::scoped_interpreter *guard_;
 
 protected:
-    virtual void agregarModulo(std::string ruta);
+  virtual void agregarModulo(std::string ruta);
 };
-}
-#endif
+} // namespace Scripting
+#endif /* _INTERPRETEPYTHON_HPP */

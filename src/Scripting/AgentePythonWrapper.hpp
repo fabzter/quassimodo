@@ -1,26 +1,70 @@
+/**
+ */
+
 #ifndef _AGENTEPYTHONWRAPPER_HPP
 #define _AGENTEPYTHONWRAPPER_HPP
-#include <pybind11/embed.h>
+#include "UtilsPython.hpp"
 #include <Reglas/Agente.hpp>
 #include <Reglas/Jugada.hpp>
-#include "UtilsPython.hpp"
+#include <pybind11/embed.h>
 
-namespace Scripting
-{
-class AgentePythonWrapper: public Reglas::Agente {
+/**
+ * Esta clase es un envoltorio para Agente, su propósito es envolver (con
+ * agregación)  un Agente creado con un Módulo de python, para traducir sus
+ * excepciones de error_set a ScriptMalo. Toma la propiedad del agente con el
+ * que se construye.
+ */
+namespace Scripting {
+class AgentePythonWrapper : public Reglas::Agente {
 public:
-    AgentePythonWrapper(Reglas::Agente *agente);
-    AgentePythonWrapper(const AgentePythonWrapper& orig);
-    virtual ~AgentePythonWrapper();
+  AgentePythonWrapper(Reglas::Agente *agente);
+  AgentePythonWrapper(const AgentePythonWrapper &orig);
+  virtual ~AgentePythonWrapper();
 
-    virtual void iniciar(int id);
-    virtual Reglas::Jugada siguienteJugada();
-    virtual void terminar();
+  /**
+   * Ejecuta iniciar del Agente que maneja, y en caso de recibir una excepción
+   * de pybind11, la traduce a ScriptMalo, manteniendo su mensaje de
+   * error.
+   * @param id el id del Jugador que se está iniciando.
+   * @throws ScriptMalo.
+   */
+  virtual void iniciar(int id);
+
+  /**
+   * Ejecuta siguienteJugada del Agente que maneja, y en caso de recibir una
+   * excepción de pybind11, la traduce a ScriptMalo, manteniendo su mensaje de
+   * error.
+   * @return la Jugada que realizó el Agente.
+   * @throws ScriptMalo.
+   */
+  virtual Reglas::Jugada siguienteJugada();
+
+  /**
+   * Ejecuta terminar del Agente que maneja, y en caso de recibir una excepción
+   * de pybind11, la traduce a ScriptMalo, manteniendo su mensaje de
+   * error.
+   * @throws ScriptMalo.
+   */
+  virtual void terminar();
 
 private:
-    Reglas::Agente *agente;
-    pybind11::object modulo;
-    pybind11::object modulo_namespace;
+  /**
+   * Este es el Agente que maneja el envoltorio. Contiene a un Agente creado
+   * con un módulo de Python.
+   */
+  Reglas::Agente *agente;
+
+  /**
+   * Este miembro contiene el módulo de python (__main__) donde se ejecutará
+   * la traducción de la excepción.
+   */
+  pybind11::object modulo;
+
+  /**
+   * Este miembro contiene el diccionario del módulo de python (__main__)
+   * donde se ejecutará la traducción de la excepción.
+   */
+  pybind11::object modulo_namespace;
 };
-}
-#endif
+} // namespace Scripting
+#endif /* _AGENTEPYTHONWRAPPER_HPP */
