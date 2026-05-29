@@ -227,6 +227,10 @@ change game logic to force a compile.
 - `flake.nix` / `flake.lock` / `devbox.json` / `nix/irrlicht-fork.nix` — the pinned env.
 - `BUILDING.md` — how to enter the env + build/run.
 - `.wolf/cerebrum.md` — accumulated learnings, decisions, gotchas (read it).
+- `KNOWN-BUGS.md` — curated registry of unresolved confirmed defects (e.g. the
+  C++ minimax MOVIMIENTO SIGSEGV, the Camina `SinHijo` edge case). Read it
+  before touching code in an affected area; add an entry when you surface a
+  bug you can't or shouldn't fix in your current PR.
 - `src/` — `Reglas` (rules), `Opciones`, `Scripting` (embeds py), `AgenteWrapper`
   (`Reglas.so`), `Consola` (console runner), `Grafico` + `Aplicacion` (graphical, D2).
 
