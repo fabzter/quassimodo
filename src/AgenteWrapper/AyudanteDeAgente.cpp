@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <Reglas/AyudanteDeAgente.hpp>
 #include <Reglas/Minimax.hpp>
 #include <pybind11/pybind11.h>
@@ -8,6 +9,8 @@ using namespace Reglas;
 
 std::vector<Celda *> __astar__(Tablero *t, int idJugador) {
   std::vector<void *> *path_void = astar(t, idJugador);
+  if (path_void == nullptr)
+    return std::vector<Celda *>();
   std::vector<Celda *> path_celda;
   for (size_t i = 0; i < path_void->size(); i++)
     path_celda.push_back(static_cast<Celda *>(path_void->at(i)));

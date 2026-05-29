@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <Reglas/Excepciones.hpp>
 #include <pybind11/pybind11.h>
 #include <sstream>

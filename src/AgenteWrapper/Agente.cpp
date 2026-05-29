@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <pybind11/pybind11.h>
 #include <Reglas/Agente.hpp>
 

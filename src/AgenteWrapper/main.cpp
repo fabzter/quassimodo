@@ -1,3 +1,4 @@
+#include "opaque_types.h"        // MAKE_OPAQUE block — must be first; see header
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>        // by-value crossing for std::list<T>
 #include <pybind11/stl_bind.h>   // py::bind_vector
@@ -8,13 +9,6 @@
 #include <Reglas/Barrera.hpp>
 
 namespace py = pybind11;
-
-// All opaque declarations — MUST precede any TU that references these
-// types across the binding boundary (spec §2: all identity containers opaque).
-PYBIND11_MAKE_OPAQUE(std::vector<int>);
-PYBIND11_MAKE_OPAQUE(std::vector<Reglas::Celda>);
-PYBIND11_MAKE_OPAQUE(std::vector<Reglas::Celda*>);
-PYBIND11_MAKE_OPAQUE(std::vector<Reglas::Jugada>);
 
 void export_pieza(py::module_& m);
 void export_agente(py::module_& m);

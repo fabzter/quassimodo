@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <Reglas/Celda.hpp>
 #include <Reglas/Enums.hpp>
 #include <Reglas/Jugada.hpp>

@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Tablero.hpp>
 #include <pybind11/pybind11.h>
