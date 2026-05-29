@@ -30,6 +30,11 @@ float Reglas::Mapa::LeastCostEstimate(void* stateStart, void* stateEnd)
     const std::vector<int>& a = ((Celda*)stateStart)->getPosicion();
     const std::vector<int>& b = ((Celda*)stateEnd)->getPosicion();
 
+    // Weighted Manhattan distance: x-movement costs 1.3 per cell vs y-movement
+    // at 1.0. Strictly non-admissible (true cost is 1 per cell either way), so
+    // A* may return non-minimal paths — but the bias is intentional. Players
+    // progress along the y-axis toward their meta row; this heuristic discourages
+    // pointless lateral detours and keeps the pawn on its progress lane.
     return std::abs( (b.at(0) - a.at(0)) * 1.3 ) + std::abs(b.at(1) - a.at(1));
 }
 
@@ -110,8 +115,17 @@ std::vector<void*>* Reglas::astar(Reglas::Tablero *t, int idJugador)
         }
         if(result == micropather::MicroPather::NO_SOLUTION)
         {
-            result = micropather::MicroPather::SOLVED;
-            totalCost = 82;
+            // Meta unreachable from current position — skip it cleanly.
+            // The previous code reclassified NO_SOLUTION as SOLVED with a
+            // magic cost of 82 (>81-cell-board worst case), so any actual
+            // SOLVED path would still win comparison; the side effect was
+            // that if EVERY meta was unreachable, min_path became an empty
+            // (but non-NULL) std::vector*, lying to the caller. With the
+            // __astar__ wrapper's NULL guard in place (D1' fixes PR), NULL
+            // is the honest signal: the wrapper translates it to an empty
+            // Celda* vector and the agent's IndexError fallback fires.
+            delete path;
+            continue;
         }
         if(result == micropather::MicroPather::SOLVED )
         {
