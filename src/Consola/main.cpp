@@ -9,12 +9,14 @@
 #include "Partida.hpp"
 #include <Scripting/Manejador.hpp>
 #include <Scripting/Excepciones.hpp>
+#include <pybind11/pybind11.h>
+#include <typeinfo>
 #include <vector>
 
 using namespace Reglas;
 using namespace std;
 
-int main(int argc, char** argv)
+static int run(int argc, char** argv)
 {
     Tablero t;
     Scripting::Manejador *m = new Scripting::Manejador(t);
@@ -70,6 +72,14 @@ int main(int argc, char** argv)
            cout << "Se rompieron la reglas!: \n" << e.what() << endl;
            break;
         }
+        catch(pybind11::error_already_set &e)
+        {
+           // Python exception escaped the AgentePythonWrapper translation layer
+           // (e.g. raised from a context the wrapper didn't catch). Don't let
+           // libc++abi terminate the process — report and stop the match.
+           cout << "Error en un Script (Python exception): \n" << e.what() << endl;
+           break;
+        }
         cout << t << endl;
         cin.get();
     }
@@ -78,5 +88,32 @@ int main(int argc, char** argv)
         cout << "Hay un ganador!" << endl;
     }
 
-    return (EXIT_SUCCESS);
+    return EXIT_SUCCESS;
+}
+
+int main(int argc, char** argv)
+{
+    // Top-level safety net: any C++ exception escaping run() is reported and
+    // turned into a non-zero exit, instead of being re-thrown into the runtime
+    // and aborting the process via libc++abi.
+    try
+    {
+        return run(argc, argv);
+    }
+    catch(pybind11::error_already_set &e)
+    {
+        cerr << "Unhandled Python exception: " << e.what() << endl;
+        return EXIT_FAILURE;
+    }
+    catch(std::exception &e)
+    {
+        cerr << "Unhandled C++ exception (" << typeid(e).name() << "): "
+             << e.what() << endl;
+        return EXIT_FAILURE;
+    }
+    catch(...)
+    {
+        cerr << "Unhandled non-standard exception." << endl;
+        return EXIT_FAILURE;
+    }
 }

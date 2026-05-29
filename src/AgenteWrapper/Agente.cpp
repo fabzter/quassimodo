@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <pybind11/pybind11.h>
 #include <Reglas/Agente.hpp>
 
@@ -19,7 +20,7 @@ struct PyAgente : Agente {
 
 void export_agente(py::module_& m)
 {
-    py::class_<Agente, PyAgente>(m, "Agente")
+    py::class_<Agente, PyAgente>(m, "Agente", py::dynamic_attr())
         .def(py::init<>())
         .def("siguienteJugada", &Agente::siguienteJugada)
         .def("iniciar", &Agente::iniciar)

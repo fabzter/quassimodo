@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <Reglas/Barrera.hpp>
 #include <Reglas/Tablero.hpp>
 #include <pybind11/pybind11.h>
@@ -24,7 +25,7 @@ bool eq_tablero(Tablero *tab, Tablero *otro) { return *tab == *otro; }
 
 void export_tablero(py::module_ &m) {
   auto cls =
-      py::class_<Tablero>(m, "Tablero")
+      py::class_<Tablero>(m, "Tablero", py::dynamic_attr())
           .def(py::init<const Tablero *>())
 
           .def("getPosicion", &Tablero::getPosicion,

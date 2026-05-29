@@ -1,3 +1,4 @@
+#include "opaque_types.h"
 #include <pybind11/pybind11.h>
 #include <pybind11/stl_bind.h>
 #include <pybind11/operators.h>
@@ -11,7 +12,7 @@ using namespace Reglas;
 
 void export_barrera(py::module_& m)
 {
-    py::class_<Barrera, Pieza>(m, "Barrera")
+    py::class_<Barrera, Pieza>(m, "Barrera", py::dynamic_attr())
         .def(py::init<Jugada*>())
         .def("colocar",
              py::overload_cast<const std::vector<int>&, Direccion>(&Barrera::colocar))

@@ -243,6 +243,110 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-27T22:28:40.212Z"
+    },
+    {
+      "id": "bug-016",
+      "timestamp": "2026-05-29T00:59:55.212Z",
+      "error_message": "Wrong reference: vector should be typeinfo",
+      "file": "src/Consola/main.cpp",
+      "root_cause": "Used \"vector\" instead of \"typeinfo\"",
+      "fix": "Changed vector → typeinfo",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T00:59:55.212Z"
+    },
+    {
+      "id": "bug-017",
+      "timestamp": "2026-05-29T01:26:02.413Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/AgenteWrapper/AyudanteDeAgente.cpp",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 8→19 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T01:26:02.413Z"
+    },
+    {
+      "id": "bug-018",
+      "timestamp": "2026-05-29T01:28:15.329Z",
+      "error_message": "Missing guard clause",
+      "file": "src/AgenteWrapper/AyudanteDeAgente.cpp",
+      "root_cause": "No early return/throw for edge case: path_void == nullptr",
+      "fix": "Added guard clause: if (path_void == nullptr)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T01:28:15.329Z"
+    },
+    {
+      "id": "bug-019",
+      "timestamp": "2026-05-29T01:37:42.138Z",
+      "error_message": "Significant refactor of ",
+      "file": "src/AgenteWrapper/main.cpp",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 17→11 lines (6 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T01:37:42.138Z"
+    },
+    {
+      "id": "bug-020",
+      "timestamp": "2026-05-28T20:55:00.000Z",
+      "error_message": "SIGSEGV deep inside the C++ minimax recursion when TipoDeJugada.MOVIMIENTO is requested; surfaces e.g. in `consola bin/agente_astar.py bin/agenteMiniMax2.py` after ~448 lines of board renders, well into the match",
+      "file": "src/Reglas/Minimax.cpp (and Minimax.hpp)",
+      "root_cause": "KNOWN-BAD CODE since 2010 — documented at hg commit message 1314ada (`Casi se termina de implementar el minimax en c++. Hay fuga de memoria y no funca muy bien si se está haciendo MOVIMIENTO`). The C++ minimax in Reglas/Minimax.{cpp,hpp} has a self-documented memory leak / correctness problem in the MOVIMIENTO branch. Was incidentally masked under D1 by an unrelated A* code path (the magic-82 NO_SOLUTION-as-SOLVED hack in Astar.cpp) that prevented MiniMax2's astar IndexError fallback from firing, so the buggy minimax(MOVIMIENTO) path was rarely exercised. The D1' fixes PR fixed the A* hack to be honest about NO_SOLUTION → empty path → IndexError fires more often → MiniMax2 now reaches the broken minimax(MOVIMIENTO) recursion → SIGSEGV.",
+      "fix": "UNRESOLVED — DEFER. Out of scope for the D1' fixes PR. Next steps for a follow-up minimax debug session: (1) run consola under lldb with astar-vs-MiniMax2 to capture a stack trace at the SIGSEGV site; (2) review Reglas::Minimax::minimax for the MOVIMIENTO branch's lifetime and memory ownership; (3) consider whether the agent's IndexError fallback should be a no-op or a safer move-of-last-resort rather than calling C++ minimax. agente_astar.py uses random.choice as its fallback — that pattern survives; MiniMax2 should adopt something similar until the C++ minimax is fixed.",
+      "tags": [
+        "unresolved",
+        "known-bug",
+        "pre-existing",
+        "minimax",
+        "cpp",
+        "sigsegv",
+        "movement-branch"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:55:00.000Z"
+    },
+    {
+      "id": "bug-021",
+      "timestamp": "2026-05-28T19:10:00.000Z",
+      "error_message": "Reglas::SinHijo raised from bin/agenteCamina.py(36) during siguienteJugada; surfaces e.g. in `consola bin/agenteCamina.py bin/agenteMiniMax2.py` once MiniMax2's barrier placement shapes the board such that Camina's next-cell-in-self.direccion has no child. Caught cleanly by the D1' top-level catch in consola/main.cpp → exit 1 with diagnostic, not SIGABRT.",
+      "file": "bin/agenteCamina.py",
+      "root_cause": "Camina is a naive walker: each turn it calls `celdaActual.getHijo(self.direccion).estaLibre()` (line 36) with NO guard for cells where `getHijo(direccion)` throws SinHijo (i.e. when celdaActual is on the edge of the board in self.direccion, OR when a barrier blocks that direction with no underlying child set). The agent assumes there is ALWAYS a child cell in self.direccion, which holds against another Camina (both walk straight, never block) but fails as soon as a barrier-placing opponent (MiniMax2 / MiniMax4) blocks Camina's forward path with no usable detour set.",
+      "fix": "UNRESOLVED — DEFER. Out of scope for the D1' fixes PR (this is an agent-logic bug, not infrastructure). Two reasonable follow-up options: (1) make Camina catch Reglas.SinHijo and fall back to a side-step or random.choice from ayudante.getMovimientosPosibles(self.id); (2) probe celdaActual.estaLibreDireccion(self.direccion) first and only call getHijo when true. Note: ONBOARDING.md §4 pins Camina-vs-MiniMax2 as the canonical run recipe — but D1's actual acceptance test was Camina-vs-Camina (the pair that does succeed). Worth updating ONBOARDING.md to point at a pair that actually completes (e.g. astar-vs-astar) until Camina is fixed.",
+      "tags": [
+        "unresolved",
+        "known-bug",
+        "pre-existing",
+        "agent",
+        "python",
+        "sin-hijo",
+        "edge-of-board"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T19:10:00.000Z"
     }
   ]
 }

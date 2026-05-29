@@ -45,8 +45,12 @@ void Scripting::ModuloPython::cargar(std::string ruta, Reglas::Tablero &t) {
     this->namespace_modulo["tablero"] =
         py::cast(&t, py::return_value_policy::reference);
     this->ayudante = new Reglas::AyudanteDeAgente(t);
+    // reference (not take_ownership) — restores boost::python::ptr() semantics:
+    // C++ stays sole owner, ~ModuloPython() deletes via this->ayudante. With
+    // take_ownership pybind11 would also delete on interpreter shutdown, racing
+    // the destructor → double-free / UB.
     this->namespace_modulo["ayudante"] =
-        py::cast(this->ayudante, py::return_value_policy::take_ownership);
+        py::cast(this->ayudante, py::return_value_policy::reference);
 
     py::eval_file(ruta.c_str(), this->namespace_modulo);
   } catch (py::error_already_set &e) {
