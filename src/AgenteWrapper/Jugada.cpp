@@ -8,7 +8,7 @@ namespace py = pybind11;
 using namespace Reglas;
 
 void export_jugada(py::module_ &m) {
-  py::class_<Jugada>(m, "Jugada")
+  py::class_<Jugada>(m, "Jugada", py::dynamic_attr())
       .def(py::init<>())
       .def(py::init<Celda *>())
       .def("setPosicion", py::overload_cast<int, int>(&Jugada::setPosicion))

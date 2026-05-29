@@ -17,7 +17,7 @@ string Celda_to_str(Celda *c)
 
 void export_celda(py::module_& m)
 {
-    py::class_<Celda, Pieza>(m, "Celda")
+    py::class_<Celda, Pieza>(m, "Celda", py::dynamic_attr())
         .def(py::init<Jugada&>())
         .def("estaLibre", &Celda::estaLibre)
         .def("getHijo", &Celda::getHijo, py::return_value_policy::reference)

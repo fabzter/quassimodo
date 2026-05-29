@@ -16,7 +16,7 @@ std::vector<Celda *> __astar__(Tablero *t, int idJugador) {
 }
 
 void export_ayudante_de_agente(py::module_ &m) {
-  py::class_<AyudanteDeAgente>(m, "AyudanteDeAgente")
+  py::class_<AyudanteDeAgente>(m, "AyudanteDeAgente", py::dynamic_attr())
       .def(py::init<Tablero *>())
       .def("getMovimientosPosibles", &AyudanteDeAgente::getMovimientosPosibles)
       .def("getBarrerasPosibles", &AyudanteDeAgente::getBarrerasPosibles)
