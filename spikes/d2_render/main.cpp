@@ -42,20 +42,44 @@ int main() {
     cam->setPosition(core::vector3df(0, 480, -560));  // lower/back -> oblique; tune visually
     cam->setTarget(core::vector3df(0, 0, 0));
 
-    int frames = 0;
-    while (dev->run() && frames < 60) {
-        drv->beginScene(true, true, video::SColor(255, 40, 40, 70));
-        smgr->drawAll();
-        drv->endScene();
-        ++frames;
-    }
+    auto renderN = [&](int n) {
+        for (int i = 0; i < n && dev->run(); ++i) {
+            drv->beginScene(true, true, video::SColor(255, 40, 40, 70));
+            smgr->drawAll();
+            drv->endScene();
+        }
+    };
 
-    video::IImage* img = drv->createScreenShot();
-    bool wrote = img && drv->writeImageToFile(img, "build/spikes/d2_render/spike-before.png");
-    if (img) img->drop();
+    // --- BEFORE: initial position ---
+    renderN(60);
+    video::IImage* before = drv->createScreenShot();
+    bool wroteBefore = before &&
+        drv->writeImageToFile(before, "build/spikes/d2_render/spike-before.png");
+    if (before) before->drop();
+
+    // --- Apply one REAL move: player 0 from (4,0) to (4,1) ---
+    t.moverJugador(0, 4, 1);
+    std::vector<int> p0 = t.getCelda(0).getPosicion();   // expect {4,1}
+    d2spike::placePieceAtCell(refs.piece0, p0.at(0), p0.at(1));
+
+    // --- AFTER: post-move position ---
+    renderN(60);
+    video::IImage* after = drv->createScreenShot();
+    bool wroteAfter = after &&
+        drv->writeImageToFile(after, "build/spikes/d2_render/spike-after.png");
+    if (after) after->drop();
+
     dev->drop();
 
-    if (!wrote) { std::cerr << "screenshot write failed\n"; return 3; }
-    std::cout << "D2 SCENE OK\n";
-    return 0;
+    const bool movedToExpected = (p0.size() == 2 && p0.at(0) == 4 && p0.at(1) == 1);
+    if (wroteBefore && wroteAfter && movedToExpected) {
+        std::cout << "D2 SPIKE OK\n";
+        return 0;
+    }
+    std::cerr << "D2 SPIKE FAIL"
+              << " wroteBefore=" << wroteBefore
+              << " wroteAfter="  << wroteAfter
+              << " p0=(" << (p0.size()>0?p0[0]:-1) << ","
+                         << (p0.size()>1?p0[1]:-1) << ")\n";
+    return 4;
 }
