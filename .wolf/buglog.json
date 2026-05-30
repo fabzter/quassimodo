@@ -347,6 +347,288 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-28T19:10:00.000Z"
+    },
+    {
+      "id": "bug-022",
+      "timestamp": "2026-05-30T12:32:12.119Z",
+      "error_message": "Missing guard clause",
+      "file": "docs/superpowers/plans/2026-05-29-phase-d2.0-render-spike.md",
+      "root_cause": "No early return/throw for edge case: !rf",
+      "fix": "Added guard clause: if (!rf)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T12:32:12.119Z"
+    },
+    {
+      "id": "bug-023",
+      "timestamp": "2026-05-30T12:39:13.912Z",
+      "error_message": "Wrong condition in logic",
+      "file": "docs/superpowers/plans/2026-05-29-phase-d2.0-render-spike.md",
+      "root_cause": "Condition was: if (!board)",
+      "fix": "Changed to: if (rf)",
+      "tags": [
+        "auto-detected",
+        "logic-fix",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T12:39:13.912Z"
+    },
+    {
+      "id": "bug-024",
+      "timestamp": "2026-05-30T12:56:51.261Z",
+      "error_message": "Wrong reference: smgr should be dev",
+      "file": "docs/superpowers/plans/2026-05-29-phase-d2.0-render-spike.md",
+      "root_cause": "Used \"smgr\" instead of \"dev\"",
+      "fix": "Changed smgr → dev",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T12:56:51.261Z"
+    },
+    {
+      "id": "bug-025",
+      "timestamp": "2026-05-30T17:39:08.561Z",
+      "error_message": "Significant refactor of ",
+      "file": "spikes/d2_render/main.cpp",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 6→15 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T17:39:08.561Z"
+    },
+    {
+      "id": "bug-026",
+      "timestamp": "2026-05-30T17:39:00.000Z",
+      "error_message": "no member named 'setMaterialFlag' in 'irr::scene::IAnimatedMeshSceneNode'; no member named 'EMF_LIGHTING' in namespace 'irr::video'",
+      "file": "spikes/d2_render/main.cpp",
+      "root_cause": "IrrlichtMt 1.9.0mt15 (Minetest fork) removed the classic fixed-function material-flag API: ISceneNode::setMaterialFlag() and the entire E_MATERIAL_FLAG enum (EMF_LIGHTING etc., EMaterialFlags.h is gone). The D2.0 plan's main.cpp was written against classic Irrlicht 1.8 (boardNode->setMaterialFlag(video::EMF_LIGHTING, false)).",
+      "fix": "Set the SMaterial::Lighting bool member directly on every material of the node. The fork provides ISceneNode::forEachMaterial(F&&) (template helper in ISceneNode.h, docstring: 'if you want the whole mesh to be affected by light') and SMaterial has a public bool Lighting field (default true). Replaced the line with: boardNode->forEachMaterial([](video::SMaterial& mat) { mat.Lighting = false; }); — compiles and runs. NEW verified IrrlichtMt API difference beyond Task 1's getMesh/getFileSystem/createScreenShot list: classic material flags are gone; mutate SMaterial fields (Lighting, Wireframe, BackfaceCulling, etc.) directly via getMaterial(i)/getMaterialCount() or forEachMaterial.",
+      "tags": [
+        "irrlichtmt",
+        "api-change",
+        "material-flags",
+        "EMF_LIGHTING",
+        "setMaterialFlag",
+        "d2",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T17:39:00.000Z"
+    },
+    {
+      "id": "bug-027",
+      "timestamp": "2026-05-30T17:42:00.000Z",
+      "error_message": "board.png rendered with only one corner of the Tablero peeking into the bottom-left; most of the frame empty",
+      "file": "spikes/d2_render/main.cpp",
+      "root_cause": "The plan's hardcoded camera (pos (220,550,-120), target (220,0,220)) assumed the board mesh is centred near grid origin (~220,220). But Tablero.obj's model origin sits at a far CORNER: getBoundingBox() reports center=(-278,31,-275), extent=(657,63,650) — the board occupies the NEGATIVE-XZ quadrant. The camera aimed at empty space in +XZ, so only the corner nearest origin was in frame.",
+      "fix": "Compute the camera from the mesh's actual bounding box instead of hardcoded grid coords: c = board->getBoundingBox().getCenter(); reach = max(extentX, extentZ); cam pos = (c.X, c.Y + reach*1.4, c.Z - reach*0.8), target = c. Re-run confirmed the whole board renders centred (perspective trapezoid). FINDING for Task 3: cellToWorld() in scene_builder.cpp maps cell (0,0)->world (0,0,0), but the board mesh centre is at world (-278,_,-275) — the grid-to-world mapping must account for the board's corner origin (offset cells, or recentre the board node) or pieces will sit off the board.",
+      "tags": [
+        "irrlichtmt",
+        "camera",
+        "bounding-box",
+        "mesh-origin",
+        "d2",
+        "spike",
+        "follow-up-task3"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T17:42:00.000Z"
+    },
+    {
+      "id": "bug-028",
+      "timestamp": "2026-05-30T18:04:07.338Z",
+      "error_message": "Wrong return value",
+      "file": "docs/superpowers/plans/2026-05-29-phase-d2.0-render-spike.md",
+      "root_cause": "Was returning: core::vector3df(x * spacing, 0.0f, y * spacing);",
+      "fix": "Now returns: core::vector3df((x - 4) * spacing, 0.0f, (y - 4) *",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T18:04:07.338Z"
+    },
+    {
+      "id": "bug-029",
+      "timestamp": "2026-05-30T18:08:21.268Z",
+      "error_message": "Significant refactor of ",
+      "file": "spikes/d2_render/main.cpp",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 10→17 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T18:08:21.268Z"
+    },
+    {
+      "id": "bug-030",
+      "timestamp": "2026-05-30T18:08:35.772Z",
+      "error_message": "Significant refactor of ",
+      "file": "spikes/d2_render/scene_builder.cpp",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 7→9 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T18:08:35.772Z"
+    },
+    {
+      "id": "bug-031",
+      "timestamp": "2026-05-30T22:03:05.969Z",
+      "error_message": "Significant refactor of ",
+      "file": "spikes/d2_render/scene_builder.cpp",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 18→27 lines (6 removed) | Also: addMesh(dev, \"conf/skin_default/Tablero.obj\", core; addMesh(dev, \"conf/skin_default/Celda.obj\", cellTo",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-30T22:03:38.594Z"
+    },
+    {
+      "id": "bug-032",
+      "timestamp": "2026-05-30T22:47:35.446Z",
+      "error_message": "Significant refactor of ",
+      "file": "spikes/d2_render/main.cpp",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 4→6 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T22:47:35.446Z"
+    },
+    {
+      "id": "bug-033",
+      "timestamp": "2026-05-30T22:50:10.279Z",
+      "error_message": "Significant refactor of ",
+      "file": "spikes/d2_render/scene_builder.cpp",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 7→15 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T22:50:10.279Z"
+    },
+    {
+      "id": "bug-034",
+      "timestamp": "2026-05-30T22:55:00.000Z",
+      "error_message": "no member named 'addLightSceneNode' in 'irr::scene::ISceneManager'",
+      "file": "spikes/d2_render/main.cpp",
+      "root_cause": "IrrlichtMt 1.9.0mt15 (Minetest fork) removed the entire dynamic-light scene-node API: ISceneManager::addLightSceneNode() and ILightSceneNode are gone (Minetest does its own lighting). Only ISceneManager::setAmbientLight(const video::SColorf&) survives. Task 3 first tried to add a light node so the lit meshes would show shading.",
+      "fix": "Dropped addLightSceneNode entirely. Meshes cannot be dynamically lit; depth reads from camera angle + occlusion. To still colour them, kept Lighting=true and set per-material EmissiveColor with a near-black setAmbientLight, so output = EmissiveColor (flat per-mesh colour). NEW verified IrrlichtMt API difference beyond Task 1/2 (getMesh/getFileSystem/createScreenShot, setMaterialFlag/EMF_*): no dynamic lights; only setAmbientLight.",
+      "tags": [
+        "irrlichtmt",
+        "api-change",
+        "lighting",
+        "addLightSceneNode",
+        "no-dynamic-lights",
+        "d2",
+        "spike",
+        "cpp"
+      ],
+      "related_bugs": [
+        "bug-026"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T22:55:00.000Z"
+    },
+    {
+      "id": "bug-035",
+      "timestamp": "2026-05-30T22:55:00.000Z",
+      "error_message": "All meshes render the same flat light-gray; board/cells/pieces/barrier indistinguishable in the screenshot, and only the front rank of cells is visible",
+      "file": "spikes/d2_render/scene_builder.cpp",
+      "root_cause": "Three compounding issues. (1) Every converted .mtl is white (Kd ~1,1,1; Celda/Barrera/Tablero exactly 1 1 1, Mono 0.90), so with no per-node colour every mesh is the same gray. (2) With Lighting=false the IrrlichtMt fixed-function Solid path modulates output by VERTEX COLOUR/texture and IGNORES SMaterial::DiffuseColor/EmissiveColor — setting those while unlit had no visible effect; meshes stayed white. (3) Cells (Y in [0,10]) were placed at world Y=0, but the recentred board straddles Y=0 (top surface ~+31.5), so 80 of 81 cells were buried INSIDE the board and only the front rank poked out.",
+      "fix": "(1)+(2) Set Lighting=TRUE and assign a distinct per-mesh-type EmissiveColor (+Ambient/Diffuse) in addMesh, with main.cpp calling setAmbientLight(black). Lit output then = EmissiveColor: a flat distinct colour per mesh ignoring the white .mtl. Colours: board dark-brown, cells tan, p0 red, p1 blue, barrier green. (3) Introduced kBoardTopY=31.5 (board half-height after recentring) as the grid-plane Y in cellToWorld so cells rest ON the board surface and pieces lift above it. Result: clean 9x9 tan grid on a brown board, red+blue pawns at opposite ends, green barrier centre.",
+      "tags": [
+        "irrlichtmt",
+        "rendering",
+        "material-color",
+        "emissivecolor",
+        "lighting",
+        "vertex-color",
+        "mesh-origin",
+        "d2",
+        "spike",
+        "cpp"
+      ],
+      "related_bugs": [
+        "bug-026",
+        "bug-027",
+        "bug-034"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T22:55:00.000Z"
+    },
+    {
+      "id": "bug-036",
+      "timestamp": "2026-05-30T22:57:47.106Z",
+      "error_message": "Significant refactor of ",
+      "file": "docs/superpowers/plans/2026-05-29-phase-d2.0-render-spike.md",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 7→4 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T22:57:47.106Z"
+    },
+    {
+      "id": "bug-037",
+      "timestamp": "2026-05-30T23:03:14.626Z",
+      "error_message": "Significant refactor of ",
+      "file": "spikes/d2_render/main.cpp",
+      "root_cause": "8 lines replaced/restructured",
+      "fix": "Rewrote 17→41 lines (8 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T23:03:14.626Z"
     }
   ]
 }

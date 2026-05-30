@@ -20,7 +20,7 @@
         in {
           default = pkgs.mkShell {
             packages = [ pkgs.cmake pkgs.ninja pkgs.pkg-config pkgs.python311 pkgs.boost
-                         pkgs.python311.pkgs.pybind11 boostPython irrlichtFork ];
+                         pkgs.python311.pkgs.pybind11 pkgs.assimp boostPython irrlichtFork ];
           };
         });
     };

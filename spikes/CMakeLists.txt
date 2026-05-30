@@ -30,3 +30,6 @@ endif()
 
 # pybind11 round-trip spike (D1.5 — analog of pyembed but with pybind11).
 add_subdirectory(pybind)
+
+# D2.0 render-from-real-state spike.
+add_subdirectory(d2_render)
