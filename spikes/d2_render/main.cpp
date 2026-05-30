@@ -1,42 +1,46 @@
 #include <irrlicht.h>
+#include <Reglas/Tablero.hpp>
+#include <Reglas/Jugador.hpp>
 #include "scene_builder.hpp"
 #include <iostream>
+#include <vector>
 
 using namespace irr;
 
 int main() {
+    // --- Real game state (same construction as src/Consola/main.cpp) ---
+    Reglas::Tablero t;
+    std::vector<Reglas::Jugador*> jugadores;
+    jugadores.push_back(new Reglas::Jugador(0, nullptr));
+    jugadores.push_back(new Reglas::Jugador(1, nullptr));
+    t.setJugadores(jugadores);   // p0 -> (4,0), p1 -> (4,8)
+
+    // --- Engine ---
     IrrlichtDevice* dev = createDevice(
         video::EDT_OPENGL, core::dimension2d<u32>(800, 600),
         16, false, false, false, nullptr);
     if (!dev) { std::cerr << "createDevice failed\n"; return 1; }
-
-    video::IVideoDriver* drv  = dev->getVideoDriver();
+    video::IVideoDriver* drv   = dev->getVideoDriver();
     scene::ISceneManager* smgr = dev->getSceneManager();
 
-    // NOTE: the fork's getMesh takes io::IReadFile* (no string overload).
-    io::IReadFile* rf = dev->getFileSystem()->createAndOpenFile("conf/skin_default/Tablero.obj");
-    scene::IAnimatedMesh* board = rf ? smgr->getMesh(rf) : nullptr;
-    if (rf) rf->drop();
-    if (!board) { std::cerr << "board mesh load failed\n"; dev->drop(); return 2; }
-    scene::IAnimatedMeshSceneNode* boardNode = smgr->addAnimatedMeshSceneNode(board);
-    // IrrlichtMt 1.9.0mt15 dropped setMaterialFlag/EMF_LIGHTING (fixed-function
-    // material flags). Set the SMaterial::Lighting bool directly on every material
-    // via the fork's forEachMaterial helper.
-    boardNode->forEachMaterial([](video::SMaterial& mat) { mat.Lighting = false; });
+    d2spike::SceneRefs refs = d2spike::buildScene(dev, t);
+    if (!refs.piece0 || !refs.piece1) {
+        std::cerr << "scene build failed (a piece mesh did not load)\n";
+        dev->drop(); return 2;
+    }
 
-    // Frame the camera from the board mesh's actual bounding box so the whole
-    // board is visible regardless of where its model origin sits.
-    const core::aabbox3df bb = board->getBoundingBox();
-    const core::vector3df c = bb.getCenter();
-    const core::vector3df ext = bb.getExtent();
-    const float reach = core::max_(ext.X, ext.Z);
-    std::cerr << "board bbox center=(" << c.X << "," << c.Y << "," << c.Z
-              << ") extent=(" << ext.X << "," << ext.Y << "," << ext.Z << ")\n";
+    // NOTE: this IrrlichtMt fork has no dynamic lights (addLightSceneNode /
+    // ILightSceneNode were removed; only setAmbientLight survives). The meshes
+    // are lit but coloured via per-material EmissiveColor (scene_builder.cpp),
+    // with a near-black ambient so each mesh shows its own flat colour. Depth
+    // reads from camera angle + occlusion, not shading.
+    smgr->setAmbientLight(video::SColorf(0.0f, 0.0f, 0.0f));
 
-    // Overhead, slightly tilted view that frames the whole board.
+    // Oblique overhead view so the upright pieces stand out against the flat
+    // board and the two ends are both visible. Tunable.
     scene::ICameraSceneNode* cam = smgr->addCameraSceneNode();
-    cam->setPosition(core::vector3df(c.X, c.Y + reach * 1.4f, c.Z - reach * 0.8f));
-    cam->setTarget(c);
+    cam->setPosition(core::vector3df(0, 480, -560));  // lower/back -> oblique; tune visually
+    cam->setTarget(core::vector3df(0, 0, 0));
 
     int frames = 0;
     while (dev->run() && frames < 60) {
@@ -47,11 +51,11 @@ int main() {
     }
 
     video::IImage* img = drv->createScreenShot();
-    bool wrote = img && drv->writeImageToFile(img, "build/spikes/d2_render/board.png");
+    bool wrote = img && drv->writeImageToFile(img, "build/spikes/d2_render/spike-before.png");
     if (img) img->drop();
     dev->drop();
 
     if (!wrote) { std::cerr << "screenshot write failed\n"; return 3; }
-    std::cout << "D2 SCAFFOLD OK\n";
+    std::cout << "D2 SCENE OK\n";
     return 0;
 }
