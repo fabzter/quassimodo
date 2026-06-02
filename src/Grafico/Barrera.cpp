@@ -30,6 +30,9 @@ core::vector3df Grafico::Barrera::giraEste(core::vector3df pos){
         p.X+=this->size.X*this->getEscala().X;
         return p;
     }
+    // D1-SIGTRAP class fix: non-void fn must return on all paths (clang brk #0x1).
+    // If already rotated, leave the position unchanged.
+    return pos;
 }
 
 void Grafico::Barrera::giraNorte(){

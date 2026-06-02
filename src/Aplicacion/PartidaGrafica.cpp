@@ -142,6 +142,10 @@ bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
       this->jugadores.push_back(new Grafico::Jugador(smgr,1, agentes[1],this->skin,this->velAnim,this->parent));
 
       this->t->setJugadores( this->jugadores);
+      // D1-SIGTRAP class fix: a bool fn that falls off the end is UB — modern
+      // clang emits brk #0x1 (runtime SIGTRAP). Failures above throw, so
+      // reaching here means success.
+      return true;
  }
 
 core::vector3df PartidaGrafica::getCentro(){
