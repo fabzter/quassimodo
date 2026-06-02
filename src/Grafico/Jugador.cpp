@@ -1,7 +1,6 @@
 
 
-#include <irrlicht/IAnimatedMeshSceneNode.h>
-#include <irrlicht/IShadowVolumeSceneNode.h>
+#include <IAnimatedMeshSceneNode.h>
 
 #include "Jugador.hpp"
 using namespace irr;
@@ -13,8 +12,6 @@ Grafico::Jugador::Jugador(scene::ISceneManager* smgr,int num, Reglas::Agente *a,
     else
         this->mesh=skin->getJugador2();
       this->dibuja(smgr);
-      //this->callback=callback;
-      //this->setSombra(skin->getSombraJugador());
       this->getNodo()->getMaterial(0).Shininess=20.0f;
       this->velAnim=VelAnim;
 
@@ -24,39 +21,19 @@ Grafico::Jugador::Jugador(const Jugador& orig) :Grafico::Pieza(orig) ,Reglas::Ju
 }
 
 Grafico::Jugador::~Jugador() {
-    
-    //this->nodoA->removeAnimators();
-
 }
+
  void Grafico::Jugador::Gira(core::vector3df giro){
      this->nodoA->setRotation(giro);
  }
 
  void Grafico::Jugador::Mover(scene::ISceneManager* smgr,core::vector3df npos,int numceldas){
-
-      this->nodoA->removeAnimators();
-      //new JumpAnimator(node->getPosition(),node1->getPosition(),300.0f,0.0f);
-      scene::ISceneNodeAnimator* anim = new JumpAnimator(this->getPosicionEscena() ,npos,this->velAnim,numceldas);
-      if (anim)
-		{
-			this->nodoA->addAnimator(anim);
-
-			anim->drop();
-      }
-      this->posiciong=npos;
-      
-     
-  }
-
- bool Grafico::Jugador::endAnimacion(){
-
-     if(this->nodoA->getAnimators().empty()){
-         return true;
-     }
-     else{
-        core::list<scene::ISceneNodeAnimator*  >::ConstIterator a=this->nodoA->getAnimators().begin() ;
-        scene::ISceneNodeAnimator* anim=*a;
-        return anim->hasFinished();
-     }
+     // D2.1 KB-D2-004: animator subsystem removed from IrrlichtMt fork.
+     // Instant placement replaces the JumpAnimator arc animation.
+     this->setPosicion(npos);
  }
 
+ bool Grafico::Jugador::endAnimacion(){
+     // D2.1: no pending animation with instant moves.
+     return true;
+ }
