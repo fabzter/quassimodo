@@ -1,5 +1,5 @@
 
-#include <irrlicht/ISceneNode.h>
+#include <ISceneNode.h>
 
 #include "Pieza.hpp"
 using namespace irr;
@@ -10,9 +10,8 @@ Grafico::Pieza::Pieza(scene::ISceneNode* parent) {
     this->posiciong=core::vector3df(0,0,0);
     this->nodoA=NULL;
     this->size.X=0, this->size.Y=0, this->size.Z=0;
-    this->sombra=NULL;
     this->par=parent;
-   
+
 }
 
 Grafico::Pieza::Pieza(const Pieza& orig) {
@@ -49,9 +48,9 @@ core::vector3df Grafico::Pieza::getPosicionEscena(){
 void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
 
     this->nodoA=smgr->addAnimatedMeshSceneNode(this->mesh );
-    this->nodoA->setMaterialType(video::EMT_DETAIL_MAP);
-    this->nodoA->setMaterialFlag(video::EMF_LIGHTING, true);
-    this->mesh->setMaterialFlag(video::EMF_NORMALIZE_NORMALS,true);
+    this->nodoA->forEachMaterial([](video::SMaterial& m){ m.MaterialType = video::EMT_SOLID; });
+    this->nodoA->forEachMaterial([](video::SMaterial& m){ m.Lighting = true; });
+    this->nodoA->forEachMaterial([](video::SMaterial& m){ m.NormalizeNormals = true; });
     this->nodoA->setPosition( this->posiciong );
     this->size =this->nodoA->getBoundingBox().getExtent();
 
@@ -64,10 +63,7 @@ void Grafico::Pieza::dibuja(scene::ISceneManager* smgr){
 
 void Grafico::Pieza::setEscala(int x, int y ,int z){
 
-     this->nodoA->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
-     if(this->sombra!=NULL){
-         this->sombra->setMaterialFlag(video::EMF_LIGHTING, false);
-     }
+     this->nodoA->forEachMaterial([](video::SMaterial& m){ m.NormalizeNormals = true; });
 }
 
 void Grafico::Pieza::setMesh(scene::IAnimatedMesh* mesh){
@@ -85,18 +81,10 @@ core::vector3df  Grafico::Pieza::getEscala(){
 }
 
 void Grafico::Pieza::drop(){
-    
-     if(this->sombra!=NULL){
-         this->nodoA->removeChild(this->sombra);
-     }
+
     this->par->removeChild(this->nodoA);
 }
 
  void Grafico::Pieza::setSombra(scene::IMesh* shadowMesh){
-
-    this->sombra=this->nodoA->addShadowVolumeSceneNode(shadowMesh,-1,false);
-
- }
-scene::IShadowVolumeSceneNode* Grafico::Pieza::getNodoSombra(){
-     return this->sombra;
+    // D2.1: shadow volumes removed from IrrlichtMt fork (KB-D2-002).
  }
