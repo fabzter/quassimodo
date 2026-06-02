@@ -32,7 +32,9 @@ spec phases D and E.)
 | **D1 — Console-playable** | Port non-graphical modules (Reglas, Opciones, Scripting, AgenteWrapper/`Reglas.so`) + agents to Py3; recover the `Ejecutable` console runner as `consola`. Delivers spec-D (non-graphical) **and** spec-E (a console match plays). | ✅ Done | [plan](plans/2026-05-27-phase-d1-console-playable.md), **PR #2 (merged)** |
 | **D1.5 — pybind11 spike** | De-risk replacing Boost.Python with pybind11. ... | ✅ Done | [plan](plans/2026-05-27-phase-d1.5-pybind-spike.md), **PR #3 (merged)** |
 | **D1′ — pybind11 migration** | Migrate `AgenteWrapper`/`Reglas.so` + `Scripting` bindings off Boost.Python; drop the `boost_python` dependency. | ✅ Done | [plan](plans/2026-05-28-phase-d1prime-pybind11.md), **PR #4** |
-| **D2 — Graphical** | Port `src/Grafico` against IrrlichtMt (verify which Irrlicht GUI API survived the Minetest fork *first*); bring up the graphical `Aplicacion` → graphical playable match. Completes spec-D (graphical) + spec-E (GUI). | ⬜ **NEXT** | plan: TBD |
+| **D2.0 — Render spike** | IrrlichtMt API recon: 3DS→OBJ asset pipeline; `getMesh(IReadFile*)`; materials; dynamic-light + animator API removals confirmed. Scene from real `Reglas::Tablero` rendered and a real `moverJugador` move reflected on screen. | ✅ Done | **PR #7 (merged)** |
+| **D2.1 — Minimal graphical match** | Lean argv-driven graphical match (`aplicacion agentA.py agentB.py`): IrrlichtMt window, textured 3D board + 81 cells + two pawns + static torches, full AI-vs-AI match to "Hay un ganador!". Menu/animation/GUI deferred (KB-D2-001..006). | ✅ Done | **PR #8 (this PR)** |
+| **D2.2 — Animation + full menu/GUI** | Tweened piece/barrier moves + orbit camera (re-implement animator subsystem as per-frame helpers); rebuild window/msgbox GUI with composed primitives; cosmetic cleanup (KB-D2-001..006). | ⬜ **NEXT** | plan: TBD |
 
 ## Decisions behind the roadmap
 

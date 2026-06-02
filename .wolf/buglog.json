@@ -865,6 +865,38 @@
       ],
       "occurrences": 1,
       "last_seen": "2026-06-02T19:32:00.000Z"
+    },
+    {
+      "id": "bug-052",
+      "timestamp": "2026-06-02T19:39:05.658Z",
+      "error_message": "Null/undefined access in ",
+      "file": "src/Aplicacion/aplicacion_main.cpp",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "cpp"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T19:39:05.658Z"
+    },
+    {
+      "id": "bug-053",
+      "timestamp": "2026-06-02T19:50:11.196Z",
+      "error_message": "Incorrect value in code",
+      "file": "docs/superpowers/ROADMAP.md",
+      "root_cause": "Had `src/Grafico`",
+      "fix": "Changed to `getMesh(IReadFile*)`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T19:50:11.196Z"
     }
   ]
 }
