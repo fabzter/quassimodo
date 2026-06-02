@@ -2,12 +2,12 @@
 
 core::stringc CConfigMap::getConfig( const core::stringc& name )
 {
-    core::map<core::stringc,core::stringc>::Node* node = Map.find(name);
+    auto it = Map.find(name);
 
-    if ( node == 0 )
+    if ( it == Map.end() )
         return core::stringc();
 
-    return node->getValue();
+    return it->second;
 }
 
 s32 CConfigMap::getConfigAsInt( const core::stringc& name )
@@ -67,13 +67,11 @@ core::vector3df CConfigMap::getConfigAsVector3df( const core::stringc& name )
 
 bool CConfigMap::hasConfig( const core::stringc& name )
 {
-    core::map<core::stringc,core::stringc>::Node* node = Map.find(name);
-
-    return ( node != 0 );
+    return ( Map.find(name) != Map.end() );
 }
 
 void CConfigMap::setConfig( const core::stringc& name, const core::stringc& value )
 {
-    Map.set(name,value);
+    Map[name] = value;
 }
 
