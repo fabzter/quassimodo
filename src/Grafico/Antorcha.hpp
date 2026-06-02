@@ -92,10 +92,10 @@ using namespace irr;
          */
         core::vector3df posicionF;
      
-        /**
-         * Un nodo escena que contiene el fuego
-         */
-        scene::ILightSceneNode *nfuego;
+        // D2.1: particles + dynamic light removed from IrrlichtMt fork (KB-D2-001).
+        // nfuego (ILightSceneNode) and ps (IParticleSystemSceneNode) types are gone;
+        // members left as unused ISceneNode* stubs so existing method bodies compile.
+        scene::ISceneNode *nfuego;   // was ILightSceneNode — stubbed, always nullptr
         /**
          * La textura o la imagen que la que el fuego toma
          */
@@ -105,9 +105,9 @@ using namespace irr;
          */
          bool sombra;
          /**
-          * Un objeto que maneja el fuego.
+          * Un objeto que maneja el fuego — was IParticleSystemSceneNode, stubbed nullptr.
           */
-         scene::IParticleSystemSceneNode* ps;
+         scene::ISceneNode* ps;
          /**
           * Indica el radio de iluminacion que tendrá la luz de la antorcha!
           */
