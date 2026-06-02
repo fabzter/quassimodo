@@ -64,9 +64,16 @@ int main(int argc, char* argv[]) {
     cam->setTarget(centro);
     cam->setPosition(centro + core::vector3df(0, 1000, -750));  // tune via the vision check
 
-    // Optional one-frame startup screenshot, guarded by env var, for verification.
-    bool shotDone = false;
+    // Optional screenshots, guarded by env var, for visual verification: a few
+    // frames across the match (so movement is observable) + the winning state.
+    const bool shots = std::getenv("QM_D21_SHOT") != nullptr;
+    long frame = 0;
+    bool wonShot = false;
     bool announced = false;
+    auto shot = [&](const char* path) {
+        video::IImage* img = drv->createScreenShot();
+        if (img) { drv->writeImageToFile(img, path); img->drop(); }
+    };
     while (device->run()) {
         if (partida->estaEnCurso() && partida->animacionesEnd()) {
             try { partida->siguienteJugada(); }
@@ -77,15 +84,17 @@ int main(int argc, char* argv[]) {
         env->drawAll();
         drv->endScene();
 
-        if (!shotDone && std::getenv("QM_D21_SHOT")) {
-            video::IImage* img = drv->createScreenShot();
-            if (img) { drv->writeImageToFile(img, "build/d21-start.png"); img->drop(); }
-            shotDone = true;
+        if (shots) {
+            if (frame == 0)      shot("build/d21-start.png");
+            else if (frame == 4) shot("build/d21-mid1.png");
+            else if (frame == 9) shot("build/d21-mid2.png");
         }
         if (partida->hayGanador() && !announced) {
             std::cout << "Hay un ganador! Jugador " << partida->getJugadorGanador() << std::endl;
             announced = true;
+            if (shots && !wonShot) { shot("build/d21-win.png"); wonShot = true; }
         }
+        ++frame;
     }
 
     delete partida;
