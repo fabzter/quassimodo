@@ -87,13 +87,6 @@ public:
       * @param shadowMesh un mesh que sera utilizado en la sombra, por default utiliza el mismo de la pieza.
       */
      void setSombra(scene::IMesh* shadowMesh=0);
-     /**
-      * obtiene el nodo sombra de la pieza.
-      * @return  un pauntador al nodo sombra
-      */
-     scene::IShadowVolumeSceneNode* getNodoSombra();
-
-
 protected:
      /**
        * Un vector de 3 enteros que indica la posicion de la pieza
@@ -111,10 +104,6 @@ protected:
       * Tamaño de la pieza en los 3 ejes!
       */
      core::vector3df size;
-     /**
-      * El nodo sombra de la pieza.
-      */
-     scene::IShadowVolumeSceneNode *sombra;
      /**
       * Nodo escena padre de la pieza actual.
       */

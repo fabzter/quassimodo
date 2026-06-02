@@ -6,7 +6,7 @@
 #include<Reglas/Enums.hpp>
 #include"Pieza.hpp"
 #include<irrlicht.h>
-#include <irrlicht/vector3d.h>
+#include <vector3d.h>
 #include "Skin.hpp"
 
 namespace Grafico{

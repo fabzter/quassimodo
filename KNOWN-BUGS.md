@@ -161,6 +161,124 @@ The `consola/main.cpp` top-level `catch(std::exception&)` fallback in PR #6 is t
 
 ---
 
+## 🟡 KB-D2-001 — Torch flame/light dropped (IrrlichtMt stripped particle + dynamic-light APIs)
+
+**Surfaced by:** D2.1 graphical port (`feat/d2.1-graphical-match`)
+**Affected:** `src/Grafico/Antorcha.cpp` / `Antorcha.h` — flame particles and point light on torch props.
+
+### What breaks
+
+IrrlichtMt 1.9.0mt15 removed `IParticleSystemSceneNode` and `ILightSceneNode`/`addLightSceneNode`. `Antorcha` now renders only its static torch mesh (no flame particles, no point light). Torch props appear as inert props; no warmth or atmospheric lighting.
+
+### Root cause
+
+The Minetest fork stripped the dynamic-light and particle-system scene-node APIs because Minetest implements its own lighting pipeline.
+
+### Next steps
+
+D2.2: consider billboard/animated-texture flame sprite (no `IParticleSystemSceneNode` required). By design for D2.1; cosmetic.
+
+---
+
+## 🟡 KB-D2-002 — Piece shadow volumes dropped (IrrlichtMt stripped `IShadowVolumeSceneNode`)
+
+**Surfaced by:** D2.1 graphical port (`feat/d2.1-graphical-match`)
+**Affected:** `src/Grafico/Pieza.cpp` — `Pieza::setSombra`.
+
+### What breaks
+
+IrrlichtMt 1.9.0mt15 removed `IShadowVolumeSceneNode`/`addShadowVolumeSceneNode`. `Pieza::setSombra` is a no-op stub. Pieces cast no shadow.
+
+### Root cause
+
+Shadow-volume API stripped in the Minetest fork.
+
+### Next steps
+
+Cosmetic. D2.2: investigate screen-space or baked shadow alternatives. No gameplay impact.
+
+---
+
+## 🟡 KB-D2-003 — Menu/GUI deferred to D2.2 (`addWindow`/`addMessageBox` removed)
+
+**Surfaced by:** D2.1 graphical port (`feat/d2.1-graphical-match`)
+**Affected:** `src/Grafico/GUI.cpp`, `src/Grafico/Menu.cpp`, `src/Grafico/ManejadorGUI.cpp`, `src/Aplicacion/Aplicacion.cpp`, `src/Aplicacion/ManejadorJuego.cpp`, `src/Aplicacion/EventReceiver.cpp`.
+
+### What breaks
+
+IrrlichtMt 1.9.0mt15 removed `IGUIEnvironment::addWindow()`, `addMessageBox()`, `IGUIWindow`, and `EGET_MESSAGEBOX_OK`. The 2010 `Menu`/`GUI`/`ManejadorGUI` (and `Aplicacion`/`ManejadorJuego`/`EventReceiver`) are excluded from the D2.1 build. `aplicacion` is argv-driven (`aplicacion agentA.py agentB.py`) with no in-window agent selector or result dialog.
+
+### Root cause
+
+Minetest stripped the window/dialog GUI widgets it didn't use.
+
+### Next steps
+
+D2.2: replace `addWindow`/`addMessageBox` call sites with composed primitives (panel + child buttons/text) and re-include `Aplicacion`/`ManejadorGUI`/`EventReceiver` in the build.
+
+---
+
+## 🟡 KB-D2-004 — Piece/barrier/camera animation deferred to D2.2 (`ISceneNodeAnimator` subsystem removed)
+
+**Surfaced by:** D2.1 graphical port (`feat/d2.1-graphical-match`)
+**Affected:** `src/Grafico/Jugador.cpp` (`Mover`), `src/Grafico/Barrera.cpp` (`ColocaBarrera`), `src/Grafico/TokayoCamera.*`, `src/Grafico/JumpAnimator.*`, `src/Grafico/IAnimatorCameraTokayo.*`.
+
+### What breaks
+
+IrrlichtMt 1.9.0mt15 removed the entire `ISceneNodeAnimator` subsystem — no `ISceneNodeAnimator.h`, no `addAnimator`/`getAnimators`/`removeAnimator` on `ISceneNode`, no `createFlyStraightAnimator`, no `ISceneNodeAnimatorCameraMaya`. `Jugador::Mover`/`Barrera::ColocaBarrera` use instant `setPosition`; camera is fixed at a static vantage.
+
+### Root cause
+
+Minetest removed the animator subsystem; its own scene graph manages animation differently.
+
+### Next steps
+
+D2.2: convert `JumpAnimator`/`TokayoCamera`/`IAnimatorCameraTokayo` to plain per-frame update helpers (no `ISceneNodeAnimator` base). Re-enable tweened moves + orbit camera.
+
+---
+
+## 🟡 KB-D2-005 — Cosmetic: board base mis-centred, camera framing loose, debug stdout spam
+
+**Surfaced by:** D2.1 graphical port (`feat/d2.1-graphical-match`)
+**Affected:** `src/Grafico/Tablero.cpp` (board base placement), `src/Aplicacion/aplicacion_main.cpp` (camera), `src/Grafico/Antorcha.cpp` / `Pieza.cpp` / `Jugador.cpp` (legacy `std::cout` prints).
+
+### What breaks
+
+Three cosmetic issues, no gameplay impact:
+1. The board base slab is not centred under the cell grid (offset visible at an angle).
+2. The fixed camera framing is loose — significant empty viewport on all sides.
+3. Legacy `std::cout` debug lines in `Grafico` (e.g. `setVectPosicion` printing "pos F …" / coordinate numbers) spam stdout during a graphical run, mixing with match output.
+
+### Root cause
+
+Board centring: `Tablero.obj` origin is a far corner; the base node and cell grid offset differently. Camera: placeholder framing from the D2.1 spike. Debug prints: 2010-era `std::cout` left in source, harmless in 2010 but noisy now.
+
+### Next steps
+
+D2.2: centre board base (match cell-grid origin), tune camera FOV/distance, strip `std::cout` debug lines from `Grafico`.
+
+---
+
+## 🟡 KB-D2-006 — Pre-existing `Reglas/Grafo.cpp:105` non-void fall-off (out of D2.1 scope)
+
+**Buglog:** see `.wolf/buglog.json` (`-Wreturn-type` class)
+**Surfaced by:** D2.1 build (`feat/d2.1-graphical-match`), compiler `-Wreturn-type` warning
+**Affected:** `src/Reglas/Grafo.cpp` line 105 — a control path with no `return` in a non-`void` function.
+
+### What breaks
+
+`-Wreturn-type` flags the function; on modern clang this is latent UB (would emit `brk #0x1` / SIGTRAP if the path is reached). Not exercised to a crash by the working console game or D2.1 graphical match.
+
+### Root cause
+
+Pre-existing 2010 C++ — same class of bug as the `Partida::siguienteJugada` SIGTRAP fixed in D1 and the `PartidaGrafica::SetJugadores`/`Barrera::giraEste` fixes in D2.1. Left untouched in D2.1 to avoid out-of-scope game-logic changes.
+
+### Next steps
+
+Future Reglas pass: add the missing `return` (value TBD from control-flow analysis). Not urgent until a minimax/graph-traversal path that exercises line 105 is confirmed reachable.
+
+---
+
 ## How to add an entry
 
 Copy this template at the top of the "Status legend" section as a new entry, fill in, and PR. Cross-link any `bug-NNN` entry in `.wolf/buglog.json` so the two records stay in sync.

@@ -35,7 +35,15 @@ int Partida::getJugadorGanador(){
 
 std::vector<Reglas::Agente*> Partida::getAgentes(std::string rutaAgente1,std::string rutaAgente2,Reglas::Tablero* t){
      //TODO: revisar si los agentes son NULL
-     Scripting::Manejador m(*t);
+     // El Manejador (y con él el InterpretePython) DEBE sobrevivir a esta
+     // función: los Agente* que devolvemos siguen apuntando al intérprete de
+     // Python. Si el Manejador fuese local (en el stack), su destructor
+     // llamaría finalizar() -> Py_Finalize() apenas regresáramos, dejando a los
+     // agentes con un intérprete ya cerrado; al destruirse ese intérprete con
+     // objetos pybind11 aún vivos, ~InterpretePython (noexcept) lanza y dispara
+     // std::terminate (SIGTRAP / EXC_BREAKPOINT). Igual que Consola/main.cpp,
+     // lo dejamos vivo durante toda la ejecución del proceso (heap, sin delete).
+     Scripting::Manejador& m = *(new Scripting::Manejador(*t));
      std::vector<Reglas::Agente*> agentes;
 
       try{

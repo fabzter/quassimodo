@@ -1,7 +1,7 @@
 #ifndef CCONFIGMAP_H_
 #define CCONFIGMAP_H_
 
-#include <irrMap.h>
+#include <map>
 #include <irrString.h>
 #include <irrTypes.h>
 #include <vector2d.h>
@@ -23,7 +23,7 @@ public:
     void setConfig( const core::stringc& name, const core::stringc& value );
 
 private:
-    core::map<core::stringc,core::stringc> Map;
+    std::map<irr::core::stringc, irr::core::stringc> Map;
 };
 
 #endif
