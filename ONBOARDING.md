@@ -25,29 +25,31 @@ per-phase plans live in [`docs/superpowers/plans/`](docs/superpowers/plans/), an
 picture, read `ROADMAP.md` first, then the spec.** (The roadmap below is a summary of
 what's left.)
 
-**Status (2026-05-27):**
-- ✅ Hg→git migration done. `main` + `concurso` branches (diverge at the real fork).
-- ✅ Build-isolation foundation (PR #1, merged): Nix/Devbox + CMake, two de-risking
-  spikes pass — Python/Boost.Python round-trip across a separate `.so`, and an
-  IrrlichtMt window on macOS arm64.
-- ✅ **Phase D1 (PR #2, branch `feat/phase-d-port`): a full AI-vs-AI match plays in
-  the terminal.** All non-graphical modules build; agents ported to Python 3.
+**Status (2026-06-02) — always re-derive from `git log` + `ROADMAP.md`; this is a snapshot:**
+- ✅ Hg→git migration; build-isolation foundation (PR #1); **D1** console AI-vs-AI match (PR #2).
+- ✅ **D1.5** pybind11 round-trip spike (PR #3) — proved trampoline + STL + cross-`.so` embed.
+- ✅ **D1′** pybind11 migration (PR #4) + regression fixes (PR #6); `boost_python` dropped.
+  Pre-existing bugs catalogued in **`KNOWN-BUGS.md`** (KB-001 Minimax SIGSEGV, etc.).
+- ✅ **D2.0** render spike (PR #7) — proved the `.3ds`→`.obj` (assimp) asset pipeline and
+  rendered a real `Reglas::Tablero` + a real move on screen; surfaced the big IrrlichtMt
+  API removals (no 3DS loader, `getMesh(IReadFile*)` only, no `setMaterialFlag`/material
+  flags, no dynamic lights, no animator subsystem, no `addWindow`/`addMessageBox`).
+- ✅ **D2.1** minimal graphical match (PR #8) — `aplicacion agentA.py agentB.py` plays a
+  full AI-vs-AI match in an IrrlichtMt window to "Hay un ganador!" with *instant* moves
+  (animator subsystem was deleted from the fork). Lean driver reuses `PartidaGrafica`;
+  menu/`Aplicacion`/`ManejadorJuego`/`EventReceiver` excluded. The PR comment is a full
+  **"equivalency compromise ledger"** of everything lost to the fork (read it before D2.2).
 
-**Roadmap (user-confirmed):**
-- **D1.5 — pybind11 round-trip spike (NEXT).** De-risk replacing Boost.Python with
-  pybind11. **The bar is the LIVE D1 system, NOT the toy `pyembed` spike.** D1's console
-  game already runs the *full* Boost.Python topology (`libReglas` + `Reglas.so` +
-  `Scripting` embed). The toy `spikes/pyembed/` only proved a sliver (abstract `Widget`,
-  returns a `string`, no STL) — do NOT treat it as the spec. The pybind11 spike must
-  prove it can reproduce **the exact mechanisms the real bindings already use** (see the
-  D1.5 briefing in §8). Build it under `spikes/pybind/`; gate string e.g.
-  `PYBIND ROUNDTRIP OK`; add pybind11 pinned to the flake.
-- **D1′ — pybind11 migration.** If the spike passes, migrate the bindings
-  (`AgenteWrapper`/`Reglas.so` + `Scripting`) off Boost.Python, dropping `boost_python`.
-- **D2 — graphical port.** Port `src/Grafico` against IrrlichtMt → graphical playable
-  match. Highest risk: the Minetest fork has trimmed Irrlicht's GUI; verify which GUI
-  API survived *before* committing. `Aplicacion` (graphical, currently untouched) is
-  the D2 entry point.
+**Roadmap (see `ROADMAP.md` for the live table):** D2 was split into **D2.2a** (the
+"look & feel" pass — animation + camera + atmosphere) and **D2.2b** (the "interactivity"
+pass — menu/GUI + input + interactive camera). D2.2a is itself two milestones:
+- **D2.2a·M1 — movement & framing (NEXT — plan written, not executed).** Re-implement the
+  deleted animator as a general `Animador` (tween manager) + an **eager** command/event
+  queue (`EventoJugada`) + a dt driver loop → animated pawn jumps + barrier slides,
+  restored move-pacing, a static 3/4 camera behind a `CamaraController` seam. **The full
+  7-task plan is written & committed (see §7).**
+- **D2.2a·M2 — atmosphere & polish** (billboard flames, blob shadows, ground+sky, cosmetic).
+- **D2.2b — interactivity** (menu/GUI rebuilt from primitives, input, interactive camera).
 
 ---
 
@@ -153,6 +155,37 @@ first (this is why D1 = console-only, D2 = graphics).
   edits. After an interruption, `git status` and `git checkout -- <files>` / remove
   stray files before continuing.
 
+### Anti-drift discipline (proven across D1.5 / D1′ / D2 — this is *the* thing that worked)
+
+- **Inline the full, corrected code into the prompt — never "go read the file."** The
+  implementer has zero context. Paste the exact code/edits, exact commands, exact expected
+  output, and the per-file `file:line` of what to change. (The deepseek D2 attempt failed
+  precisely because it "compiled and triaged" with thin context and improvised mocks.)
+- **Verify every API claim against the real headers BEFORE baking it into a prompt, then
+  propagate.** D2 was a minefield of IrrlichtMt removals (`getMesh` sig, `setMaterialFlag`,
+  dynamic lights, the whole animator subsystem, `addWindow`). Each was *discovered by a
+  task, verified by the controller against `$IRR/include/irrlichtmt/*.h`, then folded into
+  the NEXT task's prompt* so the next subagent never rediscovered it. Don't trust a
+  subagent's API claim — `grep` the header yourself.
+- **Adaptive re-planning between tasks.** Each task's findings reshape the remaining tasks.
+  After a task returns, patch the downstream plan (and commit the patch) before dispatching
+  the next subagent. Plans are living, not frozen.
+- **Verify gates with your OWN senses — evidence before claims.** Rebuild it yourself, run
+  it yourself (capture `$?`, never `| tail`), `otool -L` yourself, and for any visual gate
+  **Read the actual screenshot PNG with your own vision** — never accept "it renders" on a
+  subagent's word. (Screenshots are transient: env-guard their capture, don't commit them.)
+- **Front-load latent risk.** Before a risky integration task, sweep for known traps
+  proactively — e.g. a `-Wreturn-type` scan caught fall-off-the-end `bool` functions
+  (the D1 SIGTRAP class: clang emits `brk #0x1`) and they were fixed *before* the driver
+  task hit them at runtime. Fix the minimal missing thing; never change game logic.
+- **Recon before planning a big/uncertain port.** Fan out read-only recon subagents to map
+  the real API-drift surface (`file:line` of every offending call) so the plan is grounded
+  in evidence, not assumptions. (Three parallel recon agents mapped D2.1 before a line was
+  written.)
+- **Keep the working tree clean for the next subagent.** `.wolf/buglog.json` auto-churns
+  every action; commit it (or `git checkout --` it) so it never gets swept into a source
+  commit, and always use **explicit `git add <files>`**, never `git add -A`.
+
 ## 4. The isolated build playbook (critical details)
 
 **Environment:** Determinate Nix + Devbox 0.17.2 + CMake/Ninja, all pinned.
@@ -236,11 +269,27 @@ change game logic to force a compile.
 
 ## 7. Immediate next action
 
-**D1.5 — the pybind11 round-trip spike.** Read §8 (the briefing) — it is the spec for
-this spike. Then: brainstorm any open type/scope choices with the user (one question at
-a time), write a short plan, build it under `spikes/pybind/` subagent-driven, gate on
-`PYBIND ROUNDTRIP OK`, open a PR. If it passes, plan D1′ (migrate the real bindings).
-Use the §2–§5 methodology and conventions throughout.
+**D2.2a · Milestone 1 — execute the written plan.** The design is already brainstormed,
+agreed, spec'd, and planned (no need to re-brainstorm M1):
+- **Spec:** `docs/superpowers/specs/2026-06-02-d2.2a-animation-camera-atmosphere-design.md`
+  (read the whole thing; M1 is the "movement & framing" milestone, M2 is atmosphere).
+- **Plan:** `docs/superpowers/plans/2026-06-02-phase-d2.2a-m1-movement-framing.md` — a
+  complete 7-task plan with full code for the new classes (`Animador`, `Animaciones`
+  [`SaltoAnim`/`DeslizarAnim`], `EventoJugada`, `CamaraController`) and exact edits to
+  `PartidaGrafica`/`Pieza`/the driver, headless self-tests + a **vision gate** (a pawn
+  caught mid-jump between cells is the proof moves animate, not teleport).
+- **Do:** invoke `superpowers:subagent-driven-development` and execute the plan task-by-task
+  (Sonnet for the new-class/mechanical tasks 1,2,4,7; Opus for the `PartidaGrafica`
+  refactor + driver + vision gate 3,5,6). Cut `feat/d2.2a-m1-animation` from `main`
+  (Task 1 does this). Verify each gate yourself (rebuild, run, **read the screenshots
+  with your own eyes**). PR per milestone — M1 then, separately, M2.
+- Key facts the plan relies on (already verified against the fork headers): per-frame time
+  = `device->getTimer()->getTime()`; `Pieza::setPosicion(int,int,int)` truncates to int so
+  the plan adds `setPosicionSuave` for smooth tweens; agents for the gate = the proven
+  clean pair `bin/agenteCamina.py bin/agenteCamina2.py` (Minimax SIGSEGVs, KB-001).
+
+After M1 ships: plan + execute **D2.2a·M2** (atmosphere & polish), then **D2.2b**
+(interactivity). The original `D1.5 briefing` below (§8) is historical (D1.5 shipped as PR #3).
 
 ## 8. D1.5 briefing — what the pybind11 spike must actually prove
 
