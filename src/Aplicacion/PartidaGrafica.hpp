@@ -7,6 +7,9 @@
 #include<Grafico/Tablero.hpp>
 #include<Grafico/Antorcha.hpp>
 #include<Grafico/Jugador.hpp>
+#include <queue>
+#include <Grafico/Animador.hpp>
+#include "EventoJugada.hpp"
 
 
 using namespace irr;
@@ -69,6 +72,13 @@ public:
      * @return true si terminó, false en caso contrario
      */
     bool animacionesEnd();
+
+    // D2.2a-M1: eager produce the whole match into the event queue (no node moves).
+    void produceAll();
+    // Advance replay by real dt: start the next event's animation when idle, tick Animador.
+    void update(irr::u32 dtMs);
+    // True when every event has been produced AND fully animated.
+    bool terminadoVisual();
 
 
 private:
@@ -141,6 +151,11 @@ private:
      * Utilizado para mejorar el rendimiento de los FPS en la escena.
      */
     scene::ISceneNode *parent;
+
+    Grafico::Animador animador;
+    std::queue<EventoJugada> eventos;
+    // Builds the animation(s) for one popped event onto the Animador.
+    void reproducir(const EventoJugada& ev);
 
 };
 
