@@ -2,6 +2,7 @@
 #include <vector3d.h>
 
 #include "PartidaGrafica.hpp"
+#include <Grafico/Animaciones.hpp>
 using namespace irr;
 using namespace Grafico;
 
@@ -79,27 +80,47 @@ void PartidaGrafica::actualizarTablero(Reglas::Jugada &j, int idJugador)
 
 bool PartidaGrafica::MoverJugador(Reglas::Jugada &j, int idJugador){
     Grafico::Jugador *ju=(Grafico::Jugador*)this->jugadores.at(idJugador);
-    core::vector3df p=this->t->getPosicionCelda(  j.getPosicion() )  ;
-    p.Y+=this->t->getsizeCelda().Y*this->escala.Y;
-    p.Z+=( ( this->t->getsizeCelda().Z*this->escala.Z ) /2);
-    p.X+=( ( this->t->getsizeCelda().X*this->escala.X ) /2);
 
-    if(this->en_curso)
-        ju->Mover( smgr,p,this->t->getCeldasAMover( this->jugadores.at(idJugador)->getPosicion(),j.getPosicion() ) );
-    else
-        ju->setPosicion(p);
-    this->t->moverJugador(idJugador, j.getPosicion());
+    // target world pos (same mapping as before)
+    core::vector3df hasta=this->t->getPosicionCelda( j.getPosicion() );
+    hasta.Y+=this->t->getsizeCelda().Y*this->escala.Y;
+    hasta.Z+=( ( this->t->getsizeCelda().Z*this->escala.Z ) /2);
+    hasta.X+=( ( this->t->getsizeCelda().X*this->escala.X ) /2);
+
+    if(this->en_curso){
+        // current (pre-move) world pos, computed the same way from the player's current cell
+        core::vector3df desde=this->t->getPosicionCelda( this->jugadores.at(idJugador)->getPosicion() );
+        desde.Y+=this->t->getsizeCelda().Y*this->escala.Y;
+        desde.Z+=( ( this->t->getsizeCelda().Z*this->escala.Z ) /2);
+        desde.X+=( ( this->t->getsizeCelda().X*this->escala.X ) /2);
+
+        EventoJugada ev;
+        ev.tipo=EventoJugada::MOVIMIENTO; ev.jugador=idJugador;
+        ev.desde=desde; ev.hasta=hasta;
+        ev.numCeldas=this->t->getCeldasAMover(this->jugadores.at(idJugador)->getPosicion(), j.getPosicion());
+        this->eventos.push(ev);
+    } else {
+        ju->setPosicion(hasta);   // initial placement (iniciarPartida): instant, no animation
+    }
+    this->t->moverJugador(idJugador, j.getPosicion());   // MODEL update (unchanged)
     return true;
 }
 
  void PartidaGrafica::SetBarrera(Reglas::Jugada &j, int idJugador){
+    this->Barreras.push_back(new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo()));
+    unsigned int idx=this->Barreras.size()-1;
+    const std::vector<int> p=j.getPosicion();
+    this->Barreras.at(idx)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
+    this->t->setBarrera(idJugador, *this->Barreras.at(idx));   // MODEL update (unchanged)
 
-     this->Barreras.push_back(new Barrera(smgr,this->skin,this->velAnim,this->t->getNodo()));
-        unsigned int pos=this->Barreras.size();
-        const std::vector<int> p=j.getPosicion();
-        this->Barreras.at(pos-1)->ColocaBarrera( this->t->getPosicionCelda( p ),p,j.getDireccion(),this->smgr );
-        this->t->setBarrera(idJugador, *this->Barreras.at(pos-1));
+    // hide until its turn in the replay
+    if(this->Barreras.at(idx)->getNodo()) this->Barreras.at(idx)->getNodo()->setVisible(false);
 
+    EventoJugada ev;
+    ev.tipo=EventoJugada::BARRERA; ev.jugador=idJugador;
+    ev.hasta=this->Barreras.at(idx)->getPosicionEscena();   // final slot (ColocaBarrera set it)
+    ev.barreraIdx=(int)idx;
+    this->eventos.push(ev);
  }
 
  void PartidaGrafica::ColocaAntorchas(){
@@ -158,21 +179,40 @@ core::vector3df PartidaGrafica::getCentro(){
      return cen;
 }
 bool PartidaGrafica::animacionesEnd(){
+    return !this->animador.hayBloqueante();
+}
 
-    if(this->jugadores.size()<=0){
-        return true;
+void PartidaGrafica::produceAll(){
+    // Eager: run the whole match logically, filling the event queue.
+    while(this->estaEnCurso()){
+        this->siguienteJugada();
     }
-    else{
-        Grafico::Jugador *ju0=(Grafico::Jugador*)this->jugadores.at(0);
-        Grafico::Jugador *ju1=(Grafico::Jugador*)this->jugadores.at(1);
-        bool end=ju0->endAnimacion() & ju1->endAnimacion() ;
-        if(this->Barreras.size()<=0){
-            return end;
-        }
-        else{
-            return end & this->Barreras.at(this->Barreras.size()-1)->endAnimacion();
-        }
+}
+
+void PartidaGrafica::reproducir(const EventoJugada& ev){
+    const u32 DUR=350;          // ms per move (tune via vision)
+    const f32 ALTURA=40.0f;     // jump peak (cells ~50u); tune via vision
+    if(ev.tipo==EventoJugada::MOVIMIENTO){
+        Grafico::Jugador* ju=(Grafico::Jugador*)this->jugadores.at(ev.jugador);
+        f32 h=ALTURA*(ev.numCeldas>1?1.6f:1.0f);   // higher hop when jumping over
+        this->animador.agregar(new Grafico::SaltoAnim(ju, ev.desde, ev.hasta, DUR, h));
+    } else { // BARRERA
+        Grafico::Barrera* b=this->Barreras.at(ev.barreraIdx);
+        core::vector3df desde=ev.hasta + core::vector3df(0, 60, 0);  // drop in from above
+        this->animador.agregar(new Grafico::DeslizarAnim(b, desde, ev.hasta, DUR));
     }
+}
+
+void PartidaGrafica::update(u32 dtMs){
+    if(!this->animador.hayBloqueante() && !this->eventos.empty()){
+        EventoJugada ev=this->eventos.front(); this->eventos.pop();
+        this->reproducir(ev);
+    }
+    this->animador.update(dtMs);
+}
+
+bool PartidaGrafica::terminadoVisual(){
+    return this->eventos.empty() && this->animador.vacio();
 }
 void PartidaGrafica::dropBarreras(){
 

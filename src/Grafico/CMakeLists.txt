@@ -7,6 +7,7 @@ add_library(Grafico SHARED
     Tablero.cpp Celda.cpp Pieza.cpp Jugador.cpp Barrera.cpp
     Skin.cpp SkinLoader.cpp CImageGUISkin.cpp CGUIProgressBar.cpp
     CConfigReader.cpp CConfigMap.cpp Antorcha.cpp Video.cpp Exepciones.cpp
+    Animador.cpp Animaciones.cpp CamaraController.cpp
 )
 target_include_directories(Grafico PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)

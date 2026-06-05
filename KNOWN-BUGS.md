@@ -235,6 +235,11 @@ Minetest removed the animator subsystem; its own scene graph manages animation d
 
 D2.2: convert `JumpAnimator`/`TokayoCamera`/`IAnimatorCameraTokayo` to plain per-frame update helpers (no `ISceneNodeAnimator` base). Re-enable tweened moves + orbit camera.
 
+### Update (D2.2a·M1, 2026-06-05 — PR #9): partially resolved
+
+Tweened **pawn moves are restored**: a fresh `Grafico::Animador` (dt-driven tween manager) + `SaltoAnim` (parabolic jump) replaces the deleted `ISceneNodeAnimator` subsystem, driven by an eager `EventoJugada` queue replayed per-frame in `PartidaGrafica::update(dt)`. The camera is now a framed static 3/4 pose behind a `CamaraController` seam (the old `JumpAnimator/TokayoCamera/IAnimatorCameraTokayo` files stay out — their math was reimplemented fresh). Vision-confirmed: a pawn is caught mid-jump and the match paces over time to a winner.
+**Still open:** (1) **barrier slide** (`DeslizarAnim`) is implemented but UNEXERCISED — the clean Camina-vs-Camina gate pair are walkers that never place barriers, so the barrier slide is visually unconfirmed; (2) **interactive orbit/pan/zoom camera** is deferred to **D2.2b** (the `CamaraController` seam is in place; D2.2a ships only the static pose).
+
 ---
 
 ## 🟡 KB-D2-005 — Cosmetic: board base mis-centred, camera framing loose, debug stdout spam

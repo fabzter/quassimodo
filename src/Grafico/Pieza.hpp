@@ -42,6 +42,11 @@ public:
      */
      virtual void setPosicion(int x, int y ,int z);
      /**
+      * Coloca la pieza con precisión de punto flotante (para animaciones suaves;
+      * setPosicion(int,int,int) trunca a entero). Actualiza posiciong y el nodo.
+      */
+     void setPosicionSuave(core::vector3df p);
+     /**
       *Regresa la posicion en donde se encuentra colocada la pieza
       * @return Un vector3df que indica la posicion de la pieza
       */

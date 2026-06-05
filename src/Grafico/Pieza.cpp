@@ -36,6 +36,11 @@ void Grafico::Pieza::setPosicion(int x, int y ,int z){
         this->nodoA->setPosition( this->posiciong );
 }
 
+void Grafico::Pieza::setPosicionSuave(core::vector3df p) {
+    this->posiciong = p;
+    if (this->nodoA) this->nodoA->setPosition(p);
+}
+
 scene::IAnimatedMeshSceneNode* Grafico::Pieza::getNodo(){
         return this->nodoA;
 }
