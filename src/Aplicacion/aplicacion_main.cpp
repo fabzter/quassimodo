@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <Grafico/CamaraController.hpp>
+#include <cstdlib>
 
 using namespace irr;
 
@@ -59,42 +61,53 @@ int main(int argc, char* argv[]) {
 
     makeUnlit(smgr->getRootSceneNode());
 
-    scene::ICameraSceneNode* cam = smgr->addCameraSceneNode();
-    core::vector3df centro = partida->getCentro();
-    cam->setTarget(centro);
-    cam->setPosition(centro + core::vector3df(0, 1000, -750));  // tune via the vision check
+    // Eager: run the whole match logically up front, recording the event stream.
+    // (A crashing agent — e.g. the Minimax SIGSEGV — would throw here, before any
+    // animation; the clean Camina pair completes. Catch so we fail gracefully.)
+    try {
+        partida->produceAll();
+    } catch (std::exception& e) {
+        std::cerr << "Error produciendo la partida: " << e.what() << "\n";
+        device->drop(); return 3;
+    }
 
-    // Optional screenshots, guarded by env var, for visual verification: a few
-    // frames across the match (so movement is observable) + the winning state.
-    const bool shots = std::getenv("QM_D21_SHOT") != nullptr;
-    long frame = 0;
-    bool wonShot = false;
+    // Static 3/4 framed camera behind the D2.2b seam.
+    core::vector3df centro = partida->getCentro();
+    scene::ICameraSceneNode* cam = smgr->addCameraSceneNode();
+    Grafico::CamaraController camara(cam, centro, /*radio*/ 320.0f);  // ~board half-extent; tune
+
+    // Optional screenshots (env-guarded), captured at wall-clock offsets chosen to
+    // land MID-MOVE (each move animates over ~350ms), so a pawn is caught airborne
+    // regardless of frame rate — the proof that moves animate rather than teleport.
+    const bool shots = std::getenv("QM_D22_SHOT") != nullptr;
+    const u32 t0 = device->getTimer()->getTime();
+    u32 prev = t0;
+    int shotIdx = 0;
+    const u32 shotTimes[] = {175, 360, 530, 900};
+    const char* shotPaths[] = {"build/d22-f1.png","build/d22-f2.png","build/d22-f3.png","build/d22-f4.png"};
     bool announced = false;
-    auto shot = [&](const char* path) {
-        video::IImage* img = drv->createScreenShot();
-        if (img) { drv->writeImageToFile(img, path); img->drop(); }
-    };
+    auto shot = [&](const char* p){ video::IImage* i = drv->createScreenShot(); if (i) { drv->writeImageToFile(i, p); i->drop(); } };
+
     while (device->run()) {
-        if (partida->estaEnCurso() && partida->animacionesEnd()) {
-            try { partida->siguienteJugada(); }
-            catch (std::exception& e) { std::cerr << "Error en jugada: " << e.what() << "\n"; break; }
-        }
+        u32 now = device->getTimer()->getTime();
+        u32 dt  = now - prev; prev = now;
+
+        partida->update(dt);    // replay: start the next event when idle + tick animations by real dt
+        camara.update(dt);
+
         drv->beginScene(true, true, video::SColor(255, 40, 40, 70));
         smgr->drawAll();
         env->drawAll();
         drv->endScene();
 
-        if (shots) {
-            if (frame == 0)      shot("build/d21-start.png");
-            else if (frame == 4) shot("build/d21-mid1.png");
-            else if (frame == 9) shot("build/d21-mid2.png");
+        if (shots && shotIdx < 4 && (now - t0) >= shotTimes[shotIdx]) {
+            shot(shotPaths[shotIdx]); ++shotIdx;
         }
-        if (partida->hayGanador() && !announced) {
+        if (partida->terminadoVisual() && !announced) {
             std::cout << "Hay un ganador! Jugador " << partida->getJugadorGanador() << std::endl;
             announced = true;
-            if (shots && !wonShot) { shot("build/d21-win.png"); wonShot = true; }
+            if (shots) shot("build/d22-win.png");
         }
-        ++frame;
     }
 
     delete partida;
